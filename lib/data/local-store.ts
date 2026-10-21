@@ -5,6 +5,7 @@ import { makeFlagId, parseQuestion } from "@/lib/schemas/question";
 import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import { filterQuestions } from "@/lib/data/facets";
+import { getImageDimensions } from "@/lib/images";
 import type { PaperFormValues, QuestionFormValues, Store } from "@/lib/data/store";
 import type { DbQuestion } from "@/lib/import/plan";
 import type { PaperRecord, PaperQuestionRecord, QuestionRecord } from "@/lib/types";
@@ -60,6 +61,7 @@ function toRecord(raw: unknown): QuestionRecord | null {
     return { ...base, type: "SQ", question: d.question, stem: [], imagePath: null, imageDesc: null, parts: [] };
   }
   if (d.type === "CQ") {
+    const dims = getImageDimensions(d.image);
     return {
       ...base,
       type: "CQ",
@@ -67,8 +69,8 @@ function toRecord(raw: unknown): QuestionRecord | null {
       stem: d.stem,
       imagePath: d.image,
       imageDesc: d.image_desc,
-      imageWidth: d.image_width,
-      imageHeight: d.image_height,
+      imageWidth: dims?.width ?? null,
+      imageHeight: dims?.height ?? null,
       parts: d.parts.map((p, i) => ({
         questionId: d.id,
         position: i,
@@ -79,15 +81,16 @@ function toRecord(raw: unknown): QuestionRecord | null {
       })),
     };
   }
+  const dims = getImageDimensions((d as any).image);
   return {
     ...base,
     type: "MCQ",
     question: d.question,
     stem: [],
-    imagePath: d.image,
-    imageDesc: d.image_desc,
-    imageWidth: d.image_width,
-    imageHeight: d.image_height,
+    imagePath: (d as any).image,
+    imageDesc: (d as any).image_desc,
+    imageWidth: dims?.width ?? null,
+    imageHeight: dims?.height ?? null,
     parts: [],
   };
 }
@@ -183,6 +186,7 @@ function recordFromForm(values: QuestionFormValues): QuestionRecord {
     flags: [] as QuestionRecord["flags"],
   };
   if (values.type === "CQ") {
+    const dims = getImageDimensions(values.image);
     return {
       ...base,
       type: "CQ",
@@ -190,13 +194,14 @@ function recordFromForm(values: QuestionFormValues): QuestionRecord {
       stem: values.stem,
       imagePath: values.image,
       imageDesc: values.image_desc,
-      imageWidth: values.image_width,
-      imageHeight: values.image_height,
+      imageWidth: dims?.width ?? null,
+      imageHeight: dims?.height ?? null,
       parts: values.parts.map((p, i) => ({ questionId: values.id, position: i, ...p })),
     };
   }
   if (values.type === "MCQ") {
-    return { ...base, type: "MCQ", question: values.question ?? "", stem: [], imagePath: values.image, imageDesc: values.image_desc, imageWidth: values.image_width, imageHeight: values.image_height, parts: [] };
+    const dims = getImageDimensions(values.image);
+    return { ...base, type: "MCQ", question: values.question ?? "", stem: [], imagePath: values.image, imageDesc: values.image_desc, imageWidth: dims?.width ?? null, imageHeight: dims?.height ?? null, parts: [] };
   }
   return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: null, imageDesc: null, imageWidth: null, imageHeight: null, parts: [] };
 }
@@ -222,6 +227,7 @@ function withFlags(record: QuestionRecord, existing: QuestionRecord | null): Que
 
 /** Import shape (already validated + flagged) → stored record. */
 function recordFromDbQuestion(q: DbQuestion): QuestionRecord {
+  const dims = getImageDimensions(q.image_path);
   return {
     id: q.id,
     subject: q.subject,
@@ -233,8 +239,8 @@ function recordFromDbQuestion(q: DbQuestion): QuestionRecord {
     stem: q.stem,
     imagePath: q.image_path,
     imageDesc: q.image_desc,
-    imageWidth: q.image_width,
-    imageHeight: q.image_height,
+    imageWidth: dims?.width ?? null,
+    imageHeight: dims?.height ?? null,
     flags: q.flags,
     answer: q.answer,
     options: q.options,

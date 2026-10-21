@@ -68,11 +68,12 @@ Implemented the reading-first question bank workspace v2 as specified in PROMPT 
 - Filter option for "অব্যবহৃত" questions
 
 ### 9. Performance Optimizations
-- **Image dimensions**: Added `image_width` and `image_height` to question schema and types
+- **Image dimensions**: Computed at load time from image files (not stored in JSON)
 - **Layout stability**: Images reserve exact space based on intrinsic dimensions to prevent layout shift
 - **Lazy KaTeX rendering**: `LazyRichText` and `LazyRichBlock` components with IntersectionObserver
 - **Viewport detection**: KaTeX renders only when cards are near viewport (200px margin)
 - **Caching**: Existing KaTeX output cache maintained (1500 item limit)
+- **Image dimension cache**: In-memory cache to avoid repeated file reads
 
 ### 10. Typography
 - **Noto Serif Bengali**: Currently loaded from Google Fonts CDN
@@ -108,14 +109,14 @@ Implemented the reading-first question bank workspace v2 as specified in PROMPT 
 ## Technical Changes
 
 ### Schema Updates
-- Added `image_width` and `image_height` to question schema (CQ and MCQ)
-- Updated `KNOWN_QUESTION_KEYS` to include new fields
-- Updated `QuestionRecord` type to include image dimensions
+- Updated `QuestionRecord` type to include `imageWidth` and `imageHeight` (computed at load time)
+- Source JSON schema unchanged (no image dimensions in data files)
 
 ### Data Layer Updates
-- Updated `DbQuestion` type in import plan
-- Updated local store to handle image dimensions
-- Updated form values to include image dimensions
+- Created `lib/images.ts` with `getImageDimensions()` function to read image dimensions from files
+- Updated local store to compute dimensions when loading questions
+- Dimensions cached in memory to avoid repeated file reads
+- No changes to source data files (byte-identical)
 
 ### Component Updates
 - **StickyBar**: Added confirmation modal for bulk select/deselect
@@ -127,11 +128,9 @@ Implemented the reading-first question bank workspace v2 as specified in PROMPT 
 - **BankWorkspace**: Added type lock logic and view mode initialization
 
 ## Files Modified
-- `lib/schemas/question.ts` - Added image dimensions to schema
-- `lib/types.ts` - Added image dimensions to QuestionRecord
-- `lib/data/store.ts` - Added image dimensions to form values
-- `lib/data/local-store.ts` - Updated record conversion
-- `lib/import/plan.ts` - Updated DbQuestion type
+- `lib/types.ts` - Added imageWidth/imageHeight to QuestionRecord (computed)
+- `lib/images.ts` - NEW: Image dimension reading from files with caching
+- `lib/data/local-store.ts` - Compute dimensions at load time
 - `components/workspace/sticky-bar.tsx` - Added bulk confirmation
 - `components/workspace/type-control.tsx` - Added type lock
 - `components/workspace/view-mode-toggle.tsx` - Added persistence
@@ -139,7 +138,6 @@ Implemented the reading-first question bank workspace v2 as specified in PROMPT 
 - `components/workspace/question-card.tsx` - Added aspect-ratio for images
 - `components/workspace/bank-workspace.tsx` - Added type lock logic
 - `components/rich-text.tsx` - Added lazy rendering components
-- `lib/schemas/question.test.ts` - Updated test data
 - `e2e/ui-screens.spec.ts` - Updated screenshot scenarios
 
 ## Notes

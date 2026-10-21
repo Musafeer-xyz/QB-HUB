@@ -16,8 +16,6 @@ export type QuestionFormValues = {
   stem: string[];
   image: string | null;
   image_desc: string | null;
-  image_width: number | null;
-  image_height: number | null;
   answer: string | null;
   parts: { label: string; marks: number; text: string; answer: string | null }[];
 };

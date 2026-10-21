@@ -27,8 +27,6 @@ const cqItem = {
   stem: ["(i) $\\ce{H2O}$", "(ii)"],
   image: "chem-06-cq-001.png",
   image_desc: "জলের বিকাশ",
-  image_width: 220,
-  image_height: 140,
   parts: [
     { label: "ক", marks: 1, text: "কী বলে?", answer: null },
     { label: "খ", marks: 2, text: "ব্যাখ্যা কর।", answer: null },
@@ -56,8 +54,6 @@ describe("question schema validation", () => {
       expect(parsed.data.parts).toHaveLength(4);
       expect(parsed.data.image).toBe("chem-06-cq-001.png");
       expect(parsed.data.image_desc).toBe("জলের বিকাশ");
-      expect(parsed.data.image_width).toBe(220);
-      expect(parsed.data.image_height).toBe(140);
     }
   });
 

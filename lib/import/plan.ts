@@ -23,8 +23,6 @@ export type DbQuestion = {
   stem: string[];
   image_path: string | null;
   image_desc: string | null;
-  image_width: number | null;
-  image_height: number | null;
   flags: QuestionFlag[];
   answer: string | null;
   options: string[] | null;
@@ -99,10 +97,9 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
     correct_option: input.correct_option ?? null,
   };
   if (input.type === "SQ") {
-    return { ...base, type: "SQ", question: input.question, stem: [], image_path: null, image_desc: null, image_width: null, image_height: null, parts };
+    return { ...base, type: "SQ", question: input.question, stem: [], image_path: null, image_desc: null, parts };
   }
   if (input.type === "CQ") {
-    const cq = input as any;
     return {
       ...base,
       type: "CQ",
@@ -110,12 +107,9 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
       stem: input.stem,
       image_path: input.image,
       image_desc: input.image_desc,
-      image_width: cq.image_width ?? null,
-      image_height: cq.image_height ?? null,
       parts,
     };
   }
-  const mcq = input as any;
   return {
     ...base,
     type: "MCQ",
@@ -123,8 +117,6 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
     stem: [],
     image_path: input.image,
     image_desc: input.image_desc,
-    image_width: mcq.image_width ?? null,
-    image_height: mcq.image_height ?? null,
     parts,
   };
 }

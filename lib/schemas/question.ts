@@ -64,8 +64,6 @@ export const KNOWN_QUESTION_KEYS = [
   "stem",
   "image",
   "image_desc",
-  "image_width",
-  "image_height",
   "parts",
   "options",
   "correct_option",
@@ -100,8 +98,6 @@ export const cqQuestionSchema = z.object({
   stem: z.array(z.string()).default([]),
   image: imageFile,
   image_desc: nullableText,
-  image_width: nullableInt(1, 5000),
-  image_height: nullableInt(1, 5000),
   parts: z.array(questionPartSchema).min(1, "CQ-তে অন্তত একটি পার্ট দরকার"),
 });
 export type CqQuestion = z.infer<typeof cqQuestionSchema>;
@@ -113,8 +109,6 @@ export const mcqQuestionSchema = z.object({
   question: z.string().trim().min(1),
   image: imageFile,
   image_desc: nullableText,
-  image_width: nullableInt(1, 5000),
-  image_height: nullableInt(1, 5000),
   options: z
     .array(z.string().trim().min(1))
     .min(2, "MCQ-তে অন্তত ২টি অপশন দরকার"),
