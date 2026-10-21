@@ -4,6 +4,19 @@ import path from "node:path";
 const DATA_DIR = path.join(process.cwd(), "data");
 const IMAGE_DIR = path.join(DATA_DIR, "images");
 
+export const IMAGE_BUCKET = "qb-images";
+
+/**
+ * Get the public URL for a question image.
+ * This is a client-safe function that returns a URL string.
+ */
+export function questionImageUrl(filename: string | null): string | null {
+  if (!filename) return null;
+  // In production, this would be a Supabase Storage URL
+  // For now, return a relative path that works with the image proxy
+  return `/api/images/${filename}`;
+}
+
 /** Image dimension cache to avoid repeated file reads. */
 const DIMENSION_CACHE = new Map<string, { width: number; height: number } | null>();
 

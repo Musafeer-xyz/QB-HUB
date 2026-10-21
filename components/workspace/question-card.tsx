@@ -284,7 +284,7 @@ export function QuestionCard({
             <X className="h-6 w-6" aria-hidden="true" />
           </button>
           <img
-            src={questionImageUrl(question.imagePath)}
+            src={questionImageUrl(question.imagePath) ?? ""}
             alt={question.imageDesc ?? "প্রশ্নের চিত্র"}
             className="max-h-[90vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}

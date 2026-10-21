@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { List, CheckSquare2, ArrowUp, ChevronDown } from "lucide-react";
-import { useSelection, totalSelectionMarks } from "@/components/selection/selection-context";
 import { Modal } from "@/components/ui/modal";
 import { toBanglaDigits } from "@/lib/bangla";
 
@@ -77,8 +76,8 @@ export function StickyBar({
                   onChange={(e) => {
                     setTargetMarksInput(e.target.value);
                     const num = parseInt(e.target.value.replace(/[০-৯]/g, (c) =>
-                      "০১২৩৪৫৬৭৮৯".indexOf(c)
-                    ));
+                      String("০১২৩৪৫৬৭৮৯".indexOf(c))
+                    ), 10);
                     if (!isNaN(num)) {
                       onTargetMarksChange(num);
                     }

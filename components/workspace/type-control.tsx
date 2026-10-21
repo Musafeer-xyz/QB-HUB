@@ -42,14 +42,14 @@ export function TypeControl({ facets, selectedType, onTypeChange, onTypeLockChan
     }
   };
 
-  const types = [
-    { key: "all" as const, label: "সব", count: facets.total },
-    { key: "SQ" as const, label: "সংক্ষিপ্ত", count: facets.sq },
-    { key: "CQ" as const, label: "সৃজনশীল", count: facets.cq },
+  const types: Array<{ key: "all" | "SQ" | "CQ" | "MCQ"; label: string; count: number }> = [
+    { key: "all", label: "সব", count: facets.total },
+    { key: "SQ", label: "সংক্ষিপ্ত", count: facets.sq },
+    { key: "CQ", label: "সৃজনশীল", count: facets.cq },
   ];
 
   if (facets.mcq > 0) {
-    types.push({ key: "MCQ" as const, label: "বহুনির্বাচনী", count: facets.mcq });
+    types.push({ key: "MCQ", label: "বহুনির্বাচনী", count: facets.mcq });
   }
 
   return (

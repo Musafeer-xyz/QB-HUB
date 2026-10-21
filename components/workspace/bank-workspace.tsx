@@ -14,7 +14,6 @@ import { TypeControl } from "@/components/workspace/type-control";
 import { ViewModeToggle } from "@/components/workspace/view-mode-toggle";
 import { EmptyState } from "@/components/ui/empty-state";
 import { QuestionListSkeleton } from "@/components/ui/skeleton";
-import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/components/toast";
 import { toBanglaDigits } from "@/lib/bangla";
 import { activeFilterCount, bankFacets, EMPTY_FILTERS, filterBank, type BankFilters } from "@/lib/bank/filter";
@@ -95,7 +94,6 @@ export function BankWorkspace({
     getItemKey: (index) => typeFiltered[index]!.id,
   });
 
-  const missing = typeFiltered.filter((q) => !selection.has(q.id));
   const selectedCount = selection.entries.length;
   const totalMarks = totalSelectionMarks(selection.entries, 2);
 
@@ -162,15 +160,6 @@ export function BankWorkspace({
     setItems((prev) => prev.filter((q) => q.id !== id));
   }, []);
 
-  function addAll() {
-    for (const question of typeFiltered) {
-      if (!selection.has(question.id)) {
-        onToggleSelect(question);
-      }
-    }
-    push("success", `${toBanglaDigits(typeFiltered.length)}টি প্রশ্ন পেপারে যোগ হয়েছে।`);
-  }
-
   function removeAll() {
     for (const question of typeFiltered) {
       if (selection.has(question.id)) {
@@ -197,7 +186,7 @@ export function BankWorkspace({
       const result = [...arr];
       for (let i = result.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [result[i], result[j]] = [result[j], result[i]];
+        [result[i], result[j]] = [result[j]!, result[i]!];
       }
       return result;
     };
@@ -250,7 +239,7 @@ export function BankWorkspace({
               totalMarks={totalMarks}
               filteredCount={typeFiltered.length}
               onListClick={() => setDrawerOpen(true)}
-              onSelectAll={() => setBulkOpen(true)}
+              onSelectAll={removeAll}
               onDeselectAll={removeAll}
               onRandomAdd={() => setRandomOpen(true)}
               onPreview={() => {}}

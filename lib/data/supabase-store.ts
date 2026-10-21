@@ -552,8 +552,11 @@ function buildFacetsFromRows(rows: QuestionFacetRow[]): QuestionFacets {
     stars: [...starMap.entries()]
       .map(([stars, total]) => ({ stars, total }))
       .sort((a, b) => a.stars - b.stars),
+    topics: [],
     total: rows.length,
     flagged,
     withImage,
+    used: 0,
+    unused: rows.length,
   };
 }
