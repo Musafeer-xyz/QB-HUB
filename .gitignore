@@ -17,3 +17,4 @@ next-env.d.ts
 local-data.bak/
 .freebuff/
 freebuff-sites-build/
+screenshots/*.pdf
