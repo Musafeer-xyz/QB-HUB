@@ -1,0 +1,445 @@
+[
+  {
+    "id": "chem-08-sq-001",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{CaCO3}$ এর তাপীয় বিয়োজন একটি তাপহারী বিক্রিয়া—ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-002",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "যশোর বোর্ড ২০২০"
+    ],
+    "question": "ইথানলকে জ্বালানি হিসেবে ব্যবহার করা হয় কেন?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-003",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{KCl}$ তীব্র তড়িৎ বিশ্লেষ্য—ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-004",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৪"
+    ],
+    "question": "খাবার লবণ তীব্র তড়িৎ বিশ্লেষ্য পদার্থ—ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-005",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২০"
+    ],
+    "question": "অ্যানোডকে জারণ তড়িৎদ্বার বলা হয় কেন—ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-006",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২০"
+    ],
+    "question": "“$\\ce{NaOH}$ একটি তীব্র তড়িৎ বিশ্লেষ্য”—ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-007",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "question": "শুষ্ক কোষে $\\ce{MnO2}$ এর কাজ কী? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-008",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "question": "হাইড্রোজেন ফুয়েল সেলে কীভাবে বিদ্যুৎ উৎপন্ন হয়? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-009",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "question": "গ্যালভানিক কোষে লবণ সেতু ব্যবহার করা হয় কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-010",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২০"
+    ],
+    "question": "গ্যালভানিক কোষে অ্যানোড ঋণাত্মক কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-sq-011",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "যশোর বোর্ড ২০২৫",
+      "কুমিল্লা বোর্ড ২০২৪",
+      "কুমিল্লা বোর্ড ২০২০"
+    ],
+    "question": "নিউক্লিয়ার ফিশন বিক্রিয়া বলতে কী বোঝায়?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-08-cq-001",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২০"
+    ],
+    "stem": [
+      "(i) $\\ce{C3H8(g) + 5O2(g) -> 3CO2(g) + 4H2O(g)}\\ ;\\ \\Delta H = -2280\\ \\text{kJ}$",
+      "(ii) $\\ce{N2(g) + O2(g) -> 2NO(g)}\\ ;\\ \\Delta H = +180\\ \\text{kJ}$",
+      "[বন্ধন শক্তি: $\\ce{C-C}$ = 344 kJ/mol, $\\ce{C-H}$ = 414 kJ/mol, $\\ce{O-H}$ = 464 kJ/mol, $\\ce{O=O}$ = 498 kJ/mol]"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "তড়িৎ প্রলেপন কী?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "$\\ce{H2S}$ এবং $\\ce{SO2}$ এর মধ্যে কোনটির ব্যাপন হার সর্বাধিক এবং কেন?",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "$\\ce{C=O}$ এর বন্ধনশক্তি হিসাব কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকে (i) ও (ii) নং বিক্রিয়া দুটির সাম্যাবস্থায় তাপ ও চাপের প্রভাব ভিন্ন—বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": []
+  },
+  {
+    "id": "chem-08-cq-002",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "(i) $\\ce{C2H6 + Cl2 -> C2H5Cl + HCl}$ [$\\ce{C-H}$, $\\ce{C-Cl}$, $\\ce{Cl-Cl}$, $\\ce{H-Cl}$ এর বন্ধন শক্তি যথাক্রমে 414, 326, 244, 431 kJ/mol]",
+      "(ii) $\\ce{N2(g) + O2(g)} + 180\\ \\text{kJ} \\rightleftharpoons \\ce{2NO(g)}$"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "বন্ধন শক্তি কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "$\\ce{Na2CO3}$ এর জলীয় দ্রবণ ক্ষারীয়—ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপকের (i) নং বিক্রিয়াটির $\\Delta H$ এর মান নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের (ii) নং বিক্রিয়াটির সাম্যাবস্থার উপর তাপ ও চাপের প্রভাব বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": []
+  },
+  {
+    "id": "chem-08-cq-003",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "stem": [
+      "(i) $\\ce{C2H6(g) + Cl2(g) -> C2H5Cl(g) + HCl(g)} + 481\\ \\text{kJ}$ [$\\ce{C-H}$ = 414 kJ/mol, $\\ce{Cl-Cl}$ = 244 kJ/mol, $\\ce{H-Cl}$ = 431 kJ/mol]",
+      "(ii) $\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}\\ ;\\ \\Delta H = -92\\ \\text{kJ/mol}$"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "সুপ্ত যোজনী কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "$\\ce{He}$ কে গ্রুপ-২ এ রাখা হয়নি কেন? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "(i) নং বিক্রিয়ায় $\\ce{C-Cl}$ এর বন্ধন শক্তি নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "(ii) নং বিক্রিয়াটির সাম্যাবস্থার উপর তাপ ও চাপের প্রভাব বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [
+      "মূল বইয়ে 481 kJ ই দেওয়া এবং বইয়ের সমাধানেও C-Cl = 708 kJ/mol আছে (তথ্য হিসেবে রাখা)"
+    ]
+  },
+  {
+    "id": "chem-08-cq-004",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২০"
+    ],
+    "stem": [
+      "$\\ce{N2(g) + O2(g) <=> 2NO(g)}$, এখানে $\\ce{N=O}$, $\\ce{O=O}$ এবং $\\ce{N#N}$ এর বন্ধন শক্তি যথাক্রমে 632 kJ/mol, 498 kJ/mol এবং 946 kJ/mol।"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "যোজ্যতা ইলেকট্রন কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "নিউক্লিয়ার ফিশন বিক্রিয়া বলতে কী বোঝায়?",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপকের বিক্রিয়াটির ক্ষেত্রে $\\Delta H$ এর মান নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের বিক্রিয়ায় সাম্যাবস্থায় চাপ ও ঘনমাত্রার প্রভাব লা-শাতেলিয়ের নীতির সাহায্যে বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": []
+  },
+  {
+    "id": "chem-08-cq-005",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "(i) $\\ce{SiCl4 + H2O -> Si(OH)4 + HCl}$",
+      "(ii) $\\ce{AgNO3 + KCl -> AgCl + KNO3}$",
+      "(iii) মিথেনের দহন বিক্রিয়ায় 890 kJ/mol তাপশক্তি উৎপন্ন হয়। [$\\ce{C-H}$, $\\ce{O=O}$ এবং $\\ce{O-H}$ এর বন্ধন শক্তি যথাক্রমে 414, 498 এবং 464 kJ/mol]"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "সুপ্ত যোজনী কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "উভমুখী বিক্রিয়াকে তুমি কীভাবে একমুখী বিক্রিয়ায় রূপান্তর করবে?",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপক (iii) নং হতে $\\ce{C=O}$ এর বন্ধন শক্তি নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "(i) ও (ii) নং বিক্রিয়ায় সাদৃশ্য ও বৈসাদৃশ্য বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [
+      "উদ্দীপকের (i) নং সমীকরণ মূল বইয়ে অসমতুল দেওয়া; বইয়ের সমাধানে সমতাকৃত"
+    ]
+  },
+  {
+    "id": "chem-08-cq-006",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 2,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২০"
+    ],
+    "stem": [
+      "নিচের চিত্রটি লক্ষ কর এবং প্রদত্ত প্রশ্নগুলোর উত্তর দাও:"
+    ],
+    "image": "chem-08-cq-006.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "হাইড্রোকার্বন কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "প্রশমন বিক্রিয়া শ্রেণিহীন কেন? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপকের কোষটির তড়িৎ বিশ্লেষণ কৌশল বর্ণনা কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের কোষে গলিত $\\ce{KCl}$ এর পরিবর্তে $\\ce{CuSO4}$ এর জলীয় দ্রবণ ব্যবহার করলে কোষে সংঘটিত বিক্রিয়াটি বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "গলিত KCl পূর্ণ পাত্রে দুটি গ্রাফাইট দণ্ড; ব্যাটারির সাথে যুক্ত"
+  },
+  {
+    "id": "chem-08-cq-007",
+    "subject": "chemistry",
+    "chapter": 8,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "stem": [
+      "$\\ce{Mg(s) + Fe^2+(aq) -> Mg^2+(aq) + Fe(s)}$"
+    ],
+    "image": "none",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "আকরিক কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "গ্লুকোজের জলীয় দ্রবণ বিদ্যুৎ পরিবহন করে না কেন? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপকের ২য় ধাতুটি দ্বারা তৈরি জিনিসের উপর তড়িৎ প্রলেপন প্রক্রিয়া বর্ণনা কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের বিক্রিয়ার মাধ্যমে বিদ্যুৎ উৎপাদন কি সম্ভব? চিত্রসহ বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": []
+  }
+]

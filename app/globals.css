@@ -1,0 +1,815 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/*                                                                     */
+/* One source of truth for colour, radius, motion. The print stylesheet */
+/* is deliberately colour-free (see the @media print block below).      */
+/* ------------------------------------------------------------------ */
+:root {
+  --bg: #f6f5f2;
+  --surface: #ffffff;
+  --border: #e7e4dd;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --primary: #1e40af;
+  --primary-hover: #1b3a9a;
+  --primary-soft: #eef1fa;
+  --danger: #b42318;
+  --danger-soft: #fef3f2;
+  --flag: #b45309;
+  --flag-soft: #fef3c7;
+  --focus: rgba(30, 64, 175, 0.4);
+  --radius: 12px;
+  --radius-control: 8px;
+  --transition: 150ms ease;
+
+  --subject-chemistry: #0f9d8a;
+  --subject-physics: #2563eb;
+  --subject-math: #d97706;
+  --subject-biology: #16a34a;
+
+  --tag-sq-bg: #e6f4f1;
+  --tag-sq-text: #0b6b5d;
+  --tag-cq-bg: #fdf1dc;
+  --tag-cq-text: #8a5300;
+  --tag-mcq-bg: #eee8fb;
+  --tag-mcq-text: #5b3fb3;
+
+  --paper-width: 210mm;
+  --paper-height: 297mm;
+  --paper-margin: 14mm;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+}
+
+body {
+  line-height: 1.7;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-bangla), "Noto Sans Bengali", "Nirmala UI", "Vrinda",
+    "Arial Unicode MS", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.question-text {
+  font-family: var(--font-bangla-serif), "Noto Serif Bengali", "Bangla", "Kalpurush", serif;
+}
+
+h1,
+ h2,
+ h3,
+ h4 {
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Uniform focus ring: 2px primary at 40% opacity. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+/* Motion is a nicety, not information. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-3.5 py-2 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50;
+    border-radius: var(--radius-control);
+    transition: background-color var(--transition), border-color var(--transition),
+      color var(--transition), box-shadow var(--transition);
+  }
+  .btn-primary {
+    @apply btn text-white;
+    background: var(--primary);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+  }
+  .btn-secondary {
+    @apply btn;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: #faf9f7;
+    border-color: #d8d4ca;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent;
+    color: var(--muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+  .btn-danger {
+    @apply btn;
+    border: 1px solid #f3d3cf;
+    background: var(--surface);
+    color: var(--danger);
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: var(--danger-soft);
+  }
+  .card {
+    @apply p-4;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+    background: #f3f1ec;
+    color: #4b5563;
+    border: 1px solid transparent;
+  }
+  .field-label {
+    @apply mb-1 block text-sm font-semibold;
+    color: var(--text);
+  }
+  .field-input {
+    @apply block w-full px-3 py-2 text-sm;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .field-input::placeholder {
+    color: #9ca3af;
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--focus);
+  }
+
+  /* Type tags — shared by the bank and the paper panel. */
+  .tag-sq {
+    @apply inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold;
+    background: var(--tag-sq-bg);
+    color: var(--tag-sq-text);
+  }
+  .tag-cq {
+    @apply inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold;
+    background: var(--tag-cq-bg);
+    color: var(--tag-cq-text);
+  }
+  .tag-mcq {
+    @apply inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold;
+    background: var(--tag-mcq-bg);
+    color: var(--tag-mcq-text);
+  }
+  .tag-flag {
+    @apply inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] font-semibold;
+    background: var(--flag-soft);
+    color: var(--flag);
+  }
+
+  /* Pane: a bordered surface, used for the three workspace columns. */
+  .pane {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .divider {
+    border-color: var(--border);
+  }
+  .link {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+/* Command palette (cmdk renders Radix dialog primitives). */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(31, 36, 48, 0.4);
+}
+[cmdk-dialog] {
+  position: fixed;
+  left: 50%;
+  top: 12vh;
+  z-index: 71;
+  width: min(92vw, 560px);
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 24px 64px rgba(31, 36, 48, 0.18);
+}
+[cmdk-input] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+}
+[cmdk-list] {
+  max-height: min(60vh, 420px);
+  overflow: auto;
+  padding: 6px;
+}
+[cmdk-group-heading] {
+  padding: 8px 10px 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+[cmdk-item] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+[cmdk-item] .truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+[cmdk-item][data-selected="true"] {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+[cmdk-empty],
+[cmdk-loading] {
+  padding: 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Skeletons */
+.skeleton {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #efece6 25%, #f7f5f1 37%, #efece6 63%);
+  background-size: 400% 100%;
+  animation: skeleton 1.4s ease infinite;
+}
+@keyframes skeleton {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* Subject dots (registry-driven, so a new subject only needs a token). */
+.subject-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+  background: var(--subject-chemistry);
+}
+
+/* KaTeX inside our Bangla documents */
+.katex {
+  font-size: 1.05em;
+}
+.katex-display {
+  margin: 0.4em 0;
+  text-align: center;
+}
+.math-error {
+  color: #b45309;
+  background: #fef3c7;
+  border-radius: 4px;
+  padding: 0 2px;
+  word-break: break-word;
+}
+
+/* Question text wraps between words only — never mid-formula. */
+.rich-text,
+.question-text {
+  line-height: 1.85;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+.rich-text .katex,
+.question-text .katex {
+  white-space: nowrap;
+  display: inline-block;
+  /* Natural width, so an over-wide formula can be measured and scaled down by
+     PaperDocument instead of silently overflowing a shrink-to-fit inline box. */
+  width: max-content;
+  max-width: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Paper document (shared by live preview and print/PDF)               */
+/* ------------------------------------------------------------------ */
+.paper-sheet {
+  box-sizing: border-box;
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* One table per chapter block; the running header is a page margin box
+   (`@top-left`, see paperPageCss), so the table needs no repeated header. */
+.paper-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.paper-table > tbody > tr > td {
+  padding: 0;
+  vertical-align: top;
+}
+.paper-table > tbody > tr > td.paper-content {
+  padding-top: 0;
+}
+
+/* Full header: page 1 only, at the top of the first block. */
+.paper-first-header {
+  position: relative;
+}
+
+.paper-page-header {
+  position: relative;
+  padding-bottom: 2mm;
+}
+
+.paper-set-code {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #333;
+  background: #fff;
+  padding: 0 2mm;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.paper-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1px;
+}
+
+.paper-institute {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.paper-header-line {
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.paper-header-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 2mm;
+}
+
+.paper-instructions {
+  margin-top: 1mm;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.paper-header-rule {
+  margin-top: 2mm;
+  border-top: 1.5px solid #111;
+}
+
+/* Page frame used on the standalone print page and in the builder preview.
+   Default A4 from :root; the paper-size-* classes below switch the box. */
+.paper-frame {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--paper-width);
+  min-height: var(--paper-height);
+  margin: 0 auto;
+  /* Margins come from the saved settings (preset or custom, in mm); the
+     defaults keep A4 + 14mm for anything that renders without settings. */
+  padding: var(--paper-margin-top, 14mm) var(--paper-margin-right, 14mm)
+    var(--paper-margin-bottom, 14mm) var(--paper-margin-left, 14mm);
+  background: #fff;
+}
+
+/* Dashed guide showing where the @page margins fall (preview only). */
+.paper-margin-guide {
+  position: absolute;
+  top: var(--paper-margin-top, 14mm);
+  right: var(--paper-margin-right, 14mm);
+  bottom: var(--paper-margin-bottom, 14mm);
+  left: var(--paper-margin-left, 14mm);
+  border: 1px dashed rgba(51, 129, 251, 0.6);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.paper-size-a4 {
+  --paper-width: 210mm;
+  --paper-height: 297mm;
+}
+.paper-size-a5 {
+  --paper-width: 148mm;
+  --paper-height: 210mm;
+}
+.paper-size-b5 {
+  --paper-width: 176mm;
+  --paper-height: 250mm;
+}
+.paper-size-letter {
+  --paper-width: 215.9mm;
+  --paper-height: 279.4mm;
+}
+.paper-size-legal {
+  --paper-width: 215.9mm;
+  --paper-height: 355.6mm;
+}
+
+@media print {
+  .paper-frame {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+}
+
+.paper-sheet.font-small { font-size: 13.5px; }
+.paper-sheet.font-normal { font-size: 15px; }
+.paper-sheet.font-large { font-size: 17px; }
+
+.paper-question {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.paper-figure {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Figure sizes: ছোট / মাঝারি / বড় = 40 / 55 / 75 mm tall. The image never
+   exceeds its column and is never upscaled beyond its intrinsic size
+   (no width:100% here — only max-width). */
+.paper-figure {
+  --figure-max-height: 55mm;
+}
+.paper-sheet.figure-small .paper-figure {
+  --figure-max-height: 40mm;
+}
+.paper-sheet.figure-medium .paper-figure {
+  --figure-max-height: 55mm;
+}
+.paper-sheet.figure-large .paper-figure {
+  --figure-max-height: 75mm;
+}
+.paper-figure img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: var(--figure-max-height);
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.paper-marks {
+  font-variant-numeric: tabular-nums;
+}
+
+.break-before-page {
+  break-before: page;
+  page-break-before: always;
+  height: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Body flow: columns, numbering, spacing, watermark                    */
+/* ------------------------------------------------------------------ */
+.paper-sheet {
+  position: relative;
+}
+
+.paper-table {
+  position: relative;
+  z-index: 1;
+}
+
+/* Two-column body. Multicol keeps the newspaper flow (fill the left column,
+   then the right, then the next page) while the safety rules below stop any
+   item from widening or escaping its column:
+   - `min-width: 0` on every item (a long unbreakable line can otherwise force
+     the column track wider than the page and clip the right column);
+   - source tags wrap normally instead of staying on one line;
+   - oversized formulas are scaled down by PaperDocument. */
+.paper-columns {
+  column-count: 2;
+  column-gap: 8mm;
+  column-width: auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.paper-columns-single {
+  column-count: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.paper-columns-divided {
+  column-rule: 1px solid #999;
+}
+.paper-columns > *,
+.paper-columns-single > *,
+.paper-section,
+.paper-question,
+.paper-question > *,
+.paper-parts,
+.paper-parts td {
+  min-width: 0;
+  max-width: 100%;
+}
+.paper-question {
+  overflow-wrap: break-word;
+}
+/* CQ is a block article; SQ is a flex row (number + text + marks), so only the
+   CQ gets flow-root (it stops margin collapse without changing its layout). */
+.paper-question-cq {
+  display: flow-root;
+}
+.paper-sheet .katex-display {
+  max-width: 100%;
+}
+/* CQ parts are a table so the label and the marks line up. Auto table layout
+   lets one unbreakable formula stretch the whole table past the column (and
+   clip the right column in print), so the layout is fixed: the label and the
+   marks keep their narrow columns and the text cell can never grow. */
+.paper-parts {
+  table-layout: fixed;
+  width: 100%;
+}
+.paper-parts > tbody > tr > td:first-child {
+  width: 7mm;
+}
+.paper-parts > tbody > tr > td:last-child {
+  width: 10mm;
+}
+/* Keep a CQ (stem + figure + parts) together, or let it split between parts
+   when "প্রশ্ন একসাথে রাখো" is off — never between a part and its marks. */
+.paper-sheet.keep-together .paper-question {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.paper-sheet.split-allowed .paper-question {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+.paper-sheet.split-allowed .paper-part-row,
+.paper-sheet.split-allowed .paper-figure,
+.paper-sheet.split-allowed .paper-section-title {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.paper-chapter-heading {
+  margin: 3mm 0 1.5mm;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+.paper-section-title {
+  margin-bottom: 2.5mm;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+.paper-section-instruction {
+  font-size: 13px;
+}
+.paper-section-note {
+  font-size: 11px;
+  font-style: italic;
+  color: #555;
+}
+
+.paper-question {
+  margin-bottom: var(--paper-q-gap, 4mm);
+}
+.paper-qno {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.paper-source {
+  display: block;
+  margin-top: 0.5mm;
+  font-size: 11px;
+  font-style: italic;
+  color: #444;
+  /* Board tags can be long lists; wrap them instead of widening the column. */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.paper-end {
+  margin-top: 6mm;
+  border-top: 1px solid #999;
+  padding-top: 2mm;
+  text-align: center;
+  font-size: 13px;
+}
+
+.paper-sheet.spacing-normal {
+  --paper-q-gap: 4mm;
+}
+.paper-sheet.spacing-compact {
+  --paper-q-gap: 2mm;
+}
+.paper-sheet.spacing-compact .paper-section-title {
+  margin-bottom: 1.5mm;
+}
+.paper-sheet.spacing-compact .paper-question {
+  line-height: 1.55;
+}
+
+/* Diagonal institution watermark: behind the text, never over it. */
+.paper-watermark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-32deg);
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #000;
+  opacity: 0.06;
+  white-space: nowrap;
+  pointer-events: none;
+}
+@media print {
+  .paper-watermark {
+    position: fixed;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print CSS                                                           */
+/* ------------------------------------------------------------------ */
+@media print {
+  /* Fallback only: every paper document injects its own @page rule (size,
+     all four margins, page numbers) from the saved settings, and that rule
+     comes later in the document so it wins. */
+  @page {
+    size: A4;
+    margin: 12mm 12mm 14mm 12mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* The screen scaffold behind the sheet must not tint the printed page. */
+  .print-scaffold {
+    background: #fff !important;
+    min-height: 0 !important;
+  }
+
+  /* Hide all app chrome; only the paper prints. */
+  .no-print {
+    display: none !important;
+  }
+
+  .print-root {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    background: #fff !important;
+  }
+
+  .paper-sheet {
+    width: auto !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .paper-page-header {
+    background: #fff;
+  }
+
+  /* Never split a part row (text + marks) or a figure; the whole-question
+     rule depends on the "প্রশ্ন একসাথে রাখো" setting and is set above.
+     Tables themselves must be allowed to fragment, otherwise a CQ could
+     never break between its parts. */
+  .paper-section-title,
+  .paper-figure,
+  .paper-part-row,
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .paper-sheet.keep-together .paper-question {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .paper-sheet.split-allowed .paper-question {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  /* The builder renders the sheet inside a fixed-width preview box; in print
+     that box must not add its own padding/width on top of the @page margins. */
+  .paper-preview-frame {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    zoom: 1 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  .print-root {
+    overflow: visible !important;
+  }
+
+  a[href]::after {
+    content: "" !important;
+  }
+
+  /* Printed paper is pure black on white: the UI theme (colour, surface,
+     shadow) can never leak into it, whatever classes a future component adds. */
+  .paper-sheet,
+  .paper-sheet *,
+  .print-root,
+  .print-root * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* …with one exception: KaTeX draws its invisible spacing glyphs (mhchem's
+     atom gaps) with `color: transparent`. Forcing them black prints stray
+     italic X's over every subscript, so the exemption wins over the rule
+     above (same importance, higher specificity). */
+  .paper-sheet .katex [style*="transparent"],
+  .print-root .katex [style*="transparent"] {
+    color: transparent !important;
+  }
+  .paper-margin-guide {
+    display: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

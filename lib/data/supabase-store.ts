@@ -1,0 +1,559 @@
+import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/supabase/server";
+import { makeFlagId, parseFlags } from "@/lib/schemas/question";
+import { paperSettingsSchema } from "@/lib/schemas/paper";
+import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
+import type { QuestionFormValues, Store } from "@/lib/data/store";
+import type { PaperQuestionRecord, PaperRecord, QuestionFacets, QuestionRecord } from "@/lib/types";
+import type { QuestionType } from "@/lib/schemas/question";
+
+/**
+ * Production data source. Every query runs with the caller's session, so
+ * Supabase Row Level Security (admins only) is always in effect.
+ */
+
+type QuestionRow = {
+  id: string;
+  subject: string;
+  chapter: number;
+  type: string;
+  stars: number | null;
+  boards: string[] | null;
+  question: string | null;
+  stem: string[] | null;
+  image_path: string | null;
+  image_desc: string | null;
+  flags: unknown;
+  answer: string | null;
+  options: string[] | null;
+  correct_option: string | null;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type PartRow = {
+  question_id: string;
+  label: string;
+  marks: number;
+  text: string;
+  answer: string | null;
+  position: number;
+};
+
+type PaperRow = {
+  id: string;
+  title: string;
+  institute: string | null;
+  exam_name: string | null;
+  class_name: string | null;
+  subject: string | null;
+  duration_minutes: number | null;
+  total_marks: number | string | null;
+  settings: unknown;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+function mapQuestion(row: QuestionRow, parts: PartRow[]): QuestionRecord {
+  return {
+    id: row.id,
+    subject: row.subject,
+    chapter: row.chapter,
+    type: row.type as QuestionType,
+    stars: row.stars,
+    boards: row.boards ?? [],
+    question: row.question,
+    stem: row.stem ?? [],
+    imagePath: row.image_path,
+    imageDesc: row.image_desc,
+    flags: parseFlags(row.flags),
+    answer: row.answer,
+    options: row.options ?? null,
+    correctOption: row.correct_option,
+    parts: (parts ?? [])
+      .slice()
+      .sort((a, b) => a.position - b.position)
+      .map((p) => ({
+        questionId: p.question_id,
+        position: p.position,
+        label: p.label,
+        marks: p.marks,
+        text: p.text,
+        answer: p.answer,
+      })),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function mapPaper(row: PaperRow, questions: PaperQuestionRecord[]): PaperRecord {
+  return {
+    id: row.id,
+    title: row.title,
+    institute: row.institute ?? "",
+    examName: row.exam_name ?? "",
+    className: row.class_name ?? "",
+    subject: row.subject ?? "chemistry",
+    durationMinutes: row.duration_minutes,
+    totalMarks: Number(row.total_marks ?? 0),
+    settings: paperSettingsSchema.parse(row.settings ?? {}),
+    createdBy: row.created_by,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    questions,
+  };
+}
+
+function questionRowFromForm(values: QuestionFormValues) {
+  return {
+    id: values.id,
+    subject: values.subject,
+    chapter: values.chapter,
+    type: values.type,
+    stars: values.stars,
+    boards: values.boards,
+    question: values.question,
+    stem: values.type === "CQ" ? values.stem : [],
+    image_path: values.type === "SQ" ? null : values.image,
+    image_desc: values.type === "SQ" ? null : values.image_desc,
+    answer: values.answer,
+  };
+}
+
+function partRowsFromForm(values: QuestionFormValues) {
+  return values.parts.map((p, i) => ({
+    question_id: values.id,
+    label: p.label,
+    marks: p.marks,
+    text: p.text,
+    answer: p.answer,
+    position: i,
+  }));
+}
+
+function escapeLike(term: string): string {
+  return term.replace(/[\\%_]/g, (m) => `\\${m}`);
+}
+
+const storeInstances = new Map<boolean, Store>();
+
+export function supabaseStore(opts: { system?: boolean } = {}): Store {
+  const system = opts.system === true;
+  const cached = storeInstances.get(system);
+  if (cached) return cached;
+
+  async function client() {
+    const c = system ? createSupabaseAdminClient() : await createSupabaseServerClient();
+    if (!c) throw new Error("Supabase কনফিগার করা নেই।");
+    return c;
+  }
+
+  /** Auto LaTeX flags + preserved manual flags, mirroring the import script. */
+  async function computeFlags(
+    values: QuestionFormValues,
+    existing: QuestionRecord | null,
+  ) {
+    const texts = questionTextFields({
+      question: values.question,
+      stem: values.type === "CQ" ? values.stem : [],
+      parts: values.type === "CQ" ? values.parts : [],
+      image_desc: values.image_desc,
+    });
+    const auto = collectMathErrors(texts).map((text) => ({
+      id: makeFlagId(text),
+      text,
+      createdAt: new Date().toISOString(),
+    }));
+    const kept = (existing?.flags ?? []).filter(
+      (f) => !f.text.startsWith("LaTeX পার্স করা যায়নি") && !auto.some((a) => a.text === f.text),
+    );
+    return [...auto, ...kept];
+  }
+
+  async function loadQuestion(id: string): Promise<QuestionRecord | null> {
+    const c = await client();
+    const { data, error } = await c
+      .from("questions")
+      .select("*, question_parts(*)")
+      .eq("id", id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!data) return null;
+    const row = data as QuestionRow & { question_parts: PartRow[] };
+    return mapQuestion(row, row.question_parts ?? []);
+  }
+
+  const store: Store = {
+    mode: "supabase",
+
+    async listQuestions(query) {
+      const c = await client();
+      const pageSize = query.pageSize ?? 20;
+      const page = Math.max(1, query.page ?? 1);
+
+      let q = c.from("questions").select("*, question_parts(*)", { count: "exact" });
+      if (query.subject) q = q.eq("subject", query.subject);
+      if (query.chapters && query.chapters.length > 0) q = q.in("chapter", query.chapters);
+      if (query.types && query.types.length > 0) q = q.in("type", query.types);
+      if (query.boards && query.boards.length > 0) q = q.overlaps("boards", query.boards);
+      if (query.stars != null) q = q.eq("stars", query.stars);
+      if (query.hasImage) q = q.not("image_path", "is", null);
+      if (query.flagged) q = q.neq("flags", "[]");
+      if (query.search && query.search.trim()) {
+        q = q.ilike("search_text", `%${escapeLike(query.search.trim())}%`);
+      }
+      const { data, error, count } = await q
+        .order("chapter", { ascending: true })
+        .order("type", { ascending: true })
+        .order("id", { ascending: true })
+        .range((page - 1) * pageSize, page * pageSize - 1);
+      if (error) throw new Error(error.message);
+
+      const rows = (data ?? []) as (QuestionRow & { question_parts: PartRow[] })[];
+
+      // Facets always reflect the whole bank (chapter/type/board/stars counts).
+      const { data: allRows, error: facetError } = await c
+        .from("questions")
+        .select("id, chapter, type, stars, boards, image_path, flags");
+      if (facetError) throw new Error(facetError.message);
+      const facets = buildFacetsFromRows((allRows ?? []) as QuestionFacetRow[]);
+
+      return {
+        items: rows.map((r) => mapQuestion(r, r.question_parts ?? [])),
+        total: count ?? rows.length,
+        page,
+        pageSize,
+        facets,
+      };
+    },
+
+    getQuestion: loadQuestion,
+
+    async createQuestion(values) {
+      const c = await client();
+      const existing = await loadQuestion(values.id);
+      if (existing) throw new Error(`“${values.id}” ইতিমধ্যে বিদ্যমান।`);
+      const flags = await computeFlags(values, null);
+      const { error } = await c.from("questions").insert({ ...questionRowFromForm(values), flags });
+      if (error) throw new Error(error.message);
+      if (values.type === "CQ" && values.parts.length > 0) {
+        const { error: partError } = await c.from("question_parts").insert(partRowsFromForm(values));
+        if (partError) throw new Error(partError.message);
+      }
+      const created = await loadQuestion(values.id);
+      if (!created) throw new Error("সংরক্ষণের পর প্রশ্ন পাওয়া যায়নি।");
+      return created;
+    },
+
+    async updateQuestion(id, values) {
+      const c = await client();
+      const existing = await loadQuestion(id);
+      if (!existing) throw new Error(`“${id}” পাওয়া যায়নি।`);
+      const flags = await computeFlags(values, existing);
+      const { error } = await c
+        .from("questions")
+        .update({ ...questionRowFromForm(values), flags })
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+
+      const { error: delError } = await c.from("question_parts").delete().eq("question_id", id);
+      if (delError) throw new Error(delError.message);
+      if (values.type === "CQ" && values.parts.length > 0) {
+        const { error: partError } = await c.from("question_parts").insert(partRowsFromForm(values));
+        if (partError) throw new Error(partError.message);
+      }
+      const updated = await loadQuestion(id);
+      if (!updated) throw new Error("হালনাগাদের পর প্রশ্ন পাওয়া যায়নি।");
+      return updated;
+    },
+
+    async importQuestions(questions) {
+      const c = await client();
+      if (questions.length === 0) return { inserted: 0, updated: 0 };
+      const { data: found, error: findError } = await c
+        .from("questions")
+        .select("id")
+        .in("id", questions.map((q) => q.id));
+      if (findError) throw new Error(findError.message);
+      const existingIds = new Set((found ?? []).map((row) => row.id as string));
+
+      for (const q of questions) {
+        const { error } = await c.from("questions").upsert(
+          {
+            id: q.id,
+            subject: q.subject,
+            chapter: q.chapter,
+            type: q.type,
+            stars: q.stars,
+            boards: q.boards,
+            question: q.question,
+            stem: q.stem,
+            image_path: q.image_path,
+            image_desc: q.image_desc,
+            flags: q.flags,
+            answer: q.answer,
+            options: q.options,
+            correct_option: q.correct_option,
+          },
+          { onConflict: "id" },
+        );
+        if (error) throw new Error(`“${q.id}” সংরক্ষণ ব্যর্থ: ${error.message}`);
+
+        if (q.type === "CQ") {
+          const { error: delError } = await c.from("question_parts").delete().eq("question_id", q.id);
+          if (delError) throw new Error(`“${q.id}” পার্ট মুছে ফেলা যায়নি: ${delError.message}`);
+          if (q.parts.length > 0) {
+            const { error: partError } = await c.from("question_parts").insert(
+              q.parts.map((p) => ({
+                question_id: q.id,
+                label: p.label,
+                marks: p.marks,
+                text: p.text,
+                answer: p.answer,
+                position: p.position,
+              })),
+            );
+            if (partError) throw new Error(`“${q.id}” পার্ট সংরক্ষণ ব্যর্থ: ${partError.message}`);
+          }
+        }
+      }
+
+      return {
+        inserted: questions.filter((q) => !existingIds.has(q.id)).length,
+        updated: questions.filter((q) => existingIds.has(q.id)).length,
+      };
+    },
+
+    async deleteQuestion(id) {
+      const c = await client();
+      const { error } = await c.from("questions").delete().eq("id", id);
+      if (error) throw new Error(error.message);
+    },
+
+    async resolveFlag(id, flagId) {
+      const existing = await loadQuestion(id);
+      if (!existing) throw new Error(`“${id}” পাওয়া যায়নি।`);
+      const c = await client();
+      const flags = existing.flags.filter((f) => f.id !== flagId);
+      const { error } = await c.from("questions").update({ flags }).eq("id", id);
+      if (error) throw new Error(error.message);
+    },
+
+    async listBoards() {
+      const c = await client();
+      const { data, error } = await c.from("questions").select("boards");
+      if (error) throw new Error(error.message);
+      const boards = new Set<string>();
+      for (const row of (data ?? []) as { boards: string[] | null }[]) {
+        for (const b of row.boards ?? []) boards.add(b);
+      }
+      return [...boards].sort((a, b) => a.localeCompare(b, "bn"));
+    },
+
+    async usedQuestionIds() {
+      const c = await client();
+      const { data, error } = await c.from("paper_questions").select("question_id");
+      if (error) throw new Error(error.message);
+      return new Set((data ?? []).map((r) => r.question_id as string));
+    },
+
+    async listPapers() {
+      const c = await client();
+      const { data, error } = await c
+        .from("papers")
+        .select("*, paper_questions(question_id, position, section, selected_parts)")
+        .order("updated_at", { ascending: false });
+      if (error) throw new Error(error.message);
+      return ((data ?? []) as (PaperRow & { paper_questions: PaperQRow[] })[]).map((row) =>
+        mapPaper(
+          row,
+          (row.paper_questions ?? [])
+            .slice()
+            .sort((a, b) => a.position - b.position)
+            .map((pq) => ({
+              questionId: pq.question_id,
+              position: pq.position,
+              section: (pq.section as QuestionType | null) ?? null,
+              selectedParts: pq.selected_parts ?? [],
+            })),
+        ),
+      );
+    },
+
+    async getPaper(id) {
+      const c = await client();
+      const { data, error } = await c
+        .from("papers")
+        .select(
+          "*, paper_questions(question_id, position, section, selected_parts, questions(*, question_parts(label, marks, text, answer, position)))",
+        )
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!data) return null;
+      const row = data as PaperRow & { paper_questions: PaperQNested[] };
+      const questions: PaperQuestionRecord[] = (row.paper_questions ?? [])
+        .slice()
+        .sort((a, b) => a.position - b.position)
+        .map((pq) => ({
+          questionId: pq.question_id,
+          position: pq.position,
+          section: (pq.section as QuestionType | null) ?? null,
+          selectedParts: pq.selected_parts ?? [],
+        }));
+      return mapPaper(row, questions);
+    },
+
+    async createPaper(values, createdBy) {
+      const c = await client();
+      const { data, error } = await c
+        .from("papers")
+        .insert({
+          title: values.title,
+          institute: values.institute,
+          exam_name: values.examName,
+          class_name: values.className,
+          subject: values.subject,
+          duration_minutes: values.durationMinutes,
+          total_marks: values.totalMarks,
+          settings: paperSettingsSchema.parse(values.settings ?? {}),
+          created_by: createdBy,
+        })
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      const row = data as PaperRow;
+      if (values.questions.length > 0) {
+        const { error: pqError } = await c.from("paper_questions").insert(
+          values.questions.map((q, i) => ({
+            paper_id: row.id,
+            question_id: q.questionId,
+            position: i,
+            section: q.section,
+            selected_parts: q.selectedParts,
+          })),
+        );
+        if (pqError) throw new Error(pqError.message);
+      }
+      const paper = await store.getPaper(row.id);
+      if (!paper) throw new Error("সংরক্ষণের পর পেপার পাওয়া যায়নি।");
+      return paper;
+    },
+
+    async updatePaper(id, values) {
+      const c = await client();
+      const { error } = await c
+        .from("papers")
+        .update({
+          title: values.title,
+          institute: values.institute,
+          exam_name: values.examName,
+          class_name: values.className,
+          subject: values.subject,
+          duration_minutes: values.durationMinutes,
+          total_marks: values.totalMarks,
+          settings: paperSettingsSchema.parse(values.settings ?? {}),
+        })
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+      const { error: delError } = await c.from("paper_questions").delete().eq("paper_id", id);
+      if (delError) throw new Error(delError.message);
+      if (values.questions.length > 0) {
+        const { error: pqError } = await c.from("paper_questions").insert(
+          values.questions.map((q, i) => ({
+            paper_id: id,
+            question_id: q.questionId,
+            position: i,
+            section: q.section,
+            selected_parts: q.selectedParts,
+          })),
+        );
+        if (pqError) throw new Error(pqError.message);
+      }
+      const paper = await store.getPaper(id);
+      if (!paper) throw new Error("হালনাগাদের পর পেপার পাওয়া যায়নি।");
+      return paper;
+    },
+
+    async deletePaper(id) {
+      const c = await client();
+      const { error } = await c.from("papers").delete().eq("id", id);
+      if (error) throw new Error(error.message);
+    },
+
+    async duplicatePaper(id, createdBy) {
+      const src = await store.getPaper(id);
+      if (!src) throw new Error("পেপার পাওয়া যায়নি।");
+      return store.createPaper(
+        {
+          title: `${src.title} (কপি)`,
+          institute: src.institute,
+          examName: src.examName,
+          className: src.className,
+          subject: src.subject,
+          durationMinutes: src.durationMinutes,
+          totalMarks: src.totalMarks,
+          settings: src.settings,
+          questions: src.questions.map((q) => ({
+            questionId: q.questionId,
+            section: q.section,
+            selectedParts: q.selectedParts,
+          })),
+        },
+        createdBy,
+      );
+    },
+  };
+
+  storeInstances.set(system, store);
+  return store;
+}
+
+type PaperQRow = { question_id: string; position: number; section: string | null; selected_parts: string[] | null };
+type PaperQNested = PaperQRow & { questions: QuestionRow & { question_parts: PartRow[] } | null };
+
+type QuestionFacetRow = {
+  chapter: number;
+  type: string;
+  stars: number | null;
+  boards: string[] | null;
+  image_path: string | null;
+  flags: unknown;
+};
+
+function buildFacetsFromRows(rows: QuestionFacetRow[]): QuestionFacets {
+  const chapterMap = new Map<number, QuestionFacets["chapters"][number]>();
+  const typeMap = new Map<string, number>();
+  const boardMap = new Map<string, number>();
+  const starMap = new Map<number, number>();
+  let flagged = 0;
+  let withImage = 0;
+  for (const q of rows) {
+    const entry = chapterMap.get(q.chapter) ?? { chapter: q.chapter, total: 0, cq: 0, sq: 0, mcq: 0 };
+    entry.total += 1;
+    if (q.type === "CQ") entry.cq += 1;
+    else if (q.type === "SQ") entry.sq += 1;
+    else entry.mcq += 1;
+    chapterMap.set(q.chapter, entry);
+    typeMap.set(q.type, (typeMap.get(q.type) ?? 0) + 1);
+    for (const board of q.boards ?? []) boardMap.set(board, (boardMap.get(board) ?? 0) + 1);
+    if (q.stars !== null) starMap.set(q.stars, (starMap.get(q.stars) ?? 0) + 1);
+    if (parseFlags(q.flags).length > 0) flagged += 1;
+    if (q.image_path) withImage += 1;
+  }
+  return {
+    chapters: [...chapterMap.values()].sort((a, b) => a.chapter - b.chapter),
+    types: [...typeMap.entries()]
+      .map(([type, total]) => ({ type: type as QuestionType, total }))
+      .sort((a, b) => a.type.localeCompare(b.type)),
+    boards: [...boardMap.entries()]
+      .map(([board, total]) => ({ board, total }))
+      .sort((a, b) => b.total - a.total || a.board.localeCompare(b.board)),
+    stars: [...starMap.entries()]
+      .map(([stars, total]) => ({ stars, total }))
+      .sort((a, b) => a.stars - b.stars),
+    total: rows.length,
+    flagged,
+    withImage,
+  };
+}

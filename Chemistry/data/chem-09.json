@@ -1,0 +1,586 @@
+[
+  {
+    "id": "chem-09-sq-001",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{CO2}$ যৌগটি অম্লীয় কেন?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-002",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{SiO2}$ অম্লধর্মী কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-003",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "question": "ইথানয়িক এসিড একটি দুর্বল এসিড- ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-004",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "question": "বিশুদ্ধ $\\ce{H2SO4}$ এসিড হিসেবে ক্রিয়া করে না- ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-005",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "question": "বর্ষাকালে পিচ্ছিল রাস্তায় বালু যোগ করা হয় কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-006",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{Fe(OH)2}$ ক্ষারক, ক্ষার নয়-ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-007",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "question": "$\\ce{Fe(OH)2}$ কে ক্ষারক বলা হয় কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-008",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫",
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "question": "গাঢ় নাইট্রিক এসিডকে রঙিন বোতলে রাখা হয় কেন?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-009",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 2,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "question": "কৃষিক্ষেত্রে pH এর গুরুত্ব ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-010",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫",
+      "দিনাজপুর বোর্ড ২০২৪",
+      "রাজশাহী বোর্ড ২০২৩"
+    ],
+    "question": "পিঁপড়ার কামড়ের ক্ষত স্থানে চুন লাগানো হয় কেন?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-011",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫",
+      "বরিশাল বোর্ড ২০২০"
+    ],
+    "question": "$\\ce{Na2CO3}$ এর জলীয় দ্রবণ ক্ষারীয়, ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-012",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৬"
+    ],
+    "question": "মৌমাছি কামড়ালে ক্ষত স্থানে চুন ব্যবহার করা হয় কেন?",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-013",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "question": "মৌমাছি কামড়ালে চুন ব্যবহার করা হয় কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-014",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "মাদ্রাসা বোর্ড ২০২৬"
+    ],
+    "question": "মৌমাছি কামড়ালে ক্ষতস্থানে চুন ব্যবহার হয় কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-015",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "question": "প্রশমন বিক্রিয়ায় একটি সাধারণ উৎপাদ পানি-ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-016",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "সিলেট বোর্ড ২০২৬"
+    ],
+    "question": "পাকস্থলীর অ্যাসিডিটি দূর করতে অ্যান্টাসিড সেবন করা হয় কেন? ব্যাখ্যা করো।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-017",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "question": "কৃষিক্ষেত্রে প্রশমন বিক্রিয়ার গুরুত্ব ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-018",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "যশোর বোর্ড ২০২৫",
+      "চট্টগ্রাম বোর্ড ২০২০"
+    ],
+    "question": "খর পানিতে সাবানের ফেনা হয় না কেন? ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-sq-019",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "SQ",
+    "stars": 3,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৪"
+    ],
+    "question": "পানির খরতার কারণ ব্যাখ্যা কর।",
+    "answer": null,
+    "flags": []
+  },
+  {
+    "id": "chem-09-cq-001",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 2,
+    "boards": [
+      "ঢাকা বোর্ড ২০২০"
+    ],
+    "stem": [
+      "(i) $\\ce{C4H10 + Cl2 -> C4H9Cl + HCl}$",
+      "(ii)"
+    ],
+    "image": "chem-09-cq-001.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "নিউক্লিয়ার ফিশন বিক্রিয়া কী?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "অ্যানোডকে জারণ তড়িদ্বার বলা হয় কেন—ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "(i) নং বিক্রিয়ার $\\Delta H$ এর মান নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকে (ii) নং কোষের তড়িদ্বারে সংঘটিত বিক্রিয়া এবং উৎপন্ন ভারি গ্যাসটির জলীয় দ্রবণ এসিড নাকি ক্ষার—বিক্রিয়াসহ বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "NaCl দ্রবণের তড়িৎ বিশ্লেষণ কোষ (চিত্র)"
+  },
+  {
+    "id": "chem-09-cq-002",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": "chem-09-cq-002.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "অম্ল কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "কৃষিক্ষেত্রে pH এর গুরুত্ব ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উদ্দীপকের পাত্রটিতে সংঘটিত রাসায়নিক প্রক্রিয়াটি ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "বিক্রিয়া পাত্রে প্রাপ্ত যৌগটির জলীয় দ্রবণে $\\ce{CO2}$ গ্যাস চালনা করলে কী ঘটে? সমীকরণসহ বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "শামুকের খোলস গরম করার পাত্র (চিত্র)"
+  },
+  {
+    "id": "chem-09-cq-003",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "stem": [
+      "পাত্র - A: $\\ce{HNO3}$, 25 g, 250 ml",
+      "পাত্র - B: $\\ce{Ca(OH)2}$, 0.5 M, 250 ml"
+    ],
+    "image": null,
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "আইসোটোপ কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "পটাশিয়াম 2n² সূত্রকে সমর্থন করে না কেন? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "A পাত্রের দ্রবণের ঘনমাত্রা নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "A ও B পাত্রের দ্রবণদ্বয় মিশ্রিত করলে মিশ্রণের প্রকৃতি কীরূপ হবে? বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": null
+  },
+  {
+    "id": "chem-09-cq-004",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": "chem-09-cq-004.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "বাষ্পীভবন কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "ম্যাগনেসিয়াম একটি মৃৎক্ষার ধাতু—ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "১ম বিকারের দ্রবণের ঘনমাত্রা নির্ণয় কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উভয় বিকারের দ্রবণ একত্রিত করলে মিশ্রিত দ্রবণের প্রকৃতি বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "১ম বিকার: NaOH 20 g, 550 mL; ২য় বিকার: $\\ce{H2SO4}$ 0.816 M, 250 mL (চিত্র)"
+  },
+  {
+    "id": "chem-09-cq-005",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": "chem-09-cq-005.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "লিমিটিং বিক্রিয়ক কী?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "নাইট্রোজেন-এর যোজনী ও যোজনী ইলেকট্রন সমান নয় কেন? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "বিকার-A তে 10g Zn যোগ করলে উৎপাদিত গ্যাসের আয়তন STP-তে কত হবে?",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের বিকার দুটির দ্রবণ মিশ্রিত করলে দ্রবণের প্রকৃতি কেমন হবে? বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "বিকার-A: 200 mL 0.5M HCl; বিকার-B: 4g KOH, 250 mL (চিত্র)"
+  },
+  {
+    "id": "chem-09-cq-006",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": "chem-09-cq-006.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "সোডা অ্যাশ কী?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "\"সকল খনিজই আকরিক নয়\"— ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "উপযুক্ত বিক্রিয়াসহ B যৌগটি সনাক্ত কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "পরিবেশের উপর B যৌগটির প্রভাব বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "খনিজ এসিড ও চুনাপাথরের বিক্রিয়ায় গ্যাস সংগ্রহের যন্ত্র (চিত্র)"
+  },
+  {
+    "id": "chem-09-cq-007",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 3,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "(i) $\\ce{S + O2 -> E(g)}$",
+      "(ii) $\\ce{NO + O2 -> F(g)}$",
+      "(iii) $\\ce{C + O2 -> H(g)}$"
+    ],
+    "image": null,
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "ইলেকট্রোপ্লেটিং কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "নিউক্লিয়ার ফিশন বিক্রিয়া কী? ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "(i) নং বিক্রিয়াটিতে জারণ-বিজারণ সংঘটিত হয়েছে-ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "E(g), F(g) এবং H(g) এর পরিবেশের উপর ক্ষতিকর প্রভাবসমূহ বিক্রিয়াসহ ব্যাখ্যা কর।",
+        "answer": null
+      }
+    ],
+    "flags": []
+  },
+  {
+    "id": "chem-09-cq-008",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "CQ",
+    "stars": 2,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "(i) $\\ce{N2O4(g) <=> 2NO2(g)}$",
+      "(ii)"
+    ],
+    "image": "chem-09-cq-008.png",
+    "parts": [
+      {
+        "label": "ক",
+        "marks": 1,
+        "text": "অম্ল কাকে বলে?",
+        "answer": null
+      },
+      {
+        "label": "খ",
+        "marks": 2,
+        "text": "সকল খনিজ আকরিক নয়-ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "গ",
+        "marks": 3,
+        "text": "(i) নং বিক্রিয়ার ক্ষেত্রে সাম্যাবস্থায় চাপের প্রভাব লা-শাতেলিয়ার নীতির আলোকে ব্যাখ্যা কর।",
+        "answer": null
+      },
+      {
+        "label": "ঘ",
+        "marks": 4,
+        "text": "উদ্দীপকের পাত্রদ্বয়ের পানিকে কাপড় কাঁচার উপযোগী করার প্রক্রিয়া ভিন্ন–বিশ্লেষণ কর।",
+        "answer": null
+      }
+    ],
+    "flags": [],
+    "image_desc": "পাত্র-ক: $\\ce{CaCl2}$ যুক্ত খর পানি; পাত্র-খ: $\\ce{Mg(HCO3)2}$ যুক্ত খর পানি (চিত্র)"
+  }
+]
