@@ -190,7 +190,7 @@ async function main(): Promise<void> {
 
   const files = jsonFiles.map((name) => ({
     name,
-    items: JSON.parse(fs.readFileSync(path.join(dir, name), "utf8")) as unknown[],
+    items: JSON.parse(fs.readFileSync(path.join(dir, name), "utf8").normalize("NFC")) as unknown[]
   }));
 
   const imagesDir = path.join(dir, "images");

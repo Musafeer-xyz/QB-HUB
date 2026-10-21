@@ -5,8 +5,7 @@ import { makeFlagId, parseQuestion } from "@/lib/schemas/question";
 import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import { filterQuestions } from "@/lib/data/facets";
-import { getImageDimensions } from "@/lib/images";
-import type { PaperFormValues, QuestionFormValues, Store } from "@/lib/data/store";
+import { getImageDimensions } from "@/lib/image-dimensions";import type { PaperFormValues, QuestionFormValues, Store } from "@/lib/data/store";
 import type { DbQuestion } from "@/lib/import/plan";
 import type { PaperRecord, PaperQuestionRecord, QuestionRecord } from "@/lib/types";
 
@@ -81,14 +80,15 @@ function toRecord(raw: unknown): QuestionRecord | null {
       })),
     };
   }
-  const dims = getImageDimensions((d as any).image);
+  const mcq = d as { image?: string | null; image_desc?: string | null };
+  const dims = getImageDimensions(mcq.image ?? null);
   return {
     ...base,
     type: "MCQ",
     question: d.question,
     stem: [],
-    imagePath: (d as any).image,
-    imageDesc: (d as any).image_desc,
+    imagePath: mcq.image ?? null,
+    imageDesc: mcq.image_desc ?? null,
     imageWidth: dims?.width ?? null,
     imageHeight: dims?.height ?? null,
     parts: [],
