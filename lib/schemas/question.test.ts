@@ -108,7 +108,7 @@ describe("shipped data files validate", () => {
     .sort();
 
   it("has chem-06.json with 47 items (28 SQ + 19 CQ)", () => {
-    const items: unknown[] = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "chem-06.json"), "utf8"));
+    const items: unknown[] = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "chem-06.json"), "utf8").normalize("NFC"));
     expect(items).toHaveLength(47);
     expect(items.filter((i) => (i as { type: string }).type === "SQ")).toHaveLength(28);
     expect(items.filter((i) => (i as { type: string }).type === "CQ")).toHaveLength(19);

@@ -31,6 +31,9 @@ test("save the five workspace screenshots", async ({ page }) => {
   await page.getByTestId("type-CQ").click();
   const figureCard = page.locator('[data-question-id="chem-09-cq-001"]');
   await expect(figureCard).toBeVisible();
+  // Scroll into view and ensure open mode for figure visibility
+  await figureCard.scrollIntoViewIfNeeded();
+  await page.getByRole("button", { name: "খোলা", exact: true }).click();
   const figure = figureCard.locator("img");
   await expect(figure).toBeVisible();
   await expect
@@ -55,15 +58,20 @@ test("save the five workspace screenshots", async ({ page }) => {
 
   // Open the drawer
   await page.getByRole("button", { name: "তালিকা" }).click();
-  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.getByText("আমার পেপার")).toBeVisible();
   await shot(page, "paper-drawer.png");
 
+  // Close drawer before changing view mode
+  await page.keyboard.press("Escape");
+
   // 4. compact mode
-  await page.getByRole("button", { name: "সংক্ষিপ্ত" }).click();
+  await page.getByRole("button", { name: "সংক্ষিপ্ত", exact: true }).click();
   await shot(page, "workspace-compact.png");
 
   // 5. the builder: stepper + settings + live preview
-  await page.getByRole("button", { name: "প্রিভিউ" }).click();
+  await page.getByRole("button", { name: "তালিকা" }).click();
+  await expect(page.getByText("আমার পেপার")).toBeVisible();
+  await page.getByRole("link", { name: "প্রিভিউ" }).nth(1).click();
   await page.waitForURL(/\/admin\/papers\/new\?step=2/);
   await page.locator("#title").fill("নমুনা রসায়ন পেপার");
   await expect(page.locator(".print-root .paper-sheet")).toBeVisible();

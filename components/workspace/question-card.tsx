@@ -176,6 +176,7 @@ export function QuestionCard({
       }}
       onClick={onCardClick}
       data-question-id={question.id}
+      data-selected={selected ? "true" : "false"}
     >
       {/* Check badge for selected cards */}
       {selected ? (

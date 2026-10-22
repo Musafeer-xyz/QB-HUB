@@ -25,7 +25,8 @@ type PapersFile = { papers: PaperRecord[] };
 function readJson<T>(file: string, fallback: T): T {
   try {
     if (!fs.existsSync(file)) return fallback;
-    return JSON.parse(fs.readFileSync(file, "utf8")) as T;
+    const text = fs.readFileSync(file, "utf8").normalize("NFC");
+    return JSON.parse(text) as T;
   } catch {
     return fallback;
   }

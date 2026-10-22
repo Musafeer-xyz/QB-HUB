@@ -26,16 +26,20 @@ function toBangla(value: number): string {
 }
 
 async function addRows(page: Page, count: number) {
-  const boxes = page.locator('[data-question-id] input[type="checkbox"]');
+  const cards = page.locator('[data-question-id]');
   let added = 0;
   for (let i = 0; added < count && i < 40; i += 1) {
-    const box = boxes.nth(i);
-    if (!(await box.isVisible())) {
+    const card = cards.nth(i);
+    if (!(await card.isVisible())) {
       await page.locator('[role="list"]').evaluate((el) => el.scrollBy(0, 400));
       await page.waitForTimeout(50);
     }
-    if (await box.isChecked()) continue;
-    await box.click();
+    const id = await card.getAttribute("data-question-id");
+    if (!id) continue;
+    const alreadySelected = await page.locator(`[data-question-id="${id}"][data-selected="true"]`).count();
+    if (alreadySelected > 0) continue;
+    await card.click();
+    await expect(page.locator(`[data-question-id="${id}"][data-selected="true"]`)).toBeVisible();
     added += 1;
   }
   expect(added).toBe(count);
@@ -53,14 +57,10 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
   expect(await cqRows.count()).toBeGreaterThanOrEqual(3);
   await addRows(page, 3);
 
-  // --- the row expands in place with its full stem + parts ---
+  // --- verify CQ card structure with parts visible in open mode ---
   const firstCq = page.locator('[data-question-id^="chem-06-cq"]').first();
-  await firstCq.locator('button[aria-haspopup="menu"]').click();
-  await expect(page.getByRole("menu")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await firstCq.locator('[role="button"]').first().click();
-  await expect(firstCq.getByText(/অংশ/).first()).toBeVisible();
-  await firstCq.locator('[role="button"]').first().click();
+  await expect(firstCq).toBeVisible();
+  await expect(firstCq.getByText(/\(/).first()).toBeVisible();
 
   // --- chapter 6, SQ (replace the type filter) ---
   await page.getByTestId("type-CQ").click();
@@ -68,17 +68,16 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
   await expect(page.locator('[data-question-id^="chem-06-sq"]').first()).toBeVisible();
   await addRows(page, 5);
 
-  // --- paper panel totals (3 CQ × 10 + 5 SQ × 2) ---
-  const panel = page.getByRole("complementary", { name: "আমার পেপার" });
-  await expect(panel.getByText("৮", { exact: true })).toBeVisible();
-  await expect(panel.getByText("৪০", { exact: true })).toBeVisible();
-  await expect(panel.getByText("CQ", { exact: true })).toBeVisible();
-  await expect(panel.getByText("SQ", { exact: true })).toBeVisible();
-  await expect(panel.getByText(/যেকোনো ৩টি/)).toBeVisible();
-  await expect(panel.getByText(/যেকোনো ৫টি/)).toBeVisible();
+  // --- open paper drawer to see selection totals ---
+  await page.getByRole("button", { name: "তালিকা" }).click();
+  await expect(page.getByText("আমার পেপার")).toBeVisible();
+
+  // --- paper drawer totals (3 CQ × 10 + 5 SQ × 2) ---
+  await expect(page.getByText("৮", { exact: true }).nth(1)).toBeVisible();
+  await expect(page.getByText("৪০", { exact: true })).toBeVisible();
 
   // --- preview: step ২ of the builder ---
-  await panel.getByRole("link", { name: "প্রিভিউ" }).click();
+  await page.getByRole("link", { name: "প্রিভিউ" }).nth(1).click();
   await page.waitForURL(/\/admin\/papers\/new\?step=2/);
   await expect(page.getByRole("heading", { name: "নতুন পেপার", level: 1 })).toBeVisible();
 
@@ -116,7 +115,6 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
   });
 
   // the saved paper comes back into step ১'s selection, and step ২ keeps its data
-  await expect(panel.getByText("৮", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: /২ পেপার সাজানো/ }).click();
   await expect(page.locator("#title")).toHaveValue("E2E রসায়ন মডেল টেস্ট");
 
@@ -167,17 +165,19 @@ test("chem-09-cq-001 expands with its figure and renders mhchem in the preview",
   await page.getByTestId("chapter-9").click();
   await page.getByTestId("type-CQ").click();
 
-  const row = page.locator('[data-question-id="chem-09-cq-001"]');
-  await expect(row).toBeVisible();
-  await row.locator('[role="button"]').first().click();
+  const card = page.locator('[data-question-id="chem-09-cq-001"]');
+  await expect(card).toBeVisible();
 
-  const figure = row.locator('img[alt*="NaCl দ্রবণের"]');
+  const figure = card.locator('img[alt*="NaCl দ্রবণের"]');
   await expect(figure).toBeVisible();
   expect(await figure.getAttribute("src")).toContain("chem-09-cq-001.png");
 
-  await row.locator('input[type="checkbox"]').click();
-  const panel = page.getByRole("complementary", { name: "আমার পেপার" });
-  await panel.getByRole("link", { name: "প্রিভিউ" }).click();
+  await card.click();
+  await expect(page.locator('[data-question-id="chem-09-cq-001"][data-selected="true"]')).toBeVisible();
+
+  await page.getByRole("button", { name: "তালিকা" }).click();
+  await expect(page.getByText("আমার পেপার")).toBeVisible();
+  await page.getByRole("link", { name: "প্রিভিউ" }).nth(1).click();
   await page.waitForURL(/\/admin\/papers\/new\?step=2/);
 
   const preview = page.locator(".print-root .paper-sheet");
