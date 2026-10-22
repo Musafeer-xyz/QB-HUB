@@ -229,3 +229,55 @@ describe("results CSV", () => {
     expect(lines[2]).toBe("ক,,1,3,2026-05-01T09:10:00.000Z");
   });
 });
+
+/**
+ * The student start payload is `{ attemptId, exam{id,title,durationMin},
+ * startedAt, deadlineAt, questions }` (app/api/exams/[id]/start/route.ts),
+ * where `questions` is exactly `publicQuestions(store.getExamQuestions())`.
+ * These tests feed the hostile case — rows that still carry the key — through
+ * that transformation and scan the whole serialized payload at any depth.
+ */
+describe("student start payload never leaks answers", () => {
+  const forbidden = ["correct_option", "correctOption", "answer", "explanation", "explains"];
+
+  function keyNamesDeep(value: unknown, acc: string[] = []): string[] {
+    if (Array.isArray(value)) {
+      for (const item of value) keyNamesDeep(item, acc);
+    } else if (value && typeof value === "object") {
+      for (const [key, child] of Object.entries(value)) {
+        acc.push(key);
+        keyNamesDeep(child, acc);
+      }
+    }
+    return acc;
+  }
+
+  const leaked = {
+    ...question("q1", "ক"),
+    answer: "ক",
+    explanation: "কারণ ক সঠিক",
+    correct_option: "ক",
+  } as ExamQuestion;
+
+  it("drops the key fields from every question, at any depth", () => {
+    const payload = {
+      attemptId: "attempt-1",
+      exam: { id: "exam-1", title: "মোলের ধারণা", durationMin: 30 },
+      startedAt: new Date(T0).toISOString(),
+      deadlineAt: T0 + 30 * 60_000,
+      questions: publicQuestions([leaked]),
+    };
+
+    const keys = keyNamesDeep(payload);
+    for (const name of forbidden) expect(keys).not.toContain(name);
+
+    const json = JSON.stringify(payload);
+    for (const name of forbidden) expect(json).not.toContain(name);
+  });
+
+  it("keeps only id, question, stem and options on a student question", () => {
+    const [only] = publicQuestions([leaked]);
+    expect(Object.keys(only!).sort()).toEqual(["id", "options", "question", "stem"]);
+    expect(only!.options?.every((o) => Object.keys(o).sort().join(",") === "label,text")).toBe(true);
+  });
+});
