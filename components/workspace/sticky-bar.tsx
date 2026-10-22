@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { List, CheckSquare2, ArrowUp, ChevronDown } from "lucide-react";
+import { List, CheckSquare2, ArrowUp, ChevronDown, X } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { toBanglaDigits } from "@/lib/bangla";
 
@@ -44,7 +44,7 @@ export function StickyBar({
   const [targetMarksInput, setTargetMarksInput] = useState(
     targetMarks ? toBanglaDigits(targetMarks) : ""
   );
-  const [confirmBulk, setConfirmBulk] = useState<"select" | "deselect" | null>(null);
+  const [confirmSelect, setConfirmSelect] = useState(false);
 
   const progress = targetMarks ? (totalMarks / targetMarks) * 100 : 0;
   const progressColor = progress >= 100 ? "#16A34A" : progress >= 80 ? "#d97706" : "#1e40af";
@@ -113,22 +113,26 @@ export function StickyBar({
               তালিকা
             </button>
 
-            <div className="relative">
+            {/* Two independent controls: selecting all never clears. */}
+            <button
+              type="button"
+              className="btn-secondary flex items-center gap-1.5 text-xs"
+              onClick={() => setConfirmSelect(true)}
+            >
+              <CheckSquare2 className="h-3.5 w-3.5" />
+              সব নির্বাচন
+            </button>
+
+            {selectedCount > 0 ? (
               <button
                 type="button"
-                className="btn-secondary flex items-center gap-1.5 text-xs"
-                onClick={() => {
-                  if (selectedCount > 0) {
-                    setConfirmBulk("deselect");
-                  } else {
-                    setConfirmBulk("select");
-                  }
-                }}
+                className="btn-danger flex items-center gap-1.5 text-xs"
+                onClick={onDeselectAll}
               >
-                <CheckSquare2 className="h-3.5 w-3.5" />
-                {selectedCount > 0 ? "বাতিল" : "সব নির্বাচন"}
+                <X className="h-3.5 w-3.5" />
+                নির্বাচন মুছুন ({toBanglaDigits(selectedCount)})
               </button>
-            </div>
+            ) : null}
 
             <button
               type="button"
@@ -172,40 +176,29 @@ export function StickyBar({
 
       {/* Bulk confirmation modal */}
       <Modal
-        open={confirmBulk !== null}
-        onClose={() => setConfirmBulk(null)}
-        title={confirmBulk === "select" ? "ফিল্টারের সব প্রশ্ন নির্বাচন করবেন?" : "ফিল্টারের সব প্রশ্ন বাতিল করবেন?"}
+        open={confirmSelect}
+        onClose={() => setConfirmSelect(false)}
+        title="ফিল্টারের সব প্রশ্ন নির্বাচন করবেন?"
         description={
-          confirmBulk === "select" ? (
-            <>
-              বর্তমান ফিল্টারে মিলে যাওয়া <strong>{toBanglaDigits(filteredCount)}</strong>টি প্রশ্ন
-              পেপারে যোগ হবে। ইতিমধ্যে যোগ করা প্রশ্ন বাদ যাবে।
-            </>
-          ) : (
-            <>
-              বর্তমান ফিল্টারে মিলে যাওয়া <strong>{toBanglaDigits(filteredCount)}</strong>টি প্রশ্ন
-              পেপার থেকে সরানো হবে।
-            </>
-          )
+          <>
+            বর্তমান ফিল্টারে মিলে যাওয়া <strong>{toBanglaDigits(filteredCount)}</strong>টি প্রশ্ন
+            পেপারে যোগ হবে। ইতিমধ্যে যোগ করা প্রশ্ন বাদ যাবে।
+          </>
         }
         footer={
           <>
-            <button type="button" className="btn-secondary" onClick={() => setConfirmBulk(null)}>
+            <button type="button" className="btn-secondary" onClick={() => setConfirmSelect(false)}>
               বাতিল
             </button>
             <button
               type="button"
               className="btn-primary"
               onClick={() => {
-                if (confirmBulk === "select") {
-                  onSelectAll();
-                } else {
-                  onDeselectAll();
-                }
-                setConfirmBulk(null);
+                onSelectAll();
+                setConfirmSelect(false);
               }}
             >
-              {confirmBulk === "select" ? "নির্বাচন করুন" : "বাতিল করুন"}
+              নির্বাচন করুন
             </button>
           </>
         }

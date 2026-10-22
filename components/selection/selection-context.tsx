@@ -24,6 +24,8 @@ type SelectionState = {
   add: (entry: SelectionEntry) => void;
   remove: (questionId: string) => void;
   clear: () => void;
+  /** Wipe the whole draft: no questions and the default section choice. */
+  reset: () => void;
   togglePart: (questionId: string, label: string) => void;
   setOrder: (ids: string[]) => void;
   /** Replace the whole selection (used when the builder opens its step ১). */
@@ -32,6 +34,10 @@ type SelectionState = {
   has: (questionId: string) => boolean;
   count: () => number;
 };
+
+/** Fired when the user asks for a brand-new paper, so a mounted builder clears
+ * its own title/settings too (the selection is the durable part). */
+export const NEW_PAPER_EVENT = "qbhub:new-paper";
 
 const STORAGE_KEY = "qbhub.selection.v2";
 /** Previous shape (a bare array) is still read so no selection is lost. */
@@ -43,6 +49,7 @@ const SelectionContext = createContext<SelectionState>({
   add: () => {},
   remove: () => {},
   clear: () => {},
+  reset: () => {},
   togglePart: () => {},
   setOrder: () => {},
   replace: () => {},
@@ -136,6 +143,11 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
 
   const clear = useCallback(() => setEntries([]), []);
 
+  const reset = useCallback(() => {
+    setEntries([]);
+    setChoiceState(DEFAULT_CHOICE);
+  }, []);
+
   const togglePart = useCallback((questionId: string, label: string) => {
     setEntries((prev) =>
       prev.map((e) => {
@@ -187,6 +199,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
       add,
       remove,
       clear,
+      reset,
       togglePart,
       setOrder,
       setChoice,
@@ -194,7 +207,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
       has: (id) => entries.some((e) => e.questionId === id),
       count: () => entries.length,
     }),
-    [entries, ready, choice, add, remove, clear, togglePart, setOrder, setChoice, replace],
+    [entries, ready, choice, add, remove, clear, reset, togglePart, setOrder, setChoice, replace],
   );
 
   return <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>;

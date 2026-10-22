@@ -4,6 +4,7 @@ import { getStore } from "@/lib/data/store";
 import { bankFacets } from "@/lib/bank/filter";
 import { PageHeader } from "@/components/ui/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
+import { NewPaperLink } from "@/components/papers/new-paper-link";
 import { subjectById } from "@/lib/subjects";
 import { toBanglaDigits } from "@/lib/bangla";
 import { formatDate } from "@/lib/format";
@@ -33,9 +34,9 @@ export default async function DashboardPage({
         description="প্রশ্নব্যাংক, পেপার ও ইমপোর্ট — এক জায়গা থেকে।"
         actions={
           <>
-            <Link href="/admin/papers/new" className="btn-primary">
+            <NewPaperLink className="btn-primary">
               <Plus className="h-3.5 w-3.5" aria-hidden="true" /> নতুন পেপার
-            </Link>
+            </NewPaperLink>
             <Link href="/admin/bank" className="btn-secondary">
               প্রশ্নব্যাংক
             </Link>
@@ -91,9 +92,7 @@ export default async function DashboardPage({
               title="এখনো কোনো পেপার নেই"
               description="প্রশ্নব্যাংক থেকে প্রশ্ন বেছে প্রথম পেপারটি তৈরি করুন।"
               action={
-                <Link href="/admin/papers/new" className="btn-primary">
-                  নতুন পেপার
-                </Link>
+                <NewPaperLink className="btn-primary">নতুন পেপার</NewPaperLink>
               }
             />
           ) : (

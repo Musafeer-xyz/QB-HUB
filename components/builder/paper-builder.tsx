@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PaperDocument } from "@/components/paper/paper-document";
 import { BankWorkspace } from "@/components/workspace/bank-workspace";
-import { useSelection } from "@/components/selection/selection-context";
+import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { cn } from "@/lib/cn";
 import { useToast } from "@/components/toast";
 import { savePaperAction, updatePaperAction } from "@/app/actions/papers";
@@ -253,6 +253,26 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     const raw = new URLSearchParams(window.location.search).get("step");
     const next = Number(raw);
     if (next === 2 || next === 3) setStep(next);
+  }, []);
+
+  /**
+   * “নতুন পেপার” must always start from scratch. The link already wiped the
+   * shared selection; this also resets this mounted builder's title, sections
+   * and settings (the component survives same-route navigations).
+   */
+  useEffect(() => {
+    const onNewPaper = () => {
+      setState({ ...DEFAULT_STATE });
+      setItems([]);
+      setRules([{ chapter: 6, cq: 2, sq: 5 }]);
+      setBoardFilter("");
+      setSavedId(null);
+      setPdfError(null);
+      setStep(1);
+      seededStepOne.current = false;
+    };
+    window.addEventListener(NEW_PAPER_EVENT, onNewPaper);
+    return () => window.removeEventListener(NEW_PAPER_EVENT, onNewPaper);
   }, []);
 
   /**

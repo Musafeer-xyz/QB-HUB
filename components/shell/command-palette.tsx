@@ -11,6 +11,7 @@ import {
   Upload,
   UserRound,
 } from "lucide-react";
+import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { SUBJECTS } from "@/lib/subjects";
 import { toBanglaDigits } from "@/lib/bangla";
 import type { QuestionRecord } from "@/lib/types";
@@ -30,6 +31,7 @@ export function CommandPalette({
   onOpenChange: (open: boolean) => void;
 }) {
   const router = useRouter();
+  const selection = useSelection();
   const [questions, setQuestions] = useState<PaletteQuestion[] | null>(null);
 
   useEffect(() => {
@@ -62,6 +64,13 @@ export function CommandPalette({
     router.push(href);
   }
 
+  /** “নতুন পেপার” starts empty: drop the saved draft and tell the builder. */
+  function newPaper() {
+    selection.reset();
+    window.dispatchEvent(new Event(NEW_PAPER_EVENT));
+    go("/admin/papers/new");
+  }
+
   return (
     <Command.Dialog
       open={open}
@@ -83,7 +92,7 @@ export function CommandPalette({
 
         <Command.Group heading="তৈরি করুন">
           <Item icon={<Plus />} label="নতুন প্রশ্ন" onSelect={() => go("/admin/questions/new")} />
-          <Item icon={<FileText />} label="নতুন পেপার" onSelect={() => go("/admin/papers/new")} />
+          <Item icon={<FileText />} label="নতুন পেপার" onSelect={newPaper} />
         </Command.Group>
 
         <Command.Group heading="বিষয়">

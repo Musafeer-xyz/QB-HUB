@@ -160,13 +160,29 @@ export function BankWorkspace({
     setItems((prev) => prev.filter((q) => q.id !== id));
   }, []);
 
-  function removeAll() {
-    for (const question of typeFiltered) {
-      if (selection.has(question.id)) {
-        selection.remove(question.id);
-      }
+  /** “সব নির্বাচন”: the filtered result set becomes the paper's questions. */
+  function selectAll() {
+    if (typeFiltered.length === 0) {
+      push("info", "ফিল্টারে কোনো প্রশ্ন নেই।");
+      return;
     }
-    push("success", `${toBanglaDigits(typeFiltered.length)}টি প্রশ্ন বাতিল করা হয়েছে।`);
+    selection.replace(
+      typeFiltered.map((question) => ({
+        questionId: question.id,
+        type: question.type === "CQ" ? "CQ" : "SQ",
+        chapter: question.chapter,
+        partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
+        selectedParts: [],
+      })),
+    );
+    push("success", `${toBanglaDigits(typeFiltered.length)}টি প্রশ্ন নির্বাচন করা হয়েছে।`);
+  }
+
+  /** “নির্বাচন মুছুন (N)”: drop every selected question. */
+  function clearSelection() {
+    const count = selection.entries.length;
+    selection.clear();
+    push("success", `${toBanglaDigits(count)}টি প্রশ্ন নির্বাচন মুছে ফেলা হয়েছে।`);
   }
 
   function handleRandomAdd(cqCount: number, sqCount: number, skipSelected: boolean, skipUsed: boolean) {
@@ -239,8 +255,8 @@ export function BankWorkspace({
               totalMarks={totalMarks}
               filteredCount={typeFiltered.length}
               onListClick={() => setDrawerOpen(true)}
-              onSelectAll={removeAll}
-              onDeselectAll={removeAll}
+              onSelectAll={selectAll}
+              onDeselectAll={clearSelection}
               onRandomAdd={() => setRandomOpen(true)}
               onPreview={() => {}}
               onSave={handleSave}
