@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { supabasePublicEnv } from "@/lib/mode";
+import { isLocalMode, serviceRoleKey, supabasePublicEnv } from "@/lib/mode";
 
 /**
  * User-scoped Supabase client (RLS applies). Returns null in local mode or
@@ -32,7 +32,7 @@ export async function createSupabaseServerClient(): Promise<SupabaseClient | nul
 /** Service-role client. Server-only, bypasses RLS — never ship to the browser. */
 export function createSupabaseAdminClient(): SupabaseClient | null {
   const env = supabasePublicEnv();
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_ROLE;
+  const serviceKey = serviceRoleKey();
   if (!env || !serviceKey) return null;
   return createClient(env.url, serviceKey, { auth: { persistSession: false } });
 }
@@ -47,7 +47,7 @@ export async function getAuthUser(): Promise<{ id: string; email?: string } | nu
 
 /** Whether the signed-in user is in `public.admins`. */
 export async function isAdminUser(): Promise<boolean> {
-  if (process.env.DATA_SOURCE === "local") return true;
+  if (isLocalMode()) return true;
   const client = await createSupabaseServerClient();
   if (!client) return false;
   const user = await getAuthUser();

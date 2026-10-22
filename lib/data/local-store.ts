@@ -7,7 +7,14 @@ import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import { filterQuestions } from "@/lib/data/facets";
 import { getImageDimensions } from "@/lib/image-dimensions";import type { PaperFormValues, QuestionFormValues, Store } from "@/lib/data/store";
 import type { DbQuestion } from "@/lib/import/plan";
-import type { PaperRecord, PaperQuestionRecord, QuestionRecord } from "@/lib/types";
+import type {
+  AttemptRecord,
+  ExamRecord,
+  ExamQuestion,
+  PaperRecord,
+  PaperQuestionRecord,
+  QuestionRecord,
+} from "@/lib/types";
 
 /**
  * Local/demo data source: questions come from ./data/*.json, admin edits and
@@ -23,6 +30,8 @@ const LOCAL_DIR = path.join(ROOT, "local-data");
 
 type Overrides = { upserts: Record<string, QuestionRecord>; deleted: string[] };
 type PapersFile = { papers: PaperRecord[] };
+type ExamsFile = { exams: ExamRecord[] };
+type AttemptsFile = { attempts: AttemptRecord[] };
 
 function readJson<T>(file: string, fallback: T): T {
   try {
@@ -41,6 +50,8 @@ function writeJson(file: string, value: unknown): void {
 
 const overridesFile = path.join(LOCAL_DIR, "questions.json");
 const papersFile = path.join(LOCAL_DIR, "papers.json");
+const examsFile = path.join(LOCAL_DIR, "exams.json");
+const attemptsFile = path.join(LOCAL_DIR, "attempts.json");
 
 function toRecord(raw: unknown): QuestionRecord | null {
   const parsed = parseQuestion(raw);
@@ -160,6 +171,24 @@ function loadPapers(): PaperRecord[] {
 
 function savePapers(papers: PaperRecord[]): void {
   writeJson(papersFile, { papers });
+}
+
+function loadExams(): ExamRecord[] {
+  const file = readJson<ExamsFile>(examsFile, { exams: [] });
+  return file.exams;
+}
+
+function saveExams(exams: ExamRecord[]): void {
+  writeJson(examsFile, { exams });
+}
+
+function loadAttempts(): AttemptRecord[] {
+  const file = readJson<AttemptsFile>(attemptsFile, { attempts: [] });
+  return file.attempts;
+}
+
+function saveAttempts(attempts: AttemptRecord[]): void {
+  writeJson(attemptsFile, { attempts });
 }
 
 function paperFromValues(values: PaperFormValues, id: string, createdBy: string | null): PaperRecord {
@@ -426,6 +455,122 @@ export function localStore(): Store {
       papers.push(copy);
       savePapers(papers);
       return copy;
+    },
+
+    // ---------------------------------------------------------------------------
+    // Exam methods
+    // ---------------------------------------------------------------------------
+    async listExams() {
+      return loadExams().slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    },
+
+    async getExam(id) {
+      return loadExams().find((e) => e.id === id) ?? null;
+    },
+
+    async createExam(exam) {
+      const newExam: ExamRecord = {
+        ...exam,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      };
+      const exams = loadExams();
+      exams.push(newExam);
+      saveExams(exams);
+      return newExam;
+    },
+
+    async updateExam(id, updates) {
+      const exams = loadExams();
+      const idx = exams.findIndex((e) => e.id === id);
+      if (idx < 0) throw new Error("এক্সাম পাওয়া যায়নি।");
+      const defined = Object.fromEntries(
+        Object.entries(updates).filter(([, value]) => value !== undefined),
+      );
+      const updated = { ...exams[idx]!, ...defined } as ExamRecord;
+      exams[idx] = updated;
+      saveExams(exams);
+      return updated;
+    },
+
+    async deleteExam(id) {
+      saveExams(loadExams().filter((e) => e.id !== id));
+      // Also delete associated attempts
+      saveAttempts(loadAttempts().filter((a) => a.examId !== id));
+    },
+
+    async getExamQuestions(examId) {
+      const exam = await this.getExam(examId);
+      if (!exam) return [];
+      const questions: ExamQuestion[] = [];
+      for (const qid of exam.questionIds) {
+        const q = allQuestions().find((q) => q.id === qid);
+        if (q && q.type === "MCQ" && q.options) {
+          questions.push({
+            id: q.id,
+            question: q.question,
+            stem: q.stem,
+            options: q.options,
+            correctOption: q.correctOption,
+          });
+        }
+      }
+      return questions;
+    },
+
+    async listAttempts(examId) {
+      return loadAttempts()
+        .filter((a) => a.examId === examId)
+        .sort((a, b) => b.submittedAt!.localeCompare(a.submittedAt!));
+    },
+
+    async getAttempt(id) {
+      return loadAttempts().find((a) => a.id === id) ?? null;
+    },
+
+    async createAttempt(attempt) {
+      const newAttempt: AttemptRecord = {
+        ...attempt,
+        id: crypto.randomUUID(),
+        score: 0,
+        total: 0,
+      };
+      const attempts = loadAttempts();
+      attempts.push(newAttempt);
+      saveAttempts(attempts);
+      return newAttempt;
+    },
+
+    async updateAttempt(id, updates) {
+      const attempts = loadAttempts();
+      const idx = attempts.findIndex((a) => a.id === id);
+      if (idx < 0) throw new Error("অ্যাটেম্পট পাওয়া যায়নি।");
+      const updated = { ...attempts[idx]!, ...updates };
+      attempts[idx] = updated;
+      saveAttempts(attempts);
+      return updated;
+    },
+
+    async getAttemptResult(attemptId) {
+      const attempt = await this.getAttempt(attemptId);
+      if (!attempt) return null;
+      const exam = await this.getExam(attempt.examId);
+      if (!exam) return null;
+      const questions = await this.getExamQuestions(exam.id);
+      const resultQuestions = questions.map((q: ExamQuestion) => {
+        const studentAnswer = attempt.answers[q.id] ?? null;
+        const isCorrect = studentAnswer === q.correctOption;
+        return {
+          ...q,
+          studentAnswer,
+          isCorrect,
+        };
+      });
+      return {
+        attempt,
+        exam,
+        questions: resultQuestions,
+      };
     },
   };
 

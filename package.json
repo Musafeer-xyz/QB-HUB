@@ -13,10 +13,10 @@
     "test:watch": "vitest",
     "e2e": "playwright test",
     "import": "tsx scripts/import.ts",
-    "check-data": "tsx scripts/check-data.ts"
+    "check-data": "tsx scripts/check-data.ts",
+    "upload-images": "tsx scripts/upload-images.ts"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^131.0.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.47.10",
     "@tanstack/react-virtual": "^3.14.21",

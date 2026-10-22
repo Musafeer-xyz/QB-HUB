@@ -3,7 +3,14 @@ import { makeFlagId, parseFlags } from "@/lib/schemas/question";
 import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import type { QuestionFormValues, Store } from "@/lib/data/store";
-import type { PaperQuestionRecord, PaperRecord, QuestionFacets, QuestionRecord } from "@/lib/types";
+import type {
+  AttemptRecord,
+  ExamRecord,
+  PaperQuestionRecord,
+  PaperRecord,
+  QuestionFacets,
+  QuestionRecord,
+} from "@/lib/types";
 import type { QuestionOption, QuestionType } from "@/lib/schemas/question";
 
 /**
@@ -11,7 +18,7 @@ import type { QuestionOption, QuestionType } from "@/lib/schemas/question";
  * Supabase Row Level Security (admins only) is always in effect.
  */
 
-type QuestionRow = {
+export type QuestionRow = {
   id: string;
   subject: string;
   chapter: number;
@@ -26,17 +33,43 @@ type QuestionRow = {
   answer: string | null;
   options: QuestionOption[] | null;
   correct_option: string | null;
+  /** Printed number/page in the source book (MCQ). */
+  source_no?: number | null;
+  page?: number | null;
   created_at?: string;
   updated_at?: string;
 };
 
-type PartRow = {
+export type PartRow = {
   question_id: string;
   label: string;
   marks: number;
   text: string;
   answer: string | null;
   position: number;
+};
+
+type ExamRow = {
+  id: string;
+  title: string;
+  subject: string;
+  chapter: number;
+  question_ids: string[];
+  duration_min: number;
+  is_open: boolean;
+  created_at: string;
+};
+
+type AttemptRow = {
+  id: string;
+  exam_id: string;
+  student_name: string;
+  student_id: string | null;
+  started_at: string;
+  submitted_at: string | null;
+  answers: unknown;
+  score: number;
+  total: number;
 };
 
 type PaperRow = {
@@ -54,7 +87,7 @@ type PaperRow = {
   updated_at: string;
 };
 
-function mapQuestion(row: QuestionRow, parts: PartRow[]): QuestionRecord {
+export function mapQuestion(row: QuestionRow, parts: PartRow[]): QuestionRecord {
   return {
     id: row.id,
     subject: row.subject,
@@ -104,7 +137,46 @@ function mapPaper(row: PaperRow, questions: PaperQuestionRecord[]): PaperRecord 
   };
 }
 
-function questionRowFromForm(values: QuestionFormValues) {
+export function mapExam(row: ExamRow): ExamRecord {
+  return {
+    id: row.id,
+    title: row.title,
+    subject: row.subject,
+    chapter: row.chapter,
+    questionIds: row.question_ids,
+    durationMin: row.duration_min,
+    isOpen: row.is_open,
+    createdAt: row.created_at,
+  };
+}
+
+export function mapAttempt(row: AttemptRow): AttemptRecord {
+  return {
+    id: row.id,
+    examId: row.exam_id,
+    studentName: row.student_name,
+    studentId: row.student_id,
+    startedAt: row.started_at,
+    submittedAt: row.submitted_at,
+    answers: row.answers as Record<string, string>,
+    score: row.score,
+    total: row.total,
+  };
+}
+
+/** Exam record -> insert row (the inverse of mapExam). */
+export function examRowFromRecord(exam: Omit<ExamRecord, "id" | "createdAt">) {
+  return {
+    title: exam.title,
+    subject: exam.subject,
+    chapter: exam.chapter,
+    question_ids: exam.questionIds,
+    duration_min: exam.durationMin,
+    is_open: exam.isOpen,
+  };
+}
+
+export function questionRowFromForm(values: QuestionFormValues) {
   return {
     id: values.id,
     subject: values.subject,
@@ -296,6 +368,8 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
             answer: q.answer,
             options: q.options,
             correct_option: q.correct_option,
+            source_no: q.source_no ?? null,
+            page: q.page ?? null,
           },
           { onConflict: "id" },
         );
@@ -505,6 +579,162 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
         createdBy,
       );
     },
+
+    // ---------------------------------------------------------------------------
+    // Exam methods
+    // ---------------------------------------------------------------------------
+    async listExams() {
+      const c = await client();
+      const { data, error } = await c.from("exams").select("*").order("created_at", { ascending: false });
+      if (error) throw new Error(error.message);
+      return ((data ?? []) as ExamRow[]).map(mapExam);
+    },
+
+    async getExam(id) {
+      const c = await client();
+      const { data, error } = await c.from("exams").select("*").eq("id", id).maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!data) return null;
+      return mapExam(data as ExamRow);
+    },
+
+    async createExam(exam) {
+      const c = await client();
+      const { data, error } = await c
+        .from("exams")
+        .insert(examRowFromRecord(exam))
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return mapExam(data as ExamRow);
+    },
+
+    async updateExam(id, updates) {
+      const c = await client();
+      const { error } = await c
+        .from("exams")
+        .update({
+          ...(updates.title && { title: updates.title }),
+          ...(updates.isOpen !== undefined && { is_open: updates.isOpen }),
+        })
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+      const updated = await store.getExam(id);
+      if (!updated) throw new Error("হালনাগাদের পর এক্সাম পাওয়া যায়নি।");
+      return updated;
+    },
+
+    async deleteExam(id) {
+      const c = await client();
+      const { error } = await c.from("exams").delete().eq("id", id);
+      if (error) throw new Error(error.message);
+    },
+
+    async getExamQuestions(examId) {
+      const exam = await store.getExam(examId);
+      if (!exam) return [];
+      const c = await client();
+      const { data, error } = await c
+        .from("questions")
+        .select("id, question, stem, options, correct_option")
+        .in("id", exam.questionIds);
+      if (error) throw new Error(error.message);
+      const rows = (data ?? []) as Array<{
+        id: string;
+        question: string | null;
+        stem: string[] | null;
+        options: QuestionOption[] | null;
+        correct_option: string | null;
+      }>;
+      // `.in()` returns rows in no guaranteed order; an exam's question order is
+      // fixed by the snapshot in exams.question_ids.
+      const byId = new Map(rows.map((r) => [r.id, r]));
+      return exam.questionIds
+        .map((qid) => byId.get(qid))
+        .filter((r): r is (typeof rows)[number] => Boolean(r?.options && r.options.length > 0))
+        .map((r) => ({
+          id: r.id,
+          question: r.question,
+          stem: r.stem ?? [],
+          options: r.options,
+          correctOption: r.correct_option,
+        }));
+    },
+
+    async listAttempts(examId) {
+      const c = await client();
+      const { data, error } = await c
+        .from("attempts")
+        .select("*")
+        .eq("exam_id", examId)
+        .order("submitted_at", { ascending: false, nullsFirst: false });
+      if (error) throw new Error(error.message);
+      return ((data ?? []) as AttemptRow[]).map(mapAttempt);
+    },
+
+    async getAttempt(id) {
+      const c = await client();
+      const { data, error } = await c.from("attempts").select("*").eq("id", id).maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!data) return null;
+      return mapAttempt(data as AttemptRow);
+    },
+
+    async createAttempt(attempt) {
+      const c = await client();
+      const { data, error } = await c
+        .from("attempts")
+        .insert({
+          exam_id: attempt.examId,
+          student_name: attempt.studentName,
+          student_id: attempt.studentId,
+          started_at: attempt.startedAt,
+          answers: attempt.answers,
+        })
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return mapAttempt(data as AttemptRow);
+    },
+
+    async updateAttempt(id, updates) {
+      const c = await client();
+      const { error } = await c
+        .from("attempts")
+        .update({
+          ...(updates.submittedAt && { submitted_at: updates.submittedAt }),
+          ...(updates.answers && { answers: updates.answers }),
+          ...(updates.score !== undefined && { score: updates.score }),
+          ...(updates.total !== undefined && { total: updates.total }),
+        })
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+      const updated = await store.getAttempt(id);
+      if (!updated) throw new Error("হালনাগাদের পর অ্যাটেম্পট পাওয়া যায়নি।");
+      return updated;
+    },
+
+    async getAttemptResult(attemptId) {
+      const attempt = await store.getAttempt(attemptId);
+      if (!attempt) return null;
+      const exam = await store.getExam(attempt.examId);
+      if (!exam) return null;
+      const questions = await store.getExamQuestions(exam.id);
+      const resultQuestions = questions.map((q) => {
+        const studentAnswer = attempt.answers[q.id] ?? null;
+        const isCorrect = studentAnswer === q.correctOption;
+        return {
+          ...q,
+          studentAnswer,
+          isCorrect,
+        };
+      });
+      return {
+        attempt,
+        exam,
+        questions: resultQuestions,
+      };
+    },
   };
 
   storeInstances.set(system, store);
@@ -514,7 +744,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
 type PaperQRow = { question_id: string; position: number; section: string | null; selected_parts: string[] | null };
 type PaperQNested = PaperQRow & { questions: QuestionRow & { question_parts: PartRow[] } | null };
 
-type QuestionFacetRow = {
+export type QuestionFacetRow = {
   chapter: number;
   type: string;
   stars: number | null;
@@ -523,7 +753,7 @@ type QuestionFacetRow = {
   flags: unknown;
 };
 
-function buildFacetsFromRows(rows: QuestionFacetRow[]): QuestionFacets {
+export function buildFacetsFromRows(rows: QuestionFacetRow[]): QuestionFacets {
   const chapterMap = new Map<number, QuestionFacets["chapters"][number]>();
   const typeMap = new Map<string, number>();
   const boardMap = new Map<string, number>();

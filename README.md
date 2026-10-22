@@ -19,15 +19,17 @@ saved papers and edits live in `./local-data`. No login is required.
 
 ```bash
 npm install
+echo "DATA_SOURCE=local" > .env.local   # demo mode is explicit, never implicit
 npm run dev          # http://localhost:3000 → redirects to /admin
 ```
 
 That is enough to browse the 149 shipped questions (47 in chapter ৬), build a
 paper, print it and download a PDF.
 
-> Demo mode is selected automatically when `NEXT_PUBLIC_SUPABASE_URL` is unset.
-> Force it any time with `DATA_SOURCE=local`. Never deploy in demo mode: it has
-> no authentication.
+> Demo mode needs an explicit `DATA_SOURCE=local`; a production server also
+> needs `ALLOW_LOCAL_DEMO=1` (see [`.env.example`](.env.example)). Without it
+> the app runs in Supabase mode and refuses to start when the Supabase values
+> are missing. Never deploy in demo mode: it has no authentication.
 
 ---
 
@@ -35,7 +37,8 @@ paper, print it and download a PDF.
 
 1. Create a project at <https://supabase.com>.
 2. **SQL editor → New query** → paste the whole of
-   [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) → Run.
+   [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) → Run,
+   then [`0002_mcq.sql`](supabase/migrations/0002_mcq.sql).
    (Or with the CLI: `supabase link` then `supabase db push`.)
    This creates the tables, indexes, triggers, RLS policies and the public
    `question-images` storage bucket.
@@ -352,12 +355,13 @@ Where the brief left room, these choices were made:
    only — never flags or answers.
 9. **Admin model** — a single `admins` table; any signed-in admin can manage
    everything (no per-teacher ownership restrictions on papers).
-10. **Demo mode** — `DATA_SOURCE=local` (automatic when Supabase env vars are
-    missing) reads `./data`, persists edits/papers in `./local-data`, and skips
-    auth. Intended for evaluation/development only.
+10. **Demo mode** — explicit `DATA_SOURCE=local` (plus `ALLOW_LOCAL_DEMO=1` on
+    a production `next start`) reads `./data`, persists edits/papers in
+    `./local-data`, and skips auth. Intended for evaluation/development only.
 11. **Images in local mode** are served by `/api/images/[name]` from
     `./local-data/images` (uploads) falling back to `./data/images`. In Supabase
-    mode they come from the public bucket.
+    mode the same route proxies the public `question-images` bucket, so print/PDF
+    stay same-origin.
 12. **Logo** is uploaded through the same `/api/upload` endpoint and stored as
     `settings.logoUrl`.
 13. **Sets** — “সেট ক / সেট খ” stores two explicit question-id orderings in

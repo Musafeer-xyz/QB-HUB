@@ -1636,9 +1636,15 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
             role="alert"
           >
             <span>{pdfError}</span>
-            <button type="button" className="btn-secondary" onClick={onPdf} disabled={pdfPending}>
-              আবার চেষ্টা করুন
-            </button>
+            <span className="flex gap-2">
+              {/* No Chromium on the host (501): the browser print view always works. */}
+              <button type="button" className="btn-primary" onClick={onQuickPrint} disabled={printPending}>
+                ব্রাউজার থেকে প্রিন্ট
+              </button>
+              <button type="button" className="btn-secondary" onClick={onPdf} disabled={pdfPending}>
+                আবার চেষ্টা করুন
+              </button>
+            </span>
           </div>
         ) : null}
 

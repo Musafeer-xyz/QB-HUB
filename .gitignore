@@ -18,3 +18,5 @@ local-data.bak/
 .freebuff/
 freebuff-sites-build/
 screenshots/*.pdf
+pw*.txt
+local-data.bak*/

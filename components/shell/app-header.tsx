@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Check,
   ChevronDown,
+  ClipboardList,
   FileText,
   LayoutDashboard,
   LibraryBig,
@@ -13,7 +14,6 @@ import {
   Upload,
 } from "lucide-react";
 import { SUBJECTS, subjectById } from "@/lib/subjects";
-import { isLocalMode } from "@/lib/mode";
 import { cn } from "@/lib/cn";
 import { CommandPalette } from "@/components/shell/command-palette";
 
@@ -21,11 +21,12 @@ const NAV = [
   { href: "/admin", label: "ড্যাশবোর্ড", icon: LayoutDashboard, exact: true },
   { href: "/admin/bank", label: "প্রশ্নব্যাংক", icon: LibraryBig },
   { href: "/admin/papers", label: "পেপার", icon: FileText },
+  { href: "/admin/exams", label: "এক্সাম", icon: ClipboardList },
   { href: "/admin/import", label: "ইমপোর্ট", icon: Upload },
 ];
 
 /** Slim application header shared by every admin route. */
-export function AppHeader() {
+export function AppHeader({ demo = false }: { demo?: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const subject = subjectById(searchParams.get("subject"));
@@ -91,7 +92,7 @@ export function AppHeader() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
-            {isLocalMode() ? (
+            {demo ? (
               <span
                 className="hidden items-center gap-1.5 rounded-full border border-[#e9d7a8] bg-[#fdf6e3] px-2.5 py-1 text-[11px] font-semibold text-[#8a5300] sm:inline-flex"
                 title="Supabase কনফিগার করা নেই — লগইন ছাড়াই কাজ করছে, সব পরিবর্তন লোকাল ফাইলে থাকছে।"

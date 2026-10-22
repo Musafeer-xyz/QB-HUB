@@ -43,11 +43,9 @@ do $$ begin
 end $$;
 `;
 
-const MIGRATION_SQL = fs
-  .readFileSync(path.join(__dirname, "migrations", "0001_init.sql"), "utf8")
-  // The migration inserts into storage.buckets; PGlite has no storage schema
-  // defaults beyond our shim, so the only change needed is nothing at all.
-  ;
+const MIGRATION_SQL = ["0001_init.sql", "0002_mcq.sql"]
+  .map((file) => fs.readFileSync(path.join(__dirname, "migrations", file), "utf8"))
+  .join("\n");
 
 beforeAll(async () => {
   const mod = await import("@electric-sql/pglite");
@@ -178,6 +176,65 @@ describe("0001_init.sql migration", () => {
       rows(
         `insert into public.questions (id, subject, chapter, type, question)
          values ('bad-type', 'chemistry', 6, 'SAQ', 'টাইপ ভুল')`,
+      ),
+    ).rejects.toThrow();
+  });
+});
+
+describe("0002_mcq.sql migration", () => {
+  it("stores an MCQ with four options, the correct label and the printed source", async () => {
+    const inserted = await rows(
+      `insert into public.questions
+         (id, subject, chapter, type, question, stem, options, correct_option, source_no, page)
+       values ('mcq-map-1', 'chemistry', 6, 'MCQ', 'কোনটি সঠিক?', array['নিচের কোনটি সঠিক?'],
+         '[{"label":"ক","text":"HCl"},{"label":"খ","text":"CH3COOH"},{"label":"গ","text":"H2CO3"},{"label":"ঘ","text":"NaHCO3"}]'::jsonb,
+         'গ', 12, 41)
+       returning id, options, correct_option, source_no, page`,
+    );
+    expect(inserted[0]?.["id"]).toBe("mcq-map-1");
+    const opts = inserted[0]?.["options"] as { label: string }[];
+    expect(opts.map((o) => o.label)).toEqual(["ক", "খ", "গ", "ঘ"]);
+    expect(inserted[0]?.["correct_option"]).toBe("গ");
+    expect(Number(inserted[0]?.["source_no"])).toBe(12);
+    expect(Number(inserted[0]?.["page"])).toBe(41);
+    await rows(`delete from public.questions where id = 'mcq-map-1'`);
+  });
+
+  it("keeps options jsonb (not text[]) and allows a null correct_option", async () => {
+    const cols = await rows(
+      `select column_name, data_type from information_schema.columns
+       where table_schema = 'public' and table_name = 'questions'
+         and column_name in ('options','correct_option','source_no','page','stem')
+       order by column_name`,
+    );
+    const types = new Map(cols.map((c) => [String(c["column_name"]), String(c["data_type"])]));
+    expect(types.get("options")).toBe("jsonb");
+    expect(types.get("stem")).toBe("ARRAY");
+    expect(types.get("correct_option")).toBe("text");
+    expect(types.get("source_no")).toBe("integer");
+    expect(types.get("page")).toBe("integer");
+
+    await rows(
+      `insert into public.questions (id, subject, chapter, type, question, options, correct_option)
+       values ('mcq-no-answer', 'chemistry', 6, 'MCQ', '?',
+         '[{"label":"ক","text":"১"},{"label":"খ","text":"২"},{"label":"গ","text":"৩"},{"label":"ঘ","text":"৪"}]'::jsonb, null)`,
+    );
+    await rows(`delete from public.questions where id = 'mcq-no-answer'`);
+  });
+
+  it("rejects options that are not exactly four, and a foreign correct label", async () => {
+    await expect(
+      rows(
+        `insert into public.questions (id, subject, chapter, type, question, options)
+         values ('mcq-three', 'chemistry', 6, 'MCQ', '?', '[{"label":"ক","text":"১"}]'::jsonb)`,
+      ),
+    ).rejects.toThrow(/options_shape/);
+
+    const four = `'[{"label":"ক","text":"১"},{"label":"খ","text":"২"},{"label":"গ","text":"৩"},{"label":"ঘ","text":"৪"}]'::jsonb`;
+    await expect(
+      rows(
+        `insert into public.questions (id, subject, chapter, type, question, options, correct_option)
+         values ('mcq-bad-answer', 'chemistry', 6, 'MCQ', '?', ${four}, 'ঙ')`,
       ),
     ).rejects.toThrow();
   });

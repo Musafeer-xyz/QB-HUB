@@ -371,6 +371,44 @@ export function BankWorkspace({
               <Link href="/admin/questions/new" className="btn-primary">
                 <Plus className="h-3.5 w-3.5" aria-hidden="true" /> নতুন প্রশ্ন
               </Link>
+
+              {/* Make exam button (only when MCQs are selected) */}
+              {selectedCount > 0 && typeFiltered.some((q) => selection.has(q.id) && q.type === "MCQ") ? (
+                <button
+                  type="button"
+                  className="btn-secondary flex items-center gap-1.5 text-xs"
+                  onClick={() => {
+                    const mcqIds = selection.entries
+                      .filter((e) => {
+                        const q = items.find((item) => item.id === e.questionId);
+                        return q?.type === "MCQ";
+                      })
+                      .map((e) => e.questionId);
+                    if (mcqIds.length === 0) {
+                      push("info", "এক্সাম তৈরির জন্য MCQ নির্বাচন করুন।");
+                      return;
+                    }
+                    // Check if all have correct_option
+                    const noAnswer = mcqIds.filter((id) => {
+                      const q = items.find((item) => item.id === id);
+                      return !q?.correctOption;
+                    });
+                    if (noAnswer.length > 0) {
+                      push("error", `এই প্রশ্নগুলোর সঠিক উত্তর নেই: ${noAnswer.join(", ")}`);
+                      return;
+                    }
+                    // Open exam creation dialog with pre-filled data
+                    const chapters = [...new Set(mcqIds.map((id) => items.find((item) => item.id === id)?.chapter))];
+                    const chapter = chapters.length === 1 ? chapters[0]! : 0;
+                    const chapterLabel = chapter === 0 ? "মিশ্র" : subjectChapterName(subjectId, chapter);
+                    router.push(
+                      `/admin/exams/new?mcqIds=${mcqIds.join(",")}&subject=${subjectId}&chapter=${chapter}&chapterLabel=${encodeURIComponent(chapterLabel)}`
+                    );
+                  }}
+                >
+                  এক্সাম বানাও
+                </button>
+              ) : null}
             </div>
 
             {/* Status text */}

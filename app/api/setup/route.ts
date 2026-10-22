@@ -43,6 +43,24 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // /setup is first-run only: once an admin row exists it is closed (even to
+  // someone holding SETUP_SECRET), so a deployed app cannot grow admins.
+  const { count: adminCount, error: countError } = await client
+    .from("admins")
+    .select("user_id", { count: "exact", head: true });
+  if (countError) {
+    return NextResponse.json(
+      { ok: false, message: `অ্যাডমিন তালিকা পড়া যায়নি: ${countError.message}` },
+      { status: 500 },
+    );
+  }
+  if ((adminCount ?? 0) > 0) {
+    return NextResponse.json(
+      { ok: false, message: "ইতিমধ্যে একজন অ্যাডমিন আছে — সেটআপ বন্ধ। লগইন করুন।" },
+      { status: 409 },
+    );
+  }
+
   const { data: created, error } = await client.auth.admin.createUser({
     email: parsed.data.email,
     password: parsed.data.password,

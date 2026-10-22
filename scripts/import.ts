@@ -74,6 +74,8 @@ async function fetchExisting(client: SupabaseClient): Promise<Map<string, Existi
       answer: q.answer as string | null,
       options: (q.options as ExistingQuestion["options"]) ?? null,
       correct_option: q.correct_option as string | null,
+      source_no: (q.source_no as number | null) ?? null,
+      page: (q.page as number | null) ?? null,
       parts: [],
     });
   }
@@ -110,6 +112,8 @@ async function upsertQuestion(client: SupabaseClient, q: DbQuestion): Promise<vo
     answer: q.answer,
     options: q.options,
     correct_option: q.correct_option,
+    source_no: q.source_no,
+    page: q.page,
   };
   const { error } = await client.from("questions").upsert(row, { onConflict: "id" });
   if (error) throw new Error(`“${q.id}” সংরক্ষণ ব্যর্থ: ${error.message}`);
@@ -209,7 +213,8 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
+  // The app's own env name wins; SUPABASE_URL stays supported for older setups.
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
   const serviceKey =
     process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_ROLE;
 
@@ -219,7 +224,7 @@ async function main(): Promise<void> {
   if (!args.dryRun) {
     if (!supabaseUrl || !serviceKey) {
       console.error(
-        "SUPABASE_URL এবং SUPABASE_SERVICE_ROLE_KEY সেট করুন (.env.local)।\n" +
+        "NEXT_PUBLIC_SUPABASE_URL (বা SUPABASE_URL) এবং SUPABASE_SERVICE_ROLE_KEY সেট করুন (.env.local)।\n" +
           "শুধু যাচাই করতে চাইলে: npm run import -- ./data --dry-run",
       );
       process.exit(1);

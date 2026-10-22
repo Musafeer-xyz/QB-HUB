@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/toast";
 
@@ -53,7 +54,11 @@ export default function SetupPage() {
         <h1 className="text-xl font-bold">প্রথম অ্যাডমিন তৈরি</h1>
         {hasAdmin === true ? (
           <p className="mt-2 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">
-            ইতিমধ্যে একজন অ্যাডমিন আছেন। নতুন অ্যাডমিন দিতে চাইলে সেটআপ সিক্রেট সহ আবার চেষ্টা করুন।
+            সেটআপ সম্পন্ন — ইতিমধ্যে একজন অ্যাডমিন আছে, তাই এই পাতা আর ব্যবহার করা যায় না।{" "}
+            <Link href="/login" className="underline">
+              লগইন করুন
+            </Link>
+            ।
           </p>
         ) : null}
 
@@ -67,7 +72,11 @@ export default function SetupPage() {
         <input id="secret" type="password" required className="field-input" value={secret} onChange={(e) => setSecret(e.target.value)} />
         <p className="mt-1 text-xs text-muted">.env-এর SETUP_SECRET মান দিন।</p>
 
-        <button type="submit" className="btn-primary mt-5 w-full" disabled={busy}>
+        <button
+          type="submit"
+          className="btn-primary mt-5 w-full"
+          disabled={busy || hasAdmin === true}
+        >
           {busy ? "তৈরি হচ্ছে…" : "অ্যাডমিন তৈরি করুন"}
         </button>
       </form>

@@ -2,7 +2,16 @@ import type { PaperSettings, PaperSettingsInput } from "@/lib/schemas/paper";
 import type { QuestionType } from "@/lib/schemas/question";
 import type { DbQuestion } from "@/lib/import/plan";
 import type { DataMode } from "@/lib/mode";
-import type { PaperRecord, QuestionListResult, QuestionQuery, QuestionRecord } from "@/lib/types";
+import type {
+  AttemptRecord,
+  AttemptResult,
+  ExamRecord,
+  ExamQuestion,
+  PaperRecord,
+  QuestionListResult,
+  QuestionQuery,
+  QuestionRecord,
+} from "@/lib/types";
 
 /** Values the admin question editor works with. */
 export type QuestionFormValues = {
@@ -66,6 +75,20 @@ export type Store = {
   updatePaper(id: string, values: PaperFormValues): Promise<PaperRecord>;
   deletePaper(id: string): Promise<void>;
   duplicatePaper(id: string, createdBy: string | null): Promise<PaperRecord>;
+  // ---------------------------------------------------------------------------
+  // Exam methods
+  // ---------------------------------------------------------------------------
+  listExams(): Promise<ExamRecord[]>;
+  getExam(id: string): Promise<ExamRecord | null>;
+  createExam(exam: Omit<ExamRecord, "id" | "createdAt">): Promise<ExamRecord>;
+  updateExam(id: string, updates: Partial<Pick<ExamRecord, "title" | "isOpen">>): Promise<ExamRecord>;
+  deleteExam(id: string): Promise<void>;
+  getExamQuestions(examId: string): Promise<ExamQuestion[]>;
+  listAttempts(examId: string): Promise<AttemptRecord[]>;
+  getAttempt(id: string): Promise<AttemptRecord | null>;
+  createAttempt(attempt: Omit<AttemptRecord, "id" | "score" | "total">): Promise<AttemptRecord>;
+  updateAttempt(id: string, updates: Partial<Pick<AttemptRecord, "submittedAt" | "answers" | "score" | "total">>): Promise<AttemptRecord>;
+  getAttemptResult(attemptId: string): Promise<AttemptResult | null>;
 };
 
 export type { PaperRecord, PaperSettings, QuestionListResult, QuestionQuery, QuestionRecord };

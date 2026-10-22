@@ -90,3 +90,52 @@ export type QuestionListResult = {
   pageSize: number;
   facets: QuestionFacets;
 };
+
+// ---------------------------------------------------------------------------
+// Exam types
+// ---------------------------------------------------------------------------
+
+export type ExamRecord = {
+  id: string;
+  title: string;
+  subject: string;
+  chapter: number;
+  questionIds: string[];
+  durationMin: number;
+  isOpen: boolean;
+  createdAt: string;
+};
+
+export type AttemptRecord = {
+  id: string;
+  examId: string;
+  studentName: string;
+  studentId: string | null;
+  startedAt: string;
+  submittedAt: string | null;
+  answers: Record<string, string>;
+  score: number;
+  total: number;
+};
+
+export type ExamQuestion = {
+  id: string;
+  question: string | null;
+  stem: string[];
+  options: { label: string; text: string }[] | null;
+  correctOption: string | null;
+};
+
+export type AttemptResult = {
+  attempt: AttemptRecord;
+  exam: ExamRecord;
+  questions: Array<{
+    id: string;
+    question: string | null;
+    stem: string[];
+    options: { label: string; text: string }[] | null;
+    correctOption: string | null;
+    studentAnswer: string | null;
+    isCorrect: boolean;
+  }>;
+};

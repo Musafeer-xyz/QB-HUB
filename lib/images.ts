@@ -1,4 +1,5 @@
-export const IMAGE_BUCKET = "qb-images";
+/** Public Storage bucket created by supabase/migrations/0001_init.sql. */
+export const IMAGE_BUCKET = "question-images";
 
 /** Public URL for a question image. Client-safe: no Node imports in this file. */
 export function questionImageUrl(filename: string | null): string | null {

@@ -124,9 +124,27 @@ export async function POST(request: NextRequest) {
     totalMs: 0,
   };
 
+  let acquired: Awaited<ReturnType<typeof acquireBrowser>>;
+  try {
+    acquired = await acquireBrowser();
+  } catch (err) {
+    // A Node host without a usable Chromium is a configuration problem, not a
+    // server bug: answer 501 so the UI can offer browser print.
+    console.error(`[pdf] paper=${paperId} chromium unavailable`, err);
+    return NextResponse.json(
+      {
+        error:
+          "এই সার্ভারে Chromium চালু করা যায়নি, তাই PDF তৈরি হচ্ছে না। “দ্রুত প্রিন্ট” দিয়ে ব্রাউজার থেকে প্রিন্ট করুন।",
+        code: "chromium_unavailable",
+        fallback: "browser-print",
+        hint: "Host: install Chromium (npx playwright install chromium --with-deps) or set CHROMIUM_EXECUTABLE_PATH.",
+      },
+      { status: 501 },
+    );
+  }
+
   try {
     const dims = paperDims(paper.settings.paperSize);
-    const acquired = await acquireBrowser();
     browser = acquired.browser;
     timings.launchMs = acquired.launchMs;
 

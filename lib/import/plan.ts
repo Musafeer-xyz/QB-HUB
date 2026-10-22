@@ -27,6 +27,9 @@ export type DbQuestion = {
   answer: string | null;
   options: QuestionOption[] | null;
   correct_option: string | null;
+  /** Printed number/page in the source book (MCQ only). */
+  source_no: number | null;
+  page: number | null;
   parts: (QuestionPartInput & { position: number })[];
 };
 
@@ -45,6 +48,9 @@ export type ExistingQuestion = {
   answer: string | null;
   options: QuestionOption[] | null;
   correct_option: string | null;
+  /** Absent columns (databases before 0002) read as null. */
+  source_no?: number | null;
+  page?: number | null;
   parts: { label: string; marks: number; text: string; answer: string | null }[];
 };
 
@@ -95,6 +101,8 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
     answer: input.answer ?? null,
     options: input.options ?? null,
     correct_option: input.correct_option ?? null,
+    source_no: input.source_no ?? null,
+    page: input.page ?? null,
   };
   if (input.type === "SQ") {
     return { ...base, type: "SQ", question: input.question, stem: [], image_path: null, image_desc: null, parts };
@@ -174,6 +182,8 @@ export function questionSignature(q: DbQuestion): string {
     q.answer ?? "",
     (q.options ?? []).map((o) => `${o.label}:${o.text}`).join("\u0001"),
     q.correct_option ?? "",
+    q.source_no === null ? "" : String(q.source_no),
+    q.page === null ? "" : String(q.page),
     parts,
     q.flags
       .map((f) => f.text)
@@ -198,6 +208,8 @@ export function existingSignature(e: ExistingQuestion): string {
     answer: e.answer,
     options: e.options,
     correct_option: e.correct_option,
+    source_no: e.source_no ?? null,
+    page: e.page ?? null,
     parts: (e.parts ?? []).map((p, i) => ({
       label: p.label,
       marks: p.marks,

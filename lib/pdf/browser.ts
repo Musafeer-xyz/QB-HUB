@@ -2,13 +2,14 @@ import fs from "node:fs";
 import { chromium, type Browser } from "playwright-core";
 
 /**
- * Launch Chromium for server-side PDF rendering.
+ * Launch Chromium for server-side PDF rendering (a Node host, not serverless).
  *
  * Resolution order:
  *  1. CHROMIUM_EXECUTABLE_PATH env var
- *  2. system Chrome / Edge (developer machines)
- *  3. @sparticuz/chromium (Vercel / AWS Lambda builds)
- *  4. Playwright's own downloaded browser (if installed)
+ *  2. system Chrome / Edge in the usual install locations
+ *  3. Playwright's own downloaded browser (`npx playwright install chromium`)
+ *
+ * If none works the API answers 501 and the UI offers browser print.
  */
 async function launchBrowser(): Promise<Browser> {
   const candidates = [
@@ -35,18 +36,7 @@ async function launchBrowser(): Promise<Browser> {
     }
   }
 
-  try {
-    const sparticuz = (await import("@sparticuz/chromium")).default;
-    const executablePath = await sparticuz.executablePath();
-    return await chromium.launch({
-      executablePath,
-      args: [...sparticuz.args, "--font-render-hinting=none"],
-      headless: true,
-    });
-  } catch {
-    // fall back to a locally installed Playwright browser
-  }
-
+  // Playwright's bundled Chromium (`npx playwright install chromium`).
   return chromium.launch({ args: ["--no-sandbox", "--font-render-hinting=none"] });
 }
 
