@@ -182,10 +182,11 @@ function toSource(entry: { question?: DbQuestion }): QuestionSourceInput {
       ...common,
       type: "MCQ" as const,
       question: q.question ?? "",
+      stem: q.stem,
       image: q.image_path,
       image_desc: q.image_desc,
       options: q.options ?? [],
-      correct_option: q.correct_option,
+      correct_option: q.correct_option as "ক" | "খ" | "গ" | "ঘ" | null,
     };
   }
   return { ...common, type: "SQ" as const, question: q.question ?? "" };

@@ -72,7 +72,7 @@ async function fetchExisting(client: SupabaseClient): Promise<Map<string, Existi
       image_desc: q.image_desc as string | null,
       flags: q.flags,
       answer: q.answer as string | null,
-      options: (q.options as string[] | null) ?? null,
+      options: (q.options as ExistingQuestion["options"]) ?? null,
       correct_option: q.correct_option as string | null,
       parts: [],
     });

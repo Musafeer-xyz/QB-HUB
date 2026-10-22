@@ -216,8 +216,12 @@ describe("server-side total", () => {
       { questionId: "cq-2", selectedParts: [] },
       { questionId: "sq-1", selectedParts: [] },
     ];
-    expect(computeTotalMarks(questions, all, { sqMarks: 2, cqChoice: 1, sqChoice: 1 })).toBe(12);
-    expect(computeTotalMarks(questions, all, { sqMarks: 2, cqChoice: null, sqChoice: null })).toBe(22);
+    expect(
+      computeTotalMarks(questions, all, { sqMarks: 2, cqChoice: 1, sqChoice: 1, mcqChoice: null }),
+    ).toBe(12);
+    expect(
+      computeTotalMarks(questions, all, { sqMarks: 2, cqChoice: null, sqChoice: null, mcqChoice: null }),
+    ).toBe(22);
 
     const mixed = new Map<string, QuestionRecord>([
       ["cq-1", cq("cq-1", [1, 2, 3, 4])],
@@ -230,7 +234,7 @@ describe("server-side total", () => {
           { questionId: "cq-3", selectedParts: [] },
         ],
         mixed,
-        { sqMarks: 2, cqChoice: 1, sqChoice: null },
+        { sqMarks: 2, cqChoice: 1, sqChoice: null, mcqChoice: null },
       ),
     ).toBe(13);
   });

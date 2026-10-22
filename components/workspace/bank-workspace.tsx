@@ -89,7 +89,13 @@ export function BankWorkspace({
   const virtualizer = useVirtualizer({
     count: typeFiltered.length,
     getScrollElement: () => listRef.current,
-    estimateSize: () => viewMode === "open" ? 300 : 100,
+    // Cards are measured after mount; the estimate only has to keep the scroll
+    // bar close. MCQ cards are taller (statement lines + four option tiles).
+    estimateSize: (index) => {
+      const type = typeFiltered[index]?.type;
+      if (viewMode === "open") return type === "MCQ" ? 380 : type === "CQ" ? 320 : 220;
+      return type === "MCQ" ? 110 : 100;
+    },
     overscan: 4,
     getItemKey: (index) => typeFiltered[index]!.id,
   });
@@ -147,7 +153,7 @@ export function BankWorkspace({
       }
       selection.add({
         questionId: question.id,
-        type: question.type === "CQ" ? "CQ" : "SQ",
+        type: question.type,
         chapter: question.chapter,
         partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
         selectedParts: [],
@@ -169,7 +175,7 @@ export function BankWorkspace({
     selection.replace(
       typeFiltered.map((question) => ({
         questionId: question.id,
-        type: question.type === "CQ" ? "CQ" : "SQ",
+        type: question.type,
         chapter: question.chapter,
         partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
         selectedParts: [],

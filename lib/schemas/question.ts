@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** Question types. Only CQ/SQ exist today; MCQ is reserved for the future online exams. */
+/** Question types: CQ / SQ from the suggestion book, MCQ from `MCQ.pdf`. */
 export const QUESTION_TYPES = ["CQ", "SQ", "MCQ"] as const;
 export const questionTypeSchema = z.enum(QUESTION_TYPES);
 export type QuestionType = z.infer<typeof questionTypeSchema>;
@@ -41,6 +41,24 @@ const imageFile = z
     return v;
   });
 
+/** MCQ option labels, always in this printed order. */
+export const MCQ_LABELS = ["ক", "খ", "গ", "ঘ"] as const;
+
+export const questionOptionSchema = z.object({
+  label: z.string().trim().min(1, "অপশনের লেবেল দরকার"),
+  text: z.string().trim().min(1, "অপশনের টেক্সট দরকার"),
+});
+export type QuestionOption = z.infer<typeof questionOptionSchema>;
+
+/** Exactly four options, labels ক খ গ ঘ in that order. */
+export const mcqOptionsSchema = z
+  .array(questionOptionSchema)
+  .length(4, "MCQ-তে ঠিক চারটি অপশন থাকতে হবে (ক, খ, গ, ঘ)")
+  .refine(
+    (options) => options.every((option, i) => option.label === MCQ_LABELS[i]),
+    "অপশনের লেবেল ক্রম অনুযায়ী ক, খ, গ, ঘ হতে হবে",
+  );
+
 export const questionPartSchema = z.object({
   label: z.string().trim().min(1, "পার্টের লেবেল দরকার"),
   marks: z.number().int().min(0, "নম্বর ঋণাত্মক হতে পারে না").max(100),
@@ -67,6 +85,8 @@ export const KNOWN_QUESTION_KEYS = [
   "parts",
   "options",
   "correct_option",
+  "source_no",
+  "page",
 ] as const;
 
 const baseShape = {
@@ -80,8 +100,11 @@ const baseShape = {
   topic: z.string().trim().nullable().optional().transform((v) => v ?? null),
   answer: nullableText,
   flags: z.array(z.string().trim().min(1)).default([]),
-  options: z.array(z.string().trim().min(1)).nullable().optional().transform((v) => v ?? null),
+  options: z.array(questionOptionSchema).nullable().optional().transform((v) => v ?? null),
   correct_option: nullableText,
+  /** Printed question number / page in `MCQ.pdf` (source data only). */
+  source_no: z.number().int().min(1).optional(),
+  page: z.number().int().min(1).optional(),
 };
 
 export const sqQuestionSchema = z.object({
@@ -102,17 +125,23 @@ export const cqQuestionSchema = z.object({
 });
 export type CqQuestion = z.infer<typeof cqQuestionSchema>;
 
-/** Future-proof MCQ shape (schema only — nothing else is built for MCQ now). */
+/**
+ * MCQ: exactly four labelled options (ক খ গ ঘ in order), an optional printed
+ * answer label and the same `stem` field CQ uses (statement / stimulus lines).
+ */
 export const mcqQuestionSchema = z.object({
   ...baseShape,
   type: z.literal("MCQ"),
   question: z.string().trim().min(1),
+  stem: z.array(z.string()).default([]),
   image: imageFile,
   image_desc: nullableText,
-  options: z
-    .array(z.string().trim().min(1))
-    .min(2, "MCQ-তে অন্তত ২টি অপশন দরকার"),
-  correct_option: nullableText,
+  options: mcqOptionsSchema,
+  correct_option: z
+    .enum(MCQ_LABELS)
+    .nullable()
+    .optional()
+    .transform((v) => v ?? null),
 });
 export type McqQuestion = z.infer<typeof mcqQuestionSchema>;
 

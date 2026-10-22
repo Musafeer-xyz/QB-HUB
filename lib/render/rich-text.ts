@@ -180,12 +180,14 @@ export function questionTextFields(q: {
   question?: string | null;
   stem?: string[];
   parts?: { text?: string | null }[];
+  options?: { text?: string | null }[] | null;
   image_desc?: string | null;
 }): string[] {
   const fields: string[] = [];
   if (q.question) fields.push(q.question);
   for (const line of q.stem ?? []) fields.push(line);
   for (const part of q.parts ?? []) if (part.text) fields.push(part.text);
+  for (const option of q.options ?? []) if (option.text) fields.push(option.text);
   if (q.image_desc) fields.push(q.image_desc);
   return fields;
 }

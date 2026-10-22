@@ -78,7 +78,8 @@ export default async function PrintPaperPage({
     .map((pq) => {
       const question = questions.get(pq.questionId);
       if (!question) return null;
-      const section = pq.section === "CQ" || pq.section === "SQ" ? pq.section : null;
+      const section =
+        pq.section === "CQ" || pq.section === "SQ" || pq.section === "MCQ" ? pq.section : null;
       return { question, selectedParts: pq.selectedParts, section };
     })
     .filter((v): v is NonNullable<typeof v> => v !== null);

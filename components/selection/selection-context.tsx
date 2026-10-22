@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 export type SelectionEntry = {
   questionId: string;
-  type: "CQ" | "SQ";
+  type: "CQ" | "SQ" | "MCQ";
   chapter: number;
   /** CQ parts: labels + marks, so the tray can total marks without refetching. */
   partMarks: { label: string; marks: number }[];
@@ -13,9 +13,9 @@ export type SelectionEntry = {
 };
 
 /** “যেকোনো N” per section. `null` = every selected question is answered. */
-export type SectionChoice = { CQ: number | null; SQ: number | null };
+export type SectionChoice = { CQ: number | null; SQ: number | null; MCQ: number | null };
 
-export const DEFAULT_CHOICE: SectionChoice = { CQ: 3, SQ: 5 };
+export const DEFAULT_CHOICE: SectionChoice = { CQ: 3, SQ: 5, MCQ: null };
 
 type SelectionState = {
   entries: SelectionEntry[];
@@ -30,7 +30,7 @@ type SelectionState = {
   setOrder: (ids: string[]) => void;
   /** Replace the whole selection (used when the builder opens its step ১). */
   replace: (entries: SelectionEntry[]) => void;
-  setChoice: (type: "CQ" | "SQ", value: number | null) => void;
+  setChoice: (type: "CQ" | "SQ" | "MCQ", value: number | null) => void;
   has: (questionId: string) => boolean;
   count: () => number;
 };
@@ -64,6 +64,7 @@ export function useSelection() {
 
 /** Marks for one tray entry (SQ gets the paper-wide sqMarks). */
 export function entryMarks(entry: SelectionEntry, sqMarks = 2): number {
+  if (entry.type === "MCQ") return 1;
   if (entry.type === "SQ") return sqMarks;
   const wanted = new Set(entry.selectedParts);
   const parts =
@@ -96,7 +97,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
               .filter((e) => e && typeof e.questionId === "string")
               .map((e) => ({
                 questionId: e.questionId,
-                type: e.type === "CQ" ? "CQ" : "SQ",
+                type: e.type === "CQ" || e.type === "MCQ" ? e.type : "SQ",
                 chapter: Number(e.chapter) || 0,
                 partMarks: Array.isArray(e.partMarks) ? e.partMarks : [],
                 selectedParts: Array.isArray(e.selectedParts) ? e.selectedParts : [],
@@ -107,6 +108,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
           setChoiceState({
             CQ: parsed.choice.CQ ?? DEFAULT_CHOICE.CQ,
             SQ: parsed.choice.SQ ?? DEFAULT_CHOICE.SQ,
+            MCQ: parsed.choice.MCQ ?? DEFAULT_CHOICE.MCQ,
           });
         }
       }
@@ -126,7 +128,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
     }
   }, [entries, choice, ready]);
 
-  const setChoice = useCallback((type: "CQ" | "SQ", value: number | null) => {
+  const setChoice = useCallback((type: "CQ" | "SQ" | "MCQ", value: number | null) => {
     setChoiceState((prev) => ({
       ...prev,
       [type]: value === null ? null : Math.max(1, Math.trunc(value)),
@@ -183,7 +185,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
         .filter((e) => e && typeof e.questionId === "string")
         .map((e) => ({
           questionId: e.questionId,
-          type: e.type === "CQ" ? "CQ" : "SQ",
+          type: e.type === "CQ" || e.type === "MCQ" ? e.type : "SQ",
           chapter: Number(e.chapter) || 0,
           partMarks: Array.isArray(e.partMarks) ? e.partMarks : [],
           selectedParts: Array.isArray(e.selectedParts) ? e.selectedParts : [],

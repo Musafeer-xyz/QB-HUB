@@ -29,6 +29,8 @@ export const paperSettingsSchema = z.object({
   cqChoice: z.number().int().min(1).max(50).nullable().default(null),
   /** How many SQ questions a student answers (null = every selected question). */
   sqChoice: z.number().int().min(1).max(100).nullable().default(null),
+  /** How many MCQ questions a student answers (null = every selected question). */
+  mcqChoice: z.number().int().min(1).max(200).nullable().default(null),
   /** Marks awarded to each short question (SQ has no per-question marks in source data). */
   sqMarks: z.number().int().min(1).max(20).default(2),
   /** Column layout for the whole paper body. */
@@ -96,8 +98,8 @@ export const paperSettingsSchema = z.object({
   pageBreakBefore: z.array(z.number().int().min(1)).default([]),
   /** Master feature flag for printing answers. Off by default, never on in source data. */
   showAnswers: z.boolean().default(false),
-  /** Section order on the paper. */
-  sectionOrder: z.array(questionTypeSchema.exclude(["MCQ"])).default(["CQ", "SQ"]),
+  /** Section order on the paper (MCQ first by default). */
+  sectionOrder: z.array(questionTypeSchema).default(["MCQ", "SQ", "CQ"]),
   /** exam = choice lines + choice-based total; suggestion = plain sheet. */
   mode: z.enum(["exam", "suggestion"]).default("exam"),
   /** chapter = heading + sections per chapter; type = one section per type. */

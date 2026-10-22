@@ -1,4 +1,8 @@
-import { parseQuestion, type QuestionInput, type QuestionType } from "@/lib/schemas/question";
+import {
+  parseQuestion,
+  type QuestionInput,
+  type QuestionType,
+} from "@/lib/schemas/question";
 import { renderRichText } from "@/lib/render/rich-text";
 
 /**
@@ -41,7 +45,6 @@ const SUBJECT_PREFIXES: Record<string, string> = {
 };
 
 const CQ_LABELS = ["ক", "খ", "গ", "ঘ"];
-const MCQ_LABELS = ["ক", "খ", "গ", "ঘ"];
 
 /**
  * Allowed characters: Bangla block, printable ASCII, whitespace, the common
@@ -78,6 +81,11 @@ function textFields(q: QuestionInput): string[] {
       if (part.text) fields.push(part.text);
       if (part.answer) fields.push(part.answer);
     }
+  }
+  if (q.type === "MCQ") {
+    // Statement (`i, ii, iii`) and stimulus lines are printed too.
+    for (const line of q.stem) if (line) fields.push(line);
+    for (const option of q.options) if (option.text) fields.push(option.text);
   }
   if (q.type !== "SQ" && q.image_desc) fields.push(q.image_desc);
   if (q.answer) fields.push(q.answer);
@@ -125,17 +133,8 @@ function structureProblems(q: QuestionInput): string[] {
       problems.push(`CQ পার্টের লেবেল ক্রম অনুযায়ী ক, খ, গ, ঘ হতে হবে — পাওয়া গেছে ${q.parts.map((p) => p.label).join(", ")}`);
     }
   }
-  if (q.type === "MCQ") {
-    const options = q.options ?? [];
-    if (options.length !== 4) {
-      problems.push(`MCQ-তে ঠিক চারটি অপশন থাকতে হবে — পাওয়া গেছে ${options.length}টি`);
-    }
-    if (!q.correct_option || !MCQ_LABELS.includes(q.correct_option)) {
-      problems.push(
-        `সঠিক উত্তরের লেবেল (${q.correct_option ?? "খালি"}) অপশনের লেবেল (ক, খ, গ, ঘ)-এর মধ্যে নেই`,
-      );
-    }
-  }
+  // MCQ option count, label order and the answer label are enforced by the zod
+  // schema; this is the place for checks the schema cannot express.
   return problems;
 }
 
@@ -156,6 +155,14 @@ function rawTexts(raw: unknown): string[] {
       }
     }
   }
+  if (Array.isArray(record.options)) {
+    for (const option of record.options) {
+      if (option && typeof option === "object") {
+        const text = (option as { text?: unknown }).text;
+        if (typeof text === "string") out.push(text);
+      }
+    }
+  }
   return out;
 }
 
@@ -167,7 +174,8 @@ function warningProblems(q: QuestionInput, raw: unknown): string[] {
   for (const text of textFields(q)) {
     if (/ {2,}/.test(text)) warnings.push("দুই বা তার বেশি ধারাবাহিক স্পেস আছে");
   }
-  const main = q.type === "CQ" ? [...q.stem, q.question ?? ""].join(" ") : q.question;
+  const main =
+    q.type === "CQ" || q.type === "MCQ" ? [...q.stem, q.question ?? ""].join(" ") : q.question;
   if (main.trim().length < 8) warnings.push("প্রশ্ন ৮ অক্ষরের চেয়ে ছোট");
   if (q.flags.length > 0) warnings.push(`ফ্ল্যাগ আছে (${q.flags.length}টি) — যাচাই করুন`);
   return [...new Set(warnings)];

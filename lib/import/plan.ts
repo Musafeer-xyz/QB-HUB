@@ -7,7 +7,7 @@ import {
   type QuestionPartInput,
 } from "@/lib/schemas/question";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
-import type { QuestionInput, QuestionType } from "@/lib/schemas/question";
+import type { QuestionInput, QuestionOption, QuestionType } from "@/lib/schemas/question";
 
 /** Flags auto-added by the importer for malformed LaTeX. */
 export const AUTO_FLAG_PREFIX = "LaTeX পার্স করা যায়নি:";
@@ -25,7 +25,7 @@ export type DbQuestion = {
   image_desc: string | null;
   flags: QuestionFlag[];
   answer: string | null;
-  options: string[] | null;
+  options: QuestionOption[] | null;
   correct_option: string | null;
   parts: (QuestionPartInput & { position: number })[];
 };
@@ -43,7 +43,7 @@ export type ExistingQuestion = {
   image_desc: string | null;
   flags: unknown;
   answer: string | null;
-  options: string[] | null;
+  options: QuestionOption[] | null;
   correct_option: string | null;
   parts: { label: string; marks: number; text: string; answer: string | null }[];
 };
@@ -114,7 +114,7 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
     ...base,
     type: "MCQ",
     question: input.question,
-    stem: [],
+    stem: input.stem,
     image_path: input.image,
     image_desc: input.image_desc,
     parts,
@@ -172,7 +172,7 @@ export function questionSignature(q: DbQuestion): string {
     q.image_path ?? "",
     q.image_desc ?? "",
     q.answer ?? "",
-    (q.options ?? []).join("\u0001"),
+    (q.options ?? []).map((o) => `${o.label}:${o.text}`).join("\u0001"),
     q.correct_option ?? "",
     parts,
     q.flags
@@ -255,8 +255,10 @@ export function planImport(
       const sourceFlags = parsed.data.flags;
       const texts = questionTextFields({
         question: parsed.data.question,
-        stem: parsed.data.type === "CQ" ? parsed.data.stem : [],
+        stem:
+          parsed.data.type === "CQ" || parsed.data.type === "MCQ" ? parsed.data.stem : [],
         parts: parsed.data.type === "CQ" ? parsed.data.parts : [],
+        options: parsed.data.type === "MCQ" ? parsed.data.options : null,
       });
       const prev = existing.get(parsed.data.id);
       const built = buildFlags(sourceFlags, texts, prev?.flags);

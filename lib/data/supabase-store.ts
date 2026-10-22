@@ -4,7 +4,7 @@ import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import type { QuestionFormValues, Store } from "@/lib/data/store";
 import type { PaperQuestionRecord, PaperRecord, QuestionFacets, QuestionRecord } from "@/lib/types";
-import type { QuestionType } from "@/lib/schemas/question";
+import type { QuestionOption, QuestionType } from "@/lib/schemas/question";
 
 /**
  * Production data source. Every query runs with the caller's session, so
@@ -24,7 +24,7 @@ type QuestionRow = {
   image_desc: string | null;
   flags: unknown;
   answer: string | null;
-  options: string[] | null;
+  options: QuestionOption[] | null;
   correct_option: string | null;
   created_at?: string;
   updated_at?: string;

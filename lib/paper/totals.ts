@@ -1,5 +1,5 @@
 import { questionMarks } from "@/lib/marks";
-import { sectionsTotal, summarizeSection } from "@/lib/paper/sections";
+import { sectionsTotal, summarizeSection, type SectionType } from "@/lib/paper/sections";
 import type { PaperSettings } from "@/lib/schemas/paper";
 import type { QuestionRecord } from "@/lib/types";
 
@@ -15,29 +15,33 @@ import type { QuestionRecord } from "@/lib/types";
 export function computeTotalMarks(
   questions: { questionId: string; section?: string | null; selectedParts: string[] }[],
   all: Map<string, QuestionRecord>,
-  settings: Pick<PaperSettings, "sqMarks" | "cqChoice" | "sqChoice"> & {
+  settings: Pick<PaperSettings, "sqMarks" | "cqChoice" | "sqChoice" | "mcqChoice"> & {
     mode?: PaperSettings["mode"];
   },
 ): number {
-  const marks: Record<"CQ" | "SQ", number[]> = { CQ: [], SQ: [] };
-  const chapters: Record<"CQ" | "SQ", Set<number>> = { CQ: new Set(), SQ: new Set() };
+  const marks: Record<SectionType, number[]> = { CQ: [], SQ: [], MCQ: [] };
+  const chapters: Record<SectionType, Set<number>> = { CQ: new Set(), SQ: new Set(), MCQ: new Set() };
 
   for (const q of questions) {
     const record = all.get(q.questionId);
     if (!record) continue;
-    const type = q.section === "CQ" || q.section === "SQ" ? q.section : record.type;
-    if (type !== "CQ" && type !== "SQ") continue;
+    const type: SectionType =
+      q.section === "CQ" || q.section === "SQ" || q.section === "MCQ" ? q.section : record.type;
     marks[type].push(questionMarks(record, { selectedParts: q.selectedParts, sqMarks: settings.sqMarks }));
     chapters[type].add(record.chapter);
   }
 
-  const choiceFor = (type: "CQ" | "SQ"): number | null => {
+  const choiceFor = (type: SectionType): number | null => {
     if (settings.mode === "suggestion") return null;
     if (chapters[type].size > 1) return null;
-    return type === "CQ" ? settings.cqChoice : settings.sqChoice;
+    if (type === "CQ") return settings.cqChoice;
+    if (type === "SQ") return settings.sqChoice;
+    return settings.mcqChoice;
   };
 
-  const cq = summarizeSection("CQ", marks.CQ, choiceFor("CQ"));
-  const sq = summarizeSection("SQ", marks.SQ, choiceFor("SQ"));
-  return sectionsTotal([cq, sq]);
+  return sectionsTotal([
+    summarizeSection("CQ", marks.CQ, choiceFor("CQ")),
+    summarizeSection("SQ", marks.SQ, choiceFor("SQ")),
+    summarizeSection("MCQ", marks.MCQ, choiceFor("MCQ")),
+  ]);
 }

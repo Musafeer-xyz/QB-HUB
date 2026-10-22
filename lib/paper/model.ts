@@ -26,16 +26,20 @@ export type PaperDocPart = {
   answer: string | null;
 };
 
+export type PaperDocOption = { label: string; text: string };
+
 export type PaperDocQuestion = {
   id: string;
   /** 1-based number as shown on the paper (Bangla digits applied at render). */
   number: number;
   /** Ready-to-print number, e.g. "০১।" — restarts per section when configured. */
   label: string;
-  type: "CQ" | "SQ";
-  section: "CQ" | "SQ";
+  type: SectionType;
+  section: SectionType;
   stem: string[];
   question: string | null;
+  /** MCQ choices — never the correct one (answers are not printed). */
+  options: PaperDocOption[];
   imageSrc: string | null;
   imageDesc: string | null;
   imageAvailable: boolean;
@@ -50,7 +54,7 @@ export type PaperDocQuestion = {
 };
 
 export type PaperDocSection = {
-  type: "CQ" | "SQ";
+  type: SectionType;
   title: string;
   /** Title + choice + total, e.g. "… (CQ): যেকোনো ৩টি × ১০ = ৩০". */
   heading: string;
@@ -177,7 +181,7 @@ export function compactNumber(n: number): string {
 export type PaperSelectionItem = {
   question: QuestionRecord;
   selectedParts: string[];
-  section: "CQ" | "SQ" | null;
+  section: SectionType | null;
 };
 
 type DocOptions = {
@@ -190,8 +194,20 @@ type DocOptions = {
   preserveOrder?: boolean;
 };
 
-function sectionTypeOf(item: PaperSelectionItem): "CQ" | "SQ" {
-  return item.section === "CQ" || item.section === "SQ" ? item.section : item.question.type === "CQ" ? "CQ" : "SQ";
+function sectionTypeOf(item: PaperSelectionItem): SectionType {
+  return item.section ?? item.question.type;
+}
+
+/** Order used for any type the saved `sectionOrder` does not mention. */
+const FALLBACK_ORDER: SectionType[] = ["MCQ", "SQ", "CQ"];
+
+/** Settings order first, then any missing type in the default order. */
+function effectiveOrder(settings: PaperSettings, present: Set<SectionType>): SectionType[] {
+  const order = [...settings.sectionOrder];
+  for (const type of FALLBACK_ORDER) {
+    if (present.has(type) && !order.includes(type)) order.push(type);
+  }
+  return order;
 }
 
 /** Sort key for questions inside one section. */
@@ -206,7 +222,7 @@ export function questionComparator(sortBy: PaperSettings["sortBy"]) {
 }
 
 type Draft = {
-  type: "CQ" | "SQ";
+  type: SectionType;
   chapter: number | null;
   items: PaperSelectionItem[];
 };
@@ -249,18 +265,19 @@ export function buildPaperDocSet(
     watermark: settings.watermark,
   };
 
-  const selected = items.filter((item) => item.question.type !== "MCQ");
+  const selected = items;
   const compare = questionComparator(settings.sortBy);
   const sortSection = (list: PaperSelectionItem[]) =>
     opts.preserveOrder ? list : [...list].sort(compare);
 
-  const chapterGroups = new Map<"CQ" | "SQ", Set<number>>();
+  const chapterGroups = new Map<SectionType, Set<number>>();
   for (const item of selected) {
     const type = sectionTypeOf(item);
     const set = chapterGroups.get(type) ?? new Set<number>();
     set.add(item.question.chapter);
     chapterGroups.set(type, set);
   }
+  const order = effectiveOrder(settings, new Set(selected.map(sectionTypeOf)));
 
   /**
    * Exam papers ask "answer any N" per question type. That line only makes
@@ -268,18 +285,20 @@ export function buildPaperDocSet(
    * chapters (or the paper is a suggestion sheet) every question prints and
    * the total is the plain sum.
    */
-  const choiceFor = (type: "CQ" | "SQ"): number | null => {
+  const choiceFor = (type: SectionType): number | null => {
     // Suggestion sheets are not exams: the "answer any N" line is opt-in.
     if (settings.mode === "suggestion" && !settings.suggestion.showChoice) return null;
     if ((chapterGroups.get(type)?.size ?? 0) > 1 && settings.mode !== "suggestion") return null;
-    return type === "CQ" ? settings.cqChoice : settings.sqChoice;
+    if (type === "CQ") return settings.cqChoice;
+    if (type === "SQ") return settings.sqChoice;
+    return settings.mcqChoice;
   };
 
   const drafts: Draft[] = [];
   if (settings.grouping === "chapter") {
     const chapters = [...new Set(selected.map((item) => item.question.chapter))].sort((a, b) => a - b);
     for (const chapter of chapters) {
-      for (const type of settings.sectionOrder) {
+      for (const type of order) {
         const list = sortSection(
           selected.filter((item) => item.question.chapter === chapter && sectionTypeOf(item) === type),
         );
@@ -287,7 +306,7 @@ export function buildPaperDocSet(
       }
     }
   } else {
-    for (const type of settings.sectionOrder) {
+    for (const type of order) {
       const list = [
         ...sortSection(selected.filter((item) => sectionTypeOf(item) === type)),
       ].sort((a, b) => a.question.chapter - b.question.chapter);
@@ -324,10 +343,13 @@ export function buildPaperDocSet(
         id: q.id,
         number: shownNumber,
         label: compactNumber(shownNumber),
-        type: q.type === "CQ" ? "CQ" : "SQ",
-        section: q.type === "CQ" ? "CQ" : "SQ",
-        stem: q.type === "CQ" ? q.stem : [],
+        type: q.type,
+        section: q.type,
+        stem: q.type === "CQ" || q.type === "MCQ" ? q.stem : [],
         question: q.question,
+        // The admin-only answer (`correctOption`) is deliberately never copied.
+        options:
+          q.type === "MCQ" ? (q.options ?? []).map((o) => ({ label: o.label, text: o.text })) : [],
         imageSrc: q.imagePath ? imageSrc(q.imagePath) : null,
         imageDesc: q.imageDesc,
         imageAvailable: q.imagePath ? imageAvailable(q.id, q.imagePath) : false,
@@ -357,13 +379,23 @@ export function buildPaperDocSet(
     // shares its N with the heading above it (see `sectionInstruction`).
     const hideInstruction =
       settings.mode === "suggestion" && !settings.suggestion.showChoice;
+    // MCQ has no settings field of its own: the stock "answer any N" line is
+    // run through the same normaliser as CQ/SQ, so it becomes
+    // "সবগুলো প্রশ্নের উত্তর দাও" when every question is answered.
     const storedInstruction =
-      sectionType === "CQ" ? settings.cqInstruction : settings.sqInstruction;
+      sectionType === "CQ"
+        ? settings.cqInstruction
+        : sectionType === "SQ"
+          ? settings.sqInstruction
+          : "যেকোনো ১টি প্রশ্নের উত্তর দাও";
     sections.push({
       type: draft.type,
       title: SECTION_TITLES[sectionType],
       heading: sectionHeading(SECTION_TITLES[sectionType], summary, {
-        showChoice: choice !== null,
+        // MCQ prints its "N × ১ = N" total with or without a choice; a
+        // suggestion sheet keeps hiding section totals like CQ/SQ do.
+        showChoice:
+          choice !== null || (sectionType === "MCQ" && settings.mode !== "suggestion"),
       }),
       instruction: hideInstruction
         ? null

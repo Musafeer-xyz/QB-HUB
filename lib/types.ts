@@ -1,4 +1,4 @@
-import type { QuestionPartInput, QuestionType, QuestionFlag } from "@/lib/schemas/question";
+import type { QuestionOption, QuestionPartInput, QuestionType, QuestionFlag } from "@/lib/schemas/question";
 import type { PaperSettings } from "@/lib/schemas/paper";
 
 /** A question part as stored in `question_parts`. */
@@ -24,7 +24,7 @@ export type QuestionRecord = {
   imageHeight?: number | null;
   flags: QuestionFlag[];
   answer: string | null;
-  options: string[] | null;
+  options: QuestionOption[] | null;
   correctOption: string | null;
   parts: QuestionPartRecord[];
   createdAt?: string;

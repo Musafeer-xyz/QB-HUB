@@ -36,9 +36,11 @@ import {
 import type { PaperSettings } from "@/lib/schemas/paper";
 import type { PaperRecord, QuestionRecord } from "@/lib/types";
 
+type BuilderSection = "CQ" | "SQ" | "MCQ";
+
 type BuilderItem = {
   questionId: string;
-  section: "CQ" | "SQ" | null;
+  section: BuilderSection | null;
   selectedParts: string[];
 };
 
@@ -58,6 +60,7 @@ type BuilderState = {
   sqInstruction: string;
   cqChoice: number | null;
   sqChoice: number | null;
+  mcqChoice: number | null;
   sqMarks: number;
   columns: "1" | "2";
   columnDivider: boolean;
@@ -86,7 +89,7 @@ type BuilderState = {
   grouping: "chapter" | "type";
   chapterPageBreak: boolean;
   sortBy: "id" | "boards";
-  sectionOrder: ("CQ" | "SQ")[];
+  sectionOrder: BuilderSection[];
 };
 
 function stateFromPaper(paper: PaperRecord): BuilderState {
@@ -104,6 +107,7 @@ function stateFromPaper(paper: PaperRecord): BuilderState {
     sqInstruction: paper.settings.sqInstruction ?? "",
     cqChoice: paper.settings.cqChoice ?? null,
     sqChoice: paper.settings.sqChoice ?? null,
+    mcqChoice: paper.settings.mcqChoice ?? null,
     sqMarks: paper.settings.sqMarks,
     columns: paper.settings.columns,
     columnDivider: paper.settings.columnDivider,
@@ -150,6 +154,7 @@ const DEFAULT_STATE: BuilderState = {
   sqInstruction: "যেকোনো ৫টি প্রশ্নের উত্তর দাও",
   cqChoice: 3,
   sqChoice: 5,
+  mcqChoice: null,
   sqMarks: 2,
   columns: "1",
   columnDivider: false,
@@ -184,7 +189,7 @@ const DEFAULT_STATE: BuilderState = {
   grouping: "chapter",
   chapterPageBreak: false,
   sortBy: "id",
-  sectionOrder: ["CQ", "SQ"],
+  sectionOrder: ["MCQ", "SQ", "CQ"],
 };
 
 /** Fixed zoom steps offered in the preview toolbar. */
@@ -233,7 +238,8 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     initial
       ? initial.questions.map((q) => ({
           questionId: q.questionId,
-          section: q.section === "CQ" || q.section === "SQ" ? q.section : null,
+          section:
+            q.section === "CQ" || q.section === "SQ" || q.section === "MCQ" ? q.section : null,
           selectedParts: q.selectedParts,
         }))
       : [],
@@ -301,7 +307,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
             const question = byIdNow.get(item.questionId)!;
             return {
               questionId: item.questionId,
-              type: (item.section ?? (question.type === "CQ" ? "CQ" : "SQ")) as "CQ" | "SQ",
+              type: item.section ?? question.type,
               chapter: question.chapter,
               partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
               selectedParts: item.selectedParts,
@@ -407,6 +413,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
       sqInstruction: state.sqInstruction.trim() || null,
       cqChoice: state.cqChoice,
       sqChoice: state.sqChoice,
+      mcqChoice: state.mcqChoice,
       sqMarks: state.sqMarks,
       columns: state.columns,
       columnDivider: state.columnDivider,
@@ -601,7 +608,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
       .filter((q): q is QuestionRecord => Boolean(q))
       .map<BuilderItem>((q) => ({
         questionId: q.id,
-        section: q.type === "CQ" ? "CQ" : "SQ",
+        section: q.type,
         selectedParts: [],
       }));
     setItems((prev) => {
@@ -986,6 +993,21 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
               />
               </Field>
             ) : null}
+            {state.mode === "exam" ? (
+            <Field label="MCQ-তে উত্তর দেবে (কতটি)" htmlFor="mcqchoice">
+              <input
+                id="mcqchoice"
+                type="number"
+                min={1}
+                className="field-input"
+                placeholder="সব"
+                value={state.mcqChoice ?? ""}
+                onChange={(e) =>
+                  setState((s) => ({ ...s, mcqChoice: e.target.value ? Number(e.target.value) : null }))
+                }
+              />
+              </Field>
+            ) : null}
           </div>
         </SettingsGroup>
 
@@ -1231,12 +1253,18 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
                   onChange={(e) =>
                     setState((s) => ({
                       ...s,
-                      sectionOrder: e.target.value.split(",") as ("CQ" | "SQ")[],
+                      sectionOrder: e.target.value.split(",") as BuilderSection[],
                     }))
                   }
                 >
+                  <option value="MCQ,SQ,CQ">MCQ → SQ → CQ</option>
                   <option value="CQ,SQ">CQ → SQ</option>
                   <option value="SQ,CQ">SQ → CQ</option>
+                  {["MCQ,SQ,CQ", "CQ,SQ", "SQ,CQ"].includes(state.sectionOrder.join(",")) ? null : (
+                    <option value={state.sectionOrder.join(",")}>
+                      {state.sectionOrder.join(" → ")}
+                    </option>
+                  )}
                 </select>
               </Field>
               <Field label="বিভাগের ভেতরে সাজান" htmlFor="sortby">

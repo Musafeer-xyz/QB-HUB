@@ -336,6 +336,8 @@ function Section({ section }: { section: PaperDocSection }) {
       {section.questions.map((question) =>
         section.type === "CQ" ? (
           <CQ key={question.id} question={question} />
+        ) : section.type === "MCQ" ? (
+          <MCQ key={question.id} question={question} />
         ) : (
           <SQ key={question.id} question={question} />
         ),
@@ -405,6 +407,60 @@ function PartRow({ part }: { part: PaperDocPart }) {
         [{toBanglaDigits(part.marks)}]
       </td>
     </tr>
+  );
+}
+
+/**
+ * An MCQ: number, stem/statement lines, the question, then the four choices in
+ * a 2×2 grid. The correct option never reaches this component.
+ */
+function MCQ({ question }: { question: PaperDocQuestion }) {
+  // A long option needs the full width to read; the rest use the 2×2 grid.
+  const singleColumn = question.options.some((option) => option.text.length > 30);
+  return (
+    <article className="paper-question paper-question-mcq">
+      {question.breakBefore ? <div className="break-before-page" /> : null}
+      <div className="flex items-start gap-2">
+        <span className="paper-qno shrink-0">{question.label}</span>
+        <div className="min-w-0 flex-1">
+          {question.stem.length > 0 ? (
+            <div className="mb-1">
+              {question.stem.map((line, i) => (
+                <p key={i} className="question-text">
+                  <RichText text={line} />
+                </p>
+              ))}
+            </div>
+          ) : null}
+
+          {question.imageSrc || question.imageDesc ? (
+            <QuestionImage
+              src={question.imageSrc}
+              desc={question.imageDesc}
+              available={question.imageAvailable}
+            />
+          ) : null}
+
+          <div className="flex items-start gap-2">
+            <RichText text={question.question} className="question-text min-w-0 flex-1" />
+            <span className="paper-marks shrink-0 whitespace-nowrap">
+              [{toBanglaDigits(question.marks)}]
+            </span>
+          </div>
+
+          <ul className={"paper-mcq-options" + (singleColumn ? " single-column" : "")}>
+            {question.options.map((option) => (
+              <li key={option.label} className="paper-mcq-option" data-option-label={option.label}>
+                <span className="paper-mcq-label">({option.label})</span>
+                <RichText text={option.text} className="question-text min-w-0 flex-1" />
+              </li>
+            ))}
+          </ul>
+
+          <SourceTag source={question.source} />
+        </div>
+      </div>
+    </article>
   );
 }
 

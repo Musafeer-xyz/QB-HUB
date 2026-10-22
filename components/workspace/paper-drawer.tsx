@@ -21,11 +21,14 @@ export function PaperDrawer({ open, onClose, onNavigate }: PaperDrawerProps) {
   const entries = selection.entries;
   const cq = entries.filter((e) => e.type === "CQ");
   const sq = entries.filter((e) => e.type === "SQ");
+  const mcq = entries.filter((e) => e.type === "MCQ");
   const cqMarks = cq.map((e) => entryMarks(e, 2));
   const sqMarks = sq.map((e) => entryMarks(e, 2));
+  const mcqMarks = mcq.map((e) => entryMarks(e, 2));
   const cqSummary = summarizeSection("CQ", cqMarks, selection.choice.CQ);
   const sqSummary = summarizeSection("SQ", sqMarks, selection.choice.SQ);
-  const total = cqSummary.totalMarks + sqSummary.totalMarks;
+  const mcqSummary = summarizeSection("MCQ", mcqMarks, selection.choice.MCQ);
+  const total = cqSummary.totalMarks + sqSummary.totalMarks + mcqSummary.totalMarks;
 
   function onDrop(targetId: string) {
     if (!dragId || dragId === targetId) return;
@@ -95,6 +98,16 @@ export function PaperDrawer({ open, onClose, onNavigate }: PaperDrawerProps) {
               </div>
             ) : (
               <div className="py-2">
+                <SectionBlock
+                  type="MCQ"
+                  label="বহুনির্বাচনী (MCQ)"
+                  entries={mcq}
+                  summary={mcqSummary}
+                  onChoice={(v) => selection.setChoice("MCQ", v)}
+                  dragId={dragId}
+                  setDragId={setDragId}
+                  onDrop={onDrop}
+                />
                 <SectionBlock
                   type="CQ"
                   label="সৃজনশীল (CQ)"
@@ -179,7 +192,7 @@ function SectionBlock({
   setDragId,
   onDrop,
 }: {
-  type: "CQ" | "SQ";
+  type: "CQ" | "SQ" | "MCQ";
   label: string;
   entries: ReturnType<typeof useSelection>["entries"];
   summary: ReturnType<typeof summarizeSection>;
@@ -195,7 +208,7 @@ function SectionBlock({
   return (
     <section className="mb-2">
       <div className="flex items-center gap-2 px-3 py-1.5">
-        <span className={type === "CQ" ? "tag-cq" : "tag-sq"}>{type}</span>
+        <span className={type === "CQ" ? "tag-cq" : type === "MCQ" ? "tag-mcq" : "tag-sq"}>{type}</span>
         <span className="text-[11px] font-medium text-muted">
           {toBanglaDigits(entries.length)}টি
         </span>

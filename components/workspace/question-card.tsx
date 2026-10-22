@@ -44,7 +44,7 @@ function abbreviateBoard(board: string): string {
 const CARD_COLORS = {
   SQ: { accent: "#0d9488", bg: "#f0fdfa" },
   CQ: { accent: "#d97706", bg: "#fffbeb" },
-  MCQ: { accent: "#7c3aed", bg: "#f5f3ff" },
+  MCQ: { accent: "#5B3FB3", bg: "#EEE8FB" },
 };
 
 export function QuestionCard({
@@ -363,7 +363,9 @@ function FullView({
         </div>
       ) : null}
 
-      {question.type === "CQ" ? (
+      {question.type === "MCQ" ? (
+        <MCQView question={question} imageUrl={imageUrl} onLightboxOpen={onLightboxOpen} />
+      ) : question.type === "CQ" ? (
         <>
           <div className="flex gap-4">
             {/* Stem and parts */}
@@ -437,11 +439,95 @@ function FullView({
   );
 }
 
+/**
+ * MCQ body: statement/stimulus lines, the question and the four choices as
+ * 2×2 tiles. The correct option is the only admin-only part — a quiet tint and
+ * a small “উত্তর” marker, never printed (the print component has no equivalent).
+ */
+function MCQView({
+  question,
+  imageUrl,
+  onLightboxOpen,
+}: {
+  question: QuestionRecord;
+  imageUrl: string | null;
+  onLightboxOpen: () => void;
+}) {
+  const options = question.options ?? [];
+  return (
+    <div className="space-y-2">
+      {question.stem.length > 0 ? (
+        <div className="space-y-0.5">
+          {question.stem.map((line, i) => (
+            <RichText key={i} text={line} className="block" />
+          ))}
+        </div>
+      ) : null}
+
+      <div className="flex items-start gap-2">
+        <RichText text={question.question ?? ""} className="min-w-0 flex-1" />
+      </div>
+
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={question.imageDesc ?? "প্রশ্নের চিত্র"}
+          loading="lazy"
+          decoding="async"
+          className="max-h-40 w-auto cursor-zoom-in rounded-lg border border-line bg-[#fbfaf7] object-contain"
+          onClick={(e) => {
+            e.stopPropagation();
+            onLightboxOpen();
+          }}
+        />
+      ) : null}
+
+      <ul className="grid gap-2 sm:grid-cols-2">
+        {options.map((option) => {
+          const correct = question.correctOption === option.label;
+          return (
+            <li
+              key={option.label}
+              data-option-label={option.label}
+              data-correct={correct ? "true" : undefined}
+              className={cn(
+                "flex items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-[15px] leading-[1.7]",
+                correct
+                  ? "border-[#c9b8f0] bg-[#EEE8FB]"
+                  : "border-line bg-[#fbfaf7]",
+              )}
+            >
+              <span className="shrink-0 font-semibold text-[#4b5563]">({option.label})</span>
+              <RichText text={option.text} className="min-w-0 flex-1" />
+              {correct ? (
+                <span
+                  data-testid="mcq-answer-marker"
+                  className="ml-auto shrink-0 self-center rounded px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{ backgroundColor: "#5B3FB3", color: "#fff" }}
+                >
+                  উত্তর
+                </span>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function CompactView({ question, sqMarks }: { question: QuestionRecord; sqMarks: number }) {
   // Strip LaTeX and convert simple formulas to Unicode
   const plainText = useMemo(() => {
     if (question.type === "SQ") {
       return plainMathPreview(question.question ?? "");
+    }
+    if (question.type === "MCQ") {
+      const stemText = question.stem.map((line) => plainMathPreview(line)).join(" ");
+      const optionText = (question.options ?? [])
+        .map((o) => `(${o.label}) ${plainMathPreview(o.text)}`)
+        .join("  ");
+      return `${stemText} ${plainMathPreview(question.question ?? "")} — ${optionText}`;
     }
     const stemText = question.stem.map((line) => plainMathPreview(line)).join(" ");
     const partsText = question.parts
@@ -457,6 +543,12 @@ function CompactView({ question, sqMarks }: { question: QuestionRecord; sqMarks:
           <span className="font-mono text-[11px] text-muted">{question.id}</span>
           <p className="flex-1">{plainText || "(শব্দহীন প্রশ্ন)"}</p>
           <span className="shrink-0 text-xs text-muted">[{toBanglaDigits(sqMarks)}]</span>
+        </div>
+      ) : question.type === "MCQ" ? (
+        <div className="flex items-start gap-2">
+          <span className="font-mono text-[11px] text-muted">{question.id}</span>
+          <p className="flex-1">{plainText || "(শব্দহীন প্রশ্ন)"}</p>
+          <span className="shrink-0 text-xs text-muted">[১]</span>
         </div>
       ) : (
         <div>

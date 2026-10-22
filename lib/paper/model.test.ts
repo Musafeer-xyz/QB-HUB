@@ -56,6 +56,31 @@ function sq(): QuestionRecord {
   };
 }
 
+function mcq(id = "chem-06-mcq-001"): QuestionRecord {
+  return {
+    id,
+    subject: "chemistry",
+    chapter: 6,
+    type: "MCQ",
+    stars: null,
+    boards: [],
+    question: "পানির সংকেত কোনটি?",
+    stem: ["i. বরফ", "ii. জল", "নিচের কোনটি সঠিক?"],
+    imagePath: null,
+    imageDesc: null,
+    flags: [{ id: "f2", text: FLAG_TEXT, createdAt: "2026-01-01T00:00:00.000Z" }],
+    answer: "MCQ-ANSWER-SHOULD-NOT-PRINT",
+    options: [
+      { label: "ক", text: "H2O" },
+      { label: "খ", text: "CO2" },
+      { label: "গ", text: "NaCl" },
+      { label: "ঘ", text: "NH3" },
+    ],
+    correctOption: "ক",
+    parts: [],
+  };
+}
+
 const META = {
   institute: "টেস্ট স্কুল",
   logoSrc: null,
@@ -188,6 +213,36 @@ describe("paper document model", () => {
     // No choice anywhere → the default stays as written.
     const noChoice = buildPaperDoc(items, base, metaWith(DEFAULT_GENERAL_INSTRUCTIONS));
     expect(noChoice.meta.instructions).toBe(DEFAULT_GENERAL_INSTRUCTIONS);
+  });
+
+  it("prints an MCQ section with four options, ১ mark each and never the answer", () => {
+    const settings = { ...defaultPaperSettings(), grouping: "type" as const };
+    const doc = buildPaperDoc(
+      [
+        { question: mcq("chem-06-mcq-001"), selectedParts: [], section: null },
+        { question: mcq("chem-06-mcq-002"), selectedParts: [], section: "MCQ" },
+        { question: sq(), selectedParts: [], section: null },
+      ],
+      settings,
+      META,
+    );
+    const set = doc.sets[0]!;
+    // Default type order is MCQ → SQ → CQ.
+    expect(set.sections.map((s) => s.type)).toEqual(["MCQ", "SQ"]);
+    const section = set.sections[0]!;
+    expect(section.questions).toHaveLength(2);
+    expect(section.questions[0]!.marks).toBe(1);
+    expect(section.questions[0]!.options.map((o) => o.label)).toEqual(["ক", "খ", "গ", "ঘ"]);
+    expect(section.questions[0]!.stem.at(-1)).toBe("নিচের কোনটি সঠিক?");
+    expect(section.heading).toContain("× ১ = ২");
+    expect(section.instruction).toBe("সবগুলো প্রশ্নের উত্তর দাও");
+    expect(set.totalMarks).toBe(4);
+
+    const serialized = JSON.stringify(doc);
+    expect(serialized).not.toContain("correctOption");
+    expect(serialized).not.toContain("উত্তর:");
+    expect(serialized).not.toContain(FLAG_TEXT);
+    expect(serialized).not.toContain("MCQ-ANSWER-SHOULD-NOT-PRINT");
   });
 
   it("hides the suggestion-sheet furniture by default", () => {

@@ -578,6 +578,39 @@ h1,
 .paper-sheet .katex-display {
   max-width: 100%;
 }
+
+/* MCQ choices: a 2×2 grid, one column when an option is long. The block can
+   never break across a column/page, and an option never splits from its
+   label. The correct option is never rendered here (answer keys do not
+   print), so there is no colour or marker to leak into the paper. */
+.paper-question-mcq {
+  display: flow-root;
+}
+.paper-mcq-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 6mm;
+  row-gap: 0.5mm;
+  margin-top: 1mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.paper-mcq-options.single-column {
+  grid-template-columns: 1fr;
+}
+.paper-mcq-option {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5mm;
+  min-width: 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.paper-mcq-label {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
 /* CQ parts are a table so the label and the marks line up. Auto table layout
    lets one unbreakable formula stretch the whole table past the column (and
    clip the right column in print), so the layout is fixed: the label and the

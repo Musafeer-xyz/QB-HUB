@@ -34,6 +34,34 @@ function cq(overrides: Record<string, unknown> = {}) {
   };
 }
 
+const MCQ_OPTIONS = [
+  { label: "ক", text: "H2O" },
+  { label: "খ", text: "CO2" },
+  { label: "গ", text: "NaCl" },
+  { label: "ঘ", text: "NH3" },
+];
+
+function mcq(overrides: Record<string, unknown> = {}) {
+  return {
+    id: "chem-06-mcq-001",
+    subject: "chemistry",
+    chapter: 6,
+    type: "MCQ",
+    stars: null,
+    boards: ["ঢাকা বোর্ড ২০২৪"],
+    stem: [],
+    image: null,
+    question: "পানির সংকেত কোনটি?",
+    options: MCQ_OPTIONS,
+    correct_option: "ক",
+    answer: null,
+    flags: [],
+    source_no: 1,
+    page: 26,
+    ...overrides,
+  };
+}
+
 function run(items: unknown[], imageFiles?: string[]): ReturnType<typeof checkData> {
   const files: CheckSourceFile[] = [{ name: "chem-06.json", items }];
   return checkData(files, { imageFiles: new Set(imageFiles ?? []) });
@@ -103,19 +131,40 @@ describe("checkData — errors", () => {
     expect(problems(run([cq({ parts: wrongLabels })]))).toContain("লেবেল ক্রম");
   });
 
-  it("requires four MCQ options and a correct option among the labels", () => {
-    const mcq = {
-      id: "chem-06-mcq-001",
-      subject: "chemistry",
-      chapter: 6,
-      type: "MCQ",
-      question: "পানির সংকেত কোনটি?",
-      options: ["H2O", "CO2", "NaCl"],
-      correct_option: "ঙ",
-    };
-    const result = run([mcq]);
+  it("accepts a valid MCQ, plain and with statement lines", () => {
+    expect(run([mcq()]).errors).toEqual([]);
+    expect(run([mcq()]).warnings).toEqual([]);
+
+    const statement = mcq({
+      id: "chem-06-mcq-002",
+      stem: ["i. গ্রাফাইট", "ii. কয়লা", "iii. নিকেল", "নিচের কোনটি সঠিক?"],
+      question: "ইলেকট্রনের মাধ্যমে তড়িৎ পরিবহণ করে–",
+      correct_option: "খ",
+    });
+    expect(run([statement]).errors).toEqual([]);
+  });
+
+  it("rejects an MCQ that does not have exactly four options", () => {
+    const result = run([mcq({ options: MCQ_OPTIONS.slice(0, 3) })]);
     expect(problems(result)).toContain("ঠিক চারটি অপশন");
-    expect(problems(result)).toContain("অপশনের লেবেল");
+  });
+
+  it("rejects MCQ options whose labels are out of order", () => {
+    const options = MCQ_OPTIONS.map((o, i) => ({ ...o, label: ["ক", "গ", "খ", "ঘ"][i] }));
+    expect(problems(run([mcq({ options })]))).toContain("লেবেল ক্রম");
+  });
+
+  it("rejects a correct_option that is not one of ক খ গ ঘ", () => {
+    expect(problems(run([mcq({ correct_option: "ঙ" })]))).toContain("correct_option");
+  });
+
+  it("accepts a null correct_option and rejects non-NFC MCQ text", () => {
+    expect(run([mcq({ correct_option: null })]).errors).toEqual([]);
+    // U+09DF (precomposed য়) is decomposed by NFC.
+    expect(problems(run([mcq({ question: "অম্ল\u09DF কোনটি?" })]))).toContain("NFC");
+    expect(
+      problems(run([mcq({ options: MCQ_OPTIONS.map((o, i) => (i === 0 ? { ...o, text: "অম্ল\u09DF" } : o)) })])),
+    ).toContain("NFC");
   });
 
   it("flags image fields whose file is missing", () => {

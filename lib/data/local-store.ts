@@ -17,6 +17,8 @@ import type { PaperRecord, PaperQuestionRecord, QuestionRecord } from "@/lib/typ
 
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, "data");
+/** MCQ source files live beside the book data, not in `data/` (read-only source). */
+const MCQ_DIR = path.join(ROOT, "Chemistry", "mcq");
 const LOCAL_DIR = path.join(ROOT, "local-data");
 
 type Overrides = { upserts: Record<string, QuestionRecord>; deleted: string[] };
@@ -81,15 +83,14 @@ function toRecord(raw: unknown): QuestionRecord | null {
       })),
     };
   }
-  const mcq = d as { image?: string | null; image_desc?: string | null };
-  const dims = getImageDimensions(mcq.image ?? null);
+  const dims = getImageDimensions(d.image);
   return {
     ...base,
     type: "MCQ",
     question: d.question,
-    stem: [],
-    imagePath: mcq.image ?? null,
-    imageDesc: mcq.image_desc ?? null,
+    stem: d.stem,
+    imagePath: d.image,
+    imageDesc: d.image_desc,
     imageWidth: dims?.width ?? null,
     imageHeight: dims?.height ?? null,
     parts: [],
@@ -98,21 +99,35 @@ function toRecord(raw: unknown): QuestionRecord | null {
 
 let cache: { mtime: number; questions: QuestionRecord[] } | null = null;
 
-function sourceQuestions(): QuestionRecord[] {
-  if (!fs.existsSync(DATA_DIR)) return [];
-  const jsonFiles = fs
-    .readdirSync(DATA_DIR)
-    .filter((f) => f.toLowerCase().endsWith(".json"))
-    .sort();
-  const key = jsonFiles
-    .map((f) => `${f}:${fs.statSync(path.join(DATA_DIR, f)).mtimeMs}`)
+/**
+ * Every source JSON file, in a stable order. `data/` holds the CQ/SQ book and
+ * `Chemistry/mcq/` the MCQ book (kept out of `data/` on purpose — it is a
+ * read-only fixture). Text is NFC-normalised here, never written back.
+ */
+function sourceFiles(dirs: string[]): { dir: string; name: string }[] {
+  const files: { dir: string; name: string }[] = [];
+  for (const dir of dirs) {
+    if (!fs.existsSync(dir)) continue;
+    for (const name of fs.readdirSync(dir).filter((f) => f.toLowerCase().endsWith(".json")).sort()) {
+      files.push({ dir, name });
+    }
+  }
+  return files;
+}
+
+/** Loaded source questions (no admin overrides). Exported for the loader tests. */
+export function sourceQuestions(dirs: string[] = [DATA_DIR, MCQ_DIR]): QuestionRecord[] {
+  const files = sourceFiles(dirs);
+  if (files.length === 0) return [];
+  const key = files
+    .map((f) => `${path.join(f.dir, f.name)}:${fs.statSync(path.join(f.dir, f.name)).mtimeMs}`)
     .join("|");
   const keyHash = crypto.createHash("sha1").update(key).digest("hex");
   if (cache && cache.mtime === Number.parseInt(keyHash.slice(0, 8), 16)) return cache.questions;
 
   const questions: QuestionRecord[] = [];
-  for (const file of jsonFiles) {
-    const items: unknown[] = readJson(path.join(DATA_DIR, file), []);
+  for (const file of files) {
+    const items: unknown[] = readJson(path.join(file.dir, file.name), []);
     for (const item of items) {
       const record = toRecord(item);
       if (record) questions.push(record);
@@ -201,8 +216,9 @@ function recordFromForm(values: QuestionFormValues): QuestionRecord {
     };
   }
   if (values.type === "MCQ") {
+    // The admin editor does not edit MCQ options yet; imports carry them.
     const dims = getImageDimensions(values.image);
-    return { ...base, type: "MCQ", question: values.question ?? "", stem: [], imagePath: values.image, imageDesc: values.image_desc, imageWidth: dims?.width ?? null, imageHeight: dims?.height ?? null, parts: [] };
+    return { ...base, type: "MCQ", question: values.question ?? "", stem: values.stem, imagePath: values.image, imageDesc: values.image_desc, imageWidth: dims?.width ?? null, imageHeight: dims?.height ?? null, parts: [] };
   }
   return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: null, imageDesc: null, imageWidth: null, imageHeight: null, parts: [] };
 }
@@ -290,7 +306,17 @@ export function localStore(): Store {
     async updateQuestion(id, values) {
       const existing = allQuestions().find((q) => q.id === id);
       if (!existing) throw new Error(`“${id}” পাওয়া যায়নি।`);
-      return persistUpsert(withFlags(recordFromForm({ ...values, id }), existing));
+      const record = withFlags(recordFromForm({ ...values, id }), existing);
+      // The admin editor does not edit MCQ options; keep the imported ones
+      // instead of wiping them on an unrelated text edit.
+      if (record.type === "MCQ" && existing.type === "MCQ") {
+        return persistUpsert({
+          ...record,
+          options: existing.options,
+          correctOption: existing.correctOption,
+        });
+      }
+      return persistUpsert(record);
     },
 
     async importQuestions(questions) {

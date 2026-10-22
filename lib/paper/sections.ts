@@ -1,6 +1,6 @@
 import { toBanglaDigits } from "@/lib/bangla";
 
-export type SectionType = "CQ" | "SQ";
+export type SectionType = "CQ" | "SQ" | "MCQ";
 
 /**
  * One section's numbers: how many questions there are, how many a student
@@ -98,7 +98,14 @@ export function generalInstructions(
 export const SECTION_TITLES: Record<SectionType, string> = {
   CQ: "ক-বিভাগ — সৃজনশীল প্রশ্ন (CQ)",
   SQ: "খ-বিভাগ — সংক্ষিপ্ত প্রশ্ন (SQ)",
+  MCQ: "বহুনির্বাচনী প্রশ্ন (MCQ)",
 };
+
+/**
+ * MCQ sections are always worth ১ mark per question, so their heading prints
+ * the plain "N × ১ = N" total (a choice reads "যেকোনো N টি × ১ = N").
+ */
+export const MCQ_MARKS = 1;
 
 const bn = toBanglaDigits;
 
@@ -154,6 +161,11 @@ export function sectionHeading(
 ): string {
   if (opts.showChoice === false) return title;
   if (summary.count === 0) return title;
+  if (summary.type === "MCQ" && summary.equalMarks) {
+    const marks = bn(summary.marksPerQuestion ?? MCQ_MARKS);
+    const choice = summary.choice < summary.count ? `যেকোনো ${bn(summary.choice)}টি` : bn(summary.count);
+    return `${title}: ${choice} × ${marks} = ${bn(summary.totalMarks)}`;
+  }
   if (summary.equalMarks) {
     return `${title}: যেকোনো ${bn(summary.choice)}টি × ${bn(summary.marksPerQuestion ?? 0)} = ${bn(summary.totalMarks)}`;
   }
