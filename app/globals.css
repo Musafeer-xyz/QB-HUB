@@ -744,14 +744,24 @@ h1,
 
   /* Never split a part row (text + marks) or a figure; the whole-question
      rule depends on the "প্রশ্ন একসাথে রাখো" setting and is set above.
-     Tables themselves must be allowed to fragment, otherwise a CQ could
-     never break between its parts. */
+     Only the CQ parts table has rows to keep together — scoping this to
+     `tr` as a whole made the chapter block's own row unbreakable (each
+     chapter is one table), which pushed every chapter onto a fresh page
+     even with "প্রতিটি অধ্যায় নতুন পাতায় শুরু" off. */
   .paper-section-title,
   .paper-figure,
   .paper-part-row,
-  tr {
+  .paper-parts tr {
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  /* The chapter block itself is a table row: it must be able to break
+     between its questions, otherwise a chapter that does not fit in the
+     space left on the page is moved to the next one as a whole. */
+  .paper-table > tbody > tr {
+    break-inside: auto;
+    page-break-inside: auto;
   }
 
   .paper-sheet.keep-together .paper-question {

@@ -1,0 +1,1104 @@
+[
+  {
+    "id": "chem-10-mcq-001",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪",
+      "দিনাজপুর বোর্ড ২০২৪",
+      "ময়মনসিংহ বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ভূ-ত্বকে সিলিকনের শতকরা পরিমাণ কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "3"
+      },
+      {
+        "label": "খ",
+        "text": "4"
+      },
+      {
+        "label": "গ",
+        "text": "27"
+      },
+      {
+        "label": "ঘ",
+        "text": "46"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 1,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-002",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "মৌল | বৈশিষ্ট্য; X | প্রোটন সংখ্যা ২৯; Y | পারমাণবিক সংখ্যা ৯;",
+      "Z | এটি একটি ধাতু যেটি মরিচা গঠন করে"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের X এর আকরিক হলো—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "লিমোনাইট"
+      },
+      {
+        "label": "খ",
+        "text": "গ্যালেনা"
+      },
+      {
+        "label": "গ",
+        "text": "সিন্নাবার"
+      },
+      {
+        "label": "ঘ",
+        "text": "চালকোসাইট"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 2,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-003",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নেত্রকোণার বিজয়পুরে কোনটি পাওয়া যায়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "কেওলিন"
+      },
+      {
+        "label": "খ",
+        "text": "জিরকন"
+      },
+      {
+        "label": "গ",
+        "text": "বক্সাইট"
+      },
+      {
+        "label": "ঘ",
+        "text": "সিন্নাবার"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 3,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-004",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৪",
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "সিন্নাবার কোন ধাতুর আকরিক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "মার্কারি"
+      },
+      {
+        "label": "খ",
+        "text": "কপার"
+      },
+      {
+        "label": "গ",
+        "text": "জিংক"
+      },
+      {
+        "label": "ঘ",
+        "text": "লেড"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 4,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-005",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "আয়রনের আকরিক কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "গ্যালেনা"
+      },
+      {
+        "label": "খ",
+        "text": "বক্সাইট"
+      },
+      {
+        "label": "গ",
+        "text": "লিমোনাইট"
+      },
+      {
+        "label": "ঘ",
+        "text": "ক্যালামাইন"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 5,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-006",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "বক্সাইট কোন ধাতুর আকাধিক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Al}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Zn}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Pb}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [
+      "বইয়ে 'আকাধিক' ছাপা (সম্ভবত 'আকরিক'); যেমন ছাপা তেমন রাখা হয়েছে"
+    ],
+    "source_no": 6,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-007",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "'29' পারমাণবিক সংখ্যাবিশিষ্ট মৌলের আকরিক কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "সিন্নাবার"
+      },
+      {
+        "label": "খ",
+        "text": "বক্সাইট"
+      },
+      {
+        "label": "গ",
+        "text": "লিমোনাইট"
+      },
+      {
+        "label": "ঘ",
+        "text": "চালকোসাইট"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 7,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-008",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "স্ব-বিজারণ পদ্ধতিতে কোনটি নিষ্কাশন করা যায়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "মারকারি"
+      },
+      {
+        "label": "খ",
+        "text": "আয়রন"
+      },
+      {
+        "label": "গ",
+        "text": "ম্যাগনেসিয়াম"
+      },
+      {
+        "label": "ঘ",
+        "text": "অ্যালুমিনিয়াম"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 8,
+    "page": 46
+  },
+  {
+    "id": "chem-10-mcq-009",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ধাতু নিষ্কাশনে তড়িৎ বিশ্লেষণের মাধ্যমে বিজারণ ঘটানো হয় কোনটিতে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Zn}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Ca}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Pb}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cu}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 9,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-010",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "সোডিয়াম ক্লোরাইড 40-42% এবং ক্যালসিয়াম ক্লোরাইড 58-60% মিশ্রণের গলনাঙ্ক কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "801° C"
+      },
+      {
+        "label": "খ",
+        "text": "600°C"
+      },
+      {
+        "label": "গ",
+        "text": "400°C"
+      },
+      {
+        "label": "ঘ",
+        "text": "363°C"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 10,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-011",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "একটি সংকর ধাতু অলংকার, কলকব্জার বিয়ারিং, বৈদ্যুতিক সুইচ, দরজার হাতল, ডেকচি পাতিল ইত্যাদি তৈরিতে ব্যবহার করা হয়।"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের সংকর ধাতুর প্রধান উপাদান নিষ্কাশনের সময় উপজাত গ্যাস কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{CO2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{SO2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{NO2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cl2}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 11,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-012",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "চালকোসাইট কোন ধাতুর আকরিক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "ক্যালসিয়াম"
+      },
+      {
+        "label": "খ",
+        "text": "কপার"
+      },
+      {
+        "label": "গ",
+        "text": "আয়রন"
+      },
+      {
+        "label": "ঘ",
+        "text": "জিংক"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 12,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-013",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি লোহার আকরিক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "হেমাটাইট"
+      },
+      {
+        "label": "খ",
+        "text": "সিন্নাবার"
+      },
+      {
+        "label": "গ",
+        "text": "ক্যালামাইন"
+      },
+      {
+        "label": "ঘ",
+        "text": "চালকোসাইট"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 13,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-014",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২০",
+      "দিনাজপুর বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ডুরালমিন এ কপারের শতকরা সংযুক্তি কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "65%"
+      },
+      {
+        "label": "খ",
+        "text": "12.5%"
+      },
+      {
+        "label": "গ",
+        "text": "8.33%"
+      },
+      {
+        "label": "ঘ",
+        "text": "4%"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 14,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-015",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ডুরালুমিনে কী পরিমাণ $\\ce{Cu}$ থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "4%"
+      },
+      {
+        "label": "খ",
+        "text": "8.33%"
+      },
+      {
+        "label": "গ",
+        "text": "65%"
+      },
+      {
+        "label": "ঘ",
+        "text": "90%"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 15,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-016",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ডুরালুমিনে নিচের কোন ধাতুটি থাকে না?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Al}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Cu}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Mn}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cr}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 16,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-017",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ডুরালুমিন কোন ধাতুর সংকর?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Ca}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Al}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Ni}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Zn}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 17,
+    "page": 47
+  },
+  {
+    "id": "chem-10-mcq-018",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "একটি সংকর ধাতু অলংকার, কলকব্জার বিয়ারিং, বৈদ্যুতিক সুইচ, দরজার হাতল, ডেকচি পাতিল ইত্যাদি তৈরিতে ব্যবহার করা হয়।"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের ধাতু সংকরের নাম কী?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "কাঁসা"
+      },
+      {
+        "label": "খ",
+        "text": "পিতল"
+      },
+      {
+        "label": "গ",
+        "text": "স্টিল"
+      },
+      {
+        "label": "ঘ",
+        "text": "ডুরালুমিন"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 18,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-019",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি দ্বারা বৈদ্যুতিক তার তৈরি করা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Cu}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Mg}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Ca}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 19,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-020",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মরিচাহীন ইস্পাতে ক্রোমিয়ামের শতকরা পরিমাণ কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "8%"
+      },
+      {
+        "label": "খ",
+        "text": "8.33%"
+      },
+      {
+        "label": "গ",
+        "text": "18%"
+      },
+      {
+        "label": "ঘ",
+        "text": "74%"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 20,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-021",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "পিতলে কপারের সংযুক্তি কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "35%"
+      },
+      {
+        "label": "খ",
+        "text": "65%"
+      },
+      {
+        "label": "গ",
+        "text": "74%"
+      },
+      {
+        "label": "ঘ",
+        "text": "90%"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 21,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-022",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "21 ক্যারেট স্বর্ণে কত ভাগ স্বর্ণ থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "83.33%"
+      },
+      {
+        "label": "খ",
+        "text": "87.5%"
+      },
+      {
+        "label": "গ",
+        "text": "91.67%"
+      },
+      {
+        "label": "ঘ",
+        "text": "95.13%"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 22,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-023",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি দ্বারা গ্যালভানাইজিং করা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Cu}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Zn}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Hg}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Ag}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 23,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-024",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মরিচার সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe2O.nH2O}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe2O3.H2O}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Fe2O3.nH2O}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{FeO3.nH2O}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 24,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-025",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ইউরোপে ব্যবহৃত অ্যালুমিনিয়ামের শতকরা কত ভাগ পুনঃপ্রক্রিয়াজাতকৃত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "21%"
+      },
+      {
+        "label": "খ",
+        "text": "28%"
+      },
+      {
+        "label": "গ",
+        "text": "60%"
+      },
+      {
+        "label": "ঘ",
+        "text": "74%"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 25,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-026",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪",
+      "চট্টগ্রাম বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "অলিয়ামের সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na3AlF6}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2S2O7}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Ca(OCl)Cl}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CaCO3}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 26,
+    "page": 48
+  },
+  {
+    "id": "chem-10-mcq-027",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "'সুপার হিটেড ওয়াটার' এর সর্বোচ্চ তাপমাত্রা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "100°C"
+      },
+      {
+        "label": "খ",
+        "text": "270°C"
+      },
+      {
+        "label": "গ",
+        "text": "340°C"
+      },
+      {
+        "label": "ঘ",
+        "text": "374°C"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 27,
+    "page": 49
+  },
+  {
+    "id": "chem-10-mcq-028",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটিকে রাসায়নিক দ্রব্যের রাজা বলা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{HNO3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2SO4}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H2CO3}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{HCl}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 28,
+    "page": 49
+  },
+  {
+    "id": "chem-10-mcq-029",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "$\\ce{H2S2O7 + H2O -> 'A'}$"
+    ],
+    "image": null,
+    "question": "'A' যৌগটির নাম কী?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "সালফিউরিক এসিড"
+      },
+      {
+        "label": "খ",
+        "text": "সালফিউরাস এসিড"
+      },
+      {
+        "label": "গ",
+        "text": "অলিয়াম"
+      },
+      {
+        "label": "ঘ",
+        "text": "অক্সালিক এসিড"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 29,
+    "page": 49
+  },
+  {
+    "id": "chem-10-mcq-030",
+    "subject": "chemistry",
+    "chapter": 10,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "$\\ce{H2S2O7 + H2O -> 'A'}$",
+      "i. এর জারণ ধর্ম নেই",
+      "ii. $\\ce{Cu}$ এর সাথে বিক্রিয়া করে",
+      "iii. এর নিরুদন ধর্ম নেই",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "লঘু A—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 30,
+    "page": 49
+  }
+]

@@ -1,0 +1,1194 @@
+[
+  {
+    "id": "chem-09-mcq-001",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪",
+      "সিলেট বোর্ড ২০২৪",
+      "রাজশাহী বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "দুর্বল অম্ল কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{HCl}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{HNO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H2CO3}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{H2SO4}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 1,
+    "page": 42
+  },
+  {
+    "id": "chem-09-mcq-002",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি অম্লধর্মী অক্সাইড?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na2O}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{SiO2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CaO}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CuO}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 2,
+    "page": 42
+  },
+  {
+    "id": "chem-09-mcq-003",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "দধিতে কোন জৈব এসিড উপস্থিত থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "অ্যাসিটিক এসিড"
+      },
+      {
+        "label": "খ",
+        "text": "টারটারিক এসিড"
+      },
+      {
+        "label": "গ",
+        "text": "ল্যাকটিক এসিড"
+      },
+      {
+        "label": "ঘ",
+        "text": "সাইট্রিক এসিড"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 3,
+    "page": 42
+  },
+  {
+    "id": "chem-09-mcq-004",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি মৃদু এসিড?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{HCl}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{HNO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H2SO4}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CH3-COOH}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 4,
+    "page": 42
+  },
+  {
+    "id": "chem-09-mcq-005",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "পরীক্ষাগারে 60g $\\ce{MgCO3}$ কে তাপ দিয়ে 25g $\\ce{MgO}$ এবং 'X' গ্যাস উৎপন্ন হল।",
+      "i. চুনের পানিকে ঘোলা করার ক্ষমতা রয়েছে",
+      "ii. জলীয় দ্রবণ টক স্বাদযুক্ত",
+      "iii. কেন্দ্রীয় পরমাণুর সুপ্ত যোজনী ২",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "উৎপন্ন 'X' গ্যাসটির—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 5,
+    "page": 42
+  },
+  {
+    "id": "chem-09-mcq-006",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "25°C তাপমাত্রায় 1000টি $\\ce{CH3COOH}$ অণুর মধ্যে পানিতে কতটি অণু বিয়োজিত হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "4"
+      },
+      {
+        "label": "খ",
+        "text": "6"
+      },
+      {
+        "label": "গ",
+        "text": "8"
+      },
+      {
+        "label": "ঘ",
+        "text": "10"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 6,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-007",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২০",
+      "দিনাজপুর বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোন অধঃক্ষেপের বর্ণ লালচে বাদামী?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe(OH)3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Cu(OH)2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Fe(OH)2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Al(OH)3}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 7,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-008",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি ক্ষার?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe(OH)2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{NaOH}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CaO}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cu(OH)2}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 8,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-009",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "$\\ce{FeCl3(aq) + NaOH(aq) -> X}$ + লবণ(aq)"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের 'X' যৌগটি কীরূপ বর্ণ প্রদর্শন করে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "নীল"
+      },
+      {
+        "label": "খ",
+        "text": "লাল"
+      },
+      {
+        "label": "গ",
+        "text": "লালচে বাদামি"
+      },
+      {
+        "label": "ঘ",
+        "text": "সবুজ"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 9,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-010",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "$\\ce{FeCl3(aq) + NaOH(aq) -> X}$ + লবণ(aq)",
+      "i. জারণ-বিজারণ ঘটে",
+      "ii. অধঃক্ষেপণ ঘটে",
+      "iii. উৎপন্ন লবণটি $\\ce{CCl4}$-এ অদ্রবণীয়",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "উপরের বিক্রিয়াটিতে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 10,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-011",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "i. মুখ খোলা হলে হলুদ কুয়াশার মত ধোঁয়া বের হয়",
+      "ii. মুখ খুললে তীব্র ঝাঁজালো গন্ধ পাওয়া যায়",
+      "iii. বর্ণ বাদামি হয়",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "গাঢ় নাইট্রিক এসিডের বোতলের–",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 11,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-012",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫",
+      "বরিশাল বোর্ড ২০২৫",
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি অধিক ক্ষারীয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "রক্ত"
+      },
+      {
+        "label": "খ",
+        "text": "মূত্র"
+      },
+      {
+        "label": "গ",
+        "text": "অগ্ন্যাশয় রস"
+      },
+      {
+        "label": "ঘ",
+        "text": "বৃষ্টির পানি"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 12,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-013",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৪",
+      "ময়মনসিংহ বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি মানুষের ত্বকের pH মান?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "4.8 – 5.5"
+      },
+      {
+        "label": "খ",
+        "text": "7.43 – 7.45"
+      },
+      {
+        "label": "গ",
+        "text": "6.0 – 8.1"
+      },
+      {
+        "label": "ঘ",
+        "text": "1.0 – 7.0"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 13,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-014",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "বিশুদ্ধ পানির pH কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "4"
+      },
+      {
+        "label": "খ",
+        "text": "7"
+      },
+      {
+        "label": "গ",
+        "text": "10"
+      },
+      {
+        "label": "ঘ",
+        "text": "14"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 14,
+    "page": 43
+  },
+  {
+    "id": "chem-09-mcq-015",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "বিশুদ্ধ পানিতে এসিড যোগের কারণে যদি $\\ce{H+}$ আয়ন 100 গুণ বেড়ে যায়, তবে উক্ত দ্রবণের pH কত হবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "3"
+      },
+      {
+        "label": "খ",
+        "text": "4"
+      },
+      {
+        "label": "গ",
+        "text": "5"
+      },
+      {
+        "label": "ঘ",
+        "text": "6"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 15,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-016",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটির pH সবচেয়ে কম?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "মানুষের ত্বক"
+      },
+      {
+        "label": "খ",
+        "text": "অগ্ন্যাশয় রস"
+      },
+      {
+        "label": "গ",
+        "text": "মূত্র"
+      },
+      {
+        "label": "ঘ",
+        "text": "রক্ত"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 16,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-017",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মাটির pH এর মান বৃদ্ধি করতে কোন পদার্থটি ব্যবহার করা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "অ্যামোনিয়াম সালফেট"
+      },
+      {
+        "label": "খ",
+        "text": "ম্যাগনেসিয়াম ফসফেট"
+      },
+      {
+        "label": "গ",
+        "text": "ক্যালসিয়াম অক্সাইড"
+      },
+      {
+        "label": "ঘ",
+        "text": "ইউরিয়া"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 17,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-018",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মাটির pH এর মান কত এর মধ্যে হলে সবচেয়ে ভালো?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "3.0 – 5.0"
+      },
+      {
+        "label": "খ",
+        "text": "5.0 – 7.0"
+      },
+      {
+        "label": "গ",
+        "text": "6.0 – 8.0"
+      },
+      {
+        "label": "ঘ",
+        "text": "7.0 – 10"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 18,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-019",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মূত্রের pH কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "1"
+      },
+      {
+        "label": "খ",
+        "text": "4.8"
+      },
+      {
+        "label": "গ",
+        "text": "6"
+      },
+      {
+        "label": "ঘ",
+        "text": "8.1"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 19,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-020",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটির প্রয়োগে মাটির অত্যধিক ক্ষারকত্ব নিয়ন্ত্রিত হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{NH4OH}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{NaHCO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Ca(OH)2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{(NH4)2SO4}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 20,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-021",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "এন্টাসিডে কোন যৌগটি থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Mg(OH)2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Ca(OH)2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{NaOH}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{KOH}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 21,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-022",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি অম্লীয় মূলক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{OH-}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe^2+}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{O^2-}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{PO4^3-}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 22,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-023",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি পেটে এসিডিটির সমস্যা দূর করে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Ca(OH)2}$ ও $\\ce{Al(OH)3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Ca(OH)2}$ ও $\\ce{Mg(OH)2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Mg(OH)2}$ ও $\\ce{Al(OH)3}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Mg(OH)2}$ ও $\\ce{NaOH}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 23,
+    "page": 44
+  },
+  {
+    "id": "chem-09-mcq-024",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "বজ্রপাতের কারণে বৃষ্টির পানিতে কোন এসিডটির আধিক্য সৃষ্টি হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{H2CO3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{HNO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H3PO4}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{H2SO4}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 24,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-025",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "বৃষ্টির পানির pH কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "4.8–5.5"
+      },
+      {
+        "label": "খ",
+        "text": "5.5–6.0"
+      },
+      {
+        "label": "গ",
+        "text": "6.0–8.0"
+      },
+      {
+        "label": "ঘ",
+        "text": "7.4–7.5"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 25,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-026",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "$\\ce{S + O2 -> A}$; $\\ce{A + O2 -> B}$.",
+      "i. জলীয় দ্রবণ অম্লধর্মী",
+      "ii. কেন্দ্রীয় পরমাণুর জারণ সংখ্যা +4",
+      "iii. ক্ষেত্রে অষ্টক নিয়মের ব্যতিক্রম ঘটে",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের B যৌগটির—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 26,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-027",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫",
+      "দিনাজপুর বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোন যৌগটির কারণে পানির স্থায়ী খরতা সৃষ্টি হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{MgSO4}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{K2SO4}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Na2SO4}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{ZnSO4}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 27,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-028",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৪",
+      "রাজশাহী বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ভারী ধাতু কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Mo}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Rb}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cd}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 28,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-029",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোন যৌগের সাহায্যে পানির স্থায়ী খরতা দূর করা যায়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{CaCO3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Na2CO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{NaCl}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CaCl2}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 29,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-030",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোনটি ভারী ধাতু?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{K}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Pb}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Zn}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 30,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-031",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "(i) এর আণবিক ভর 132",
+      "(ii) হতে উদ্ভিদ নাইট্রোজেন ও সালফার গ্রহণ করে",
+      "(iii) মাটিতে ব্যবহৃত হয় যখন মাটির pH > 7",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{2NH3 + H2SO4 -> A + H2O}$; A যৌগ-",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [
+      "বইয়ে (i), (ii), (iii) একই লাইনে ছাপা; stem-এ আলাদা করে রাখা হয়েছে"
+    ],
+    "source_no": 31,
+    "page": 45
+  },
+  {
+    "id": "chem-09-mcq-032",
+    "subject": "chemistry",
+    "chapter": 9,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোনটির কারণে পানির স্থায়ী খরতা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Ca(HCO3)2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{CaSO4}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Mg(HCO3)2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Al(NO3)3}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 32,
+    "page": 46
+  }
+]

@@ -1,0 +1,1932 @@
+[
+  {
+    "id": "chem-07-mcq-001",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫",
+      "কুমিল্লা বোর্ড ২০২২",
+      "চট্টগ্রাম বোর্ড ২০২২",
+      "সিলেট বোর্ড ২০২২",
+      "দিনাজপুর বোর্ড ২০২২"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Na2S2O3}$ যৌগে সালফারের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+4"
+      },
+      {
+        "label": "খ",
+        "text": "+3"
+      },
+      {
+        "label": "গ",
+        "text": "+2"
+      },
+      {
+        "label": "ঘ",
+        "text": "+1"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 1,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-002",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫",
+      "যশোর বোর্ড ২০২৩",
+      "দিনাজপুর বোর্ড ২০২৩",
+      "ময়মনসিংহ বোর্ড ২০২২"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{HClO4}$ এ Cl এর জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+1"
+      },
+      {
+        "label": "খ",
+        "text": "+3"
+      },
+      {
+        "label": "গ",
+        "text": "+5"
+      },
+      {
+        "label": "ঘ",
+        "text": "+7"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 2,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-003",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৩",
+      "রাজশাহী বোর্ড ২০২২",
+      "ঢাকা বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Na2O2}$ এ অক্সিজেনের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "-2"
+      },
+      {
+        "label": "খ",
+        "text": "-1"
+      },
+      {
+        "label": "গ",
+        "text": "-1/2"
+      },
+      {
+        "label": "ঘ",
+        "text": "+1/2"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 3,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-004",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫",
+      "যশোর বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{HNO3(aq) + KOH(aq) -> KNO3(aq) + H2O}$ বিক্রিয়াটিতে দর্শক আয়ন কোনগুলো?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{K+}$, $\\ce{NO3-}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{K+}$, $\\ce{OH-}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H+}$, $\\ce{NO3-}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{H+}$, $\\ce{OH-}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 4,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-005",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫",
+      "বরিশাল বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Sn^4+ + Fe^2+ -> Sn^2+ + Fe^3+}$ বিক্রিয়াটিতে কোনটির বিজারণ ঘটেছে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe^2+}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe^3+}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Sn^2+}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Sn^4+}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 5,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-006",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৪",
+      "ঢাকা বোর্ড ২০২২"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ওলিয়ামে সালফারের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "6"
+      },
+      {
+        "label": "খ",
+        "text": "4"
+      },
+      {
+        "label": "গ",
+        "text": "2"
+      },
+      {
+        "label": "ঘ",
+        "text": "8"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 6,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-007",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৩",
+      "বরিশাল বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{KMnO4}$ যৌগে Mn এর জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0"
+      },
+      {
+        "label": "খ",
+        "text": "+ 1"
+      },
+      {
+        "label": "গ",
+        "text": "+ 3"
+      },
+      {
+        "label": "ঘ",
+        "text": "+ 7"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 7,
+    "page": 32
+  },
+  {
+    "id": "chem-07-mcq-008",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৩",
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{LiAlH4}$ যৌগে হাইড্রোজেনের জারণ মান কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+1"
+      },
+      {
+        "label": "খ",
+        "text": "-1"
+      },
+      {
+        "label": "গ",
+        "text": "+1/2"
+      },
+      {
+        "label": "ঘ",
+        "text": "-1/2"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 8,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-009",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{2FeCl2 + Cl2 -> 2FeCl3}$ বিক্রিয়াটি কোন ধরনের?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "রেডক্স বিক্রিয়া"
+      },
+      {
+        "label": "খ",
+        "text": "বিয়োজন বিক্রিয়া"
+      },
+      {
+        "label": "গ",
+        "text": "প্রতিস্থাপন বিক্রিয়া"
+      },
+      {
+        "label": "ঘ",
+        "text": "প্রশমন বিক্রিয়া"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 9,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-010",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Mg + 2HCl -> MgCl2 + H2}$ বিক্রিয়ায় জারণ ঘটেছে কোনটির?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "ম্যাগনেসিয়ামের"
+      },
+      {
+        "label": "খ",
+        "text": "ক্লোরিনের"
+      },
+      {
+        "label": "গ",
+        "text": "হাইড্রোজেনের"
+      },
+      {
+        "label": "ঘ",
+        "text": "ম্যাগনেসিয়াম আয়নের"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 10,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-011",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোনটি সংযোজন বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "প্রতিস্থাপন"
+      },
+      {
+        "label": "খ",
+        "text": "সংশ্লেষণ"
+      },
+      {
+        "label": "গ",
+        "text": "আর্দ্র-বিশ্লেষণ"
+      },
+      {
+        "label": "ঘ",
+        "text": "জারণ-বিজারণ"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 11,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-012",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটির জারণ সম্ভব?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Sn^4+}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe^3+}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Pb^4+}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Cu+}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 12,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-013",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "stem": [
+      "i. এর কেন্দ্রীয় পরমাণুর জারণ সংখ্যা +4",
+      "ii. গ্লুকোজ অক্সিজেন দ্বারা জারিত হয়ে উৎপন্ন হয়",
+      "iii. এর অণুগুলোর মধ্যে ভ্যান্ডারওয়ালস আকর্ষণ বল নেই বললেই চলে;",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "মিথেন $+ 2\\ce{O2} \\rightarrow \\ce{Y} + 2\\ce{H2O}$ + শক্তি; যৌগ Y—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 13,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-014",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৬"
+    ],
+    "stem": [
+      "i. Sn জারিত হয়েছে",
+      "ii. $\\ce{Cl2}$ একটি জারক",
+      "iii. $\\ce{Cl2}$ জারিত হয়েছে;",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{Sn + Cl2 -> SnCl2}$ বিক্রিয়াটিতে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 14,
+    "page": 33
+  },
+  {
+    "id": "chem-07-mcq-015",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৬"
+    ],
+    "stem": [
+      "i. H এর জারণ সংখ্যা অপরিবর্তিত থাকে",
+      "ii. $\\ce{Cl2}$ বিজারক হিসেবে কাজ করে",
+      "iii. $\\ce{H2S}$ এর জারণ ঘটে;",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{H2S + Cl2 -> S + 2HCl}$ বিক্রিয়াটিতে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 15,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-016",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৬"
+    ],
+    "stem": [
+      "i. Ca ইলেকট্রন ত্যাগ করেছে",
+      "ii. Ca জারক হিসেবে কাজ করছে",
+      "iii. $\\ce{O2}$ বিজারিত হয়েছে;",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{Ca + 1/2O2 -> CaO}$ বিক্রিয়াটিতে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 16,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-017",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "সালফিউরিক এসিডে কেন্দ্রীয় মৌলের জারণ মান কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+6"
+      },
+      {
+        "label": "খ",
+        "text": "+5"
+      },
+      {
+        "label": "গ",
+        "text": "+4"
+      },
+      {
+        "label": "ঘ",
+        "text": "+2"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 17,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-018",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{K2Cr2O7}$ এ কেন্দ্রীয় পরমাণুর জারণসংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "-6"
+      },
+      {
+        "label": "খ",
+        "text": "+3"
+      },
+      {
+        "label": "গ",
+        "text": "+5"
+      },
+      {
+        "label": "ঘ",
+        "text": "+6"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 18,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-019",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোন যৌগে S এর জারণ মান +4?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{H2SO4}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2SO3}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CuSO4}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Na2S2O3}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 19,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-020",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{H2S + Cl2 -> S + 2HCl}$ বিক্রিয়াটি কোন ধরনের?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "রেডক্স বিক্রিয়া"
+      },
+      {
+        "label": "খ",
+        "text": "প্রশমন বিক্রিয়া"
+      },
+      {
+        "label": "গ",
+        "text": "আর্দ্র বিশ্লেষণ বিক্রিয়া"
+      },
+      {
+        "label": "ঘ",
+        "text": "বিয়োজন বিক্রিয়া"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 20,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-021",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Fe2(SO4)3(aq) + 6NaOH(aq) -> 2Fe(OH)3 + 3Na2SO4}$; এটি কোন ধরনের বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "রেডক্স"
+      },
+      {
+        "label": "খ",
+        "text": "প্রতিস্থাপন"
+      },
+      {
+        "label": "গ",
+        "text": "অধঃক্ষেপণ"
+      },
+      {
+        "label": "ঘ",
+        "text": "সমাণুকরণ"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 21,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-022",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "নিচের উদ্দীপকটি পড়ে প্রশ্নের উত্তর দাও:",
+      "$\\ce{Ca + O2 -> A}$",
+      "i. সংযোজন বিক্রিয়া",
+      "ii. জারণ-বিজারণ বিক্রিয়া",
+      "iii. দহন বিক্রিয়া",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "উল্লিখিত বিক্রিয়াটি—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 22,
+    "page": 34
+  },
+  {
+    "id": "chem-07-mcq-023",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{K2Cr2O7}$ এ Cr এর জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+ 6"
+      },
+      {
+        "label": "খ",
+        "text": "+ 7"
+      },
+      {
+        "label": "গ",
+        "text": "+ 5"
+      },
+      {
+        "label": "ঘ",
+        "text": "+ 4"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 23,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-024",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোনটি জারক পদার্থ?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{O2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H2S}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CO}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 24,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-025",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি বিজারক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Fe^3+}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Cu^2+}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Zn^2+}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Pb^2+}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 25,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-026",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "পার-অক্সাইড যৌগে অক্সিজেন এর জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "-2"
+      },
+      {
+        "label": "খ",
+        "text": "-1"
+      },
+      {
+        "label": "গ",
+        "text": "-1/2"
+      },
+      {
+        "label": "ঘ",
+        "text": "0"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 26,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-027",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{NO3-}$ আয়নে N এর জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+5"
+      },
+      {
+        "label": "খ",
+        "text": "+6"
+      },
+      {
+        "label": "গ",
+        "text": "-5"
+      },
+      {
+        "label": "ঘ",
+        "text": "-6"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 27,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-028",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোন আয়নটির জারণ ও বিজারণ উভয় সম্ভব?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na+}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Cl-}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Fe^2+}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Fe^3+}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 28,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-029",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি রেডক্স বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "প্রশমন"
+      },
+      {
+        "label": "খ",
+        "text": "সমাণুকরণ"
+      },
+      {
+        "label": "গ",
+        "text": "পলিমারকরণ"
+      },
+      {
+        "label": "ঘ",
+        "text": "দহন"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 29,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-030",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Cu2Cl2 + Cl2 -> 2CuCl2}$; এটি কোন ধরনের বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "সংযোজন"
+      },
+      {
+        "label": "খ",
+        "text": "সংশ্লেষণ"
+      },
+      {
+        "label": "গ",
+        "text": "বিয়োজন"
+      },
+      {
+        "label": "ঘ",
+        "text": "নন-রেডক্স"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 30,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-031",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি নন রেডক্স বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Zn(s) + H2SO4(l) -> ZnSO4(aq) + H2(g)}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{2FeCl2(aq) + Cl2(g) -> 2FeCl3(aq)}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Mg(s) + 2O2(g) -> 2MgO(g)}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{NaCl(aq) + AgNO3(aq) -> AgCl(s) + NaNO3(aq)}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 31,
+    "page": 35
+  },
+  {
+    "id": "chem-07-mcq-032",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোন আয়নটির জারণ সম্ভব?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Na+}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{K+}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Cu^2+}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Fe^2+}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 32,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-033",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{CaH2}$ যৌগে হাইড্রোজেনের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0"
+      },
+      {
+        "label": "খ",
+        "text": "+1"
+      },
+      {
+        "label": "গ",
+        "text": "-1"
+      },
+      {
+        "label": "ঘ",
+        "text": "+2"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 33,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-034",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২২"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কপার সালফেট ($\\ce{CuSO4}$) যৌগে সালফারের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "+2"
+      },
+      {
+        "label": "খ",
+        "text": "+4"
+      },
+      {
+        "label": "গ",
+        "text": "+6"
+      },
+      {
+        "label": "ঘ",
+        "text": "+8"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 34,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-035",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২২"
+    ],
+    "stem": [
+      "নিচের উদ্দীপকটি পড়ে প্রশ্নের উত্তর দাও:",
+      "$\\ce{Al + O2 -> Y}$",
+      "i. দহন বিক্রিয়া",
+      "ii. সংশ্লেষণ বিক্রিয়া",
+      "iii. জারণ-বিজারণ বিক্রিয়া",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "বিক্রিয়াটি—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 35,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-036",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{K2O2}$ এ অক্সিজেনের জারণ সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0"
+      },
+      {
+        "label": "খ",
+        "text": "-1/2"
+      },
+      {
+        "label": "গ",
+        "text": "-1"
+      },
+      {
+        "label": "ঘ",
+        "text": "-2"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 36,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-037",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫",
+      "রাজশাহী বোর্ড ২০২৩",
+      "কুমিল্লা বোর্ড ২০২৩",
+      "যশোর বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কেলাস গঠনে $\\ce{CaCl2}$ কতটি পানির অণুর সাথে যুক্ত হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2"
+      },
+      {
+        "label": "খ",
+        "text": "5"
+      },
+      {
+        "label": "গ",
+        "text": "6"
+      },
+      {
+        "label": "ঘ",
+        "text": "7"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 37,
+    "page": 36
+  },
+  {
+    "id": "chem-07-mcq-038",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$ — এ ক্ষেত্রে কোনটি সঠিক?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "তাপ বাড়লে উৎপাদন বাড়ে"
+      },
+      {
+        "label": "খ",
+        "text": "চাপ বাড়লে উৎপাদন কমে"
+      },
+      {
+        "label": "গ",
+        "text": "চাপ বাড়লে উৎপাদন বাড়ে"
+      },
+      {
+        "label": "ঘ",
+        "text": "সকল তাপ ও চাপে উৎপাদন অপরিবর্তিত থাকে"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 38,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-039",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটিতে চাপের প্রভাব বিদ্যমান?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{N2(g) + O2(g) <=> 2NO(g)}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2(g) + Cl2(g) <=> 2HCl(g)}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{3NO2(g) + H2O(g) <=> 2HNO3(g) + NO(g)}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{NH4CNO <=> H2N-CO-NH2}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 39,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-040",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি সমানুকরণ বিক্রিয়া প্রদর্শন করে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{NH4NO3}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{NH4CNO}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{NH4OH}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{NH4Cl}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 40,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-041",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটিতে চাপের প্রভাব নেই?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{2H2(g) + O2(g) <=> 2H2O(g)}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2(g) + I2(g) <=> 2HI(g)}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{N2(g) + 2O2(g) <=> 2NO2(g)}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 41,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-042",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি একই সাথে পানি বিশ্লেষণ ও অধঃক্ষেপণ বিক্রিয়া?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{SiCl4 + H2O -> Si(OH)4 + HCl}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{AlCl3 + H2O -> Al(OH)3 + HCl}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CaCl2 + 6H2O -> CaCl2.6H2O}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{FeSO4 + 7H2O -> FeSO4.7H2O}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 42,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-043",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "এক অণু ফেরাস সালফেট কত অণু পানির সাথে যুক্ত হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2"
+      },
+      {
+        "label": "খ",
+        "text": "5"
+      },
+      {
+        "label": "গ",
+        "text": "6"
+      },
+      {
+        "label": "ঘ",
+        "text": "7"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 43,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-044",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{MgCl2}$ এর সাথে কত অণু পানি যুক্ত থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2"
+      },
+      {
+        "label": "খ",
+        "text": "5"
+      },
+      {
+        "label": "গ",
+        "text": "7"
+      },
+      {
+        "label": "ঘ",
+        "text": "10"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 44,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-045",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "পানিযুক্ত ফেরিক অক্সাইডকে কী বলে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "প্যারাফিন"
+      },
+      {
+        "label": "খ",
+        "text": "মোম"
+      },
+      {
+        "label": "গ",
+        "text": "লবণ"
+      },
+      {
+        "label": "ঘ",
+        "text": "মরিচা"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 45,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-046",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "এন্টাসিডে কোনটি বিদ্যমান?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{Mg(OH)2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{HCl}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Ca(OH)2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{NaOH}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 46,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-047",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটি দ্বারা গ্যালভানাইজিং করা হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "Zn"
+      },
+      {
+        "label": "খ",
+        "text": "Cr"
+      },
+      {
+        "label": "গ",
+        "text": "Ag"
+      },
+      {
+        "label": "ঘ",
+        "text": "Sn"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 47,
+    "page": 37
+  },
+  {
+    "id": "chem-07-mcq-048",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২২"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "নিচের কোনটি মরিচার রাসায়নিক সংকেত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{FeO.3H2O}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{Fe2O3.H2O}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{Fe2O3.2H2O}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{Fe2O3.nH2O}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 48,
+    "page": 38
+  },
+  {
+    "id": "chem-07-mcq-049",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৪",
+      "ঢাকা বোর্ড ২০২৩",
+      "ময়মনসিংহ বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোনটিতে চাপের প্রভাব বিদ্যমান?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{NH4CNO ->[\\Delta] H2N-CO-NH2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{N2(g) + O2(g) <=> 2NO(g)}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{3NO2(g) + H2O(g) <=> 2HNO3(g) + NO(g)}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{H2(g) + Cl2(g) <=> 2HCl(g)}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 49,
+    "page": 38
+  },
+  {
+    "id": "chem-07-mcq-050",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "i. জারণ-বিজারণ ঘটে",
+      "ii. সাম্যাবস্থার উপর চাপের প্রভাব নাই",
+      "iii. বিক্রিয়কের ঘনমাত্রা বৃদ্ধি করলে সাম্যাবস্থা ডানদিকে সরে যাবে",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{2NO(g) + O2(g) <=> 2NO2(g)}$; বিক্রিয়াটির ক্ষেত্রে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 50,
+    "page": 38
+  },
+  {
+    "id": "chem-07-mcq-051",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{N2(g) + 3H2(g) <=> 2NH3(g) + 92kJ}$ বিক্রিয়াটিতে তাপ প্রয়োগ করলে কী হবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "উৎপাদ হ্রাস পাবে"
+      },
+      {
+        "label": "খ",
+        "text": "উৎপাদ বৃদ্ধি পাবে"
+      },
+      {
+        "label": "গ",
+        "text": "বিক্রিয়াটি সামনের দিকে অগ্রসর হয়"
+      },
+      {
+        "label": "ঘ",
+        "text": "উৎপন্ন তাপের পরিমাণ বৃদ্ধি পাবে"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 51,
+    "page": 38
+  },
+  {
+    "id": "chem-07-mcq-052",
+    "subject": "chemistry",
+    "chapter": 7,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোন বিক্রিয়ার উপর চাপের প্রভাব নেই?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{2NO2(g) <=> N2O4(g)}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{H2(g) + I2(g) <=> 2HI(g)}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CaO(s) + CO2(g) <=> CaCO3(s)}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 52,
+    "page": 38
+  }
+]

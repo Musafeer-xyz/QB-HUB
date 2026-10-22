@@ -1,0 +1,1773 @@
+[
+  {
+    "id": "chem-06-mcq-001",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫",
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "100 mL দ্রবণে 5g $\\ce{NaOH}$ দ্রবীভূত থাকলে দ্রবণের ঘনমাত্রা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.05 M"
+      },
+      {
+        "label": "খ",
+        "text": "0.125 M"
+      },
+      {
+        "label": "গ",
+        "text": "1.25 M"
+      },
+      {
+        "label": "ঘ",
+        "text": "1.28 M"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 1,
+    "page": 26
+  },
+  {
+    "id": "chem-06-mcq-002",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "22 g $\\ce{CO2}$ তে অণুর সংখ্যা কতটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$6.023 \\times 10^{23}$"
+      },
+      {
+        "label": "খ",
+        "text": "$6.02 \\times 10^{-23}$"
+      },
+      {
+        "label": "গ",
+        "text": "$3.01 \\times 10^{23}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$1.2 \\times 10^{22}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 2,
+    "page": 26
+  },
+  {
+    "id": "chem-06-mcq-003",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "10 g $\\ce{CaCO3}$ এ কত মোল?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "10"
+      },
+      {
+        "label": "খ",
+        "text": "1"
+      },
+      {
+        "label": "গ",
+        "text": "0.1"
+      },
+      {
+        "label": "ঘ",
+        "text": "0.01"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 3,
+    "page": 26
+  },
+  {
+    "id": "chem-06-mcq-004",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "প্রমাণ অবস্থায় 8 L অ্যামোনিয়া গ্যাসের ভর কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "5.08 g"
+      },
+      {
+        "label": "খ",
+        "text": "6.07 g"
+      },
+      {
+        "label": "গ",
+        "text": "9.6 g"
+      },
+      {
+        "label": "ঘ",
+        "text": "12.72 g"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 4,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-005",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "প্রমাণ অবস্থায় 20 g সালফার ডাইঅক্সাইড গ্যাসের আয়তন কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2.24 লিটার"
+      },
+      {
+        "label": "খ",
+        "text": "5.6 লিটার"
+      },
+      {
+        "label": "গ",
+        "text": "7.0 লিটার"
+      },
+      {
+        "label": "ঘ",
+        "text": "71.68 লিটার"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 5,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-006",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "1 mol পানিতে কত মোল হাইড্রোজেন পরমাণু আছে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.5"
+      },
+      {
+        "label": "খ",
+        "text": "0.75"
+      },
+      {
+        "label": "গ",
+        "text": "1"
+      },
+      {
+        "label": "ঘ",
+        "text": "2"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 6,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-007",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "মিথেন + $\\ce{2O2 -> Y + 2H2O}$ + শক্তি; 3 mol Y = কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "36 গ্রাম"
+      },
+      {
+        "label": "খ",
+        "text": "44 গ্রাম"
+      },
+      {
+        "label": "গ",
+        "text": "64 গ্রাম"
+      },
+      {
+        "label": "ঘ",
+        "text": "132 গ্রাম"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 7,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-008",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "দ্রবণে দ্রবের অণুর সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$2.4 \\times 10^{22}$"
+      },
+      {
+        "label": "খ",
+        "text": "$3.4 \\times 10^{22}$"
+      },
+      {
+        "label": "গ",
+        "text": "$1.5 \\times 10^{23}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$1.06 \\times 10^{23}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [
+      "প্রশ্নে উদ্দীপক ছাপা নেই, কিন্তু ব্যাখ্যায় 'উদ্দীপকের দ্রবণ' (500 mL, 0.5 M K2CO3) আছে"
+    ],
+    "source_no": 8,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-009",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "100g পটাশিয়াম ডাইক্রোমেট সমান কত মোল?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "100 M"
+      },
+      {
+        "label": "খ",
+        "text": "0.940 M"
+      },
+      {
+        "label": "গ",
+        "text": "0.333 M"
+      },
+      {
+        "label": "ঘ",
+        "text": "0.340 M"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 9,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-010",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "প্রমাণ অবস্থায় 5 mole $\\ce{CO2}$ গ্যাসের আয়তন কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.22 Litre"
+      },
+      {
+        "label": "খ",
+        "text": "2.55 Litre"
+      },
+      {
+        "label": "গ",
+        "text": "4.48 Litre"
+      },
+      {
+        "label": "ঘ",
+        "text": "112 Litre"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 10,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-011",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "0.5 লিটার দ্রবণে 20g $\\ce{NaOH}$ দ্রবীভূত থাকলে ঐ দ্রবণের ঘনমাত্রা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.1 M"
+      },
+      {
+        "label": "খ",
+        "text": "0.5 M"
+      },
+      {
+        "label": "গ",
+        "text": "1.0 M"
+      },
+      {
+        "label": "ঘ",
+        "text": "2.0 M"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 11,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-012",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "0.75 মোলার $\\ce{Na2CO3}$ দ্রবণের মধ্যে 10g $\\ce{Na2CO3}$ দ্রবীভূত থাকলে ঐ দ্রবণের আয়তন কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "250 mL"
+      },
+      {
+        "label": "খ",
+        "text": "200 mL"
+      },
+      {
+        "label": "গ",
+        "text": "125.78 mL"
+      },
+      {
+        "label": "ঘ",
+        "text": "100.78 mL"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 12,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-013",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "1 মোল পানির অণুতে হাইড্রোজেন পরমাণুর সংখ্যা কতটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2টি"
+      },
+      {
+        "label": "খ",
+        "text": "18টি"
+      },
+      {
+        "label": "গ",
+        "text": "$6.023 \\times 10^{23}$টি"
+      },
+      {
+        "label": "ঘ",
+        "text": "$1.2046 \\times 10^{24}$টি"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 13,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-014",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "27gm পানিতে কত মোল পানি বিদ্যমান?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.5"
+      },
+      {
+        "label": "খ",
+        "text": "1"
+      },
+      {
+        "label": "গ",
+        "text": "1.5"
+      },
+      {
+        "label": "ঘ",
+        "text": "2"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 14,
+    "page": 27
+  },
+  {
+    "id": "chem-06-mcq-015",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "750 mL 0.1 M সোডিয়াম কার্বোনেট দ্রবণে কত গ্রাম দ্রব রয়েছে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "3"
+      },
+      {
+        "label": "খ",
+        "text": "6.30"
+      },
+      {
+        "label": "গ",
+        "text": "7.25"
+      },
+      {
+        "label": "ঘ",
+        "text": "7.95"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 15,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-016",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "100 mL ডেসিমোলার কস্টিক সোডার দ্রবণ প্রস্তুত করতে কী পরিমাণ দ্রব প্রয়োজন?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.4"
+      },
+      {
+        "label": "খ",
+        "text": "0.2"
+      },
+      {
+        "label": "গ",
+        "text": "2"
+      },
+      {
+        "label": "ঘ",
+        "text": "4"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 16,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-017",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "500 mL পানিতে 111 gm $\\ce{CaCl2}$ দ্রবীভূত থাকলে দ্রবণের ঘনমাত্রা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "0.5 M"
+      },
+      {
+        "label": "খ",
+        "text": "1 M"
+      },
+      {
+        "label": "গ",
+        "text": "2 M"
+      },
+      {
+        "label": "ঘ",
+        "text": "3 M"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 17,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-018",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "দ্রবণটির মোলারিটি কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "1.78M"
+      },
+      {
+        "label": "খ",
+        "text": "0.49 M"
+      },
+      {
+        "label": "গ",
+        "text": "0.33 M"
+      },
+      {
+        "label": "ঘ",
+        "text": "0.21 M"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [
+      "উদ্দীপকের জায়গায় বইয়ে '=== PAGE 288 ===' ছাপা, উদ্দীপক নেই (ব্যাখ্যা অনুযায়ী: 250 mL পানিতে 4.9 g NaCl)"
+    ],
+    "source_no": 18,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-019",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "দ্রবণটিতে আরও কত গ্রাম লবণ যোগ করলে তা-সেমি মোলার দ্রবণে পরিণত হবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2.41"
+      },
+      {
+        "label": "খ",
+        "text": "3.43"
+      },
+      {
+        "label": "গ",
+        "text": "4.9"
+      },
+      {
+        "label": "ঘ",
+        "text": "7.3"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [
+      "উদ্দীপকের জায়গায় বইয়ে '=== PAGE 288 ===' ছাপা, উদ্দীপক নেই (ব্যাখ্যা অনুযায়ী: 250 mL পানিতে 4.9 g NaCl)"
+    ],
+    "source_no": 19,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-020",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "12g কার্বনে পরমাণুর সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$6.023 \\times 10^{23}$"
+      },
+      {
+        "label": "খ",
+        "text": "$6.023 \\times 10^{22}$"
+      },
+      {
+        "label": "গ",
+        "text": "$3.011 \\times 10^{23}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$3.011 \\times 10^{22}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 20,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-021",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Al2(SO4)3}$ এ অক্সিজেনের শতকরা সংযুক্তি কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "56.14%"
+      },
+      {
+        "label": "খ",
+        "text": "28.07%"
+      },
+      {
+        "label": "গ",
+        "text": "16.67%"
+      },
+      {
+        "label": "ঘ",
+        "text": "9.35%"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 21,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-022",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "গ্লুকোজের স্থূল সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{CH2O}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{CHO2}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{C2HO}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CHO}$"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 22,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-023",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "প্রোপেনে কার্বনের শতকরা সংযুক্তি কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "90%"
+      },
+      {
+        "label": "খ",
+        "text": "85.71%"
+      },
+      {
+        "label": "গ",
+        "text": "81.82%"
+      },
+      {
+        "label": "ঘ",
+        "text": "18.19%"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 23,
+    "page": 28
+  },
+  {
+    "id": "chem-06-mcq-024",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "কোন দুটি যৌগের স্থূল সংকেত একই?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "ইথেন ও বেনজিন"
+      },
+      {
+        "label": "খ",
+        "text": "ইথেন ও ইথিন"
+      },
+      {
+        "label": "গ",
+        "text": "গ্লুকোজ ও এসিটিক এসিড"
+      },
+      {
+        "label": "ঘ",
+        "text": "বেনজিন ও হেক্সেন"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 24,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-025",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ময়মনসিংহ বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "6 গ্রাম কার্বন পরমাণু 16 গ্রাম অক্সিজেন পরমাণুর সাথে যুক্ত হয়ে যৌগ গঠন করেছে। যৌগটির স্থূল সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{CO}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{C2O}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{CO2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CO3}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 25,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-026",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "H, C ও O পরমাণুসমূহের অনুপাত 1 : 1 : 2 এবং আণবিক ভর 90 হলে যৌগটির আণবিক সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{HCO2}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{CH2O}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{H2C2O4}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{C6H12O6}$"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 26,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-027",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "ব্লু ভিট্রিওলে (তুঁতে) কেলাস পানির শতকরা পরিমাণ কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "34.07%"
+      },
+      {
+        "label": "খ",
+        "text": "27.07%"
+      },
+      {
+        "label": "গ",
+        "text": "36.07%"
+      },
+      {
+        "label": "ঘ",
+        "text": "47.26%"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 27,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-028",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৫",
+      "সিলেট বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "50gm $\\ce{CaCO3}$ কে উত্তপ্ত করলে কী পরিমাণ গ্যাস উৎপন্ন হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "22g"
+      },
+      {
+        "label": "খ",
+        "text": "28g"
+      },
+      {
+        "label": "গ",
+        "text": "44g"
+      },
+      {
+        "label": "ঘ",
+        "text": "56g"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 28,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-029",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২৬"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "10 মোল অ্যামোনিয়া তৈরিতে কত মোল হাইড্রোজেন গ্যাসের প্রয়োজন হয়?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "5 মোল"
+      },
+      {
+        "label": "খ",
+        "text": "10 মোল"
+      },
+      {
+        "label": "গ",
+        "text": "15 মোল"
+      },
+      {
+        "label": "ঘ",
+        "text": "30 মোল"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 29,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-030",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৫"
+    ],
+    "stem": [
+      "i. 1.12 L $\\ce{CO2}$ পাওয়া যায়",
+      "ii. 2.8g $\\ce{CaO}$ উৎপন্ন হয়",
+      "iii. 0.5 mole $\\ce{CO2}$ পাওয়া যায়",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "5g $\\ce{CaCO3}$ হতে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 30,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-031",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "24 গ্রাম $\\ce{Mg}$ কত গ্রাম $\\ce{O2}$ এর সাথে বিক্রিয়া করবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "8 g"
+      },
+      {
+        "label": "খ",
+        "text": "12 g"
+      },
+      {
+        "label": "গ",
+        "text": "16 g"
+      },
+      {
+        "label": "ঘ",
+        "text": "32 g"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 31,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-032",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "ঢাকা বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "10g ক্যালসিয়াম কত গ্রাম অক্সিজেনের সাথে বিক্রিয়া সম্পন্ন করে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "32"
+      },
+      {
+        "label": "খ",
+        "text": "16"
+      },
+      {
+        "label": "গ",
+        "text": "8"
+      },
+      {
+        "label": "ঘ",
+        "text": "4"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 32,
+    "page": 29
+  },
+  {
+    "id": "chem-06-mcq-033",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "2 মোল $\\ce{Al2O3}$ কে সম্পূর্ণরূপে প্রশমিত করতে কত মোল $\\ce{HCl}$ প্রয়োজন?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "3"
+      },
+      {
+        "label": "খ",
+        "text": "6"
+      },
+      {
+        "label": "গ",
+        "text": "8"
+      },
+      {
+        "label": "ঘ",
+        "text": "12"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 33,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-034",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৪"
+    ],
+    "stem": [
+      "$\\ce{H2 + O2 -> H2O}$"
+    ],
+    "image": null,
+    "question": "বিক্রিয়ায় 72g পানি পেতে কত গ্রাম হাইড্রোজেন প্রয়োজন?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2 g"
+      },
+      {
+        "label": "খ",
+        "text": "4 g"
+      },
+      {
+        "label": "গ",
+        "text": "8 g"
+      },
+      {
+        "label": "ঘ",
+        "text": "16 g"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 34,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-035",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "কুমিল্লা বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "i. হলো 0.05 মোল $\\ce{CaCO3}$",
+      "ii. কে উত্তপ্ত করলে $\\ce{CO2}$ উৎপন্ন হয় 1.12 L",
+      "iii. কে উত্তপ্ত করলে $\\ce{CaO}$ উৎপন্ন হয় 2.8 g",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "5 গ্রাম $\\ce{CaCO3}$—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 35,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-036",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "$\\ce{CaCO3(25g)}$ $\\xrightarrow{\\Delta}$ 'X' + $\\ce{CO2}$"
+    ],
+    "image": null,
+    "question": "প্রমাণ অবস্থায় উৎপন্ন গ্যাসটির পরিমাণ কত লিটার?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "22.4"
+      },
+      {
+        "label": "খ",
+        "text": "11.2"
+      },
+      {
+        "label": "গ",
+        "text": "5.6"
+      },
+      {
+        "label": "ঘ",
+        "text": "2.8"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 36,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-037",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "$\\ce{CaCO3(25g)}$ $\\xrightarrow{\\Delta}$ 'X' + $\\ce{CO2}$"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের বিক্রিয়ায় উৎপন্ন 'X' যৌগে পরমাণুর সংখ্যা কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$1.50 \\times 10^{23}$"
+      },
+      {
+        "label": "খ",
+        "text": "$3.01 \\times 10^{23}$"
+      },
+      {
+        "label": "গ",
+        "text": "$4.5 \\times 10^{23}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$6.02 \\times 10^{23}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 37,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-038",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "$\\ce{2Mg(s) + O2(g) -> 2MgO(s)}$."
+    ],
+    "image": null,
+    "question": "5 মোল $\\ce{MgO}$ পেতে হলে কী পরিমাণ $\\ce{Mg}$ লাগবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2 মোল"
+      },
+      {
+        "label": "খ",
+        "text": "5/2 মোল"
+      },
+      {
+        "label": "গ",
+        "text": "5 মোল"
+      },
+      {
+        "label": "ঘ",
+        "text": "10 মোল"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 38,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-039",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "$\\ce{Ca + S = CaS}$ বিক্রিয়াটিতে কী পরিমাণ উৎপাদ তৈরি হয়? (10g 10g)",
+    "options": [
+      {
+        "label": "ক",
+        "text": "14"
+      },
+      {
+        "label": "খ",
+        "text": "18"
+      },
+      {
+        "label": "গ",
+        "text": "20"
+      },
+      {
+        "label": "ঘ",
+        "text": "22.5"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 39,
+    "page": 30
+  },
+  {
+    "id": "chem-06-mcq-040",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "20g $\\ce{Al2O3}$ এবং 20g $\\ce{HCl}$ এর মধ্যে বিক্রিয়া ঘটানো হলো।",
+      "i. $\\ce{HCl}$ লিমিটিং বিক্রিয়ক",
+      "ii. 9.315 g $\\ce{Al2O3}$ অবশিষ্ট থাকবে",
+      "iii. 24.38 g $\\ce{AlCl3}$ উৎপন্ন হবে",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের বিক্রিয়ার ক্ষেত্রে—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 40,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-041",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "বরিশাল বোর্ড ২০২২"
+    ],
+    "stem": [
+      "নাইট্রোজেনের অক্সাইডে 21 গ্রাম নাইট্রোজেন ও 36 গ্রাম অক্সিজেন বিদ্যমান। উক্ত ভরের নাইট্রোজেনকে 4 গ্রাম হাইড্রোজেনের সাথে বিক্রিয়া করালে $\\ce{NH3}$ উৎপন্ন হয়।"
+    ],
+    "image": null,
+    "question": "উদ্দীপকের বিক্রিয়ায় কত গ্রাম $\\ce{NH3}$ উৎপন্ন হবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "12.75 গ্রাম"
+      },
+      {
+        "label": "খ",
+        "text": "18 গ্রাম"
+      },
+      {
+        "label": "গ",
+        "text": "22.67 গ্রাম"
+      },
+      {
+        "label": "ঘ",
+        "text": "34 গ্রাম"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 41,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-042",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "দিনাজপুর বোর্ড ২০২২"
+    ],
+    "stem": [
+      "10gm $\\ce{N2}$ গ্যাসকে 3gm $\\ce{H2}$ গ্যাসে চালনা করে অ্যামোনিয়া উৎপন্ন করা হলো।"
+    ],
+    "image": null,
+    "question": "বিক্রিয়ার পর কোন বিক্রিয়ক কতটুকু অবশিষ্ট থাকবে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "2.143 gm $\\ce{H2}$"
+      },
+      {
+        "label": "খ",
+        "text": "0.857 gm $\\ce{H2}$"
+      },
+      {
+        "label": "গ",
+        "text": "4gm $\\ce{N2}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "14gm $\\ce{N2}$"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 42,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-043",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২৫",
+      "ঢাকা বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "আর্দ্র $\\ce{CuSO4}$ এর বর্ণ কী?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "নীল"
+      },
+      {
+        "label": "খ",
+        "text": "সাদা"
+      },
+      {
+        "label": "গ",
+        "text": "সবুজ"
+      },
+      {
+        "label": "ঘ",
+        "text": "লাল"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 43,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-044",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "চট্টগ্রাম বোর্ড ২০২২",
+      "ঢাকা বোর্ড ২০২০"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "তুঁতের রাসায়নিক সংকেত কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "$\\ce{FeSO4.7H2O}$"
+      },
+      {
+        "label": "খ",
+        "text": "$\\ce{ZnSO4.7H2O}$"
+      },
+      {
+        "label": "গ",
+        "text": "$\\ce{MgCl2.7H2O}$"
+      },
+      {
+        "label": "ঘ",
+        "text": "$\\ce{CuSO4.5H2O}$"
+      }
+    ],
+    "correct_option": "ঘ",
+    "answer": null,
+    "flags": [],
+    "source_no": 44,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-045",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "রাজশাহী বোর্ড ২০২৫"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "50g $\\ce{PCl5}$ কে তাপ দিয়ে 31g $\\ce{PCl3}$ পাওয়া গেল। উৎপাদের শতকরা পরিমাণ কত?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "54.94%"
+      },
+      {
+        "label": "খ",
+        "text": "90.32%"
+      },
+      {
+        "label": "গ",
+        "text": "94.02%"
+      },
+      {
+        "label": "ঘ",
+        "text": "95.72%"
+      }
+    ],
+    "correct_option": "গ",
+    "answer": null,
+    "flags": [],
+    "source_no": 45,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-046",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৪"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "অ্যানালারে সর্বোচ্চ কত ভাগ ভেজাল থাকে?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "1"
+      },
+      {
+        "label": "খ",
+        "text": "5"
+      },
+      {
+        "label": "গ",
+        "text": "40"
+      },
+      {
+        "label": "ঘ",
+        "text": "99"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 46,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-047",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "যশোর বোর্ড ২০২৩"
+    ],
+    "stem": [],
+    "image": null,
+    "question": "পানিশূন্য $\\ce{CuSO4}$ এর বর্ণ কোনটি?",
+    "options": [
+      {
+        "label": "ক",
+        "text": "নীল"
+      },
+      {
+        "label": "খ",
+        "text": "সাদা"
+      },
+      {
+        "label": "গ",
+        "text": "সবুজ"
+      },
+      {
+        "label": "ঘ",
+        "text": "বাদামি"
+      }
+    ],
+    "correct_option": "খ",
+    "answer": null,
+    "flags": [],
+    "source_no": 47,
+    "page": 31
+  },
+  {
+    "id": "chem-06-mcq-048",
+    "subject": "chemistry",
+    "chapter": 6,
+    "type": "MCQ",
+    "stars": null,
+    "boards": [
+      "সিলেট বোর্ড ২০২৩"
+    ],
+    "stem": [
+      "i. ইথাইন",
+      "ii. বেনজিন",
+      "iii. ন্যাপথলিন",
+      "নিচের কোনটি সঠিক?"
+    ],
+    "image": null,
+    "question": "$\\ce{CH}$ স্থূল সংকেতবিশিষ্ট যৌগ—",
+    "options": [
+      {
+        "label": "ক",
+        "text": "i ও ii"
+      },
+      {
+        "label": "খ",
+        "text": "i ও iii"
+      },
+      {
+        "label": "গ",
+        "text": "ii ও iii"
+      },
+      {
+        "label": "ঘ",
+        "text": "i, ii ও iii"
+      }
+    ],
+    "correct_option": "ক",
+    "answer": null,
+    "flags": [],
+    "source_no": 48,
+    "page": 32
+  }
+]
