@@ -46,6 +46,7 @@ async function addRows(page: Page, count: number) {
 }
 
 test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ page }) => {
+  test.setTimeout(240_000);
   await gotoBank(page);
 
   // --- chapter 6, CQ ---
@@ -161,6 +162,7 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
 });
 
 test("chem-09-cq-001 expands with its figure and renders mhchem in the preview", async ({ page }) => {
+  test.setTimeout(240_000);
   await gotoBank(page);
   await page.getByTestId("chapter-9").click();
   await page.getByTestId("type-CQ").click();

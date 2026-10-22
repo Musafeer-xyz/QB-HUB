@@ -187,14 +187,14 @@ export function unionBox(
   const left = Math.min(...boxes.map((b) => b.x));
   const right = Math.max(...boxes.map((b) => b.x + b.width));
   // Text boxes carry no height: assume an em above the baseline.
-  const x = left - padPt;
-  const y = top + padPt;
+    const x = left - padPt;
+  const y = bottom - padPt;
   const width = right - left + padPt * 2;
   const height = top - bottom + 11 + padPt * 2;
   return {
     x: Math.max(0, x),
-    y: pageHeightPt ? Math.min(y, pageHeightPt) : y,
-    width: Math.min(width, (pageWidthPt ?? Number.MAX) - Math.max(0, x)),
-    height,
+    y: Math.max(0, y),
+    width: pageWidthPt ? Math.min(width, pageWidthPt - Math.max(0, x)) : width,
+    height: pageHeightPt ? Math.min(height, pageHeightPt - Math.max(0, y)) : height,
   };
 }
