@@ -17,6 +17,10 @@ export type QuestionFormValues = {
   image: string | null;
   image_desc: string | null;
   answer: string | null;
+  /** MCQ choices (ক খ গ ঘ), null for CQ/SQ. */
+  options: { label: string; text: string }[] | null;
+  /** Printed answer label (ক/খ/গ/ঘ or none); admin-only, never printed. */
+  correctOption: string | null;
   parts: { label: string; marks: number; text: string; answer: string | null }[];
 };
 

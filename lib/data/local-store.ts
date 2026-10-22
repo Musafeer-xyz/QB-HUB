@@ -188,7 +188,9 @@ function paperFromValues(values: PaperFormValues, id: string, createdBy: string 
   };
 }
 
-function recordFromForm(values: QuestionFormValues): QuestionRecord {
+/** Editor values → stored record. Exported so the mapping of every type is
+ * unit-tested without touching `local-data/`. */
+export function questionRecordFromForm(values: QuestionFormValues): QuestionRecord {
   const base = {
     id: values.id,
     subject: values.subject,
@@ -197,8 +199,6 @@ function recordFromForm(values: QuestionFormValues): QuestionRecord {
     stars: values.stars,
     boards: values.boards,
     answer: values.answer,
-    options: null,
-    correctOption: null,
     flags: [] as QuestionRecord["flags"],
   };
   if (values.type === "CQ") {
@@ -212,15 +212,33 @@ function recordFromForm(values: QuestionFormValues): QuestionRecord {
       imageDesc: values.image_desc,
       imageWidth: dims?.width ?? null,
       imageHeight: dims?.height ?? null,
+      options: null,
+      correctOption: null,
       parts: values.parts.map((p, i) => ({ questionId: values.id, position: i, ...p })),
     };
   }
   if (values.type === "MCQ") {
-    // The admin editor does not edit MCQ options yet; imports carry them.
     const dims = getImageDimensions(values.image);
-    return { ...base, type: "MCQ", question: values.question ?? "", stem: values.stem, imagePath: values.image, imageDesc: values.image_desc, imageWidth: dims?.width ?? null, imageHeight: dims?.height ?? null, parts: [] };
+    return {
+      ...base,
+      type: "MCQ",
+      question: values.question ?? "",
+      stem: values.stem,
+      imagePath: values.image,
+      imageDesc: values.image_desc,
+      imageWidth: dims?.width ?? null,
+      imageHeight: dims?.height ?? null,
+      options: values.options ?? [],
+      correctOption: values.correctOption,
+      parts: [],
+    };
   }
-  return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: null, imageDesc: null, imageWidth: null, imageHeight: null, parts: [] };
+  return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: null, imageDesc: null, imageWidth: null, imageHeight: null, options: null, correctOption: null, parts: [] };
+}
+
+/** Remove one admin flag from a record (pure; used by `resolveFlag`). */
+export function dropFlag(record: QuestionRecord, flagId: string): QuestionRecord {
+  return { ...record, flags: record.flags.filter((f) => f.id !== flagId) };
 }
 
 /** Merge source flags with the editor's text; auto-flag malformed LaTeX. */
@@ -300,16 +318,16 @@ export function localStore(): Store {
     async createQuestion(values) {
       const existing = allQuestions().find((q) => q.id === values.id);
       if (existing) throw new Error(`“${values.id}” ইতিমধ্যে বিদ্যমান।`);
-      return persistUpsert(withFlags(recordFromForm(values), null));
+      return persistUpsert(withFlags(questionRecordFromForm(values), null));
     },
 
     async updateQuestion(id, values) {
       const existing = allQuestions().find((q) => q.id === id);
       if (!existing) throw new Error(`“${id}” পাওয়া যায়নি।`);
-      const record = withFlags(recordFromForm({ ...values, id }), existing);
-      // The admin editor does not edit MCQ options; keep the imported ones
-      // instead of wiping them on an unrelated text edit.
-      if (record.type === "MCQ" && existing.type === "MCQ") {
+      const record = withFlags(questionRecordFromForm({ ...values, id }), existing);
+      // A legacy form that did not send choices must not wipe the imported
+      // ones; the current editor always sends all four.
+      if (record.type === "MCQ" && (record.options ?? []).length === 0 && existing.type === "MCQ") {
         return persistUpsert({
           ...record,
           options: existing.options,
@@ -343,7 +361,7 @@ export function localStore(): Store {
     async resolveFlag(id, flagId) {
       const existing = allQuestions().find((q) => q.id === id);
       if (!existing) throw new Error(`“${id}” পাওয়া যায়নি।`);
-      persistUpsert({ ...existing, flags: existing.flags.filter((f) => f.id !== flagId) });
+      persistUpsert(dropFlag(existing, flagId));
     },
 
     async listBoards() {

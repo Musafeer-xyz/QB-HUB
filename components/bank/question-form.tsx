@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { RichTextLivePreview } from "@/components/rich-text";
 import { MathTextarea } from "@/components/bank/math-textarea";
 import { useToast } from "@/components/toast";
-import { saveQuestionAction } from "@/app/actions/questions";
+import { resolveFlagAction, saveQuestionAction } from "@/app/actions/questions";
+import { MCQ_LABELS, type QuestionFlag } from "@/lib/schemas/question";
 import { questionImageUrl } from "@/lib/images";
 import { toBanglaDigits } from "@/lib/bangla";
 import type { QuestionRecord } from "@/lib/types";
@@ -30,6 +31,14 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
   const [boardsText, setBoardsText] = useState((initial?.boards ?? []).join(", "));
   const [question, setQuestion] = useState(initial?.question ?? "");
   const [stem, setStem] = useState<string[]>(initial?.stem ?? []);
+  const [options, setOptions] = useState<{ label: string; text: string }[]>(() =>
+    MCQ_LABELS.map((label) => ({
+      label,
+      text: initial?.options?.find((option) => option.label === label)?.text ?? "",
+    })),
+  );
+  const [correctOption, setCorrectOption] = useState<string>(initial?.correctOption ?? "");
+  const [flags, setFlags] = useState<QuestionFlag[]>(initial?.flags ?? []);
   const [image, setImage] = useState<string | null>(initial?.imagePath ?? null);
   const [imageDesc, setImageDesc] = useState(initial?.imageDesc ?? "");
   const [answer, setAnswer] = useState(initial?.answer ?? "");
@@ -55,9 +64,27 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
   );
 
   const totalMarks = useMemo(
-    () => (type === "CQ" ? parts.reduce((sum, p) => sum + (Number(p.marks) || 0), 0) : 2),
+    () =>
+      type === "CQ"
+        ? parts.reduce((sum, p) => sum + (Number(p.marks) || 0), 0)
+        : type === "MCQ"
+          ? 1
+          : 2,
     [parts, type],
   );
+
+  function removeFlag(flag: QuestionFlag) {
+    if (!initial) return;
+    startTransition(async () => {
+      const res = await resolveFlagAction(initial.id, flag.id);
+      if (!res.ok) {
+        push("error", res.message);
+        return;
+      }
+      setFlags((prev) => prev.filter((f) => f.id !== flag.id));
+      push("success", "ফ্ল্যাগ সরানো হয়েছে।");
+    });
+  }
 
   async function onUpload(file: File) {
     if (!id.trim()) {
@@ -92,10 +119,16 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
         stars,
         boards,
         question: type === "SQ" || type === "MCQ" ? question : question.trim() || null,
-        stem: type === "CQ" ? stem.map((s) => s) : [],
+        stem: type === "CQ" || type === "MCQ" ? stem.map((s) => s) : [],
         image: type === "SQ" ? null : image,
         image_desc: type === "SQ" ? null : imageDesc.trim() || null,
         answer: answer.trim() || null,
+        options:
+          type === "MCQ"
+            ? options.map((option) => ({ label: option.label, text: option.text }))
+            : null,
+        correct_option:
+          type === "MCQ" && correctOption ? (correctOption as "ক" | "খ" | "গ" | "ঘ") : null,
         parts: type === "CQ" ? parts.filter((p) => p.label.trim() && p.text.trim()) : [],
       });
       if (!res.ok) {
@@ -118,6 +151,28 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
             {pending ? "সংরক্ষণ হচ্ছে…" : "সংরক্ষণ করুন"}
           </button>
         </div>
+
+        {initial && flags.length > 0 ? (
+          <div className="card border-[#f0d9a8] bg-[#fffaf0]">
+            <p className="field-label">যাচাই দরকার (শুধু অ্যাডমিন — প্রিন্টে যাবে না)</p>
+            <ul className="space-y-1">
+              {flags.map((flag) => (
+                <li key={flag.id} className="flex items-start gap-2 text-[12.5px] text-[#8a5300]">
+                  <span className="min-w-0 flex-1">{flag.text}</span>
+                  <button
+                    type="button"
+                    className="rounded border border-[#e9d7a8] bg-surface px-1.5 py-0.5 text-[12px] font-semibold text-ink hover:bg-[#fdf6e3]"
+                    aria-label={`ফ্ল্যাগ সরান: ${flag.text}`}
+                    onClick={() => removeFlag(flag)}
+                    disabled={pending}
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <div className="card grid gap-3 sm:grid-cols-2">
           <div>
@@ -154,6 +209,7 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
             >
               <option value="CQ">CQ (সৃজনশীল)</option>
               <option value="SQ">SQ (সংক্ষিপ্ত)</option>
+              <option value="MCQ">MCQ (বহুনির্বাচনী)</option>
             </select>
           </div>
           <div>
@@ -181,6 +237,36 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
             />
           </div>
         </div>
+
+        {type === "MCQ" ? (
+          <div className="card">
+            <label className="field-label">স্টেম / উদ্দীপক — প্রতিটি লাইন আলাদা প্যারাগ্রাফ</label>
+            {stem.map((line, i) => (
+              <div key={i} className="mb-2 flex items-start gap-2">
+                <MathTextarea
+                  className="min-h-[64px]"
+                  value={line}
+                  onChange={(value) => {
+                    const next = [...stem];
+                    next[i] = value;
+                    setStem(next);
+                  }}
+                  ariaLabel={`স্টেম লাইন ${i + 1}`}
+                />
+                <button
+                  type="button"
+                  className="btn-secondary shrink-0"
+                  onClick={() => setStem(stem.filter((_, idx) => idx !== i))}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+            <button type="button" className="btn-secondary" onClick={() => setStem([...stem, ""])}>
+              ＋ লাইন যোগ করুন
+            </button>
+          </div>
+        ) : null}
 
         {type === "SQ" || type === "MCQ" ? (
           <div className="card">
@@ -332,6 +418,48 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
           </>
         )}
 
+        {type === "MCQ" ? (
+          <div className="card">
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+              <span className="field-label mb-0">অপশন — ঠিক চারটি (ক খ গ ঘ)</span>
+              <label className="flex items-center gap-1.5 text-xs text-muted" htmlFor="correct_option">
+                সঠিক উত্তর
+                <select
+                  id="correct_option"
+                  className="field-input w-20 py-1"
+                  value={correctOption}
+                  onChange={(e) => setCorrectOption(e.target.value)}
+                >
+                  <option value="">নেই</option>
+                  {MCQ_LABELS.map((label) => (
+                    <option key={label} value={label}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            {options.map((option, i) => (
+              <div key={option.label} className="mb-2 flex items-start gap-2">
+                <span className="w-6 shrink-0 pt-2 font-semibold">({option.label})</span>
+                <MathTextarea
+                  className="min-h-[56px]"
+                  value={option.text}
+                  onChange={(value) => {
+                    const next = [...options];
+                    next[i] = { ...option, text: value };
+                    setOptions(next);
+                  }}
+                  ariaLabel={`অপশন ${option.label}`}
+                />
+              </div>
+            ))}
+            <p className="mt-1 text-xs text-muted">
+              সঠিক উত্তর কেবল অ্যাডমিনে থাকে — প্রিন্ট বা PDF-এ কখনো যায় না।
+            </p>
+          </div>
+        ) : null}
+
         <div className="card">
           <label className="field-label" htmlFor="answer">সাধারণ উত্তর (ঐচ্ছিক)</label>
           <textarea
@@ -388,6 +516,29 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
                     ))}
                   </tbody>
                 </table>
+              </>
+            ) : type === "MCQ" ? (
+              <>
+                {stem.map((line, i) => (
+                  <RichTextLivePreview key={i} text={line} />
+                ))}
+                <RichTextLivePreview text={question} className="question-text" />
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {options.map((option) => (
+                    <li
+                      key={option.label}
+                      className={
+                        "flex items-start gap-1.5 rounded-lg border px-2 py-1 " +
+                        (correctOption === option.label
+                          ? "border-[#c9b8f0] bg-[#EEE8FB]"
+                          : "border-line bg-[#fbfaf7]")
+                      }
+                    >
+                      <span className="shrink-0 font-semibold">({option.label})</span>
+                      <RichTextLivePreview text={option.text} className="min-w-0 flex-1" />
+                    </li>
+                  ))}
+                </ul>
               </>
             ) : (
               <RichTextLivePreview text={question} className="question-text" />

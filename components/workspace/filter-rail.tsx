@@ -255,7 +255,9 @@ export function FilterRail({
           </FilterSection>
         ) : null}
 
-        <FilterSection title="আরও ফিল্টার">
+        {/* Open by default: “যাচাই দরকার” is reached from the dashboard, and a
+            filter the user was sent to must be visible (and switchable). */}
+        <FilterSection title="আরও ফিল্টার" open>
           <div className="space-y-1.5 px-1 text-[12px] text-ink">
             <label className="flex items-center gap-2">
               <input

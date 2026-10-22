@@ -113,10 +113,12 @@ function questionRowFromForm(values: QuestionFormValues) {
     stars: values.stars,
     boards: values.boards,
     question: values.question,
-    stem: values.type === "CQ" ? values.stem : [],
+    stem: values.type === "CQ" || values.type === "MCQ" ? values.stem : [],
     image_path: values.type === "SQ" ? null : values.image,
     image_desc: values.type === "SQ" ? null : values.image_desc,
     answer: values.answer,
+    options: values.type === "MCQ" ? values.options : null,
+    correct_option: values.type === "MCQ" ? values.correctOption : null,
   };
 }
 
@@ -155,7 +157,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
   ) {
     const texts = questionTextFields({
       question: values.question,
-      stem: values.type === "CQ" ? values.stem : [],
+      stem: values.type === "CQ" || values.type === "MCQ" ? values.stem : [],
       parts: values.type === "CQ" ? values.parts : [],
       image_desc: values.image_desc,
     });

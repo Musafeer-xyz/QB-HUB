@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bankFacets, filterBank, rowPreview, EMPTY_FILTERS } from "./filter";
+import { bankFacets, bankFiltersToQuery, filterBank, parseBankFilters, rowPreview, EMPTY_FILTERS } from "./filter";
 import type { QuestionRecord } from "@/lib/types";
 
 /** Synthetic 1,000-question bank: 5 chapters × CQ/SQ/MCQ, varied boards. */
@@ -99,5 +99,42 @@ describe("filterBank", () => {
     }
     const average = (performance.now() - start) / runs;
     expect(average).toBeLessThan(100);
+  });
+});
+
+describe("URL filter state", () => {
+  it("parses the dashboard links (?flagged=1, ?chapter=6) and type filters", () => {
+    expect(parseBankFilters("?subject=chemistry&flagged=1")).toMatchObject({
+      flagged: true,
+      chapters: [],
+      types: [],
+    });
+    expect(parseBankFilters("?chapter=6&type=MCQ")).toMatchObject({ chapters: [6], types: ["MCQ"] });
+    expect(parseBankFilters("?chapter=6,7&type=SQ,CQ,MCQ")).toMatchObject({
+      chapters: [6, 7],
+      types: ["SQ", "CQ", "MCQ"],
+    });
+    // Unknown types are dropped, not passed into the filter.
+    expect(parseBankFilters("?type=BOGUS&stars=9").types).toEqual([]);
+    expect(parseBankFilters("?type=BOGUS&stars=9").stars).toBeNull();
+  });
+
+  it("round-trips through the query string and drops defaults", () => {
+    expect(bankFiltersToQuery(EMPTY_FILTERS)).toBe("");
+    const filters = {
+      ...EMPTY_FILTERS,
+      chapters: [6],
+      types: ["MCQ"],
+      flagged: true,
+      search: "মোল",
+    };
+    const query = bankFiltersToQuery(filters);
+    expect(query).toContain("flagged=1");
+    expect(parseBankFilters(query)).toEqual(filters);
+  });
+
+  it("turns the flagged filter off when the parameter is absent", () => {
+    expect(parseBankFilters("?flagged=1").flagged).toBe(true);
+    expect(parseBankFilters("?subject=chemistry").flagged).toBe(false);
   });
 });

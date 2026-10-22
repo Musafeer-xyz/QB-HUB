@@ -1,6 +1,6 @@
 # QB Hub (প্রশ্নব্যাংক) — Project Handoff
 
-Snapshot date: 2026-10-22, evening update #2 (replaces the earlier 2026-10-22 version and the 2026-10-21 one; resolved history was removed on purpose to keep this file short). Written so that a new chat or a new coding agent can continue without asking the user to re-explain anything. **Section 13 is the current state; where it contradicts sections 1–12, section 13 wins.**
+Snapshot date: 2026-10-22, update #3 (replaces update #2 and all earlier versions; resolved history was removed on purpose to keep this file short). Written so that a new chat or a new coding agent can continue without asking the user to re-explain anything. **Section 13 is the current state; where it contradicts sections 1–12, section 13 wins.**
 
 ---
 
@@ -21,15 +21,16 @@ Snapshot date: 2026-10-22, evening update #2 (replaces the earlier 2026-10-22 ve
 - Terminal commands: **one per code block.** His terminal has PSReadLine disabled (screen-reader warning), so pasting a second command often glues two commands into one line (`git status --shortgit status --short`). Tell him to press Esc to clear the line before pasting, or to type short commands by hand. Redirect form that works: `npm run e2e *> pwall.txt`, then `Get-Content pwall.txt | Select-Object -Last 15`.
 - Think first, then give the prompt (the user asked for this order). Do not give an agent prompt until the cause of a failure is known; an agent given a vague failure just guesses.
 - Shell check: in the 2026-10-22 evening session he was in **Git Bash** (prompt `msi9@Tanjim-Hassan MINGW64 /e/QB Hub`). There `tail`, `grep`, `ls` work and PowerShell cmdlets (`Select-Object`, `Get-Content`) do NOT; cmd batch files run via `cmd //c file.bat`. Always state which shell a command is for and prefer the form that fits the prompt he pastes.
-- He asked for this handoff file to be refreshed **before** any chat pause, and for the assistant to do the MCQ transcription itself (his coding-agent quotas — Windsurf, Freebuff — are nearly exhausted; DeepSeek makes too many errors). Skip MCQ explanations ("ব্যাখ্যা") for now to save tokens; maybe add later as an optional `explanation` field.
+- He asked for this handoff file to be refreshed **before** any chat pause. Coding-agent quotas (Windsurf, Freebuff) are tight, but an agent did finish the MCQ app work in update #3. MCQ explanations ("ব্যাখ্যা") are deliberately skipped; maybe add later as an optional `explanation` field.
+- He pastes agent reports as attachments. Verify them (rule 11.2) and always end with a short numbered test checklist: commands for his shell (Git Bash), one per block, plus what to look at in the browser.
 - Stars (★) in the book are not needed; the field stays in the data, hidden in the UI.
 
 ## 2. Project goal and scope
 
 A Bangla question bank for teachers (admin/teacher only for now) from which they build **printable question papers** (A4 print / PDF) and **chapter-wise suggestion sheets**.
 
-- Now: Chemistry (রসায়ন), chapters 6–10, types **CQ** (সৃজনশীল) and **SQ** (সংক্ষিপ্ত). Answers are `null` everywhere and must never print (feature-flagged off).
-- Later (in this order): MCQ data + MCQ support → real Supabase deployment → online exams (MCQ only first) with a student-facing home page → more subjects (physics, math, biology).
+- Now: Chemistry (রসায়ন), chapters 6–10, types **CQ** (সৃজনশীল), **SQ** (সংক্ষিপ্ত) and **MCQ** (বহুনির্বাচনী). CQ/SQ answers are `null` everywhere; MCQ `correct_option` is filled from the book. Neither answers nor `correct_option` may ever print.
+- Later (in this order): real Supabase deployment → online exams (MCQ only first) with a student-facing home page → more subjects (physics, math, biology). MCQ data and MCQ support in the app are done; testing is in progress (see 13).
 - Out of scope for now: OMR, answer sheets, student submissions, grading.
 - Schema stays extensible: `subject`, `type` enum (CQ/SQ/MCQ), nullable `options`/`correct_option`, nullable `topic`.
 
@@ -38,7 +39,7 @@ A Bangla question bank for teachers (admin/teacher only for now) from which they
 - Next.js 15.5.28 (App Router), TypeScript strict, Tailwind, zod, KaTeX + mhchem (`\ce{}`), Playwright (server-side PDF via headless Chromium), vitest, Playwright e2e, Supabase planned, **not provisioned**.
 - **Local demo mode:** project-root `.env.local` has `DATA_SOURCE=local`; no login; edits stored in `local-data/` (`questions.json`, `papers.json`). **Never deploy local mode publicly.**
 - Run: `start-app.bat` (does NOT build; runs `npm start` on port **3100** and opens the browser). After code changes **or after any e2e run / failed build**: `npm run build` then `npx next start -p 3100` (**there is no `update-app.bat` in the project root; only `start-app.bat` exists** — it does not build). If the cmd window opens and closes at once, `.next` has no production build (symptom: `npm start` says "Could not find a production build"); fix with `npm run build`, then `start-app.bat`. Running `npm start` directly uses port 3000, not 3100. Dev mode is slow; use production mode.
-- Scripts: `npx tsx scripts/import.ts ./data --dry-run`, `npx tsx scripts/check-data.ts ./data`, `npx vitest run`, `npm run e2e`, `npm run build`, `npm run lint`, `npx tsc --noEmit`.
+- Scripts: `npx tsx scripts/import.ts ./data --dry-run` (149 CQ/SQ items), `npx tsx scripts/import.ts ./Chemistry/mcq --dry-run` (192 MCQ items), `npx tsx scripts/check-data.ts ./data`, `npx vitest run`, `npm run e2e`, `npm run build`, `npm run lint`, `npx tsc --noEmit`.
 - Folders: `app/`, `components/` (shell, workspace, builder, paper, print, ui…), `lib/` (schemas, paper model/totals/sections/sizes, pdf/, import/, data stores), `scripts/`, `e2e/` (+ `e2e/utils/`), `supabase/migrations/0001_init.sql`, `screenshots/`, `docs/ui-inventory.md`.
 
 ## 4. Source book and data (VERIFIED — do not alter)
@@ -54,7 +55,7 @@ Source: `CQ & SQ.pdf` (126 pages, "রসায়ন - CQ ও SQ সাজে�
 | 10 | খনিজ সম্পদ: ধাতু-অধাতু | 96 – 100 |
 | 11 | আমাদের জীবনে রসায়ন | starts p.100 (not in scope) |
 
-### 4.1 Final files and counts (149 items = 92 SQ + 57 CQ)
+### 4.1 Final files and counts (149 items = 92 SQ + 57 CQ; the 192 MCQs are in 4.7, total 341)
 
 | File | SQ | CQ | Total | SHA-256 (PowerShell `Get-FileHash`) |
 |---|---|---|---|---|
@@ -109,11 +110,11 @@ ch6 CQ: 001, 005, 009, 010, 012, 013, 014, 015, 017 · ch7 CQ: 011, 014 · ch8 C
 4. Diagrams: `pdfimages -list` to find content images (ignore the 965×995 watermark and 33×33 icons), extract with `pdfimages -png`, map by page/position.
 5. Count questions per page from year tags; DeepSeek/NotebookLM silently dropped or merged questions (NotebookLM listed 20 SQ for ch6, the book has 28; DeepSeek ch7 had 22 SQ, the book has 28).
 
-### 4.7 MCQ source (`MCQ.pdf`) and MCQ data rules (added 2026-10-22)
+### 4.7 MCQ data (DONE and verified, 192 items) — source, rules, location
 
-- File: `MCQ.pdf`, 59 pages, A4, two columns, "রসায়ন - MCQ সাজেশন, SSC 2027". **Its Bangla text layer is garbled** (letters wrong, digits and the answer letter (ক/খ/গ/ঘ) intact), so never feed the PDF text to DeepSeek or any text-only model. Read the pages as images (`pdftoppm -png -r 130`, full page is legible), and cross-check digits only (board years, answer letters) with `pdftotext` per page as a multiset check.
-- Every question has a printed **answer line** ("উত্তর: (খ) …") and a "ব্যাখ্যা". So `correct_option` IS filled from the book (overrides rule 7 of the transcription prompt). `answer` stays null; explanations are skipped for now.
-- Chapters start in the middle of pages. Question numbers restart at ০১ in each chapter and are contiguous (no gaps). Page map (printed page = PDF page):
+- Source book: `MCQ.pdf` (59 pages, A4, two columns, "রসায়ন - MCQ সাজেশন, SSC 2027"). **Its Bangla text layer is garbled** (letters wrong; digits and the answer letter ক/খ/গ/ঘ intact), so never feed PDF text to DeepSeek or any text-only model; read pages as images (`pdftoppm -png -r 130`). The extract `acs_mcq_6-10.pdf` (24 pages = printed pages 26–49, PDF page n = printed page n+25) was used for verification.
+- Every question has a printed answer line ("উত্তর: (খ) …") and a "ব্যাখ্যা". `correct_option` IS filled from the book; `answer` stays null; explanations are skipped.
+- Chapters start mid-page; question numbers restart at ০১ per chapter and are contiguous. Page map (printed page = PDF page of MCQ.pdf):
 
 | Chapter | Pages | MCQs | Notes |
 |---|---|---|---|
@@ -123,13 +124,26 @@ ch6 CQ: 001, 005, 009, 010, 012, 013, 014, 015, 017 · ch7 CQ: 011, 014 · ch8 C
 | 9 | 42 (below the ch.9 bar) – 46 (top, Q32) | 32 | |
 | 10 | 46 (below the ch.10 bar) – 49 (top, Q27–30) | 30 | skip ch.11 on p49 |
 
-Total 192. Conventions used in the JSON (file per chapter: `chem-0N-mcq.json`, array, keys in this order: `id, subject, chapter, type, stars, boards, stem, image, question, options, correct_option, answer, flags, source_no, page`):
-- `id` = `chem-<ch>-mcq-<printed number, 3 digits>`; `source_no` = printed number; `page` = printed page where the question starts; `stars` null; `image` null; `answer` null; `flags` [] unless something is unreadable.
-- `boards`: the bracket tag split on `;`, text exactly as printed (Bangla digits).
-- Plain question: `stem` = [] and `question` = the question text. Statement questions (i, ii, iii): `question` = the lead line (may end with "–"), `stem` = each statement as one string **plus the final line "নিচের কোনটি সঠিক?" as the last stem string**, options "i ও ii" etc. as printed. Shared-stimulus questions ("নিচের উদ্দীপকটি পড়ে…"): the stimulus lines go into `stem` of every question that uses it.
-- Formulas as `$\ce{...}$` (single backslash in the parsed string, `\\ce` in the file text), powers like `$10^{-7}$`, `$\Delta H$`; units/words stay plain. Strings are NFC-normalized. Book spellings are kept (e.g. "মিথ্যানল").
-- **Keep the MCQ files out of `data/` until the app supports `type:"MCQ"`** (the importer would reject them); store them in `Chemistry/mcq/`.
-- Verification used: per-page multiset of answer letters and board-year tokens vs the text layer (exact match required), number tokens of every question/option must exist in the page text layer, JSON integrity checks (unique ids, key order, NFC, no zero-width chars, single escaping). Words/options are read from the page image once, so a human spot-check is still worth doing.
+- **Final files and SHA-256** (192 items; `Get-FileHash` in PowerShell, `sha256sum | tr a-f A-F` in Git Bash):
+
+| File | Items | SHA-256 |
+|---|---|---|
+| chem-06-mcq.json | 48 | 18DEA2B7EB552A88DB0598B88BF99C5DEAC72BF2E6596D79E1AED32B99C91620 |
+| chem-07-mcq.json | 52 | 2F356B323F33BD67023B138F36F8740E1454B7FDF3DC20BF00E97A2A36142CA3 |
+| chem-08-mcq.json | 30 | 079240BA02474379A9326D11750EB2D057025805F71EE0A98E6FD1F65BDB3B28 |
+| chem-09-mcq.json | 32 | AAC7425751868507E9C0CF5A93533D9DFDB5BBCB74B5AFD513F2ED1994CA5958 |
+| chem-10-mcq.json | 30 | 2AA54293D82D5C4AA75BBA831F47854725AD404DC19D85C1D899E25A7698351E |
+
+  chem-07's hash is the version after the one fix below; an older copy without it has a different hash.
+- **Where the files live:** `Chemistry/mcq/` only. Since update #3 the local loader reads `data/*.json` **and** `Chemistry/mcq/*.json` (agent's design choice). Do **not** also copy the MCQ files into `data/` or `Chemistry/data/` (same ids would appear twice; duplicate handling was not checked). `scripts/import.ts ./Chemistry/mcq` imports them; for Supabase later import both folders.
+- JSON conventions (file per chapter, array, keys in this order: `id, subject, chapter, type, stars, boards, stem, image, question, options, correct_option, answer, flags, source_no, page`):
+  - `id` = `chem-<ch 2 digits>-mcq-<printed number, 3 digits>`; `source_no` = printed number; `page` = printed page where the question starts; `stars` null; `image` null; `answer` null; `flags` [] unless something is unreadable.
+  - `boards`: the bracket tag split on `;`, text exactly as printed (Bangla digits).
+  - Plain question: `stem` = [] and `question` = the text. Statement questions (i, ii, iii): `question` = the lead line (may end with "–"), `stem` = each statement as one string **plus the final line "নিচের কোনটি সঠিক?"**, options "i ও ii" etc. Shared-stimulus questions: the stimulus lines go into `stem` of every question that uses it.
+  - Formulas as `$\ce{...}$` (single backslash in the parsed string, `\\ce` in the file text), powers like `$10^{-7}$`, `$\Delta H$`; units/words plain. NFC-normalized. Book spellings kept (e.g. "মিথ্যানল", "আকাধিক").
+- **Verification done on 2026-10-22:** (1) format script on all five files: key order, unique/contiguous ids, exactly 4 options ক খ গ ঘ, `correct_option` set, NFC, no zero-width chars, single escaping, statement questions end their stem with "নিচের কোনটি সঠিক?", page order. (2) Per-page multiset of answer letters and board-year tokens vs the PDF text layer: exact match on printed pages 27–48; pages 26 and 49 also contain out-of-scope ch.5 / ch.11 items and the in-scope part matches. (3) Column-aware answer-letter sequence matches in order on every page (pp 38 and 49 confirmed on page images). Question/option words and formulas were read from images once; only ch.7 p32 and the tops of pp 38/49 were re-read, so a human spot-check is still worth doing (start with the flagged items).
+- **One fix made in verification:** ch07 Q5 boards was a single string "বরিশাল বোর্ড ২০২৫, ২০২৩" (the book prints a comma instead of `;`); now two entries.
+- **Flagged items (5):** ch6 Q8, Q18, Q19 (no stimulus printed; the book shows a stray "=== PAGE 288 ===" instead, so Q18/Q19 cannot be used alone in a paper); ch9 Q31 (i/ii/iii printed on one line, split in stem); ch10 Q6 ("আকাধিক" kept as printed). ch10 Q2's stem is a flattened table with `|` and `;`.
 
 ## 5. App features (implemented)
 
@@ -176,16 +190,15 @@ bg `#F6F5F2`, surface `#FFFFFF`, border `#E7E4DD`, text `#1F2430`, muted `#6B728
 ### Step 3 — "Prompt 3" (optional features; after MCQ if effort/quota is tight)
 Dashboard (chapter × type table, flagged count, recent papers, quick actions); **undo for destructive actions** ("মোছা হয়েছে — পূর্বাবস্থায় ফেরান" 10 s toast + "সম্প্রতি মোছা" list for 30 days; a question was once deleted by accident); draft autosave of the paper under construction; near-duplicate grouping (display only: same subject+chapter+type and identical normalized text → one row, merged boards, "N টি অনুরূপ" badge, never edit stored data) and a non-blocking warning when a paper contains two near-duplicates.
 
-### Step 4 — MCQ
-1. Data: the user produces MCQ JSON with another model using the prompt below (one batch = 10–15 questions with a page range). The assistant proof-checks against the PDF (method 4.6) and runs `check-data`.
-2. App: schema/import accept `type:"MCQ"`, exactly four `options [{label,text}]` (ক খ গ ঘ), nullable `correct_option`, optional `source_no`/`page`; MCQ bank cards (stem lines for "i, ii, iii" statement questions, question, 2×2 option tiles, correct option visible only in admin); paper section "বহুনির্বাচনী অংশ: ২০ × ১ = ২০"; optional answer key on the last page only if every MCQ has `correct_option` (off by default). Flags and answers never in normal print.
+### Step 4 — MCQ (DONE: data verified; app support implemented by a coding agent in update #3; manual test and full e2e pending, see 13)
+Not implemented on purpose (optional later): answer key on the last page (only if every MCQ has `correct_option`, off by default) and an `explanation` field.
 
 MCQ item shape:
 ```json
 {"id":"chem-06-mcq-001","subject":"chemistry","chapter":6,"type":"MCQ","stars":null,"boards":["ঢাকা বোর্ড ২০২৪"],"stem":[],"image":null,"question":"…","options":[{"label":"ক","text":"…"},{"label":"খ","text":"…"},{"label":"গ","text":"…"},{"label":"ঘ","text":"…"}],"correct_option":null,"answer":null,"flags":[],"source_no":1,"page":12}
 ```
 
-MCQ transcription prompt (DeepSeek or similar; ≤15 questions per call):
+MCQ transcription prompt (kept for future subjects; DeepSeek or similar, ≤15 questions per call; rule 7 only applies if the source prints answers):
 ```
 You are a careful data-entry transcriber. Convert the MCQ pages I give you into a JSON array, copying the source EXACTLY. Output ONLY the JSON array, no commentary, no markdown fences.
 Rules:
@@ -205,7 +218,7 @@ Chapter: <N>. Start id number: <N>. Pages: <from>–<to>.
 ```
 
 ### Step 5 — Supabase + online exams (not started)
-Create a free Supabase project, set `.env.local`, run `supabase/migrations/0001_init.sql`, create the public bucket `question-images`, run the real import, test auth (admin setup via `SETUP_SECRET`), RLS, `/print` token PDF path (untested against live Supabase). Online exam defaults decided: no student accounts (exam code/link + name + roll), MCQ only at first (needs `correct_option` for every question; publish blocked otherwise), correct answers never sent to the browser (server scores on submit), settings = duration, start/end time, shuffle questions/options, show result yes/no; teacher sees per-student marks, per-question correct rate, CSV export; home page `/` = "পরীক্ষা দিন" (enter code) + "শিক্ষক লগইন"; question bank stays behind login. CQ/SQ online later.
+Create a free Supabase project, set `.env.local`, run `supabase/migrations/0001_init.sql`, create the public bucket `question-images`, run the real import (both `./data` and `./Chemistry/mcq`; check that `lib/data/supabase-store.ts` and the migration map MCQ `options`, `correct_option`, `source_no`, `page`), test auth (admin setup via `SETUP_SECRET`), RLS, `/print` token PDF path (untested against live Supabase). Online exam defaults decided: no student accounts (exam code/link + name + roll), MCQ only at first (needs `correct_option` for every question; publish blocked otherwise), correct answers never sent to the browser (server scores on submit), settings = duration, start/end time, shuffle questions/options, show result yes/no; teacher sees per-student marks, per-question correct rate, CSV export; home page `/` = "পরীক্ষা দিন" (enter code) + "শিক্ষক লগইন"; question bank stays behind login. CQ/SQ online later.
 
 ### Optional data task — `topic`
 The book groups questions under headings (ch8: রাসায়নিক শক্তি, রাসায়নিক শক্তির ব্যবহার, তড়িৎ-রাসায়নিক প্রক্রিয়া, রাসায়নিক বিক্রিয়ার মাধ্যমে বিদ্যুৎ উৎপাদন, নিউক্লিয়ার বিক্রিয়া ও বিদ্যুৎ শক্তি উৎপাদন; ch9: এসিড, ক্ষারক এবং ক্ষার, গাঢ় এসিড ও গাঢ় ক্ষারের ক্ষয়কারী ধর্ম, pH এর ধারণা, প্রশমন বিক্রিয়া, পানি; ch10: খনিজ সম্পদ, ধাতু নিষ্কাশন, নির্বাচিত সংকর ধাতু, খনিজ অধাতু; ch7: পদার্থের পরিবর্তন, রাসায়নিক বিক্রিয়ার শ্রেণিবিভাগ, বিশেষ ধরনের রাসায়নিক বিক্রিয়া, বাস্তব ক্ষেত্রে সংঘটিত কয়েকটি রাসায়নিক বিক্রিয়ার উদাহরণ, বিক্রিয়ার গতিবেগ বা বিক্রিয়ার হার, …). The assistant can add a `topic` string to each item (read from the PDF; data hashes change → update the table in 4.1). The UI already supports an optional topic filter.
@@ -217,6 +230,7 @@ git status --short
 git add -A
 git commit -m "message"
 npx tsx scripts/import.ts ./data --dry-run
+npx tsx scripts/import.ts ./Chemistry/mcq --dry-run
 npx tsc --noEmit
 npx vitest run 2>&1 | Select-Object -Last 8
 npm run build 2>&1 | Select-Object -Last 12
@@ -239,20 +253,29 @@ Notes: npm swallows `--dry-run` in `npm run import -- …`, so use `npx tsx scri
 7. After UI redesigns, re-check printed output: formulas (server PDF), page-1 header, instruction lines, clipped columns.
 8. **e2e lessons:** (a) failing tests used to wait up to 180 s, so one run took 12 min — always run single tests with an explicit `--timeout`, and note that the server-PDF tests need more than 60 s on a cold Chromium (`paper-flow` tests now call `test.setTimeout(240_000)`); a too-short `--timeout` makes a healthy test look broken. (b) Never assert on Bangla text extracted from a PDF (conjuncts break); assert on the DOM or compare rasters. (c) Test helpers can be the bug: `unionBox` in `e2e/utils/pdf-raster.ts` used `Number.MAX` (undefined → NaN) and returned the top edge where `differingRatio` expects the bottom edge; fixed. Diagnose which side is wrong before changing app code or loosening thresholds. (d) Select cards in e2e via `[data-question-id="…"]` and `[data-selected="true"]`, not checkboxes or Tailwind classes.
 9. Do not commit scratch output files; `git add -A` picks up everything not ignored.
+10. Compare an agent's "what changed" list with `git status --short` and `git diff --stat`: in update #3 the agent made a design choice that was not in the prompt (loader also reads `Chemistry/mcq/`) and modified `lib/data/supabase-store.ts` without mentioning it. Ask for the diff of unexplained files.
 
 ---
 
-## 13. Current state — 2026-10-22 evening update #2 (NEWEST)
+## 13. Current state — 2026-10-22, update #3 (NEWEST)
 
-### 13.1 Done and verified (evidence from the user's terminal unless marked "agent report")
-- Earlier baseline (see 2026-10-22 morning): tsc/lint clean, vitest 132 passed, build passes, import dry-run 149 items 0 errors, data hashes match 4.1, `git diff --stat -- data Chemistry` empty, full e2e 13 passed.
-- This session: 3 UI bugs fixed by a coding agent (details 13.2). Evidence: user ran `git status --short` (8 modified files + `components/papers/new-paper-link.tsx` and `e2e/paper-fixes.spec.ts` new), `git diff --stat -- data Chemistry` empty, `npx tsc --noEmit` clean, `npm run lint` → "No ESLint warnings or errors", `npm run build` passed, production server started on port 3100. Agent report only: vitest 132 passed, targeted e2e `paper-fixes.spec.ts` 3 passed. **The full e2e (now 16 tests) has not been re-run.**
-- The user has **not yet reported** the result of the 5 manual browser checks (new paper = empty; tab navigation keeps draft; two separate controls "সব নির্বাচন" / "নির্বাচন মুছুন (N)"; dashboard "মোট প্রশ্ন" card; bulk delete in the papers list).
-- Real server PDF reviewed (ch.7 paper, all 17 CQ + 28 SQ, "কোনো ৩ × ১০ = ৩০" + "কোনো ৫ × ২ = ১০", 7 pages): header on p1, running header from p2, page numbers, one shared instruction line, section totals, figures and formulas (p4–5 viewed as images) fine → closes the optional "যেকোনো N টি" real-PDF check. Minor: "তাপ" inside math (p5 Q16) renders bigger/bolder than the formula; ~20 % blank at bottom of p4 (keep-together, intended); exam time "১৮০ মিনিট" was the user's own input; section heading wording is "কোনো ৩" not "যেকোনো ৩ টি".
-- MCQ data: see 13.3.
+### 13.1 Done and verified
+- MCQ **data**: 192 items in 5 files, verified against the PDF (section 4.7).
+- MCQ **app support**: implemented by a coding agent; its report arrived on 2026-10-22. Evidence in the pasted report (agent output, **not yet re-run by the user**): `import.ts ./Chemistry/mcq --dry-run` = 192 items, 0 skipped, 0 warnings; `import.ts ./data --dry-run` = 149 items, 0 skipped, 0 warnings; `tsc --noEmit` exit 0; lint clean; vitest 16 files / 143 tests passed (was 132); `npm run build` passed; targeted e2e `e2e/mcq.spec.ts` 1 passed (production build on port 3108); `git diff --stat -- data Chemistry` empty. `git status --short` showed 26 modified files, `e2e/mcq.spec.ts` new, and `QB_HUB_HANDOFF.md` staged.
+- Bug-fix work from earlier today (new-paper reset, split "সব নির্বাচন"/"নির্বাচন মুছুন", bulk delete of papers): agent-verified; the user's manual browser results were not reported; commit requested.
+- **Not done yet:** the user's own re-run of the checks, **full e2e (now expected 17 tests)**, manual browser test of MCQ (bank, builder, preview, real PDF), commit.
 
 ### 13.2 Code changes made (so the next agent does not undo them)
-**This session (bug fixes):**
+**MCQ support (update #3, from the agent's report):**
+- Schema/import: `options` = `[{label,text}]`, exactly 4, labels ক খ গ ঘ in order; `correct_option` = a label or `null`; `source_no`/`page` known keys. Files: `lib/schemas/question.ts`, `lib/import/check.ts`, `lib/import/plan.ts`, `scripts/import.ts`.
+- Loader: `lib/data/local-store.ts` reads `data/*.json` **and** `Chemistry/mcq/*.json`, NFC-normalised at load, files never written; `sourceQuestions()` is exported for tests.
+- Bank: `components/workspace/question-card.tsx` MCQ card (stem lines, question, 2×2 option tiles, admin-only tint + "উত্তর" marker, `data-correct`); MCQ row-height estimate in `bank-workspace.tsx`; selection/drawer carry MCQ (`selection-context.tsx`, `paper-drawer.tsx`).
+- Paper: MCQ section "বহুনির্বাচনী প্রশ্ন (MCQ)", 1 mark each, heading `N × ১ = N`, default order MCQ → SQ → CQ (saved orders win; missing types are appended), `mcqChoice` ("যেকোনো N টি") control in the builder, printed 2×2 option grid (single column for long options) in `components/paper/paper-document.tsx` + `app/globals.css`. `correct_option`, `flags` and the "উত্তর" marker never enter the document model.
+- Also modified (check the diffs): `app/print/[id]/page.tsx`, `lib/schemas/paper.ts`, `lib/paper/model.ts`, `lib/paper/sections.ts`, `lib/paper/totals.ts`, `lib/render/rich-text.ts`, `lib/types.ts`, and **`lib/data/supabase-store.ts` (not mentioned in the agent's report)**.
+- Tests: vitest 143 passed; new `e2e/mcq.spec.ts` (1 test).
+- Agent's own warning: because the default order changed, old saved papers without an explicit `sectionOrder` print SQ before CQ; the other e2e specs were not re-run against this.
+
+**Bug-fix session (earlier on 2026-10-22):**
 - `components/selection/selection-context.tsx`: added `reset()` (entries + section choice) and exported `NEW_PAPER_EVENT`. `components/papers/new-paper-link.tsx` (new) is used by every "নতুন পেপার" button (`app/admin/page.tsx`, `app/admin/papers/page.tsx`, `components/shell/command-palette.tsx`); `components/builder/paper-builder.tsx` listens for `NEW_PAPER_EVENT` and resets title/sections/settings/step/items. Root cause of bug 1: the builder seeded its items from the shared selection context persisted in `localStorage` (`qbhub.selection.v2`) and "নতুন পেপার" only navigated. Nav tabs and dashboard cards keep the draft on purpose.
 - Bug 2: the top-bar select-all/cancel was one toggle whose label became "বাতিল" whenever anything was selected, so "select all" cleared the selection. Now two independent controls in `components/workspace/sticky-bar.tsx` + `bank-workspace.tsx`: "সব নির্বাচন" (always selects all filtered results, keeps its confirmation) and "নির্বাচন মুছুন (N)" (only when N > 0).
 - Bug 3: `components/papers/paper-list.tsx`: row checkboxes, header select-all, bulk bar, confirm dialog, bulk delete (papers only, not questions).
@@ -266,28 +289,20 @@ Notes: npm swallows `--dry-run` in `npm run import -- …`, so use `npx tsx scri
 - e2e: `addRows()`, drawer/view-mode/preview selectors updated for Workspace v2; `print-layout:525` assertion replaced by a DOM-based check; `e2e/utils/pdf-raster.ts` `unionBox` fixed (no `Number.MAX`; `y` = bottom edge, `height` spans bottom−pad to top+11+pad); `paper-flow` tests have per-test 240 s timeouts.
 
 ### 13.3 MCQ data progress (source and rules: section 4.7)
-| Chapter | File | Items | Status | SHA-256 |
-|---|---|---|---|---|
-| 6 | chem-06-mcq.json | 0 / 48 | **not done yet** | — |
-| 7 | chem-07-mcq.json | 0 / 52 | **not done yet** | — |
-| 8 | chem-08-mcq.json | 30 / 30 | done, cross-checked | 079240BA02474379A9326D11750EB2D057025805F71EE0A98E6FD1F65BDB3B28 |
-| 9 | chem-09-mcq.json | 0 / 32 | **not done yet** | — |
-| 10 | chem-10-mcq.json | 0 / 30 | **not done yet** | — |
-
-Progress: 30 / 192 MCQs.
-
-Work order agreed: 9, 10, 6, 7 (8 is done). Output files go to the user's `Chemistry\mcq\` (NOT `data/`) until the app supports MCQ. Explanations ("ব্যাখ্যা") deliberately skipped.
+**192 / 192 done and verified.** Files in `Chemistry\mcq\`, hashes in 4.7. Explanations ("ব্যাখ্যা") deliberately skipped.
 
 ### 13.4 Open checklist
-- [ ] Commit the bug-fix work if not yet done: `git add -A` then `git commit -m "fix new paper reset, split select-all/clear, bulk delete papers"` (one command per block; Git Bash).
-- [ ] **Open bug (agent prompt already given to the user, not fixed yet):** toggle "প্রতিটি অধ্যায় নতুন পাতায় শুরু" (Advanced → মোড ও বিন্যাস) is OFF, but the downloaded PDF still starts each chapter on a new page (grouping by chapter, order SQ → CQ). Suspects, in order: (1) server PDF reads the saved paper, not builder state / key-name mismatch between builder, zod schema and print component; (2) default `?? true` / `|| true` or old papers without the field; (3) print CSS `break-before: page` on chapter groups unconditionally; (4) PDF cache key ignores the setting. Quick user test: toggle off → press সংরক্ষণ → download again. Needs a test: 2 short chapters, flag OFF → 1 page, ON → 2 pages.
-- [ ] Finish MCQ data (13.3), then **MCQ support in the app** (Step 4 part 2 in section 9). Agent quota is nearly exhausted (Windsurf, Freebuff); the assistant should prepare the tight agent prompt for when quota returns.
-- [ ] Clean up e2e pollution of `local-data/`; re-run the full e2e once (`npm run e2e *> pwall.txt` in PowerShell; in Git Bash use `npm run e2e > pwall.txt 2>&1`).
-- [ ] Decide on a column divider line; decide whether bottom-of-page blank space is acceptable; review Workspace v2 screenshots.
-- [ ] Optional: "তাপ" font size inside math in the PDF (cosmetic).
-- [ ] Prompt 3 features (optional), Supabase + online exams (Step 5), optional `topic` field, optional MCQ `explanation` field.
+- [ ] User re-runs the quick checks (`git diff --stat -- data Chemistry` empty, `npx tsc --noEmit`, `npx vitest run` = 143 passed, `import.ts ./Chemistry/mcq --dry-run` = 192, SHA-256 of the five MCQ files vs 4.7), then the **full e2e** (`npm run e2e > pwall.txt 2>&1` in Git Bash; expect 17 passed), then `npm run build` and the manual browser test on port 3100.
+- [ ] Review `git diff lib/data/supabase-store.ts` (modified, unexplained). Confirm the loader choice (single MCQ location `Chemistry/mcq/`, no copy into `data/`) or ask an agent to move it.
+- [ ] Verify an old saved paper still prints as before (default order is now MCQ → SQ → CQ), and look at a real server PDF with an MCQ section (1 and 2 columns, statement questions, long options).
+- [ ] Commit (Git Bash, one command per block): `git add -A` then `git commit -m "add MCQ support: schema, import, bank card, paper section, print"`.
+- [ ] **Open bug (agent prompt already given earlier, not fixed yet):** toggle "প্রতিটি অধ্যায় নতুন পাতায় শুরু" (Advanced → মোড ও বিন্যাস) is OFF, but the downloaded PDF still starts each chapter on a new page. Suspects, in order: (1) server PDF reads the saved paper, not builder state / key-name mismatch between builder, zod schema and print component; (2) default `?? true` / `|| true` or old papers without the field; (3) print CSS `break-before: page` on chapter groups unconditionally; (4) PDF cache key ignores the setting. Quick test: toggle off → press সংরক্ষণ → download again. Needs a test: 2 short chapters, flag OFF → 1 page, ON → 2 pages.
+- [ ] Clean up e2e pollution of `local-data/` (tests save real papers; bulk-delete them in the papers list, back up `local-data/` first if real papers exist).
+- [ ] Decide on a column divider line; decide whether bottom-of-page blank space is acceptable; review Workspace v2 screenshots. Optional cosmetic: "তাপ" font size inside math in the PDF.
+- [ ] Optional: MCQ answer key page, `explanation` field, `topic` field, Prompt 3 features (undo for deletes, draft autosave, near-duplicate grouping).
+- [ ] Supabase + online exams (Step 5). Includes checking MCQ mapping in `supabase-store.ts` and the migration.
 - [ ] GitHub: create a **private** repo and push as backup (checks in section 6).
-- Going live: local demo mode must never be deployed. A public site needs Step 5 first.
+- Going live on the internet: local demo mode must never be deployed. A public site needs Step 5 first.
 
 ### 13.5 When to refresh this handoff file
 Ask the assistant to regenerate it (a) after each milestone (MCQ chapters done, bug fixed, Supabase connected, …), (b) before starting a long agent session, (c) whenever the chat gets long or the assistant starts forgetting earlier decisions. Upload only the newest copy and say: "Read QB_HUB_HANDOFF.md fully, then continue from section 13."

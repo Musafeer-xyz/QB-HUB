@@ -1,5 +1,6 @@
 import { getStore } from "@/lib/data/store";
 import { BankWorkspace } from "@/components/workspace/bank-workspace";
+import { parseBankFilters } from "@/lib/bank/filter";
 import { subjectById } from "@/lib/subjects";
 import type { QuestionRecord } from "@/lib/types";
 
@@ -32,5 +33,18 @@ export default async function BankPage({
   const raw = Array.isArray(sp["subject"]) ? sp["subject"][0] : sp["subject"];
   const subject = subjectById(raw).id;
   const questions = await loadIndex(subject);
-  return <BankWorkspace questions={questions} subjectId={subject} />;
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(sp)) {
+    const first = Array.isArray(value) ? value[0] : value;
+    if (first) params.set(key, first);
+  }
+  // `?flagged=1` (dashboard card), `?chapter=6`, `?type=MCQ` … all open the
+  // workspace with those filters already on.
+  return (
+    <BankWorkspace
+      questions={questions}
+      subjectId={subject}
+      initialFilters={parseBankFilters(params.toString())}
+    />
+  );
 }

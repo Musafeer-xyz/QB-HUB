@@ -71,7 +71,7 @@ export default async function DashboardPage({
           value={toBanglaDigits(facets.flagged)}
           hint="ফ্ল্যাগ করা প্রশ্ন"
           icon={<Upload className="h-4 w-4" aria-hidden="true" />}
-          href="/admin/import"
+          href={`/admin/bank?subject=${subject.id}&flagged=1`}
         />
       </div>
 

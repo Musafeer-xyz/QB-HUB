@@ -53,7 +53,10 @@ export function PaperDrawer({ open, onClose, onNavigate }: PaperDrawerProps) {
       />
 
       {/* Drawer */}
-      <div className="fixed right-0 top-0 z-50 h-full w-full max-w-md border-l border-line bg-surface shadow-2xl">
+      <div
+        data-testid="paper-drawer"
+        className="fixed right-0 top-0 z-50 h-full w-full max-w-md border-l border-line bg-surface shadow-2xl"
+      >
         <div className="flex h-full flex-col">
           {/* Header */}
           <header className="flex items-center gap-2 border-b border-line px-4 py-3">

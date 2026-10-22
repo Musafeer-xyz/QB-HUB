@@ -225,8 +225,16 @@ export function QuestionCard({
           />
         )}
 
-        {/* Action menu */}
-        <div className="relative mt-3 flex items-center justify-end">
+        {/* Action menu — the pencil is always visible (any type), "e" also opens it */}
+        <div className="relative mt-3 flex items-center justify-end gap-1">
+          <Link
+            href={`/admin/questions/${encodeURIComponent(question.id)}/edit`}
+            className="btn-ghost h-7 w-7 p-0"
+            aria-label={`${question.id} সম্পাদনা`}
+            title="সম্পাদনা (e)"
+          >
+            <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
           <button
             type="button"
             className="btn-ghost h-7 w-7 p-0"

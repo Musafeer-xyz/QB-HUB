@@ -441,11 +441,10 @@ function MCQ({ question }: { question: PaperDocQuestion }) {
             />
           ) : null}
 
-          <div className="flex items-start gap-2">
-            <RichText text={question.question} className="question-text min-w-0 flex-1" />
-            <span className="paper-marks shrink-0 whitespace-nowrap">
-              [{toBanglaDigits(question.marks)}]
-            </span>
+          {/* No per-question marks label on the paper: the section heading
+              carries "N × ১ = N" and the header carries the total. */}
+          <div className="question-text">
+            <RichText text={question.question} />
           </div>
 
           <ul className={"paper-mcq-options" + (singleColumn ? " single-column" : "")}>
@@ -470,11 +469,11 @@ function SQ({ question }: { question: PaperDocQuestion }) {
       {question.breakBefore ? <div className="break-before-page" /> : null}
       <span className="paper-qno shrink-0">{question.label}</span>
       <div className="min-w-0 flex-1">
-        <div className="flex items-start gap-2">
-          <RichText text={question.question} className="question-text min-w-0 flex-1" />
-          <span className="paper-marks shrink-0 whitespace-nowrap">
-            [{toBanglaDigits(question.marks)}]
-          </span>
+        {/* SQ prints no marks beside the question (the heading has "N × ২ = …").
+            A block wrapper keeps the column width measurable, so an over-wide
+            formula is still scaled down to fit. */}
+        <div className="question-text">
+          <RichText text={question.question} />
         </div>
         {question.answer ? (
           <p className="mt-1 border-l-2 border-slate-300 pl-2 text-xs text-slate-600">

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getStore } from "@/lib/data/store";
-import { questionTypeSchema } from "@/lib/schemas/question";
+import { mcqQuestionSchema, MCQ_LABELS, questionTypeSchema } from "@/lib/schemas/question";
 import { getAuthUser, isAdminUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
 
@@ -12,6 +12,11 @@ const partSchema = z.object({
   marks: z.number().int().min(0).max(100, "নম্বর ০–১০০"),
   text: z.string().trim().min(1, "পার্টের প্রশ্ন লিখুন"),
   answer: z.string().nullable(),
+});
+
+const optionSchema = z.object({
+  label: z.string().trim().min(1),
+  text: z.string().trim().min(1),
 });
 
 const formSchema = z.object({
@@ -30,6 +35,8 @@ const formSchema = z.object({
   image: z.string().nullable(),
   image_desc: z.string().nullable(),
   answer: z.string().nullable(),
+  options: z.array(optionSchema).nullable(),
+  correct_option: z.enum(MCQ_LABELS).nullable(),
   parts: z.array(partSchema),
 });
 
@@ -49,6 +56,8 @@ export async function saveQuestionAction(input: {
   image: string | null;
   image_desc: string | null;
   answer: string | null;
+  options: { label: string; text: string }[] | null;
+  correct_option: "ক" | "খ" | "গ" | "ঘ" | null;
   parts: { label: string; marks: number; text: string; answer: string | null }[];
 }): Promise<QuestionActionResult> {
   if (!isLocalMode()) {
@@ -72,10 +81,37 @@ export async function saveQuestionAction(input: {
   if (values.type === "CQ" && values.parts.length === 0) {
     return { ok: false, message: "CQ-তে অন্তত একটি পার্ট দিন।" };
   }
+  if (values.type === "MCQ") {
+    // Same schema the import uses: exactly four options in ক খ গ ঘ order and a
+    // correct label that is one of them (or none).
+    const mcq = mcqQuestionSchema.safeParse({
+      id: values.id,
+      subject: values.subject,
+      chapter: values.chapter,
+      type: "MCQ",
+      stars: values.stars,
+      boards: values.boards,
+      question: values.question ?? "",
+      stem: values.stem,
+      options: values.options ?? [],
+      correct_option: values.correct_option,
+      answer: values.answer,
+      image: values.image,
+      image_desc: values.image_desc,
+    });
+    if (!mcq.success) {
+      return { ok: false, message: mcq.error.issues[0]?.message ?? "MCQ-র তথ্য সঠিক নয়।" };
+    }
+  }
 
   const store = await getStore();
   const existing = await store.getQuestion(values.id);
-  const form = { ...values, question: values.question?.trim() ? values.question : null };
+  const form = {
+    ...values,
+    question: values.question?.trim() ? values.question : null,
+    options: values.type === "MCQ" ? values.options : null,
+    correctOption: values.type === "MCQ" ? values.correct_option : null,
+  };
 
   try {
     if (existing) {

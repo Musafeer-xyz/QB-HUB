@@ -1,4 +1,5 @@
 import { buildFacets, questionHaystack } from "@/lib/data/facets";
+import { QUESTION_TYPES } from "@/lib/schemas/question";
 import type { QuestionFacets, QuestionRecord } from "@/lib/types";
 
 /** Everything the workspace can filter by. All fields are plain data. */
@@ -25,6 +26,55 @@ export const EMPTY_FILTERS: BankFilters = {
   used: null,
   search: "",
 };
+
+/**
+ * Filter state lives in the URL (`?flagged=1`, `?chapter=6`, `?type=MCQ`), so
+ * a dashboard card can open the bank pre-filtered and a refresh or a back
+ * navigation restores exactly what was on screen. Only non-default values are
+ * written, which keeps the common URL bare.
+ */
+export function parseBankFilters(search: string): BankFilters {
+  const params = new URLSearchParams(search.startsWith("?") ? search.slice(1) : search);
+  const list = (key: string): string[] =>
+    (params.get(key) ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
+  const chapters = list("chapter")
+    .map((value) => Number.parseInt(value, 10))
+    .filter((value) => Number.isInteger(value) && value > 0);
+  const types = list("type").filter((value) => (QUESTION_TYPES as readonly string[]).includes(value));
+  const starsRaw = params.get("stars");
+  const stars = starsRaw && /^[1-5]$/.test(starsRaw) ? Number(starsRaw) : null;
+  const usedRaw = params.get("used");
+  return {
+    chapters: [...new Set(chapters)],
+    types: [...new Set(types)],
+    boards: list("board"),
+    topics: list("topic"),
+    stars,
+    hasImage: params.get("image") === "1",
+    flagged: params.get("flagged") === "1",
+    used: usedRaw === "used" ? true : usedRaw === "unused" ? false : null,
+    search: params.get("q") ?? "",
+  };
+}
+
+
+/** Serialise filters into a query string (no leading "?"; empty when default). */
+export function bankFiltersToQuery(filters: BankFilters): string {
+  const params = new URLSearchParams();
+  if (filters.chapters.length > 0) params.set("chapter", filters.chapters.join(","));
+  if (filters.types.length > 0) params.set("type", filters.types.join(","));
+  if (filters.boards.length > 0) params.set("board", filters.boards.join(","));
+  if (filters.topics.length > 0) params.set("topic", filters.topics.join(","));
+  if (filters.stars !== null) params.set("stars", String(filters.stars));
+  if (filters.hasImage) params.set("image", "1");
+  if (filters.flagged) params.set("flagged", "1");
+  if (filters.used !== null) params.set("used", filters.used ? "used" : "unused");
+  if (filters.search.trim()) params.set("q", filters.search.trim());
+  return params.toString();
+}
 
 export function activeFilterCount(filters: BankFilters): number {
   return (

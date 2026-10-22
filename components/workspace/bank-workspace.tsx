@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Plus, Search, X } from "lucide-react";
 import { useSelection, totalSelectionMarks } from "@/components/selection/selection-context";
@@ -16,7 +17,15 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { QuestionListSkeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/toast";
 import { toBanglaDigits } from "@/lib/bangla";
-import { activeFilterCount, bankFacets, EMPTY_FILTERS, filterBank, type BankFilters } from "@/lib/bank/filter";
+import {
+  activeFilterCount,
+  bankFacets,
+  bankFiltersToQuery,
+  EMPTY_FILTERS,
+  filterBank,
+  parseBankFilters,
+  type BankFilters,
+} from "@/lib/bank/filter";
 import { subjectById, subjectChapterName } from "@/lib/subjects";
 import { cn } from "@/lib/cn";
 import type { QuestionRecord } from "@/lib/types";
@@ -33,18 +42,24 @@ export function BankWorkspace({
   subjectId,
   embedded = false,
   loading = false,
+  initialFilters,
 }: {
   questions: QuestionRecord[];
   subjectId: string;
   embedded?: boolean;
   /** True while the builder is still fetching its question index. */
   loading?: boolean;
+  /** Filters parsed from the URL (`?flagged=1`, `?chapter=6`, `?type=MCQ`). */
+  initialFilters?: BankFilters;
 }) {
   const subject = subjectById(subjectId);
+  const router = useRouter();
   const selection = useSelection();
+  const selectionRef = useRef(selection);
+  selectionRef.current = selection;
   const { push } = useToast();
   const [items, setItems] = useState(questions);
-  const [filters, setFilters] = useState<BankFilters>(EMPTY_FILTERS);
+  const [filters, setFilters] = useState<BankFilters>(initialFilters ?? EMPTY_FILTERS);
   const [paperTitle, setPaperTitle] = useState("");
   const [targetMarks, setTargetMarks] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("open");
@@ -69,6 +84,30 @@ export function BankWorkspace({
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setItems(questions), [questions]);
+
+  // Keep the URL in sync with the filter state, so refresh and back restore the
+  // same view (and the dashboard can link straight to a filtered bank).
+  const filtersQuery = useMemo(() => bankFiltersToQuery(filters), [filters]);
+  useEffect(() => {
+    if (embedded) return;
+    const current = new URLSearchParams(window.location.search);
+    if (bankFiltersToQuery(parseBankFilters(current.toString())) === filtersQuery) return;
+    const subjectParam = current.get("subject");
+    const next = new URLSearchParams(filtersQuery);
+    if (subjectParam) next.set("subject", subjectParam);
+    const query = next.toString();
+    // Shallow URL mirroring: no server round-trip per keystroke, but refresh,
+    // copy-link and back/forward all see the same filters.
+    window.history.replaceState(null, "", query ? `/admin/bank?${query}` : "/admin/bank");
+  }, [embedded, filtersQuery]);
+
+  // Back/forward inside the app restores the filters encoded in the URL.
+  useEffect(() => {
+    if (embedded) return;
+    const onPop = () => setFilters(parseBankFilters(window.location.search));
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [embedded]);
 
   const facets = useMemo(() => bankFacets(items, subjectId), [items, subjectId]);
   const filtered = useMemo(() => filterBank(items, filters, subjectId), [items, filters, subjectId]);
@@ -129,10 +168,20 @@ export function BankWorkspace({
         setDrawerOpen(false);
         setRandomOpen(false);
       }
+      // "e" edits the one selected question (any type), like the card's pencil.
+      if ((e.key === "e" || e.key === "E") && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const entries = selectionRef.current.entries;
+        if (entries.length === 1) {
+          e.preventDefault();
+          router.push(`/admin/questions/${encodeURIComponent(entries[0]!.questionId)}/edit`);
+        } else {
+          push("info", "সম্পাদনার জন্য একটি প্রশ্ন নির্বাচন করুন।");
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [push, router]);
 
   // Show scroll to top button after scrolling
   useEffect(() => {

@@ -74,8 +74,10 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
   await expect(page.getByText("আমার পেপার")).toBeVisible();
 
   // --- paper drawer totals (3 CQ × 10 + 5 SQ × 2) ---
-  await expect(page.getByText("৮", { exact: true }).nth(1)).toBeVisible();
-  await expect(page.getByText("৪০", { exact: true })).toBeVisible();
+  // Scoped to the drawer: board counts in the rail can be the same digit.
+  const drawer = page.getByTestId("paper-drawer");
+  await expect(drawer.getByText("৮", { exact: true })).toBeVisible();
+  await expect(drawer.getByText("৪০", { exact: true })).toBeVisible();
 
   // --- preview: step ২ of the builder ---
   await page.getByRole("link", { name: "প্রিভিউ" }).nth(1).click();
