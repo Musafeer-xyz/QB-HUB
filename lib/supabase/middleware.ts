@@ -11,6 +11,11 @@ import { supabasePublicEnv } from "@/lib/mode";
  * would redirect the renderer to /login and produce a PDF of the login screen.
  */
 const PROTECTED_PREFIXES = ["/admin", "/setup"];
+/**
+ * Exam admin routes are NOT listed here: a prefix would also block the public
+ * student endpoints (/api/exams/[id]/start, /api/attempts/[id]). They use the
+ * route-level `requireAdmin()` guard instead.
+ */
 const PROTECTED_API = ["/api/pdf", "/api/papers", "/api/questions/admin"];
 
 export function isProtectedPath(pathname: string): boolean {

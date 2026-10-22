@@ -1,18 +1,14 @@
 import { NextResponse } from "next/server";
 import { getStore } from "@/lib/data/store";
-import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
-import { isLocalMode } from "@/lib/mode";
+import { requireAdmin } from "@/lib/admin-guard";
 import { examQuestionProblems, hasProblems, problemsMessage } from "@/lib/exams";
 
 /**
  * List all exams (admin only).
  */
 export async function GET() {
-  if (!isLocalMode()) {
-    const user = await getAuthUser();
-    if (!user) return NextResponse.json({ error: "লগইন প্রয়োজন।" }, { status: 401 });
-    if (!(await isAdminUser())) return NextResponse.json({ error: "অনুমতি নেই।" }, { status: 403 });
-  }
+  const denied = await requireAdmin();
+  if (denied) return denied;
 
   try {
     const store = await getStore();
@@ -30,11 +26,8 @@ export async function GET() {
  * Create a new exam (admin only).
  */
 export async function POST(req: Request) {
-  if (!isLocalMode()) {
-    const user = await getAuthUser();
-    if (!user) return NextResponse.json({ error: "লগইন প্রয়োজন।" }, { status: 401 });
-    if (!(await isAdminUser())) return NextResponse.json({ error: "অনুমতি নেই।" }, { status: 403 });
-  }
+  const denied = await requireAdmin();
+  if (denied) return denied;
 
   try {
     const body = await req.json();

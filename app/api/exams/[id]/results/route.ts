@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getStore } from "@/lib/data/store";
-import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
-import { isLocalMode } from "@/lib/mode";
+import { requireAdmin } from "@/lib/admin-guard";
 
 /**
  * Get results for an exam (admin only).
@@ -11,11 +10,8 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  if (!isLocalMode()) {
-    const user = await getAuthUser();
-    if (!user) return NextResponse.json({ error: "লগইন প্রয়োজন।" }, { status: 401 });
-    if (!(await isAdminUser())) return NextResponse.json({ error: "অনুমতি নেই।" }, { status: 403 });
-  }
+  const denied = await requireAdmin();
+  if (denied) return denied;
 
   try {
     const { id } = await params;
