@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, ImageIcon, LibraryBig, Plus, Upload } from "lucide-react";
+import { ArrowRight, FileText, ImageIcon, LibraryBig, PlayCircle, Plus, Upload } from "lucide-react";
 import { getStore } from "@/lib/data/store";
 import { bankFacets } from "@/lib/bank/filter";
 import { PageHeader } from "@/components/ui/page-header";
@@ -10,6 +10,26 @@ import { toBanglaDigits } from "@/lib/bangla";
 import { formatDate } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
+
+/** Top shortcuts on the dashboard, styled like the public home cards. */
+const QUICK_CARDS = [
+  {
+    href: "/admin/bank",
+    bangla: "প্রশ্নব্যাংক",
+    english: "QUESTION BANK",
+    description: "প্রশ্ন দেখুন, ফিল্টার করুন ও পেপারে যোগ করুন।",
+    icon: LibraryBig,
+    accent: "#0f9d8a",
+  },
+  {
+    href: "/admin/videos",
+    bangla: "ভিডিও",
+    english: "VIDEO",
+    description: "YouTube লিংক যোগ করুন ও শিক্ষার্থীদের জন্য প্রকাশ করুন।",
+    icon: PlayCircle,
+    accent: "#7c3aed",
+  },
+] as const;
 
 export default async function DashboardPage({
   searchParams,
@@ -29,6 +49,32 @@ export default async function DashboardPage({
 
   return (
     <div className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {QUICK_CARDS.map(({ href, bangla, english, description, icon: Icon, accent }) => (
+          <Link
+            key={href}
+            href={href}
+            className="group flex flex-col rounded-xl border border-line bg-surface p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+            style={{ borderTopColor: accent, borderTopWidth: 3 }}
+          >
+            <span
+              className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg"
+              style={{ backgroundColor: `${accent}18`, color: accent }}
+            >
+              <Icon className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <span className="text-lg font-bold text-ink">{bangla}</span>
+            <span
+              className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em]"
+              style={{ color: accent }}
+            >
+              {english}
+            </span>
+            <span className="mt-2 text-sm text-muted">{description}</span>
+          </Link>
+        ))}
+      </div>
+
       <PageHeader
         title="ড্যাশবোর্ড"
         description="প্রশ্নব্যাংক, পেপার ও ইমপোর্ট — এক জায়গা থেকে।"

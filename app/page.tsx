@@ -59,12 +59,6 @@ export default function HomePage() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-xs text-muted">
-          শিক্ষকের জন্য:{" "}
-          <Link href="/login" className="font-medium underline underline-offset-2 hover:text-ink">
-            লগইন
-          </Link>
-        </p>
       </main>
     </div>
   );

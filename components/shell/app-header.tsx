@@ -10,6 +10,7 @@ import {
   FileText,
   LayoutDashboard,
   LibraryBig,
+  PlayCircle,
   Search,
   Upload,
 } from "lucide-react";
@@ -22,6 +23,7 @@ const NAV = [
   { href: "/admin/bank", label: "প্রশ্নব্যাংক", icon: LibraryBig },
   { href: "/admin/papers", label: "পেপার", icon: FileText },
   { href: "/admin/exams", label: "এক্সাম", icon: ClipboardList },
+  { href: "/admin/videos", label: "ভিডিও", icon: PlayCircle },
   { href: "/admin/import", label: "ইমপোর্ট", icon: Upload },
 ];
 
