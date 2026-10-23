@@ -66,7 +66,7 @@ test("admin creates, student takes, results, cleanup", async ({ page }) => {
   await expect(card.getByRole("button", { name: "বন্ধ করুন" })).toBeVisible();
 
   await page.goto("/exams");
-  await expect(page.getByRole("heading", { name: "অনলাইন পরীক্ষা" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "ONLINE EXAM" })).toBeVisible();
   await expect(page.getByText("chemistry").first()).toBeVisible();
   await expect(page.getByText("মোলের ধারণা ও রাসায়নিক গণনা").first()).toBeVisible();
   await page.locator(`a[href="/exam/${examId}"]`).click();
