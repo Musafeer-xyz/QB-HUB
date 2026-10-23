@@ -5,6 +5,7 @@ import {
   examQuestionProblems,
   gradeAnswers,
   groupOpenExams,
+  groupOpenExamsBySection,
   hasProblems,
   isExpired,
   publicQuestions,
@@ -279,5 +280,28 @@ describe("student start payload never leaks answers", () => {
     const [only] = publicQuestions([leaked]);
     expect(Object.keys(only!).sort()).toEqual(["id", "options", "question", "stem"]);
     expect(only!.options?.every((o) => Object.keys(o).sort().join(",") === "label,text")).toBe(true);
+  });
+});
+
+describe("groupOpenExamsBySection", () => {
+  it("keeps the fixed subject order, empty sections, and an other bucket", () => {
+    const sections = groupOpenExamsBySection([
+      exam({ id: "e2", subject: "Higher Math", chapter: 1 }),
+      exam({ id: "e1", subject: "chemistry", chapter: 6 }),
+      exam({ id: "e3", subject: "biology", chapter: 2 }),
+      exam({ id: "closed", subject: "chemistry", chapter: 6, isOpen: false }),
+    ]);
+
+    expect(sections.map((s) => s.section.id)).toEqual([
+      "chemistry",
+      "physics",
+      "math",
+      "higher-math",
+      "other",
+    ]);
+    expect(sections[0]!.chapters.flatMap((c) => c.exams.map((e) => e.id))).toEqual(["e1"]);
+    expect(sections[1]!.chapters).toEqual([]);
+    expect(sections[3]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e2"]);
+    expect(sections[4]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e3"]);
   });
 });

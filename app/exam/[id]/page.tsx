@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getStore } from "@/lib/data/store";
+import { BRAND_NAME } from "@/lib/brand";
 import { ExamClient } from "./exam-client";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = { title: BRAND_NAME };
 
 export default async function ExamPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

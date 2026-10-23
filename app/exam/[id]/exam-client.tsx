@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
+import { BrandHeader } from "@/components/brand-header";
 import { RichText } from "@/components/rich-text";
 import { toBanglaDigits } from "@/lib/bangla";
 import type { AttemptResult, ExamRecord } from "@/lib/types";
@@ -161,6 +162,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
   if (step === "start") {
     return (
       <div className="min-h-screen bg-[#F6F5F2]">
+        <BrandHeader />
         <div className="container mx-auto max-w-lg px-4 py-10">
           <div className="rounded-lg border border-line bg-surface p-6 shadow-sm">
             <h1 className="mb-2 text-2xl font-bold">{exam.title}</h1>
@@ -230,6 +232,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
     const seconds = remaining % 60;
     return (
       <div className="min-h-screen bg-[#F6F5F2]">
+        <BrandHeader />
         <div className="sticky top-0 z-10 border-b border-line bg-surface/95 backdrop-blur">
           <div className="container mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
             <h1 className="truncate text-lg font-semibold">{exam.title}</h1>
@@ -334,6 +337,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
   return (
     <div className="min-h-screen bg-[#F6F5F2]">
+      <BrandHeader />
       <div className="container mx-auto max-w-3xl px-4 py-8">
         <div className="rounded-lg border border-line bg-surface p-6 shadow-sm">
           <h1 className="mb-1 text-2xl font-bold">ফলাফল</h1>
@@ -384,21 +388,49 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                     <RichText text={q.question} />
                   </p>
                 ) : null}
-                <div className="space-y-1 pl-7 text-sm">
-                  <p className="text-muted">
-                    আপনার উত্তর:{" "}
-                    <span
-                      className={
-                        q.isCorrect ? "font-semibold text-green-700" : "font-semibold text-red-700"
-                      }
-                    >
-                      {q.studentAnswer ?? "দেওয়া হয়নি"}
-                    </span>
-                  </p>
-                  <p className="text-muted">
-                    সঠিক উত্তর:{" "}
-                    <span className="font-semibold text-green-700">{q.correctOption ?? "-"}</span>
-                  </p>
+                {/* Review: every option, with a symbol as well as colour. */}
+                <div className="space-y-1.5 pl-7 text-sm">
+                  {q.options ? (
+                    q.options.map((opt) => {
+                      const isCorrect = opt.label === q.correctOption;
+                      const isChosen = q.studentAnswer === opt.label;
+                      const isWrongChoice = isChosen && !isCorrect;
+                      return (
+                        <div
+                          key={opt.label}
+                          data-review-correct={isCorrect ? "true" : "false"}
+                          data-review-chosen={isChosen ? "true" : "false"}
+                          className={`flex items-start gap-2 rounded-md border px-3 py-2 ${
+                            isCorrect
+                              ? "border-green-300 bg-green-100 text-green-900"
+                              : isWrongChoice
+                                ? "border-red-300 bg-red-100 text-red-900"
+                                : "border-line text-ink"
+                          }`}
+                        >
+                          <span className="w-4 shrink-0 text-center font-bold" aria-hidden="true">
+                            {isCorrect ? "✓" : isWrongChoice ? "✗" : ""}
+                          </span>
+                          <span className="flex-1">
+                            <span className="font-semibold">{opt.label}. </span>
+                            <RichText text={opt.text} />
+                            {isCorrect ? <span className="sr-only"> — সঠিক উত্তর</span> : null}
+                            {isWrongChoice ? (
+                              <span className="sr-only"> — আপনার ভুল উত্তর</span>
+                            ) : null}
+                          </span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className="text-muted">
+                      সঠিক উত্তর:{" "}
+                      <span className="font-semibold text-green-700">{q.correctOption ?? "-"}</span>
+                    </p>
+                  )}
+                  {q.studentAnswer === null ? (
+                    <p className="text-xs text-muted">দেওয়া হয়নি</p>
+                  ) : null}
                 </div>
               </div>
             ))}

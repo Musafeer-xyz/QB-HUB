@@ -84,3 +84,64 @@ export function subjectChapters(subjectId: string): { chapter: number; name: str
 export function subjectDot(id: string): string {
   return subjectById(id).dot;
 }
+
+/**
+ * Fixed subject order for the public exam list. Stored `exams.subject` values
+ * are matched through `aliases` — nothing stored is ever renamed.
+ */
+export type ExamSection = {
+  id: string;
+  /** Uppercase section heading. */
+  english: string;
+  /** Bangla name beside the heading. */
+  bangla: string;
+  /** Accent colour (hex) for the section heading and rail. */
+  accent: string;
+  aliases: string[];
+};
+
+export const EXAM_SECTIONS: ExamSection[] = [
+  {
+    id: "chemistry",
+    english: "CHEMISTRY",
+    bangla: "রসায়ন",
+    accent: "#0f9d8a",
+    aliases: ["chemistry", "chem", "রসায়ন"],
+  },
+  {
+    id: "physics",
+    english: "PHYSICS",
+    bangla: "পদার্থবিজ্ঞান",
+    accent: "#2563eb",
+    aliases: ["physics", "phy", "পদার্থবিজ্ঞান", "পদার্থ"],
+  },
+  {
+    id: "math",
+    english: "MATH",
+    bangla: "গণিত",
+    accent: "#d97706",
+    aliases: ["math", "maths", "mathematics", "গণিত"],
+  },
+  {
+    id: "higher-math",
+    english: "HIGHER MATH",
+    bangla: "উচ্চতর গণিত",
+    accent: "#7c3aed",
+    aliases: ["higher_math", "higher math", "higher-math", "highermath", "উচ্চতর গণিত"],
+  },
+];
+
+/** Last section: exams whose stored subject matches none of the above. */
+export const OTHER_EXAM_SECTION: ExamSection = {
+  id: "other",
+  english: "OTHER",
+  bangla: "অন্যান্য",
+  accent: "#64748b",
+  aliases: [],
+};
+
+/** Section for a stored subject value (unknown → the last section). */
+export function examSectionFor(subject: string): ExamSection {
+  const key = subject.trim().toLowerCase();
+  return EXAM_SECTIONS.find((s) => s.aliases.includes(key)) ?? OTHER_EXAM_SECTION;
+}

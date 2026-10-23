@@ -1,5 +1,11 @@
 import type { AttemptRecord, ExamQuestion, ExamRecord, QuestionRecord } from "@/lib/types";
-import { subjectChapterName } from "@/lib/subjects";
+import {
+  EXAM_SECTIONS,
+  OTHER_EXAM_SECTION,
+  examSectionFor,
+  subjectChapterName,
+  type ExamSection,
+} from "@/lib/subjects";
 
 /**
  * Pure exam rules: grading, timing, payload shaping and grouping.
@@ -147,6 +153,34 @@ export function groupOpenExams(exams: ExamRecord[]): ExamSubjectGroup[] {
         .sort(([a], [b]) => a - b)
         .map(([chapter, list]) => ({ chapter, exams: list })),
     }));
+}
+
+/**
+ * Public exam list grouped into the fixed subject order. Every section is
+ * present even with no exams, unknown subjects go last, and chapters keep
+ * their existing grouping inside a section.
+ */
+export type ExamSectionGroup = { section: ExamSection; chapters: ExamChapterGroup[] };
+
+export function groupOpenExamsBySection(exams: ExamRecord[]): ExamSectionGroup[] {
+  const buckets = new Map<string, Map<number, ExamRecord[]>>();
+  for (const group of groupOpenExams(exams)) {
+    const section = examSectionFor(group.subject);
+    const chapters = buckets.get(section.id) ?? new Map<number, ExamRecord[]>();
+    buckets.set(section.id, chapters);
+    for (const { chapter, exams: chapterExams } of group.chapters) {
+      const list = chapters.get(chapter) ?? [];
+      chapters.set(chapter, list);
+      list.push(...chapterExams);
+    }
+  }
+
+  return [...EXAM_SECTIONS, OTHER_EXAM_SECTION].map((section) => ({
+    section,
+    chapters: [...(buckets.get(section.id) ?? new Map<number, ExamRecord[]>()).entries()]
+      .sort(([a], [b]) => a - b)
+      .map(([chapter, list]) => ({ chapter, exams: list })),
+  }));
 }
 
 function csvCell(value: string | number | null): string {
