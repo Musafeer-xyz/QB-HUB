@@ -23,10 +23,9 @@ export default async function VideosPage() {
     <div className="min-h-screen bg-[#F6F5F2]">
       <BrandHeader />
       <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-ink">ভিডিও ক্লাস</h1>
-          <p className="mt-2 text-xs font-medium uppercase tracking-[0.25em] text-muted">VIDEO</p>
-        </div>
+        <h1 className="mb-8 text-center text-2xl font-bold uppercase tracking-[0.2em] text-ink sm:text-3xl">
+          LECTURE VIDEOS
+        </h1>
 
         <div className="space-y-6">
           {sections.map(({ section, topics }) => (
