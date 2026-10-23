@@ -11,6 +11,8 @@ import type {
   PaperRecord,
   QuestionFacets,
   QuestionRecord,
+  VideoInput,
+  VideoRecord,
 } from "@/lib/types";
 import type { QuestionOption, QuestionType } from "@/lib/schemas/question";
 
@@ -71,6 +73,17 @@ type AttemptRow = {
   answers: unknown;
   score: number;
   total: number;
+};
+
+type VideoRow = {
+  id: string;
+  subject: string;
+  topic: string;
+  title: string;
+  youtube_id: string;
+  position: number;
+  published: boolean;
+  created_at: string;
 };
 
 type PaperRow = {
@@ -162,6 +175,31 @@ export function mapAttempt(row: AttemptRow): AttemptRecord {
     answers: row.answers as Record<string, string>,
     score: row.score,
     total: row.total,
+  };
+}
+
+export function mapVideo(row: VideoRow): VideoRecord {
+  return {
+    id: row.id,
+    subject: row.subject,
+    topic: row.topic ?? "",
+    title: row.title,
+    youtubeId: row.youtube_id,
+    position: Number(row.position ?? 0),
+    published: row.published,
+    createdAt: row.created_at,
+  };
+}
+
+/** Video input -> insert row (the inverse of mapVideo). */
+export function videoRowFromInput(video: VideoInput) {
+  return {
+    subject: video.subject,
+    topic: video.topic,
+    title: video.title,
+    youtube_id: video.youtubeId,
+    position: video.position,
+    published: video.published,
   };
 }
 
@@ -729,14 +767,73 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
           studentAnswer,
           isCorrect,
         };
-      });
-      return {
+      });      return {
         attempt,
         exam,
         questions: resultQuestions,
       };
     },
+
+    // ---------------------------------------------------------------------------
+    // Video methods
+    // ---------------------------------------------------------------------------
+    async listVideos(opts) {
+      const c = await client();
+      const base = c
+        .from("videos")
+        .select("*")
+        .order("position", { ascending: true })
+        .order("created_at", { ascending: true });
+      const { data, error } = opts?.publishedOnly ? await base.eq("published", true) : await base;
+      if (error) throw new Error(error.message);
+      return ((data ?? []) as VideoRow[]).map(mapVideo);
+    },
+
+    async getVideo(id) {
+      const c = await client();
+      const { data, error } = await c.from("videos").select("*").eq("id", id).maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!data) return null;
+      return mapVideo(data as VideoRow);
+    },
+
+    async createVideo(video) {
+      const c = await client();
+      const { data, error } = await c
+        .from("videos")
+        .insert(videoRowFromInput(video))
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return mapVideo(data as VideoRow);
+    },
+
+    async updateVideo(id, updates) {
+      const c = await client();
+      const { error } = await c
+        .from("videos")
+        .update({
+          ...(updates.subject !== undefined && { subject: updates.subject }),
+          ...(updates.topic !== undefined && { topic: updates.topic }),
+          ...(updates.title !== undefined && { title: updates.title }),
+          ...(updates.youtubeId !== undefined && { youtube_id: updates.youtubeId }),
+          ...(updates.position !== undefined && { position: updates.position }),
+          ...(updates.published !== undefined && { published: updates.published }),
+        })
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+      const updated = await store.getVideo(id);
+      if (!updated) throw new Error("হালনাগাদের পর ভিডিও পাওয়া যায়নি।");
+      return updated;
+    },
+
+    async deleteVideo(id) {
+      const c = await client();
+      const { error } = await c.from("videos").delete().eq("id", id);
+      if (error) throw new Error(error.message);
+    },
   };
+
 
   storeInstances.set(system, store);
   return store;

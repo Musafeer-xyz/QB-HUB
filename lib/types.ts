@@ -126,6 +126,21 @@ export type ExamQuestion = {
   correctOption: string | null;
 };
 
+/** A YouTube video entry. Only the 11-char YouTube id is stored. */
+export type VideoRecord = {
+  id: string;
+  subject: string;
+  topic: string;
+  title: string;
+  youtubeId: string;
+  position: number;
+  published: boolean;
+  createdAt: string;
+};
+
+/** Fields an admin may set on a video. */
+export type VideoInput = Omit<VideoRecord, "id" | "createdAt">;
+
 export type AttemptResult = {
   attempt: AttemptRecord;
   exam: ExamRecord;

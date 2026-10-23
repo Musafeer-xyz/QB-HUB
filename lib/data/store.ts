@@ -11,6 +11,8 @@ import type {
   QuestionListResult,
   QuestionQuery,
   QuestionRecord,
+  VideoInput,
+  VideoRecord,
 } from "@/lib/types";
 
 /** Values the admin question editor works with. */
@@ -89,6 +91,15 @@ export type Store = {
   createAttempt(attempt: Omit<AttemptRecord, "id" | "score" | "total">): Promise<AttemptRecord>;
   updateAttempt(id: string, updates: Partial<Pick<AttemptRecord, "submittedAt" | "answers" | "score" | "total">>): Promise<AttemptRecord>;
   getAttemptResult(attemptId: string): Promise<AttemptResult | null>;
+  // ---------------------------------------------------------------------------
+  // Video methods
+  // ---------------------------------------------------------------------------
+  /** Published videos only, or every video for the admin list. */
+  listVideos(opts?: { publishedOnly?: boolean }): Promise<VideoRecord[]>;
+  getVideo(id: string): Promise<VideoRecord | null>;
+  createVideo(video: VideoInput): Promise<VideoRecord>;
+  updateVideo(id: string, updates: Partial<VideoInput>): Promise<VideoRecord>;
+  deleteVideo(id: string): Promise<void>;
 };
 
 export type { PaperRecord, PaperSettings, QuestionListResult, QuestionQuery, QuestionRecord };

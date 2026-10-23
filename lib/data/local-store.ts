@@ -15,6 +15,7 @@ import type {
   PaperRecord,
   PaperQuestionRecord,
   QuestionRecord,
+  VideoRecord,
 } from "@/lib/types";
 
 /**
@@ -33,6 +34,7 @@ type Overrides = { upserts: Record<string, QuestionRecord>; deleted: string[] };
 type PapersFile = { papers: PaperRecord[] };
 type ExamsFile = { exams: ExamRecord[] };
 type AttemptsFile = { attempts: AttemptRecord[] };
+type VideosFile = { videos: VideoRecord[] };
 
 function readJson<T>(file: string, fallback: T): T {
   try {
@@ -53,6 +55,7 @@ const overridesFile = path.join(LOCAL_DIR, "questions.json");
 const papersFile = path.join(LOCAL_DIR, "papers.json");
 const examsFile = path.join(LOCAL_DIR, "exams.json");
 const attemptsFile = path.join(LOCAL_DIR, "attempts.json");
+const videosFile = path.join(LOCAL_DIR, "videos.json");
 
 function toRecord(raw: unknown): QuestionRecord | null {
   const parsed = parseQuestion(raw);
@@ -190,6 +193,15 @@ function loadAttempts(): AttemptRecord[] {
 
 function saveAttempts(attempts: AttemptRecord[]): void {
   writeJson(attemptsFile, { attempts });
+}
+
+function loadVideos(): VideoRecord[] {
+  const file = readJson<VideosFile>(videosFile, { videos: [] });
+  return file.videos;
+}
+
+function saveVideos(videos: VideoRecord[]): void {
+  writeJson(videosFile, { videos });
 }
 
 function paperFromValues(values: PaperFormValues, id: string, createdBy: string | null): PaperRecord {
@@ -572,6 +584,50 @@ export function localStore(): Store {
         exam,
         questions: resultQuestions,
       };
+    },
+
+    // ---------------------------------------------------------------------------
+    // Video methods
+    // ---------------------------------------------------------------------------
+    async listVideos(opts) {
+      const videos = loadVideos();
+      const visible = opts?.publishedOnly ? videos.filter((v) => v.published) : videos;
+      return visible
+        .slice()
+        .sort((a, b) => a.position - b.position || a.createdAt.localeCompare(b.createdAt));
+    },
+
+    async getVideo(id) {
+      return loadVideos().find((v) => v.id === id) ?? null;
+    },
+
+    async createVideo(video) {
+      const newVideo: VideoRecord = {
+        ...video,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      };
+      const videos = loadVideos();
+      videos.push(newVideo);
+      saveVideos(videos);
+      return newVideo;
+    },
+
+    async updateVideo(id, updates) {
+      const videos = loadVideos();
+      const idx = videos.findIndex((v) => v.id === id);
+      if (idx < 0) throw new Error("ভিডিও পাওয়া যায়নি।");
+      const defined = Object.fromEntries(
+        Object.entries(updates).filter(([, value]) => value !== undefined),
+      );
+      const updated = { ...videos[idx]!, ...defined } as VideoRecord;
+      videos[idx] = updated;
+      saveVideos(videos);
+      return updated;
+    },
+
+    async deleteVideo(id) {
+      saveVideos(loadVideos().filter((v) => v.id !== id));
     },
   };
 
