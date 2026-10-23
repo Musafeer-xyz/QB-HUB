@@ -16,35 +16,51 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+interface BrandHeaderProps {
+  /** Hide nav links (used during active exam to prevent accidental exit) */
+  hideNav?: boolean;
+}
+
 /** Simple branded header for the public student pages. */
-export function BrandHeader() {
+export function BrandHeader({ hideNav = false }: BrandHeaderProps) {
   const pathname = usePathname();
 
   return (
     <header className="border-b border-line bg-surface">
-      <div className="container mx-auto max-w-4xl px-4 py-3 text-center">
-        <p className="text-sm font-bold tracking-[0.2em] text-ink">{BRAND_NAME}</p>
-        <nav className="mt-2 flex justify-center gap-2" aria-label="বিভাগ">
-          {TABS.map((tab) => {
-            const active = isActive(pathname, tab.href);
-            return (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "inline-flex min-h-10 items-center justify-center rounded-full border px-5 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors",
-                  active
-                    ? "border-transparent text-white shadow-sm"
-                    : "border-line bg-surface text-muted hover:border-[#d8d4ca] hover:text-ink",
-                )}
-                style={active ? { backgroundColor: tab.accent } : undefined}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </nav>
+      <div className="container mx-auto max-w-4xl px-4 py-3">
+        <div className="flex items-center justify-between">
+          <Link
+            href="/"
+            className="text-sm font-bold tracking-[0.2em] text-ink sm:text-base"
+          >
+            {BRAND_NAME}
+          </Link>
+          {!hideNav && (
+            <nav className="flex items-center gap-4 sm:gap-6" aria-label="বিভাগ">
+              {TABS.map((tab) => {
+                const active = isActive(pathname, tab.href);
+                return (
+                  <Link
+                    key={tab.href}
+                    href={tab.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "min-h-10 text-[10px] font-semibold uppercase tracking-[0.15em] transition-colors sm:text-[11px] sm:tracking-[0.18em]",
+                      active
+                        ? "text-ink"
+                        : "text-muted hover:text-ink",
+                    )}
+                    style={{
+                      borderBottom: active ? `2px solid ${tab.accent}` : undefined,
+                    }}
+                  >
+                    {tab.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          )}
+        </div>
       </div>
     </header>
   );

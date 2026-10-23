@@ -162,7 +162,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
   if (step === "start") {
     return (
       <div className="min-h-screen bg-[#F6F5F2]">
-        <BrandHeader />
+        <BrandHeader hideNav={false} />
         <div className="container mx-auto max-w-lg px-4 py-10">
           <div className="rounded-lg border border-line bg-surface p-6 shadow-sm">
             <h1 className="mb-2 text-2xl font-bold">{exam.title}</h1>
@@ -232,7 +232,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
     const seconds = remaining % 60;
     return (
       <div className="min-h-screen bg-[#F6F5F2]">
-        <BrandHeader />
+        <BrandHeader hideNav={true} />
         <div className="sticky top-0 z-10 border-b border-line bg-surface/95 backdrop-blur">
           <div className="container mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
             <h1 className="truncate text-lg font-semibold">{exam.title}</h1>
@@ -337,7 +337,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
   return (
     <div className="min-h-screen bg-[#F6F5F2]">
-      <BrandHeader />
+      <BrandHeader hideNav={false} />
       <div className="container mx-auto max-w-3xl px-4 py-8">
         <div className="rounded-lg border border-line bg-surface p-6 shadow-sm">
           <h1 className="mb-1 text-2xl font-bold">ফলাফল</h1>
