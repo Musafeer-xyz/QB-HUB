@@ -24,43 +24,43 @@ interface BrandHeaderProps {
 /** Simple branded header for the public student pages. */
 export function BrandHeader({ hideNav = false }: BrandHeaderProps) {
   const pathname = usePathname();
+  const isHome = pathname === "/";
+  const showNav = !hideNav && !isHome;
 
   return (
     <header className="border-b border-line bg-surface">
-      <div className="container mx-auto max-w-4xl px-4 py-3">
-        <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-sm font-bold tracking-[0.2em] text-ink sm:text-base"
-          >
-            {BRAND_NAME}
-          </Link>
-          {!hideNav && (
-            <nav className="flex items-center gap-4 sm:gap-6" aria-label="বিভাগ">
-              {TABS.map((tab) => {
-                const active = isActive(pathname, tab.href);
-                return (
-                  <Link
-                    key={tab.href}
-                    href={tab.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "min-h-10 text-[10px] font-semibold uppercase tracking-[0.15em] transition-colors sm:text-[11px] sm:tracking-[0.18em]",
-                      active
-                        ? "text-ink"
-                        : "text-muted hover:text-ink",
-                    )}
-                    style={{
-                      borderBottom: active ? `2px solid ${tab.accent}` : undefined,
-                    }}
-                  >
-                    {tab.label}
-                  </Link>
-                );
-              })}
-            </nav>
-          )}
-        </div>
+      <div className="container mx-auto max-w-4xl px-4 py-4 text-center">
+        <Link
+          href="/"
+          className="block text-xl font-extrabold uppercase tracking-[0.12em] text-ink sm:text-3xl sm:tracking-[0.18em]"
+        >
+          {BRAND_NAME}
+        </Link>
+        {showNav && (
+          <nav className="mt-3 flex items-center justify-center gap-6" aria-label="বিভাগ">
+            {TABS.map((tab) => {
+              const active = isActive(pathname, tab.href);
+              return (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "min-h-10 text-xs font-semibold uppercase tracking-[0.12em] transition-colors sm:text-sm sm:tracking-[0.15em]",
+                    active
+                      ? "text-ink"
+                      : "text-muted hover:text-ink",
+                  )}
+                  style={{
+                    borderBottom: active ? `2px solid ${tab.accent}` : undefined,
+                  }}
+                >
+                  {tab.label}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
       </div>
     </header>
   );
