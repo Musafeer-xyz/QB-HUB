@@ -28,7 +28,12 @@ export default async function ExamsPage() {
     <div className="min-h-screen bg-[#F6F5F2]">
       <BrandHeader />
       <div className="container mx-auto max-w-4xl px-4 py-8">
-        <h1 className="mb-8 text-center text-3xl font-bold text-ink">অনলাইন পরীক্ষা</h1>
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold text-ink">অনলাইন পরীক্ষা</h1>
+          <p className="mt-2 text-xs font-medium uppercase tracking-[0.25em] text-muted">
+            ONLINE EXAM
+          </p>
+        </div>
 
         <div className="space-y-6">
           {sections.map(({ section, chapters }) => (
