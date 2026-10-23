@@ -36,6 +36,51 @@ export function publicQuestions(questions: ExamQuestion[]): PublicExamQuestion[]
   }));
 }
 
+/** Deterministic shuffle: the same seed always gives the same order. */
+export function seededOrder<T>(items: T[], seed: string): T[] {
+  // FNV-1a turns the seed string into a 32-bit state; mulberry32 drives the shuffle.
+  let state = 2166136261;
+  for (let i = 0; i < seed.length; i += 1) {
+    state ^= seed.charCodeAt(i);
+    state = Math.imul(state, 16777619);
+  }
+  const next = () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(next() * (i + 1));
+    [result[i], result[j]] = [result[j]!, result[i]!];
+  }
+  return result;
+}
+
+/**
+ * Per-attempt question order.
+ *
+ * Questions sharing a stem text stay together and in their original relative
+ * order (stem sub-parts are read as one block); a question without a stem is
+ * its own group. Only the groups are shuffled, seeded by the attempt id, so a
+ * refresh or resume always shows the same order while attempts differ.
+ */
+export function seededQuestionOrder<T extends { id: string; stem: string[] }>(
+  questions: T[],
+  attemptId: string,
+): T[] {
+  const groups = new Map<string, T[]>();
+  for (const q of questions) {
+    const key = q.stem.join("\n") || `#${q.id}`;
+    const group = groups.get(key) ?? [];
+    groups.set(key, group);
+    group.push(q);
+  }
+  return seededOrder([...groups.keys()], attemptId).flatMap((key) => groups.get(key)!);
+}
+
 export function deadlineAt(startedAt: string | Date, durationMin: number): number {
   const start = typeof startedAt === "string" ? Date.parse(startedAt) : startedAt.getTime();
   return start + durationMin * 60_000;

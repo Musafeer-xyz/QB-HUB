@@ -10,6 +10,7 @@ import {
   isExpired,
   publicQuestions,
   remainingSeconds,
+  seededQuestionOrder,
   submitDecision,
 } from "./exams";
 import { examRowFromRecord, mapAttempt, mapExam } from "./data/supabase-store";
@@ -303,5 +304,39 @@ describe("groupOpenExamsBySection", () => {
     expect(sections[1]!.chapters).toEqual([]);
     expect(sections[3]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e2"]);
     expect(sections[4]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e3"]);
+  });
+});
+
+describe("seededQuestionOrder", () => {
+  const withStem = (id: string, stem: string[] = []) => ({ ...question(id, "ক"), stem });
+  const questions = [
+    withStem("q1", ["উদ্দীপক ১"]),
+    withStem("q2", ["উদ্দীপক ১"]),
+    withStem("q3", ["উদ্দীপক ২"]),
+    withStem("q4", ["উদ্দীপক ২"]),
+    withStem("q5"),
+    withStem("q6"),
+    withStem("q7"),
+    withStem("q8"),
+    withStem("q9"),
+    withStem("q10"),
+    withStem("q11"),
+    withStem("q12"),
+  ];
+
+  it("gives the same attempt the same order and different attempts different orders", () => {
+    const a = seededQuestionOrder(questions, "attempt-a").map((q) => q.id);
+    const again = seededQuestionOrder(questions, "attempt-a").map((q) => q.id);
+    const b = seededQuestionOrder(questions, "attempt-b").map((q) => q.id);
+    expect(again).toEqual(a);
+    expect(b).not.toEqual(a);
+  });
+
+  it("keeps stem groups contiguous in their original order and loses nothing", () => {
+    const order = seededQuestionOrder(questions, "attempt-a").map((q) => q.id);
+    expect([...order].sort()).toEqual(questions.map((q) => q.id).sort());
+    expect(new Set(order).size).toBe(order.length);
+    expect(order.indexOf("q2") - order.indexOf("q1")).toBe(1);
+    expect(order.indexOf("q4") - order.indexOf("q3")).toBe(1);
   });
 });

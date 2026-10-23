@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getStore } from "@/lib/data/store";
-import { deadlineAt, publicQuestions } from "@/lib/exams";
+import { deadlineAt, publicQuestions, seededQuestionOrder } from "@/lib/exams";
 
 /**
  * Start an exam attempt (public, no login required).
@@ -50,7 +50,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       exam: { id: exam.id, title: exam.title, durationMin: exam.durationMin },
       startedAt,
       deadlineAt: deadlineAt(startedAt, exam.durationMin),
-      questions: publicQuestions(questions),
+      questions: publicQuestions(seededQuestionOrder(questions, attempt.id)),
     });
   } catch (err) {
     return NextResponse.json(

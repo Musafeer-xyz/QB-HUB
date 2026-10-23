@@ -5,6 +5,7 @@ import { makeFlagId, parseQuestion } from "@/lib/schemas/question";
 import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
 import { filterQuestions } from "@/lib/data/facets";
+import { seededQuestionOrder } from "@/lib/exams";
 import { getImageDimensions } from "@/lib/image-dimensions";import type { PaperFormValues, QuestionFormValues, Store } from "@/lib/data/store";
 import type { DbQuestion } from "@/lib/import/plan";
 import type {
@@ -556,7 +557,7 @@ export function localStore(): Store {
       if (!attempt) return null;
       const exam = await this.getExam(attempt.examId);
       if (!exam) return null;
-      const questions = await this.getExamQuestions(exam.id);
+      const questions = seededQuestionOrder(await this.getExamQuestions(exam.id), attempt.id);
       const resultQuestions = questions.map((q: ExamQuestion) => {
         const studentAnswer = attempt.answers[q.id] ?? null;
         const isCorrect = studentAnswer === q.correctOption;

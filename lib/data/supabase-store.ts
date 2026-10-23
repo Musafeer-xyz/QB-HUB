@@ -2,6 +2,7 @@ import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/sup
 import { makeFlagId, parseFlags } from "@/lib/schemas/question";
 import { paperSettingsSchema } from "@/lib/schemas/paper";
 import { collectMathErrors, questionTextFields } from "@/lib/render/rich-text";
+import { seededQuestionOrder } from "@/lib/exams";
 import type { QuestionFormValues, Store } from "@/lib/data/store";
 import type {
   AttemptRecord,
@@ -719,7 +720,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
       if (!attempt) return null;
       const exam = await store.getExam(attempt.examId);
       if (!exam) return null;
-      const questions = await store.getExamQuestions(exam.id);
+      const questions = seededQuestionOrder(await store.getExamQuestions(exam.id), attempt.id);
       const resultQuestions = questions.map((q) => {
         const studentAnswer = attempt.answers[q.id] ?? null;
         const isCorrect = studentAnswer === q.correctOption;
