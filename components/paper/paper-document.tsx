@@ -6,6 +6,7 @@ import { QuestionImage } from "@/components/paper/question-image";
 import { toBanglaDigits } from "@/lib/bangla";
 import { paperPageCss } from "@/lib/paper/sizes";
 import { runningHeadText } from "@/lib/paper/model";
+import { splitMcqStem } from "@/lib/mcq-layout";
 import type {
   PaperDocMeta,
   PaperDocPart,
@@ -417,16 +418,43 @@ function PartRow({ part }: { part: PaperDocPart }) {
 function MCQ({ question }: { question: PaperDocQuestion }) {
   // A long option needs the full width to read; the rest use the 2×2 grid.
   const singleColumn = question.options.some((option) => option.text.length > 30);
+  const { stimulus, prompt, statements } = splitMcqStem(question.stem);
   return (
     <article className="paper-question paper-question-mcq">
       {question.breakBefore ? <div className="break-before-page" /> : null}
       <div className="flex items-start gap-2">
         <span className="paper-qno shrink-0">{question.label}</span>
         <div className="min-w-0 flex-1">
-          {question.stem.length > 0 ? (
+          {stimulus.length > 0 ? (
             <div className="mb-1">
-              {question.stem.map((line, i) => (
-                <p key={i} className="question-text">
+              {stimulus.map((line, i) => (
+                <p key={`stimulus-${i}`} className="question-text">
+                  <RichText text={line} />
+                </p>
+              ))}
+            </div>
+          ) : null}
+
+          {/* No per-question marks label on the paper: the section heading
+              carries "N × ১ = N" and the header carries the total. */}
+          <div className="question-text">
+            <RichText text={question.question} />
+          </div>
+
+          {prompt.length > 0 ? (
+            <div className="mb-1">
+              {prompt.map((line, i) => (
+                <p key={`prompt-${i}`} className="question-text">
+                  <RichText text={line} />
+                </p>
+              ))}
+            </div>
+          ) : null}
+
+          {statements.length > 0 ? (
+            <div className="mb-1">
+              {statements.map((line, i) => (
+                <p key={`statement-${i}`} className="question-text">
                   <RichText text={line} />
                 </p>
               ))}
@@ -440,12 +468,6 @@ function MCQ({ question }: { question: PaperDocQuestion }) {
               available={question.imageAvailable}
             />
           ) : null}
-
-          {/* No per-question marks label on the paper: the section heading
-              carries "N × ১ = N" and the header carries the total. */}
-          <div className="question-text">
-            <RichText text={question.question} />
-          </div>
 
           <ul className={"paper-mcq-options" + (singleColumn ? " single-column" : "")}>
             {question.options.map((option) => (

@@ -5,6 +5,7 @@ import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { BrandHeader } from "@/components/brand-header";
 import { RichText } from "@/components/rich-text";
 import { toBanglaDigits } from "@/lib/bangla";
+import { splitMcqStem } from "@/lib/mcq-layout";
 import type { AttemptResult, ExamRecord } from "@/lib/types";
 import type { PublicExamQuestion } from "@/lib/exams";
 
@@ -250,58 +251,79 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
         <div className="container mx-auto max-w-3xl px-4 py-6">
           <div className="space-y-4" data-exam-questions>
-            {questions.map((q, idx) => (
-              <div
-                key={q.id}
-                data-exam-question={q.id}
-                className="rounded-lg border border-line bg-surface p-4 shadow-sm"
-              >
-                <p className="mb-2 text-sm font-medium text-muted">
-                  প্রশ্ন {toBanglaDigits(idx + 1)}
-                </p>
-                {q.stem.length > 0 ? (
-                  <div className="mb-2 space-y-1 text-sm">
-                    {q.stem.map((line, i) => (
-                      <p key={i} className="text-ink">
-                        <RichText text={line} />
-                      </p>
-                    ))}
-                  </div>
-                ) : null}
-                {q.question ? (
-                  <p className="mb-3 text-ink">
-                    <RichText text={q.question} />
+            {questions.map((q, idx) => {
+              const { stimulus, prompt, statements } = splitMcqStem(q.stem);
+              return (
+                <div
+                  key={q.id}
+                  data-exam-question={q.id}
+                  className="rounded-lg border border-line bg-surface p-4 shadow-sm"
+                >
+                  <p className="mb-2 text-sm font-medium text-muted">
+                    প্রশ্ন {toBanglaDigits(idx + 1)}
                   </p>
-                ) : null}
-                {q.options ? (
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {q.options.map((opt) => (
-                      <label
-                        key={opt.label}
-                        className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors ${
-                          answers[q.id] === opt.label
-                            ? "border-primary bg-primary/5"
-                            : "border-line hover:border-primary/40"
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name={q.id}
-                          value={opt.label}
-                          checked={answers[q.id] === opt.label}
-                          onChange={() => setAnswers((prev) => ({ ...prev, [q.id]: opt.label }))}
-                          className="h-4 w-4 accent-[var(--primary)]"
-                        />
-                        <span className="flex-1 text-sm">
-                          <span className="font-semibold">{opt.label}. </span>
-                          <RichText text={opt.text} />
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ))}
+                  {stimulus.length > 0 ? (
+                    <div className="mb-2 space-y-1 text-sm">
+                      {stimulus.map((line, i) => (
+                        <p key={`stimulus-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {q.question ? (
+                    <p className="mb-3 text-ink">
+                      <RichText text={q.question} />
+                    </p>
+                  ) : null}
+                  {prompt.length > 0 ? (
+                    <div className="mb-2 space-y-1 text-sm">
+                      {prompt.map((line, i) => (
+                        <p key={`prompt-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {statements.length > 0 ? (
+                    <div className="mb-2 space-y-1 text-sm">
+                      {statements.map((line, i) => (
+                        <p key={`statement-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {q.options ? (
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      {q.options.map((opt) => (
+                        <label
+                          key={opt.label}
+                          className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors ${
+                            answers[q.id] === opt.label
+                              ? "border-primary bg-primary/5"
+                              : "border-line hover:border-primary/40"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name={q.id}
+                            value={opt.label}
+                            checked={answers[q.id] === opt.label}
+                            onChange={() => setAnswers((prev) => ({ ...prev, [q.id]: opt.label }))}
+                            className="h-4 w-4 accent-[var(--primary)]"
+                          />
+                          <span className="flex-1 text-sm">
+                            <span className="font-semibold">{opt.label}. </span>
+                            <RichText text={opt.text} />
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
 
           {error ? (
@@ -357,83 +379,104 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
           ) : null}
 
           <div className="space-y-4">
-            {result.questions.map((q, idx) => (
-              <div
-                key={q.id}
-                data-result-question={q.id}
-                data-is-correct={q.isCorrect ? "true" : "false"}
-                className={`rounded-lg border p-4 ${
-                  q.isCorrect ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
-                }`}
-              >
-                <div className="mb-2 flex items-start gap-2">
-                  {q.isCorrect ? (
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-600" aria-hidden="true" />
-                  ) : (
-                    <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
-                  )}
-                  <p className="text-sm font-medium text-muted">প্রশ্ন {toBanglaDigits(idx + 1)}</p>
-                </div>
-                {q.stem.length > 0 ? (
-                  <div className="mb-2 space-y-1 pl-7 text-sm">
-                    {q.stem.map((line, i) => (
-                      <p key={i} className="text-ink">
-                        <RichText text={line} />
-                      </p>
-                    ))}
+            {result.questions.map((q, idx) => {
+              const { stimulus, prompt, statements } = splitMcqStem(q.stem);
+              return (
+                <div
+                  key={q.id}
+                  data-result-question={q.id}
+                  data-is-correct={q.isCorrect ? "true" : "false"}
+                  className={`rounded-lg border p-4 ${
+                    q.isCorrect ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
+                  }`}
+                >
+                  <div className="mb-2 flex items-start gap-2">
+                    {q.isCorrect ? (
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-600" aria-hidden="true" />
+                    ) : (
+                      <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+                    )}
+                    <p className="text-sm font-medium text-muted">প্রশ্ন {toBanglaDigits(idx + 1)}</p>
                   </div>
-                ) : null}
-                {q.question ? (
-                  <p className="mb-2 pl-7 text-sm text-ink">
-                    <RichText text={q.question} />
-                  </p>
-                ) : null}
-                {/* Review: every option, with a symbol as well as colour. */}
-                <div className="space-y-1.5 pl-7 text-sm">
-                  {q.options ? (
-                    q.options.map((opt) => {
-                      const isCorrect = opt.label === q.correctOption;
-                      const isChosen = q.studentAnswer === opt.label;
-                      const isWrongChoice = isChosen && !isCorrect;
-                      return (
-                        <div
-                          key={opt.label}
-                          data-review-correct={isCorrect ? "true" : "false"}
-                          data-review-chosen={isChosen ? "true" : "false"}
-                          className={`flex items-start gap-2 rounded-md border px-3 py-2 ${
-                            isCorrect
-                              ? "border-green-300 bg-green-100 text-green-900"
-                              : isWrongChoice
-                                ? "border-red-300 bg-red-100 text-red-900"
-                                : "border-line text-ink"
-                          }`}
-                        >
-                          <span className="w-4 shrink-0 text-center font-bold" aria-hidden="true">
-                            {isCorrect ? "✓" : isWrongChoice ? "✗" : ""}
-                          </span>
-                          <span className="flex-1">
-                            <span className="font-semibold">{opt.label}. </span>
-                            <RichText text={opt.text} />
-                            {isCorrect ? <span className="sr-only"> — সঠিক উত্তর</span> : null}
-                            {isWrongChoice ? (
-                              <span className="sr-only"> — আপনার ভুল উত্তর</span>
-                            ) : null}
-                          </span>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <p className="text-muted">
-                      সঠিক উত্তর:{" "}
-                      <span className="font-semibold text-green-700">{q.correctOption ?? "-"}</span>
-                    </p>
-                  )}
-                  {q.studentAnswer === null ? (
-                    <p className="text-xs text-muted">দেওয়া হয়নি</p>
+                  {stimulus.length > 0 ? (
+                    <div className="mb-2 space-y-1 pl-7 text-sm">
+                      {stimulus.map((line, i) => (
+                        <p key={`stimulus-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
                   ) : null}
+                  {q.question ? (
+                    <p className="mb-2 pl-7 text-sm text-ink">
+                      <RichText text={q.question} />
+                    </p>
+                  ) : null}
+                  {prompt.length > 0 ? (
+                    <div className="mb-2 space-y-1 pl-7 text-sm">
+                      {prompt.map((line, i) => (
+                        <p key={`prompt-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {statements.length > 0 ? (
+                    <div className="mb-2 space-y-1 pl-7 text-sm">
+                      {statements.map((line, i) => (
+                        <p key={`statement-${i}`} className="text-ink">
+                          <RichText text={line} />
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {/* Review: every option, with a symbol as well as colour. */}
+                  <div className="space-y-1.5 pl-7 text-sm">
+                    {q.options ? (
+                      q.options.map((opt) => {
+                        const isCorrect = opt.label === q.correctOption;
+                        const isChosen = q.studentAnswer === opt.label;
+                        const isWrongChoice = isChosen && !isCorrect;
+                        return (
+                          <div
+                            key={opt.label}
+                            data-review-correct={isCorrect ? "true" : "false"}
+                            data-review-chosen={isChosen ? "true" : "false"}
+                            className={`flex items-start gap-2 rounded-md border px-3 py-2 ${
+                              isCorrect
+                                ? "border-green-300 bg-green-100 text-green-900"
+                                : isWrongChoice
+                                  ? "border-red-300 bg-red-100 text-red-900"
+                                  : "border-line text-ink"
+                            }`}
+                          >
+                            <span className="w-4 shrink-0 text-center font-bold" aria-hidden="true">
+                              {isCorrect ? "✓" : isWrongChoice ? "✗" : ""}
+                            </span>
+                            <span className="flex-1">
+                              <span className="font-semibold">{opt.label}. </span>
+                              <RichText text={opt.text} />
+                              {isCorrect ? <span className="sr-only"> — সঠিক উত্তর</span> : null}
+                              {isWrongChoice ? (
+                                <span className="sr-only"> — আপনার ভুল উত্তর</span>
+                              ) : null}
+                            </span>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="text-muted">
+                        সঠিক উত্তর:{" "}
+                        <span className="font-semibold text-green-700">{q.correctOption ?? "-"}</span>
+                      </p>
+                    )}
+                    {q.studentAnswer === null ? (
+                      <p className="text-xs text-muted">দেওয়া হয়নি</p>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-6">

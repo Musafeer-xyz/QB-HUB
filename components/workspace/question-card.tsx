@@ -20,6 +20,7 @@ import { toBanglaDigits } from "@/lib/bangla";
 import { questionMarks } from "@/lib/marks";
 import { plainMathPreview } from "@/lib/bank/filter";
 import { cn } from "@/lib/cn";
+import { splitMcqStem } from "@/lib/mcq-layout";
 import type { QuestionRecord } from "@/lib/types";
 
 /** Board name abbreviations map */
@@ -462,12 +463,13 @@ function MCQView({
   onLightboxOpen: () => void;
 }) {
   const options = question.options ?? [];
+  const { stimulus, prompt, statements } = splitMcqStem(question.stem);
   return (
     <div className="space-y-2">
-      {question.stem.length > 0 ? (
+      {stimulus.length > 0 ? (
         <div className="space-y-0.5">
-          {question.stem.map((line, i) => (
-            <RichText key={i} text={line} className="block" />
+          {stimulus.map((line, i) => (
+            <RichText key={`stimulus-${i}`} text={line} className="block" />
           ))}
         </div>
       ) : null}
@@ -475,6 +477,22 @@ function MCQView({
       <div className="flex items-start gap-2">
         <RichText text={question.question ?? ""} className="min-w-0 flex-1" />
       </div>
+
+      {prompt.length > 0 ? (
+        <div className="space-y-0.5">
+          {prompt.map((line, i) => (
+            <RichText key={`prompt-${i}`} text={line} className="block" />
+          ))}
+        </div>
+      ) : null}
+
+      {statements.length > 0 ? (
+        <div className="space-y-0.5">
+          {statements.map((line, i) => (
+            <RichText key={`statement-${i}`} text={line} className="block" />
+          ))}
+        </div>
+      ) : null}
 
       {imageUrl ? (
         <img
@@ -531,7 +549,10 @@ function CompactView({ question, sqMarks }: { question: QuestionRecord; sqMarks:
       return plainMathPreview(question.question ?? "");
     }
     if (question.type === "MCQ") {
-      const stemText = question.stem.map((line) => plainMathPreview(line)).join(" ");
+      const { stimulus, prompt, statements } = splitMcqStem(question.stem);
+      const stemText = [...stimulus, ...prompt, ...statements]
+        .map((line) => plainMathPreview(line))
+        .join(" ");
       const optionText = (question.options ?? [])
         .map((o) => `(${o.label}) ${plainMathPreview(o.text)}`)
         .join("  ");
