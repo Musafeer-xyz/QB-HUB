@@ -125,12 +125,23 @@ describe("checkData — errors", () => {
     expect(problems(run([sq({ question: "ভগ্নাংশ $\\frac$ লেখ।" })]))).toContain("পার্স হয়নি");
   });
 
-  it("requires exactly four CQ parts labelled ক খ গ ঘ", () => {
-    expect(problems(run([cq({ parts: PARTS.slice(0, 3) })]))).toContain("ঠিক চারটি পার্ট");
-    const wrongLabels = PARTS.map((p, i) => ({ ...p, label: ["ক", "গ", "খ", "ঘ"][i] }));
-    expect(problems(run([cq({ parts: wrongLabels })]))).toContain("লেবেল ক্রম");
+  it("accepts a CQ with 1 to 4 parts, gaps allowed", () => {
+    expect(run([cq({ parts: PARTS.slice(3) })]).errors).toEqual([]);
+    expect(run([cq({ parts: PARTS.slice(2) })]).errors).toEqual([]);
+    expect(run([cq({ parts: PARTS })]).errors).toEqual([]);
   });
 
+  it("rejects duplicate or out-of-order CQ part labels", () => {
+    const first = PARTS.slice(0, 1);
+    expect(problems(run([cq({ parts: [...first, ...first] })]))).toContain("ক্রমানুসারে");
+    const wrongLabels = PARTS.map((p, i) => ({ ...p, label: ["ক", "গ", "খ", "ঘ"][i] }));
+    expect(problems(run([cq({ parts: wrongLabels })]))).toContain("ক্রমানুসারে");
+  });
+
+  it("rejects a CQ part whose marks do not match its label", () => {
+    const wrongMarks = PARTS.map((p, i) => (i === 3 ? { ...p, marks: 3 } : p));
+    expect(problems(run([cq({ parts: wrongMarks })]))).toContain("নম্বর");
+  });
   it("accepts a valid MCQ, plain and with statement lines", () => {
     expect(run([mcq()]).errors).toEqual([]);
     expect(run([mcq()]).warnings).toEqual([]);

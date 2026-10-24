@@ -126,11 +126,22 @@ function characterProblems(text: string): string[] {
 
 function structureProblems(q: QuestionInput): string[] {
   const problems: string[] = [];
-  if (q.type === "CQ") {
-    if (q.parts.length !== 4) {
-      problems.push(`CQ-তে ঠিক চারটি পার্ট থাকতে হবে (ক, খ, গ, ঘ) — পাওয়া গেছে ${q.parts.length}টি`);
-    } else if (q.parts.some((p, i) => p.label !== CQ_LABELS[i])) {
-      problems.push(`CQ পার্টের লেবেল ক্রম অনুযায়ী ক, খ, গ, ঘ হতে হবে — পাওয়া গেছে ${q.parts.map((p) => p.label).join(", ")}`);
+    if (q.type === "CQ") {
+    const labels = CQ_LABELS as readonly string[];
+    const n = q.parts.length;
+    if (n < 1 || n > 4) {
+      problems.push(`CQ-তে ১ থেকে ৪টি পার্ট থাকতে হবে — পাওয়া গেছে ${n}টি`);
+    } else {
+      const idx = q.parts.map((p) => labels.indexOf(p.label));
+      const ordered = idx.every((v, i) => v >= 0 && (i === 0 || v > (idx[i - 1] ?? -1)));      if (!ordered) {
+        problems.push(`CQ পার্টের লেবেল ক, খ, গ, ঘ থেকে হতে হবে, পুনরাবৃত্তি ছাড়া ও ক্রমানুসারে — পাওয়া গেছে ${q.parts.map((p) => p.label).join(", ")}`);
+      }
+      for (const p of q.parts) {
+        const i = labels.indexOf(p.label);
+        if (i >= 0 && p.marks !== i + 1) {
+          problems.push(`CQ পার্ট ${p.label}-এর নম্বর ${i + 1} হতে হবে — পাওয়া গেছে ${p.marks}`);
+        }
+      }
     }
   }
   // MCQ option count, label order and the answer label are enforced by the zod
