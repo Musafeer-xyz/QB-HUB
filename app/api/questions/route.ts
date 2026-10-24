@@ -3,6 +3,7 @@ import { getStore } from "@/lib/data/store";
 import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
 import { availableImageFiles } from "@/lib/images-server";
+import { SUBJECTS } from "@/lib/subjects";
 
 /**
  * Returns every question (with parts) plus the ids already used by saved
@@ -18,20 +19,24 @@ export async function GET() {
 
   try {
     const store = await getStore();
-    const [result, usedIds, boards] = await Promise.all([
-      store.listQuestions({ subject: "chemistry", page: 1, pageSize: 1000 }),
+    const [results, usedIds, boards] = await Promise.all([
+      Promise.all(
+        SUBJECTS.map((s) => store.listQuestions({ subject: s.id, page: 1, pageSize: 1000 })),
+      ),
       store.usedQuestionIds(),
       store.listBoards(),
     ]);
+    const items = results.flatMap((r) => r.items);
+    const total = results.reduce((n, r) => n + r.total, 0);
     const images = await availableImageFiles(
-      result.items.map((q) => q.imagePath).filter((p): p is string => Boolean(p)),
+      items.map((q) => q.imagePath).filter((p): p is string => Boolean(p)),
     );
     return NextResponse.json({
-      items: result.items,
+      items,
       usedIds: [...usedIds],
       boards,
       images: [...images],
-      total: result.total,
+      total,
     });
   } catch (err) {
     return NextResponse.json(

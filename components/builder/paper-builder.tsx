@@ -374,7 +374,10 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   }, [initial, selection.ready, selection.entries]);
 
   const byId = useMemo(() => new Map(allQuestions.map((q) => [q.id, q])), [allQuestions]);
-
+  const subjectQuestions = useMemo(
+    () => allQuestions.filter((q) => q.subject === state.subject),
+    [allQuestions, state.subject],
+  );
   const docItems: PaperSelectionItem[] = useMemo(
     () =>
       items
@@ -385,6 +388,23 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
         .filter((v): v is PaperSelectionItem => v !== null),
     [items, byId],
   );
+
+    // New paper: take the subject (and default title) from the selected questions.
+  useEffect(() => {
+    if (initial) return;
+    const subject = docItems[0]?.question.subject;
+    if (!subject) return;
+    setState((s) =>
+      s.subject === subject
+        ? s
+        : {
+            ...s,
+            subject,
+            title:
+              s.title === DEFAULT_STATE.title ? `${subjectLabel(subject)} — মডেল টেস্ট` : s.title,
+          },
+    );
+  }, [docItems, initial]);
 
   // Chapter line: auto-filled from the selection until the teacher edits it.
   useEffect(() => {
@@ -489,9 +509,9 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
 
   const chapters = useMemo(() => {
     const set = new Set<number>();
-    for (const q of allQuestions) set.add(q.chapter);
+    for (const q of subjectQuestions) set.add(q.chapter);
     return [...set].sort((a, b) => a - b);
-  }, [allQuestions]);
+  }, [subjectQuestions]);
 
   // ---------------------------------------------------------------- actions
   function setSuggestion(patch: Partial<SuggestionFlags>) {
@@ -592,7 +612,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   }
 
   function runAutoGenerate() {
-    const candidates = allQuestions.map((q) => ({
+    const candidates = subjectQuestions.map((q) => ({
       id: q.id,
       chapter: q.chapter,
       type: q.type,
@@ -791,10 +811,10 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
             তালিকা থেকে প্রশ্নে টিক দিন — ডান পাশের “আমার পেপার” সাথেই আপডেট হবে।
           </p>
           <BankWorkspace
-            questions={allQuestions}
+                        questions={subjectQuestions}
             subjectId={state.subject}
             embedded
-            loading={allQuestions.length === 0 && !loadError}
+                        loading={allQuestions.length === 0 && !loadError}
           />
         </div>
       ) : (
