@@ -128,6 +128,26 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
     }
   }, [answers, attemptId, step]);
 
+  /** Result screen: forget this browser's attempt so the start screen returns. */
+  function restart() {
+    try {
+      localStorage.removeItem(tokenKey(examId));
+      if (attemptId) localStorage.removeItem(draftKey(attemptId));
+    } catch {
+      // Storage disabled: nothing to forget.
+    }
+    submittedRef.current = false;
+    setResult(null);
+    setAttemptId(null);
+    setQuestions([]);
+    setAnswers({});
+    setDeadline(null);
+    setExpired(false);
+    setError(null);
+    setNow(Date.now());
+    setStep("start");
+  }
+
   async function start() {
     if (!studentName.trim()) {
       setError("নাম লিখুন।");
@@ -479,8 +499,11 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
             })}
           </div>
 
-          <div className="mt-6">
-            <a href="/exams" className="btn-secondary block w-full text-center">
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+            <button type="button" onClick={restart} className="btn-primary flex-1">
+              নতুন করে দিন
+            </button>
+            <a href="/exams" className="btn-secondary flex-1 text-center">
               আরও পরীক্ষা দিন
             </a>
           </div>

@@ -9,5 +9,5 @@ export default async function EditPaperPage({ params }: { params: Promise<{ id: 
   const store = await getStore();
   const paper = await store.getPaper(id);
   if (!paper) notFound();
-  return <PaperBuilder initial={paper} />;
+  return <PaperBuilder initial={paper} canRenderPdf={!process.env.VERCEL} />;
 }

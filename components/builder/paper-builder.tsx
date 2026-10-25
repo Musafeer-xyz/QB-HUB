@@ -233,7 +233,14 @@ function shuffleIds(ids: string[]): string[] {
  * preview on the right (same page size as print/PDF: A5/A4/B5/Letter).
  * Saving, printing and PDF export all use the same model.
  */
-export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
+export function PaperBuilder({
+  initial,
+  canRenderPdf = true,
+}: {
+  initial?: PaperRecord;
+  /** False on hosts without Chromium (Vercel); computed on the server. */
+  canRenderPdf?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selection = useSelection();
@@ -749,6 +756,12 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   }
 
   async function onPdf() {
+    // No Chromium on this host: /api/pdf can only answer 501, so print instead.
+    if (!canRenderPdf) {
+      push("info", BROWSER_PRINT_FALLBACK_MESSAGE);
+      await onQuickPrint();
+      return;
+    }
     if (!savedId) {
       push("error", "PDF ডাউনলোডের আগে পেপারটি সংরক্ষণ করুন।");
       return;
@@ -807,6 +820,11 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
       push("error", problem);
       return;
     }
+    // The tab must be opened inside the click handler: the save can take
+    // seconds, and a window.open after that await is blocked as a pop-up.
+    // `noopener` would return null, so the blank tab is detached by hand.
+    const tab = window.open("about:blank", "_blank");
+    if (tab) tab.opener = null;
     setPrintPending(true);
     try {
       const payload = buildPayload();
@@ -814,6 +832,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
         ? await updatePaperAction(savedId, payload)
         : await savePaperAction(payload);
       if (!res.ok) {
+        tab?.close();
         push("error", res.message);
         return;
       }
@@ -822,11 +841,13 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
         setSavedId(res.id);
         router.replace(withSubject(`/admin/papers/${res.id}/edit?step=${step}`, state.subject));
       }
-      const opened = window.open(`/print/${id}?print=1`, "_blank", "noopener,noreferrer");
-      if (!opened) {
+      if (!tab) {
         push("error", "পপ-আপ ব্লক হয়েছে — “প্রিন্ট ভিউ” লিংক থেকে খুলুন।");
+        return;
       }
+      tab.location.href = `/print/${id}?print=1`;
     } catch {
+      tab?.close();
       push("error", "প্রিন্ট ভিউ খোলা যায়নি — আবার চেষ্টা করুন।");
     } finally {
       setPrintPending(false);

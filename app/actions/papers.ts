@@ -29,6 +29,26 @@ function errorResult(parsed: { error: { flatten: () => { fieldErrors: unknown } 
   };
 }
 
+/**
+ * Load every referenced question in ONE round of parallel queries. Awaiting
+ * them one by one added a network round trip per question to every save.
+ */
+async function loadQuestionRecords(
+  store: Awaited<ReturnType<typeof getStore>>,
+  ids: string[],
+): Promise<{ records: Map<string, QuestionRecord>; missing: string | null }> {
+  const unique = [...new Set(ids)];
+  const found = await Promise.all(unique.map((id) => store.getQuestion(id)));
+  const records = new Map<string, QuestionRecord>();
+  for (let i = 0; i < unique.length; i += 1) {
+    const id = unique[i]!;
+    const record = found[i];
+    if (!record) return { records, missing: id };
+    records.set(id, record);
+  }
+  return { records, missing: null };
+}
+
 export async function savePaperAction(input: unknown): Promise<PaperActionResult> {
   const auth = await requireAdmin();
   if ("error" in auth) return { ok: false, message: auth.error };
@@ -40,13 +60,12 @@ export async function savePaperAction(input: unknown): Promise<PaperActionResult
   const store = await getStore();
 
   // Validate every question exists and recompute the total server-side.
-  const records = new Map<string, QuestionRecord>();
-  for (const pq of values.questions) {
-    const record = await store.getQuestion(pq.questionId);
-    if (!record) {
-      return { ok: false, message: `প্রশ্ন “${pq.questionId}” পাওয়া যায়নি; তালিকা রিফ্রেশ করুন।` };
-    }
-    records.set(pq.questionId, record);
+  const { records, missing } = await loadQuestionRecords(
+    store,
+    values.questions.map((pq) => pq.questionId),
+  );
+  if (missing) {
+    return { ok: false, message: `প্রশ্ন “${missing}” পাওয়া যায়নি; তালিকা রিফ্রেশ করুন।` };
   }
   const totalMarks = computeTotalMarks(values.questions, records, values.settings);
 
@@ -74,12 +93,11 @@ export async function updatePaperAction(id: string, input: unknown): Promise<Pap
   const existing = await store.getPaper(id);
   if (!existing) return { ok: false, message: "পেপার পাওয়া যায়নি।" };
 
-  const records = new Map<string, QuestionRecord>();
-  for (const pq of values.questions) {
-    const record = await store.getQuestion(pq.questionId);
-    if (!record) return { ok: false, message: `প্রশ্ন “${pq.questionId}” পাওয়া যায়নি।` };
-    records.set(pq.questionId, record);
-  }
+  const { records, missing } = await loadQuestionRecords(
+    store,
+    values.questions.map((pq) => pq.questionId),
+  );
+  if (missing) return { ok: false, message: `প্রশ্ন “${missing}” পাওয়া যায়নি।` };
   const totalMarks = computeTotalMarks(values.questions, records, values.settings);
 
   try {
