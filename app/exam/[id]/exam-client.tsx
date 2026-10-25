@@ -11,6 +11,20 @@ import type { PublicExamQuestion } from "@/lib/exams";
 
 const tokenKey = (examId: string) => `qbhub.exam.token.${examId}`;
 const draftKey = (attemptId: string) => `qbhub.exam.draft.${attemptId}`;
+const doneAtKey = (examId: string) => `qbhub.exam.doneAt.${examId}`;
+/** A finished attempt's result stays readable in this browser for 10 minutes. */
+const RESULT_TTL_MS = 10 * 60 * 1000;
+
+/** Forget this browser's attempt for an exam: token, its draft, and the done stamp. */
+function forgetAttempt(examId: string, attemptId: string | null) {
+  try {
+    localStorage.removeItem(tokenKey(examId));
+    localStorage.removeItem(doneAtKey(examId));
+    if (attemptId) localStorage.removeItem(draftKey(attemptId));
+  } catch {
+    // Storage disabled: nothing to forget.
+  }
+}
 
 type Step = "start" | "exam" | "result";
 
@@ -54,8 +68,15 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
         const data = await res.json();
         if (cancelled) return;
         if (data.submitted) {
-          setResult(data.result);
-          setStep("result");
+          // The result is only shown for 10 minutes after submitting; a stale
+          // (or unstamped) attempt sends the visitor back to the start screen.
+          const doneAt = Number(localStorage.getItem(doneAtKey(examId)));
+          if (doneAt > 0 && Date.now() - doneAt < RESULT_TTL_MS) {
+            setResult(data.result);
+            setStep("result");
+            return;
+          }
+          forgetAttempt(examId, token);
           return;
         }
         const draft = localStorage.getItem(draftKey(token));
@@ -83,9 +104,8 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
   const submit = useCallback(
     async (payload: Record<string, string>) => {
-      if (!attemptId || submittedRef.current) return;
-      submittedRef.current = true;
-      setBusy(true);
+      if (!attemptId || submittedRef.current) return;    submittedRef.current = true;
+        setBusy(true);
       setError(null);
       try {
         const res = await fetch(`/api/attempts/${attemptId}/submit`, {
@@ -99,7 +119,13 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
           setError(data.error ?? "জমা দেওয়া যায়নি।");
           return;
         }
-        localStorage.removeItem(draftKey(attemptId));
+        try {
+          localStorage.removeItem(draftKey(attemptId));
+          // Stamp the finish so a reload keeps the result only for 10 minutes.
+          localStorage.setItem(doneAtKey(examId), String(Date.now()));
+        } catch {
+          // Storage disabled: the result still shows for this visit.
+        }
         setResult(data.result);
         setExpired(Boolean(data.expired));
         setStep("result");
@@ -110,7 +136,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
         setBusy(false);
       }
     },
-    [attemptId],
+    [attemptId, examId],
   );
 
   /** At zero the client submits by itself, inside the server's grace window. */
@@ -130,12 +156,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
   /** Result screen: forget this browser's attempt so the start screen returns. */
   function restart() {
-    try {
-      localStorage.removeItem(tokenKey(examId));
-      if (attemptId) localStorage.removeItem(draftKey(attemptId));
-    } catch {
-      // Storage disabled: nothing to forget.
-    }
+    forgetAttempt(examId, attemptId);
     submittedRef.current = false;
     setResult(null);
     setAttemptId(null);
@@ -383,7 +404,15 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
       <div className="container mx-auto max-w-3xl px-4 py-8">
         <div className="rounded-lg border border-line bg-surface p-6 shadow-sm">
           <h1 className="mb-1 text-2xl font-bold">ফলাফল</h1>
-          <p className="mb-6 text-muted">{result.exam.title}</p>
+          <p className="text-muted">{result.exam.title}</p>
+
+          {/* Retake first: it is the one action a finished student needs. */}
+          <div className="mb-6 mt-4">
+            <button type="button" onClick={restart} className="btn-primary w-full">
+              আবার পরীক্ষা দিন
+            </button>
+            <p className="mt-2 text-center text-xs text-muted">এই ফলাফল ১০ মিনিট পর মুছে যাবে।</p>
+          </div>
 
           <div className="mb-6 rounded-lg bg-[#f3f1ec] p-4 text-center">
             <p className="text-4xl font-bold text-primary" data-score>
@@ -499,11 +528,8 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
             })}
           </div>
 
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-            <button type="button" onClick={restart} className="btn-primary flex-1">
-              নতুন করে দিন
-            </button>
-            <a href="/exams" className="btn-secondary flex-1 text-center">
+          <div className="mt-6">
+            <a href="/exams" className="btn-secondary block w-full text-center">
               আরও পরীক্ষা দিন
             </a>
           </div>
