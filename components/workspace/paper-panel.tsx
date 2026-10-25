@@ -7,6 +7,7 @@ import { useSelection, entryMarks } from "@/components/selection/selection-conte
 import { toBanglaDigits } from "@/lib/bangla";
 import { summarizeSection } from "@/lib/paper/sections";
 import { cn } from "@/lib/cn";
+import { withSubject } from "@/lib/admin-subject";
 
 /**
  * Right-hand “আমার পেপার” panel. Selection is instant (context + localStorage),
@@ -16,11 +17,14 @@ export function PaperPanel({
   className,
   onNavigate,
   onClose,
+  subjectId,
 }: {
   className?: string;
   onNavigate?: () => void;
   /** Sheet mode: shows the close affordance in the panel header. */
   onClose?: () => void;
+  /** The subject being browsed: the builder link carries it. */
+  subjectId?: string;
 }) {
   const selection = useSelection();
   const [dragId, setDragId] = useState<string | null>(null);
@@ -121,7 +125,7 @@ export function PaperPanel({
         </div>
         <div className="flex items-center gap-2">
           <Link
-            href="/admin/papers/new?step=2"
+            href={subjectId ? withSubject("/admin/papers/new?step=2", subjectId) : "/admin/papers/new?step=2"}
             aria-disabled={entries.length === 0}
             onClick={(e) => {
               if (entries.length === 0) e.preventDefault();
@@ -136,7 +140,7 @@ export function PaperPanel({
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
           <Link
-            href="/admin/papers/new?step=3"
+            href={subjectId ? withSubject("/admin/papers/new?step=3", subjectId) : "/admin/papers/new?step=3"}
             aria-disabled={entries.length === 0}
             onClick={(e) => {
               if (entries.length === 0) e.preventDefault();

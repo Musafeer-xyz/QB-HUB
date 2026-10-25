@@ -304,6 +304,7 @@ export function BankWorkspace({
           {/* Sticky bar */}
           {!embedded ? (
             <StickyBar
+              subjectId={subjectId}
               paperTitle={paperTitle}
               onTitleChange={setPaperTitle}
               targetMarks={targetMarks}
@@ -516,6 +517,7 @@ export function BankWorkspace({
         <PaperDrawer
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
+          subjectId={subjectId}
         />
       ) : null}
 

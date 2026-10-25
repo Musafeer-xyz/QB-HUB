@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { isSubjectId, resolveAdminSubject, withSubject } from "@/lib/admin-subject";
+import {
+  isSubjectId,
+  resolveAdminSubject,
+  resolveBuilderSubject,
+  withSubject,
+} from "@/lib/admin-subject";
 import { DEFAULT_SUBJECT } from "@/lib/subjects";
 
 describe("resolveAdminSubject", () => {
@@ -24,6 +29,29 @@ describe("resolveAdminSubject", () => {
   it("ignores unknown or empty values instead of defaulting early", () => {
     expect(resolveAdminSubject({ url: "nope", paper: "", selection: "physics" })).toBe("physics");
     expect(resolveAdminSubject({ url: null, paper: undefined, selection: null })).toBe(DEFAULT_SUBJECT);
+  });
+});
+
+describe("resolveBuilderSubject", () => {
+  it("lets the paper being edited win (its questions are what it shows)", () => {
+    expect(resolveBuilderSubject({ paper: "physics", url: "chemistry", selection: "math" })).toBe(
+      "physics",
+    );
+  });
+
+  it("uses the URL subject for a new paper", () => {
+    expect(resolveBuilderSubject({ paper: null, url: "physics", selection: "chemistry" })).toBe(
+      "physics",
+    );
+  });
+
+  it("falls back to the tray, then the default", () => {
+    expect(resolveBuilderSubject({ url: null, selection: "physics" })).toBe("physics");
+    expect(resolveBuilderSubject({})).toBe(DEFAULT_SUBJECT);
+  });
+
+  it("ignores junk values without defaulting early", () => {
+    expect(resolveBuilderSubject({ paper: "", url: "নতুন", selection: "physics" })).toBe("physics");
   });
 });
 

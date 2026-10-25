@@ -28,6 +28,18 @@ export function resolveAdminSubject({ url, paper, selection }: SubjectSources): 
 }
 
 /**
+ * The paper builder's subject, strongest first: the paper being edited, then
+ * `?subject=`, then the tray. Resolved before the first fetch, so a builder
+ * never asks for the default subject first and then refetches.
+ */
+export function resolveBuilderSubject({ paper, url, selection }: SubjectSources): string {
+  for (const candidate of [paper, url, selection]) {
+    if (isSubjectId(candidate)) return candidate;
+  }
+  return DEFAULT_SUBJECT;
+}
+
+/**
  * Set `?subject=` on an internal href, keeping every other parameter (filters,
  * `step`, …). Used so the chosen subject survives internal navigation.
  */

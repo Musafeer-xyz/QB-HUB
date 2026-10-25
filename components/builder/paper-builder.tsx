@@ -15,7 +15,7 @@ import { PaperDocument } from "@/components/paper/paper-document";
 import { BankWorkspace } from "@/components/workspace/bank-workspace";
 import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { cn } from "@/lib/cn";
-import { isSubjectId, withSubject } from "@/lib/admin-subject";
+import { isSubjectId, resolveBuilderSubject, withSubject } from "@/lib/admin-subject";
 import { useAdminSubject } from "@/components/shell/subject-context";
 import { useToast } from "@/components/toast";
 import { savePaperAction, updatePaperAction } from "@/app/actions/papers";
@@ -33,6 +33,10 @@ import {
 } from "@/lib/paper/sections";
 import { questionMarks, resolveParts } from "@/lib/marks";
 import { questionImageUrl } from "@/lib/images";
+import {
+  BROWSER_PRINT_FALLBACK_MESSAGE,
+  isChromiumUnavailable,
+} from "@/lib/pdf/fallback";
 import {
   MARGIN_PRESETS,
   PAPER_SIZE_KEYS,
@@ -273,6 +277,24 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   /** Only whether this is an edit, so a refresh of the page data does not refetch. */
   const initialId = initial?.id ?? null;
 
+  /**
+   * The subject this builder works on, resolved before anything is fetched:
+   * the paper's own subject, then `?subject=`, then the tray, then the default.
+   * A new paper's tray is read only once it is ready, so the first request is
+   * always for the real subject (never chemistry-then-physics).
+   */
+  const resolvedSubject = useMemo(
+    () =>
+      resolveBuilderSubject({
+        paper: initialId ? initial?.subject : null,
+        url: searchParams.get("subject"),
+        selection: selection.ready
+          ? (selection.entries.find((entry) => isSubjectId(entry.subject))?.subject ?? null)
+          : null,
+      }),
+    [initialId, initial?.subject, searchParams, selection.ready, selection.entries],
+  );
+
   useEffect(() => {
     setStepState(urlStep);
   }, [urlStep]);
@@ -362,7 +384,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   useEffect(() => {
     if (!initialId && !selection.ready) return;
     let cancelled = false;
-    fetch(`/api/questions?subject=${encodeURIComponent(state.subject)}`)
+    fetch(`/api/questions?subject=${encodeURIComponent(resolvedSubject)}`)
       .then(async (res) => {
         const data: {
           items?: QuestionRecord[];
@@ -384,7 +406,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     return () => {
       cancelled = true;
     };
-  }, [state.subject, initialId, selection.ready]);
+  }, [resolvedSubject, initialId, selection.ready]);
 
   // New paper: seed from the tray once (localStorage-backed).
   useEffect(() => {
@@ -417,35 +439,29 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   );
 
   /**
-   * A new paper's subject: `?subject=` when the page was opened for a subject,
-   * otherwise the subject of the selected questions. The title follows it.
+   * Adopt the resolved subject; the title follows it while it is still the
+   * default one.
    */
   useEffect(() => {
-    if (initial) return;
-    const urlSubject = searchParams.get("subject");
-    const subject = isSubjectId(urlSubject)
-      ? urlSubject
-      : selection.ready
-        ? selection.entries.find((entry) => isSubjectId(entry.subject))?.subject
-        : undefined;
-    if (!isSubjectId(subject)) return;
     setState((s) =>
-      s.subject === subject
+      s.subject === resolvedSubject
         ? s
         : {
             ...s,
-            subject,
+            subject: resolvedSubject,
             title:
-              s.title === DEFAULT_STATE.title ? `${subjectLabel(subject)} — মডেল টেস্ট` : s.title,
+              s.title === DEFAULT_STATE.title
+                ? `${subjectLabel(resolvedSubject)} — মডেল টেস্ট`
+                : s.title,
           },
     );
-  }, [initial, searchParams, selection.ready, selection.entries]);
+  }, [resolvedSubject]);
 
   // The header switcher shows the subject this builder is really working on.
   // Layout effect: it must be right before the first paint, not a frame later.
   useClientLayoutEffect(() => {
-    reportSubject(state.subject);
-  }, [reportSubject, state.subject]);
+    reportSubject(resolvedSubject);
+  }, [reportSubject, resolvedSubject]);
 
   // Chapter line: auto-filled from the selection until the teacher edits it.
   useEffect(() => {
@@ -746,7 +762,15 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
         body: JSON.stringify({ paperId: savedId }),
       });
       if (!res.ok) {
-        const data: { error?: string } = await res.json().catch(() => ({}));
+        const data: { error?: string; code?: string; fallback?: string } = await res
+          .json()
+          .catch(() => ({}));
+        // No Chromium on this host: take the same path as the প্রিন্ট button.
+        if (isChromiumUnavailable(res.status, data)) {
+          push("info", BROWSER_PRINT_FALLBACK_MESSAGE);
+          await onQuickPrint();
+          return;
+        }
         const message = data.error ?? "PDF তৈরি করা যায়নি।";
         setPdfError(message);
         push("error", message);

@@ -5,8 +5,11 @@ import Link from "next/link";
 import { List, CheckSquare2, ArrowUp, ChevronDown, X } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { toBanglaDigits } from "@/lib/bangla";
+import { withSubject } from "@/lib/admin-subject";
 
 interface StickyBarProps {
+  /** The subject being browsed: the builder link carries it. */
+  subjectId: string;
   paperTitle: string;
   onTitleChange: (title: string) => void;
   targetMarks: number | null;
@@ -25,6 +28,7 @@ interface StickyBarProps {
 }
 
 export function StickyBar({
+  subjectId,
   paperTitle,
   onTitleChange,
   targetMarks,
@@ -144,7 +148,7 @@ export function StickyBar({
             </button>
 
             <Link
-              href="/admin/papers/new?step=2"
+              href={withSubject("/admin/papers/new?step=2", subjectId)}
               className="btn-secondary flex items-center gap-1.5 text-xs"
               onClick={onPreview}
             >
