@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import { getStore } from "@/lib/data/store";
 import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
-import { ExamResults } from "./exam-results";
+import { attemptQuestionRows } from "@/lib/exams";
+import { ExamResults, type AttemptDetails } from "./exam-results";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +36,15 @@ export default async function ExamResultsPage({
 
   const attempts = await store.listAttempts(id);
 
+  // Per-question review, built here on the server from the answers stored on
+  // each submitted attempt (never in a public route).
+  const questions = await store.getExamQuestions(exam.id);
+  const details: AttemptDetails = {};
+  for (const attempt of attempts) {
+    if (!attempt.submittedAt) continue;
+    details[attempt.id] = attemptQuestionRows(questions, attempt.answers);
+  }
+
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
       <div className="mb-6">
@@ -46,7 +56,7 @@ export default async function ExamResultsPage({
           {attempts.length}টি জমা দেওয়া
         </p>
       </div>
-      <ExamResults attempts={attempts} />
+      <ExamResults attempts={attempts} details={details} />
     </div>
   );
 }

@@ -117,6 +117,32 @@ export function gradeAnswers(
   return { score, total: questions.length };
 }
 
+/** One question of a submitted attempt, with the student's choice and its verdict. */
+export type AttemptQuestionRow = ExamQuestion & {
+  studentAnswer: string | null;
+  isCorrect: boolean;
+};
+
+/**
+ * Rebuild an attempt's per-question review from the answers stored on the
+ * attempt. Uses the same rule as `gradeAnswers` (a non-empty label equal to the
+ * stored correct option), so the admin detail can never disagree with the score.
+ */
+export function attemptQuestionRows(
+  questions: ExamQuestion[],
+  answers: Record<string, string>,
+): AttemptQuestionRow[] {
+  return questions.map((q) => {
+    const given = answers[q.id];
+    const studentAnswer = typeof given === "string" && given.length > 0 ? given : null;
+    return {
+      ...q,
+      studentAnswer,
+      isCorrect: studentAnswer !== null && studentAnswer === q.correctOption,
+    };
+  });
+}
+
 /** What a submit request may do, decided without touching the store. */
 export type SubmitDecision =
   | { action: "grade" }

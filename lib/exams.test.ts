@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   EXAM_GRACE_MS,
+  attemptQuestionRows,
   attemptsCsv,
   examQuestionProblems,
   gradeAnswers,
@@ -75,6 +76,33 @@ describe("grading", () => {
 
   it("never awards a point when the key is missing", () => {
     expect(gradeAnswers([question("q1", null)], { q1: "ক" })).toEqual({ score: 0, total: 1 });
+  });
+});
+
+describe("admin per-question review", () => {
+  const questions = [question("q1", "ক"), question("q2", "খ"), question("q3", "গ")];
+
+  it("keeps exam order and marks each choice right or wrong", () => {
+    const rows = attemptQuestionRows(questions, { q1: "ক", q2: "গ", q3: "গ" });
+    expect(rows.map((r) => [r.id, r.studentAnswer, r.isCorrect])).toEqual([
+      ["q1", "ক", true],
+      ["q2", "গ", false],
+      ["q3", "গ", true],
+    ]);
+  });
+
+  it("reports unanswered questions as null, never as a wrong option", () => {
+    const rows = attemptQuestionRows(questions, { q1: "", q3: "গ" });
+    expect(rows[0]!.studentAnswer).toBeNull();
+    expect(rows[0]!.isCorrect).toBe(false);
+    expect(rows[1]!.studentAnswer).toBeNull();
+    expect(rows[2]!.isCorrect).toBe(true);
+  });
+
+  it("agrees with gradeAnswers on the number of correct answers", () => {
+    const answers = { q1: "ক", q2: "খ", q3: "ঘ" };
+    const correct = attemptQuestionRows(questions, answers).filter((r) => r.isCorrect).length;
+    expect(correct).toBe(gradeAnswers(questions, answers).score);
   });
 });
 
