@@ -15,8 +15,11 @@ import {
   Upload,
 } from "lucide-react";
 import { SUBJECTS, subjectById } from "@/lib/subjects";
+import { resolveAdminSubject, withSubject } from "@/lib/admin-subject";
+import { toBanglaDigits } from "@/lib/bangla";
 import { cn } from "@/lib/cn";
 import { CommandPalette } from "@/components/shell/command-palette";
+import { useAdminSubject } from "@/components/shell/subject-context";
 
 const NAV = [
   { href: "/admin", label: "ড্যাশবোর্ড", icon: LayoutDashboard, exact: true },
@@ -31,7 +34,11 @@ const NAV = [
 export function AppHeader({ demo = false }: { demo?: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const subject = subjectById(searchParams.get("subject"));
+  const { subject: pageSubject } = useAdminSubject();
+  // URL wins, then what the page reports (a paper / the tray), then default.
+  const subject = subjectById(
+    resolveAdminSubject({ url: searchParams.get("subject"), paper: pageSubject }),
+  );
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [mac, setMac] = useState(false);
 
@@ -64,7 +71,11 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
             <span className="hidden text-[15px] font-semibold tracking-tight sm:inline">প্রশ্নব্যাংক</span>
           </Link>
 
-          <SubjectSwitcher subjectId={subject.id} pathname={pathname} />
+          <SubjectSwitcher
+            subjectId={subject.id}
+            pathname={pathname}
+            search={searchParams.toString()}
+          />
 
           <nav className="ml-1 flex items-center gap-0.5" aria-label="প্রধান">
             {NAV.map((item) => {
@@ -75,7 +86,7 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
               return (
                 <Link
                   key={item.href}
-                  href={`${item.href}?subject=${subject.id}`}
+                  href={withSubject(item.href, subject.id)}
                   aria-current={active ? "page" : undefined}
                   aria-label={item.label}
                   title={item.label}
@@ -118,7 +129,11 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
           </div>
         </div>
       </header>
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <CommandPalette
+        open={paletteOpen}
+        onOpenChange={setPaletteOpen}
+        subjectId={subject.id}
+      />
     </>
   );
 }
@@ -139,11 +154,37 @@ function FlaskLogo() {
   );
 }
 
-function SubjectSwitcher({ subjectId, pathname }: { subjectId: string; pathname: string }) {
+function SubjectSwitcher({
+  subjectId,
+  pathname,
+  search,
+}: {
+  subjectId: string;
+  pathname: string;
+  search: string;
+}) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [counts, setCounts] = useState<Record<string, number> | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const subject = subjectById(subjectId);
+
+  // Real per-subject question counts, loaded once the list is opened.
+  useEffect(() => {
+    if (!open || counts) return;
+    let cancelled = false;
+    fetch("/api/questions/counts")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { counts?: Record<string, number> } | null) => {
+        if (!cancelled) setCounts(data?.counts ?? {});
+      })
+      .catch(() => {
+        if (!cancelled) setCounts({});
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, counts]);
 
   useEffect(() => {
     if (!open) return;
@@ -191,7 +232,9 @@ function SubjectSwitcher({ subjectId, pathname }: { subjectId: string; pathname:
                 aria-selected={active}
                 onClick={() => {
                   setOpen(false);
-                  router.push(`${pathname}?subject=${option.id}`);
+                  const params = new URLSearchParams(search);
+                  params.set("subject", option.id);
+                  router.push(`${pathname}?${params.toString()}`);
                 }}
                 className={cn(
                   "flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors",
@@ -200,8 +243,10 @@ function SubjectSwitcher({ subjectId, pathname }: { subjectId: string; pathname:
               >
                 <span className="subject-dot" style={{ background: option.dot }} aria-hidden="true" />
                 <span className="flex-1">{option.label}</span>
-                {!option.hasData ? (
-                  <span className="text-[10px] text-muted">ডেটা নেই</span>
+                {counts ? (
+                  <span className="text-[10px] text-muted">
+                    {(counts[option.id] ?? 0) === 0 ? "ডেটা নেই" : toBanglaDigits(counts[option.id] ?? 0)}
+                  </span>
                 ) : null}
                 {active ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : null}
               </button>

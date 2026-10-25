@@ -18,8 +18,6 @@ export type SubjectDef = {
   dot: string;
   /** chapter number → chapter name (Bangla). */
   chapters: Record<number, string>;
-  /** False when the subject exists in the registry but has no data yet. */
-  hasData: boolean;
 };
 
 export const SUBJECTS: SubjectDef[] = [
@@ -29,7 +27,6 @@ export const SUBJECTS: SubjectDef[] = [
     slug: "chemistry",
     dot: "var(--subject-chemistry)",
     chapters: CHEMISTRY_CHAPTER_NAMES,
-    hasData: true,
   },
   {
     id: "physics",
@@ -37,7 +34,6 @@ export const SUBJECTS: SubjectDef[] = [
     slug: "physics",
     dot: "var(--subject-physics)",
     chapters: {},
-    hasData: false,
   },
   {
     id: "math",
@@ -45,7 +41,6 @@ export const SUBJECTS: SubjectDef[] = [
     slug: "math",
     dot: "var(--subject-math)",
     chapters: {},
-    hasData: false,
   },
   {
     id: "biology",
@@ -53,7 +48,6 @@ export const SUBJECTS: SubjectDef[] = [
     slug: "biology",
     dot: "var(--subject-biology)",
     chapters: {},
-    hasData: false,
   },
 ];
 

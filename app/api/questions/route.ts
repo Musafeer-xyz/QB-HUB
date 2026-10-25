@@ -3,40 +3,44 @@ import { getStore } from "@/lib/data/store";
 import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
 import { availableImageFiles } from "@/lib/images-server";
-import { SUBJECTS } from "@/lib/subjects";
+import { DEFAULT_SUBJECT } from "@/lib/subjects";
+import { isSubjectId } from "@/lib/admin-subject";
 
 /**
- * Returns every question (with parts) plus the ids already used by saved
- * papers. Used by the paper builder for auto-generation, shuffling and
- * "exclude questions used before". Admin-only.
+ * Returns one subject's questions (with parts) plus the ids already used by
+ * saved papers. Used by the paper builder and the command palette for
+ * auto-generation, shuffling and "exclude questions used before". `?subject=`
+ * selects the subject; a missing or unknown value means the default subject.
+ * Admin-only.
  */
-export async function GET() {
+export async function GET(request: Request) {
   if (!isLocalMode()) {
     const user = await getAuthUser();
     if (!user) return NextResponse.json({ error: "লগইন প্রয়োজন।" }, { status: 401 });
     if (!(await isAdminUser())) return NextResponse.json({ error: "অনুমতি নেই।" }, { status: 403 });
   }
 
+  const requested = new URL(request.url).searchParams.get("subject");
+  const subject = isSubjectId(requested) ? requested : DEFAULT_SUBJECT;
+
   try {
     const store = await getStore();
-    const [results, usedIds, boards] = await Promise.all([
-      Promise.all(
-        SUBJECTS.map((s) => store.listQuestions({ subject: s.id, page: 1, pageSize: 1000 })),
-      ),
+    const [result, usedIds] = await Promise.all([
+      store.listQuestions({ subject, page: 1, pageSize: 1000 }),
       store.usedQuestionIds(),
-      store.listBoards(),
     ]);
-    const items = results.flatMap((r) => r.items);
-    const total = results.reduce((n, r) => n + r.total, 0);
+    const items = result.items;
     const images = await availableImageFiles(
       items.map((q) => q.imagePath).filter((p): p is string => Boolean(p)),
     );
     return NextResponse.json({
+      subject,
       items,
       usedIds: [...usedIds],
-      boards,
+      // Boards present in this subject only, so the builder's filter matches.
+      boards: [...new Set(items.flatMap((q) => q.boards))].sort(),
       images: [...images],
-      total,
+      total: result.total,
     });
   } catch (err) {
     return NextResponse.json(

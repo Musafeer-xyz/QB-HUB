@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
+import { isSubjectId, withSubject } from "@/lib/admin-subject";
 
 /**
  * Every “নতুন পেপার” entry point. Unlike a plain link this wipes the saved
@@ -27,7 +28,9 @@ export function NewPaperLink({
     // draft makes the paper opened there empty as well.
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
-    router.push("/admin/papers/new");
+    // Stay on the subject the teacher is looking at (the draft is now empty).
+    const urlSubject = new URLSearchParams(window.location.search).get("subject");
+    router.push(isSubjectId(urlSubject) ? withSubject("/admin/papers/new", urlSubject) : "/admin/papers/new");
   }
 
   return (

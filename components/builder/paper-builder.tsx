@@ -1,12 +1,22 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PaperDocument } from "@/components/paper/paper-document";
 import { BankWorkspace } from "@/components/workspace/bank-workspace";
 import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { cn } from "@/lib/cn";
+import { isSubjectId, withSubject } from "@/lib/admin-subject";
+import { useAdminSubject } from "@/components/shell/subject-context";
 import { useToast } from "@/components/toast";
 import { savePaperAction, updatePaperAction } from "@/app/actions/papers";
 import { autoGenerate } from "@/lib/autogen";
@@ -35,6 +45,9 @@ import {
 } from "@/lib/paper/sizes";
 import type { PaperSettings } from "@/lib/schemas/paper";
 import type { PaperRecord, QuestionRecord } from "@/lib/types";
+
+/** Layout effect on the client, plain effect during SSR (no warning). */
+const useClientLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 type BuilderSection = "CQ" | "SQ" | "MCQ";
 
@@ -218,7 +231,9 @@ function shuffleIds(ids: string[]): string[] {
  */
 export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const selection = useSelection();
+  const { setSubject: reportSubject } = useAdminSubject();
   const { push } = useToast();
   const [pending, startTransition] = useTransition();
 
@@ -251,14 +266,23 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
   const [appendOnGenerate, setAppendOnGenerate] = useState(false);
   const [zoom, setZoom] = useState(0.85);
   const [dragId, setDragId] = useState<string | null>(null);
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  // The step lives in the URL (?step=), so a save or a reload keeps it.
+  const urlStep = parseStep(searchParams.get("step"));
+  const [step, setStepState] = useState<1 | 2 | 3>(urlStep);
   const seededStepOne = useRef(false);
+  /** Only whether this is an edit, so a refresh of the page data does not refetch. */
+  const initialId = initial?.id ?? null;
 
-  // ?step=2 / ?step=3 deep-links from the workspace panel.
   useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("step");
-    const next = Number(raw);
-    if (next === 2 || next === 3) setStep(next);
+    setStepState(urlStep);
+  }, [urlStep]);
+
+  /** Change step and mirror it into the URL without a server round-trip. */
+  const setStep = useCallback((next: 1 | 2 | 3) => {
+    setStepState(next);
+    const params = new URLSearchParams(window.location.search);
+    params.set("step", String(next));
+    window.history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
   }, []);
 
   /**
@@ -279,7 +303,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     };
     window.addEventListener(NEW_PAPER_EVENT, onNewPaper);
     return () => window.removeEventListener(NEW_PAPER_EVENT, onNewPaper);
-  }, []);
+  }, [setStep]);
 
   /**
    * Step ১ is the workspace: it edits the shared selection. Entering it seeds
@@ -307,6 +331,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
             const question = byIdNow.get(item.questionId)!;
             return {
               questionId: item.questionId,
+              subject: question.subject,
               type: item.section ?? question.type,
               chapter: question.chapter,
               partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
@@ -332,10 +357,12 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     });
   }, [step, selection, items, allQuestions, initial]);
 
-  // Load the whole bank once: auto-generation, shuffling and marks all need it.
+  // Load this paper's subject: auto-generation, shuffling and marks all need it.
+  // A new paper waits for the tray, because the tray decides its subject.
   useEffect(() => {
+    if (!initialId && !selection.ready) return;
     let cancelled = false;
-    fetch("/api/questions")
+    fetch(`/api/questions?subject=${encodeURIComponent(state.subject)}`)
       .then(async (res) => {
         const data: {
           items?: QuestionRecord[];
@@ -357,7 +384,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [state.subject, initialId, selection.ready]);
 
   // New paper: seed from the tray once (localStorage-backed).
   useEffect(() => {
@@ -389,11 +416,19 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
     [items, byId],
   );
 
-    // New paper: take the subject (and default title) from the selected questions.
+  /**
+   * A new paper's subject: `?subject=` when the page was opened for a subject,
+   * otherwise the subject of the selected questions. The title follows it.
+   */
   useEffect(() => {
     if (initial) return;
-    const subject = docItems[0]?.question.subject;
-    if (!subject) return;
+    const urlSubject = searchParams.get("subject");
+    const subject = isSubjectId(urlSubject)
+      ? urlSubject
+      : selection.ready
+        ? selection.entries.find((entry) => isSubjectId(entry.subject))?.subject
+        : undefined;
+    if (!isSubjectId(subject)) return;
     setState((s) =>
       s.subject === subject
         ? s
@@ -404,7 +439,13 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
               s.title === DEFAULT_STATE.title ? `${subjectLabel(subject)} — মডেল টেস্ট` : s.title,
           },
     );
-  }, [docItems, initial]);
+  }, [initial, searchParams, selection.ready, selection.entries]);
+
+  // The header switcher shows the subject this builder is really working on.
+  // Layout effect: it must be right before the first paint, not a frame later.
+  useClientLayoutEffect(() => {
+    reportSubject(state.subject);
+  }, [reportSubject, state.subject]);
 
   // Chapter line: auto-filled from the selection until the teacher edits it.
   useEffect(() => {
@@ -684,7 +725,8 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
       push("success", res.message);
       if (!savedId) {
         setSavedId(res.id);
-        router.replace(`/admin/papers/${res.id}/edit`);
+        // Stay on the step the user was on, and keep the paper's own subject.
+        router.replace(withSubject(`/admin/papers/${res.id}/edit?step=${step}`, state.subject));
       }
       router.refresh();
     });
@@ -754,7 +796,7 @@ export function PaperBuilder({ initial }: { initial?: PaperRecord }) {
       const id = savedId ?? res.id;
       if (!savedId) {
         setSavedId(res.id);
-        router.replace(`/admin/papers/${res.id}/edit`);
+        router.replace(withSubject(`/admin/papers/${res.id}/edit?step=${step}`, state.subject));
       }
       const opened = window.open(`/print/${id}?print=1`, "_blank", "noopener,noreferrer");
       if (!opened) {
@@ -1974,6 +2016,11 @@ function Toggle({
       </span>
     </label>
   );
+}
+
+/** `?step=`: only 2 and 3 are deep links; anything else means step ১. */
+function parseStep(raw: string | null): 1 | 2 | 3 {
+  return raw === "2" ? 2 : raw === "3" ? 3 : 1;
 }
 
 /** Next zoom step from the toolbar buttons (0.6 → 1 in fixed steps). */

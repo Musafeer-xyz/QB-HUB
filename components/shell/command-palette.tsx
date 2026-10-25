@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { SUBJECTS } from "@/lib/subjects";
+import { withSubject } from "@/lib/admin-subject";
 import { toBanglaDigits } from "@/lib/bangla";
 import type { QuestionRecord } from "@/lib/types";
 
@@ -26,9 +27,12 @@ type PaletteQuestion = { id: string; text: string; chapter: number; type: string
 export function CommandPalette({
   open,
   onOpenChange,
+  subjectId,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** The admin's current subject; only its questions are indexed. */
+  subjectId: string;
 }) {
   const router = useRouter();
   const selection = useSelection();
@@ -40,7 +44,7 @@ export function CommandPalette({
       return;
     }
     let cancelled = false;
-    fetch("/api/questions")
+    fetch(`/api/questions?subject=${encodeURIComponent(subjectId)}`)
       .then(async (res) => (res.ok ? ((await res.json()) as { items?: QuestionRecord[] }) : null))
       .then((data) => {
         if (cancelled) return;
@@ -57,7 +61,7 @@ export function CommandPalette({
     return () => {
       cancelled = true;
     };
-  }, [open]);
+  }, [open, subjectId]);
 
   function go(href: string) {
     onOpenChange(false);
@@ -68,7 +72,7 @@ export function CommandPalette({
   function newPaper() {
     selection.reset();
     window.dispatchEvent(new Event(NEW_PAPER_EVENT));
-    go("/admin/papers/new");
+    go(withSubject("/admin/papers/new", subjectId));
   }
 
   return (
@@ -85,13 +89,21 @@ export function CommandPalette({
 
         <Command.Group heading="যান">
           <Item icon={<LayoutDashboard />} label="ড্যাশবোর্ড" onSelect={() => go("/admin")} />
-          <Item icon={<LibraryBig />} label="প্রশ্নব্যাংক" onSelect={() => go("/admin/bank")} />
+          <Item
+            icon={<LibraryBig />}
+            label="প্রশ্নব্যাংক"
+            onSelect={() => go(withSubject("/admin/bank", subjectId))}
+          />
           <Item icon={<FileText />} label="পেপার" onSelect={() => go("/admin/papers")} />
           <Item icon={<Upload />} label="ইমপোর্ট" onSelect={() => go("/admin/import")} />
         </Command.Group>
 
         <Command.Group heading="তৈরি করুন">
-          <Item icon={<Plus />} label="নতুন প্রশ্ন" onSelect={() => go("/admin/questions/new")} />
+          <Item
+            icon={<Plus />}
+            label="নতুন প্রশ্ন"
+            onSelect={() => go(withSubject("/admin/questions/new", subjectId))}
+          />
           <Item icon={<FileText />} label="নতুন পেপার" onSelect={newPaper} />
         </Command.Group>
 

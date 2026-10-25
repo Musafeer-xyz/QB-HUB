@@ -103,7 +103,7 @@ export default async function DashboardPage({
           value={toBanglaDigits(papers.length)}
           hint={papers[0] ? `সর্বশেষ ${formatDate(papers[0].updatedAt)}` : "এখনো নেই"}
           icon={<FileText className="h-4 w-4" aria-hidden="true" />}
-          href="/admin/papers"
+          href={`/admin/papers?subject=${subject.id}`}
         />
         <StatCard
           label="ছবিসহ প্রশ্ন"
@@ -126,7 +126,7 @@ export default async function DashboardPage({
           <header className="flex items-center gap-2 border-b border-line px-4 py-2.5">
             <h2 className="text-sm font-semibold">সাম্প্রতিক পেপার</h2>
             <Link
-              href="/admin/papers"
+              href={`/admin/papers?subject=${subject.id}`}
               className="ml-auto inline-flex items-center gap-1 text-[12px] font-medium text-primary hover:underline"
             >
               সব দেখুন <ArrowRight className="h-3 w-3" aria-hidden="true" />
@@ -180,10 +180,13 @@ export default async function DashboardPage({
             <Link href={`/admin/bank?subject=${subject.id}`} className="btn-secondary w-full justify-start">
               <LibraryBig className="h-4 w-4" aria-hidden="true" /> প্রশ্ন বেছে নিন
             </Link>
-            <Link href="/admin/questions/new" className="btn-secondary w-full justify-start">
+            <Link
+              href={`/admin/questions/new?subject=${subject.id}`}
+              className="btn-secondary w-full justify-start"
+            >
               <Plus className="h-4 w-4" aria-hidden="true" /> নতুন প্রশ্ন লিখুন
             </Link>
-            <Link href="/admin/import" className="btn-secondary w-full justify-start">
+            <Link href={`/admin/import?subject=${subject.id}`} className="btn-secondary w-full justify-start">
               <Upload className="h-4 w-4" aria-hidden="true" /> ফাইল থেকে ইমপোর্ট
             </Link>
           </div>

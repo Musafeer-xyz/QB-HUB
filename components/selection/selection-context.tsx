@@ -4,6 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 export type SelectionEntry = {
   questionId: string;
+  /** Subject of the question — a new paper takes its subject from here. */
+  subject?: string;
   type: "CQ" | "SQ" | "MCQ";
   chapter: number;
   /** CQ parts: labels + marks, so the tray can total marks without refetching. */
@@ -97,6 +99,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
               .filter((e) => e && typeof e.questionId === "string")
               .map((e) => ({
                 questionId: e.questionId,
+                subject: typeof e.subject === "string" ? e.subject : undefined,
                 type: e.type === "CQ" || e.type === "MCQ" ? e.type : "SQ",
                 chapter: Number(e.chapter) || 0,
                 partMarks: Array.isArray(e.partMarks) ? e.partMarks : [],
@@ -185,6 +188,7 @@ export function SelectionProvider({ children }: { children: React.ReactNode }) {
         .filter((e) => e && typeof e.questionId === "string")
         .map((e) => ({
           questionId: e.questionId,
+          subject: typeof e.subject === "string" ? e.subject : undefined,
           type: e.type === "CQ" || e.type === "MCQ" ? e.type : "SQ",
           chapter: Number(e.chapter) || 0,
           partMarks: Array.isArray(e.partMarks) ? e.partMarks : [],

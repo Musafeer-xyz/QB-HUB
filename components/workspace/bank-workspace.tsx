@@ -202,6 +202,7 @@ export function BankWorkspace({
       }
       selection.add({
         questionId: question.id,
+        subject: question.subject,
         type: question.type,
         chapter: question.chapter,
         partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
@@ -224,6 +225,7 @@ export function BankWorkspace({
     selection.replace(
       typeFiltered.map((question) => ({
         questionId: question.id,
+        subject: question.subject,
         type: question.type,
         chapter: question.chapter,
         partMarks: question.parts.map((p) => ({ label: p.label, marks: p.marks })),
