@@ -46,7 +46,9 @@ async function addRows(page: Page, count: number) {
 }
 
 test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ page }) => {
-  test.setTimeout(240_000);
+  // A cold `next dev` compiles every route this test touches and the first
+  // /api/pdf launches Chromium, so the whole flow needs well over 4 minutes.
+  test.setTimeout(420_000);
   await gotoBank(page);
 
   // --- chapter 6, CQ ---
@@ -122,8 +124,9 @@ test("filter → select 3 CQ + 5 SQ → build paper → print/PDF", async ({ pag
   await expect(page.locator("#title")).toHaveValue("E2E রসায়ন মডেল টেস্ট");
 
   // --- print view: flags and answers must never appear ---
-  const paperUrl = page.url().replace("/edit", "");
-  const paperId = paperUrl.split("/").pop();
+  // Path only: saving appends ?step=2&subject=… so the raw URL segment would carry it.
+  const paperId = new URL(page.url()).pathname.split("/")[3] as string;
+  expect(paperId).toMatch(/^[0-9a-f-]{8,}$/);
   await page.goto(`/print/${paperId}`);
   await expect(page.locator(".paper-sheet")).toBeVisible();
   const printText = await page.locator(".paper-sheet").innerText();
