@@ -91,6 +91,11 @@ export type Store = {
   createAttempt(attempt: Omit<AttemptRecord, "id" | "score" | "total">): Promise<AttemptRecord>;
   updateAttempt(id: string, updates: Partial<Pick<AttemptRecord, "submittedAt" | "answers" | "score" | "total">>): Promise<AttemptRecord>;
   getAttemptResult(attemptId: string): Promise<AttemptResult | null>;
+  /**
+   * Delete attempts that belong to `examId`; ids of other exams are ignored.
+   * Returns how many rows were actually removed.
+   */
+  deleteAttempts(examId: string, ids: string[]): Promise<number>;
   // ---------------------------------------------------------------------------
   // Video methods
   // ---------------------------------------------------------------------------

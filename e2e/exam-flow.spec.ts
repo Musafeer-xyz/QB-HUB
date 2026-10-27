@@ -52,6 +52,11 @@ test("admin creates, student takes, results, cleanup", async ({ page }) => {
   await expect(page).toHaveURL(/\/admin\/exams\/new/);
   await page.locator("#title").fill(TITLE);
   await page.locator("#duration").fill("30");
+  // On a dev server the first hit compiles a route, and that compile emits an
+  // HMR update which cancels the in-flight router.push — so warm both routes
+  // before creating the exam, otherwise the page stays on /admin/exams/new.
+  await page.request.get("/api/exams");
+  await page.request.get("/admin/exams");
   await page.getByRole("button", { name: "এক্সাম তৈরি করুন" }).click();
 
   // First hit compiles the route on a dev server; allow for that.
@@ -102,7 +107,8 @@ test("admin creates, student takes, results, cleanup", async ({ page }) => {
   await page.goto("/admin/exams");
   await page.locator("[data-exam-id]", { hasText: TITLE }).getByRole("button", { name: "ফলাফল" }).click();
   await expect(page.getByRole("heading", { name: TITLE })).toBeVisible();
-  await expect(page.getByRole("cell", { name: STUDENT })).toBeVisible();
+  // Exact: the row also has a checkbox and delete button labelled with the name.
+  await expect(page.getByRole("cell", { name: STUDENT, exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: /CSV/ })).toBeVisible();
 
   // Cleanup: deleting the exam also removes its attempts.

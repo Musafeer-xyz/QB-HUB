@@ -2,7 +2,12 @@ import { redirect } from "next/navigation";
 import { getStore } from "@/lib/data/store";
 import { isAdminUser, getAuthUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
-import { attemptQuestionRows } from "@/lib/exams";
+import {
+  OLD_ATTEMPTS_DAYS,
+  attemptQuestionRows,
+  attemptsOlderThanCutoff,
+  oldAttemptIds,
+} from "@/lib/exams";
 import { ExamResults, type AttemptDetails } from "./exam-results";
 
 export const dynamic = "force-dynamic";
@@ -45,6 +50,9 @@ export default async function ExamResultsPage({
     details[attempt.id] = attemptQuestionRows(questions, attempt.answers);
   }
 
+  // Preview for the “পুরনো সব মুছুন” button: how many rows it would remove now.
+  const olderCount = oldAttemptIds(attempts, attemptsOlderThanCutoff(OLD_ATTEMPTS_DAYS)).length;
+
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
       <div className="mb-6">
@@ -56,7 +64,12 @@ export default async function ExamResultsPage({
           {attempts.length}টি জমা দেওয়া
         </p>
       </div>
-      <ExamResults attempts={attempts} details={details} />
+      <ExamResults
+        examId={exam.id}
+        attempts={attempts}
+        details={details}
+        olderCount={olderCount}
+      />
     </div>
   );
 }

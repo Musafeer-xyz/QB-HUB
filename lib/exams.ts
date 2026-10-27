@@ -143,6 +143,37 @@ export function attemptQuestionRows(
   });
 }
 
+/** Manual bulk deletes are chunked so one call never deletes more than this. */
+export const MAX_ATTEMPT_DELETE = 200;
+
+/** How old an attempt must be for the admin's “পুরনো সব মুছুন” cleanup. */
+export const OLD_ATTEMPTS_DAYS = 15;
+
+/** ISO timestamp: attempts finished (or started) before it count as old. */
+export function attemptsOlderThanCutoff(days: number, now: number = Date.now()): string {
+  return new Date(now - days * 24 * 60 * 60 * 1000).toISOString();
+}
+
+/** When an attempt counts for cleanup: its submit time, else its start time. */
+export function attemptTime(attempt: Pick<AttemptRecord, "submittedAt" | "startedAt">): string {
+  return attempt.submittedAt ?? attempt.startedAt;
+}
+
+/** Ids of the attempts that finished (or started) before the cutoff. */
+export function oldAttemptIds(
+  attempts: AttemptRecord[],
+  cutoffIso: string,
+): string[] {
+  const cutoff = Date.parse(cutoffIso);
+  if (!Number.isFinite(cutoff)) return [];
+  return attempts
+    .filter((attempt) => {
+      const at = Date.parse(attemptTime(attempt));
+      return Number.isFinite(at) && at < cutoff;
+    })
+    .map((attempt) => attempt.id);
+}
+
 /** What a submit request may do, decided without touching the store. */
 export type SubmitDecision =
   | { action: "grade" }

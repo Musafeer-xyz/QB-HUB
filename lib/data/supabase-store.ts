@@ -774,6 +774,20 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
       };
     },
 
+    async deleteAttempts(examId, ids) {
+      if (ids.length === 0) return 0;
+      const c = await client();
+      // Scoped by exam_id as well as id, so an id from another exam can never
+      // be deleted through this call.
+      const { error, count } = await c
+        .from("attempts")
+        .delete({ count: "exact" })
+        .eq("exam_id", examId)
+        .in("id", ids);
+      if (error) throw new Error(error.message);
+      return count ?? 0;
+    },
+
     // ---------------------------------------------------------------------------
     // Video methods
     // ---------------------------------------------------------------------------

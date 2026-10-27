@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   EXAM_GRACE_MS,
+  OLD_ATTEMPTS_DAYS,
   attemptQuestionRows,
+  attemptTime,
   attemptsCsv,
+  attemptsOlderThanCutoff,
+  oldAttemptIds,
   examQuestionProblems,
   gradeAnswers,
   groupOpenExams,
@@ -237,6 +241,42 @@ describe("grouping open exams", () => {
 
   it("returns nothing when every exam is closed", () => {
     expect(groupOpenExams([exam({ isOpen: false })])).toEqual([]);
+  });
+});
+
+describe("old attempt cleanup", () => {
+  const now = Date.parse("2026-05-20T00:00:00.000Z");
+
+  it("cuts off exactly N days before now", () => {
+    expect(attemptsOlderThanCutoff(OLD_ATTEMPTS_DAYS, now)).toBe("2026-05-05T00:00:00.000Z");
+    expect(attemptsOlderThanCutoff(1, now)).toBe("2026-05-19T00:00:00.000Z");
+  });
+
+  it("uses startedAt while an attempt is unsubmitted", () => {
+    expect(attemptTime({ submittedAt: null, startedAt: "2026-05-01T00:00:00.000Z" })).toBe(
+      "2026-05-01T00:00:00.000Z",
+    );
+    expect(attemptTime({ submittedAt: "2026-05-02T00:00:00.000Z", startedAt: "2026-05-01T00:00:00.000Z" })).toBe(
+      "2026-05-02T00:00:00.000Z",
+    );
+  });
+
+  it("picks only attempts strictly before the cutoff", () => {
+    const attempts = [
+      attempt({ id: "old-submitted", submittedAt: "2026-05-04T00:00:00.000Z" }),
+      attempt({ id: "old-unsubmitted", submittedAt: null, startedAt: "2026-05-04T00:00:00.000Z" }),
+      attempt({ id: "fresh", submittedAt: "2026-05-19T00:00:00.000Z" }),
+      attempt({ id: "edge", submittedAt: "2026-05-05T00:00:00.000Z" }),
+    ];
+    expect(oldAttemptIds(attempts, "2026-05-05T00:00:00.000Z")).toEqual([
+      "old-submitted",
+      "old-unsubmitted",
+    ]);
+  });
+
+  it("ignores unparseable timestamps and cutoffs", () => {
+    expect(oldAttemptIds([attempt({ submittedAt: "not-a-date" })], "2026-05-05T00:00:00.000Z")).toEqual([]);
+    expect(oldAttemptIds([attempt()], "nonsense")).toEqual([]);
   });
 });
 

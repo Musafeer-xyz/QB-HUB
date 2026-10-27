@@ -586,6 +586,16 @@ export function localStore(): Store {
       };
     },
 
+    async deleteAttempts(examId, ids) {
+      if (ids.length === 0) return 0;
+      const drop = new Set(ids);
+      const all = loadAttempts();
+      const kept = all.filter((a) => !(a.examId === examId && drop.has(a.id)));
+      const removed = all.length - kept.length;
+      if (removed > 0) saveAttempts(kept);
+      return removed;
+    },
+
     // ---------------------------------------------------------------------------
     // Video methods
     // ---------------------------------------------------------------------------
