@@ -1,0 +1,753 @@
+[
+ {
+  "id": "math-03-sq-001",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৫"
+  ],
+  "question": "$x^{2}+\\frac{1}{x^{2}}=322$ যেখানে $x>0$ হলে, $x-\\frac{1}{x}$ এর মান নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-002",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "question": "$x^{2}+y^{2}=4xy$ হলে, $\\frac{x^{2}}{y^{2}}+\\frac{y^{2}}{x^{2}}$ এর মান নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-003",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২২"
+  ],
+  "question": "$a+b=3$ এবং $a^{2}+b^{2}=5$ হলে $a^{3}+b^{3}$ এর মান নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-004",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২২"
+  ],
+  "question": "$a=\\sqrt{6}+\\sqrt{5}$ হলে, $\\frac{a^{6}-1}{a^{3}}$ এর মান নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-005",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২০"
+  ],
+  "question": "$p+q=\\sqrt{3}$ এবং $p^{2}-q^{2}=\\sqrt{6}$ হলে প্রমাণ কর যে, $p^{3}+q^{3}=\\frac{9\\sqrt{3}}{4}$।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-006",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ময়মনসিংহ বোর্ড ২০২৫"
+  ],
+  "question": "উৎপাদকে বিশ্লেষণ কর: $(m-1)a^{2}+m^{2}ab+(m+1)b^{2}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-007",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ময়মনসিংহ বোর্ড ২০২৪"
+  ],
+  "question": "উৎপাদকে বিশ্লেষণ কর: $a^{2}-2ab-2b-1$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-008",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৩"
+  ],
+  "question": "উৎপাদকে বিশ্লেষণ কর: $y^{4}-79y^{2}+1$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-009",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৫"
+  ],
+  "question": "উৎপাদকে বিশ্লেষণ কর: $a^{3}-9+(a+1)^{3}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-010",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 3,
+  "boards": [
+   "মাদ্রাসা বোর্ড ২০২৫",
+   "কুমিল্লা বোর্ড ২০২২"
+  ],
+  "question": "$f(y)=y^{3}+my^{2}-3y-6$ হলে $m$ এর কোন মানের জন্য $f(-3)=0$ হবে?",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-sq-011",
+  "subject": "math",
+  "chapter": 3,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২৩"
+  ],
+  "question": "একটি বইয়ের মূল্য 30 টাকা, যা বইটি তৈরির ব্যয়ের 60%। বইটির প্রকৃত ব্যয় কত টাকা?",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-03-cq-001",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "উৎপাদকে বিশ্লেষণ কর: $b^{2}-1+2c-c^{2}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-002",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "উৎপাদকে বিশ্লেষণ কর: $x^{4}-3x^{2}+1$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-003",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "উৎপাদকে বিশ্লেষণ কর: $(2a-b)^{3}-27$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-004",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "উৎপাদকে বিশ্লেষণ কর: $x^{4}+64$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-005",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x^{2}+14x+48$ কে দুইটি বর্গের বিয়োগফল রূপে প্রকাশ কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-006",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x^{4}+\\frac{1}{x^{4}}=194$ এবং $x>1$ হলে $x$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-007",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$(p+q)^{2}=5$, $(p-q)^{2}=3$ হলে $5pq(p^{2}+q^{2})$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-008",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "যশোর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$z^{2}-6z-1=0$ হলে $z^{4}+\\frac{1}{z^{4}}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-009",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{1}{s}=\\sqrt{6}-\\sqrt{5}$ হলে $s^{3}-\\frac{1}{s^{3}}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-010",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x^{4}-10x^{2}+1=0$ হলে $x^{5}-\\frac{1}{x^{5}}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-011",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p^{2}-9=4\\sqrt{5}$ হলে $p^{4}-\\frac{1}{p^{4}}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-012",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$a+b+c=m$, $a^{2}+b^{2}+c^{2}=n$; $a=0$, $m=4$ এবং $n=10$ হলে $b^{5}+c^{5}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-013",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x=\\frac{\\sqrt{5}+\\sqrt{2}}{3}$, $y=\\sqrt{5}-\\sqrt{2}$ হলে $3xy(9x^{2}+y^{2})$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-014",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p^{2}+q^{2}=\\sqrt[4]{64}$ এবং $p^{2}-q^{2}=\\sqrt[4]{81}$ হলে $8p^{2}q^{2}(p^{4}+q^{4})$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-015",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০০৭"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x^{2}=5+2\\sqrt{6}$ হলে $x$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-016",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$f(y)=\\frac{7y-1}{y^{2}}$ এবং $f(a)=1$ হলে প্রমাণ কর যে, $a^{4}=2207-\\frac{1}{a^{4}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-017",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$3m^{2}-7m+3=0$ হলে প্রমাণ কর যে, $27\\frac{m^{6}+1}{m^{3}}=154$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-018",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p^{2}-9=4\\sqrt{5}$ হলে প্রমাণ কর যে, $p=\\sqrt{5}+2$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-019",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p^{2}-9=4\\sqrt{5}$ হলে প্রমাণ কর যে, $p^{5}+\\frac{1}{p^{5}}=610\\sqrt{5}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-020",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x=\\frac{\\sqrt{5}+\\sqrt{2}}{3}$, $y=\\sqrt{5}-\\sqrt{2}$ হলে প্রমাণ কর যে, $\\frac{27}{y^{3}}-y^{3}=34\\sqrt{2}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-021",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "check math: 1/(a+2)^5"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$(a+2)+\\frac{1}{a+2}=5$ হলে দেখাও যে, $(a+2)^{5}+\\frac{1}{(a+2)^{5}}=2525$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-022",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "ধনাত্মক সংখ্যা $x$ এর বর্গ ও তার গুণাত্মক বিপরীত সংখ্যার বর্গের সমষ্টি $10$ হলে প্রমাণ কর যে, $x^{4}-\\frac{1}{x^{4}}=40\\sqrt{6}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-023",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "ধনাত্মক সংখ্যা $x$ এর বর্গ ও তার গুণাত্মক বিপরীত সংখ্যার বর্গের সমষ্টি $10$ হলে প্রমাণ কর যে, $\\frac{x^{6}-1}{x^{3}}=22\\sqrt{2}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-024",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০০৭"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x^{2}=5+2\\sqrt{6}$ হলে প্রমাণ কর যে, $\\frac{x^{8}+1}{x^{4}}=98$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-025",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৩"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$a+b+c=m$, $a^{2}+b^{2}+c^{2}=n$ এবং $m=0$ হলে প্রমাণ কর যে, $\\frac{(b+c)^{2}}{12bc}+\\frac{(c+a)^{2}}{12ca}+\\frac{(a+b)^{2}}{12ab}=\\frac{1}{4}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-026",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০০৭"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$a+b+c=m$, $a^{2}+b^{2}+c^{2}=n$ এবং $a^{3}+b^{3}=p^{3}$; $c=0$ হলে দেখাও যে, $m^{3}+2p^{3}=3mn$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-03-cq-027",
+  "subject": "math",
+  "chapter": 3,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "টাকায় $p$ সংখ্যক কমলা বিক্রয় করায় $q\\%$ ক্ষতি হয়। $r\\%$ লাভ করতে হলে টাকায় কয়টি কমলা বিক্রয় করতে হবে?",
+    "answer": null
+   }
+  ]
+ }
+]

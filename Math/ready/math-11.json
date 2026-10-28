@@ -1,0 +1,739 @@
+[
+ {
+  "id": "math-11-sq-001",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০০৯"
+  ],
+  "question": "দুটি সংখ্যার অনুপাত $5 : 7$ এবং তাদের ল.সা.গু. 280 হলে, সংখ্যা দুটির গ.সা.গু. নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-002",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "question": "দুটি বর্গের বাহুর দৈর্ঘ্য যথাক্রমে $m$ একক এবং $n$ একক। তাদের কর্ণদ্বয়ের অনুপাত নির্ণয় কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-003",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০০৬"
+  ],
+  "question": "একটি ত্রিভুজের তিনটি বাহুর অনুপাত $5 : 8 : 12$ এবং পরিসীমা 75 সে.মি.। ত্রিভুজের বাহু তিনটির মান নির্ধারণ কর।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-004",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০০৬"
+  ],
+  "question": "একটি ত্রিভুজের বাহুগুলোর অনুপাত $5 : 12 : 13$ এবং পরিসীমা 30 সে.মি. হলে, ত্রিভুজটি অঙ্কন কর এবং কোন ধরনের ত্রিভুজ তা লেখ।",
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ]
+ },
+ {
+  "id": "math-11-sq-005",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 3,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৪",
+   "চট্টগ্রাম বোর্ড ২০০৯",
+   "যশোর বোর্ড ২০০৯",
+   "কুমিল্লা বোর্ড ২০১৭",
+   "সিলেট বোর্ড ২০১৬"
+  ],
+  "question": "$a : b = b : c$ হলে, প্রমাণ কর যে, $\\frac{a}{c} = \\frac{a^2 + b^2}{b^2 + c^2}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-006",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২০"
+  ],
+  "question": "$\\frac{x^3 + y^3}{x - y + z} = x(x + y)$ হলে, দেখাও যে, $x, y$ ও $z$ ক্রমিক সমানুপাতী।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-007",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০০৯"
+  ],
+  "question": "$a, b, c$ ক্রমিক সমানুপাতিক হলে, দেখাও যে, $(\\frac{a + b}{b + c})^2 = \\frac{a}{c}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-sq-008",
+  "subject": "math",
+  "chapter": 11,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০০৯"
+  ],
+  "question": "$y^2 = xz$ হলে দেখাও যে, $\\frac{xyz(x + y + z)^3}{(xy + yz + zx)^3} = 1$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-11-cq-001",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$x + y = a, y + z = b, z + x = c, x + y + z \\neq 0$ এবং $(a - z)a^{-1} = (b - x)b^{-1} = (c - y)c^{-1}$ হলে প্রমাণ কর যে, $x = y = z$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-002",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p, q, r$ ক্রমিক সমানুপাতী হলে প্রমাণ কর যে, $\\frac{p^2 + q^2}{q^2 + r^2} = \\frac{(p + q)^2}{(q + r)^2}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-003",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "ময়মনসিংহ বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{l}{m} = \\frac{m}{n}$ হলে প্রমাণ কর যে, $\\frac{l^3 + m^3}{l - m + n} = l(l + m)$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-004",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "যশোর বোর্ড ২০২৬",
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$p, q, r, s$ ক্রমিক সমানুপাতিক হলে দেখাও যে, $(p^2 - q^2 + r^2)(q^2 - r^2 + s^2) = (pq - qr + rs)^2$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-005",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$l, m, n$ ক্রমিক সমানুপাতিক হলে দেখাও যে, $\\frac{l}{n} = \\frac{l^2 + m^2}{m^2 + n^2}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-006",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{a}{x} = \\frac{b}{y} = \\frac{c}{z}$ হলে প্রমাণ কর যে, $\\frac{a^3 + b^3 + c^3}{x^3 + y^3 + z^3} = \\frac{abc}{xyz}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-007",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২০"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{x^3 + y^3}{x - y + z} = x(x + y)$ হলে দেখাও যে, $x, y$ ও $z$ ক্রমিক সমানুপাতী।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-008",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$3nx^2 - 4mx + 3n = 0$ হতে দেখাও যে, $x = \\frac{(2m + 3n)^{\\frac{1}{2}} + (2m - 3n)^{\\frac{1}{2}}}{(2m + 3n)^{\\frac{1}{2}} - (2m - 3n)^{\\frac{1}{2}}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-009",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$y = \\frac{\\sqrt[3]{a + 1} + \\sqrt[3]{a - 1}}{\\sqrt[3]{a + 1} - \\sqrt[3]{a - 1}}$ হলে দেখাও যে, $y^3 - 3ay^2 + 3y - a = 0$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-010",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$a^2b + 2a + b = 0$ হলে প্রমাণ কর যে, $a = \\frac{\\sqrt{1 + b} + \\sqrt{1 - b}}{\\sqrt{1 + b} - \\sqrt{1 - b}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-011",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$A = y^3 - 3by^2 + 3y - b$ এবং $A = 0$ হলে প্রমাণ কর যে, $y = \\frac{(b + 1)^{\\frac{1}{3}} + (b - 1)^{\\frac{1}{3}}}{(b + 1)^{\\frac{1}{3}} - (b - 1)^{\\frac{1}{3}}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-012",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "বরিশাল বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$b^2p - 2b + p = 0$ হলে প্রমাণ কর যে, $b = \\frac{\\sqrt{1 + p} + \\sqrt{1 - p}}{\\sqrt{1 + p} - \\sqrt{1 - p}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-013",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$m^2 - \\frac{2m}{x} + 1 = 0$ হলে দেখাও যে, $m = \\frac{\\sqrt{1 + x} + \\sqrt{1 - x}}{\\sqrt{1 + x} - \\sqrt{1 - x}}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-014",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{x + a}{x - a} + \\frac{x + b}{x - b} = 2; a \\neq b$ হলে প্রমাণ কর যে, $\\frac{2}{x} = \\frac{1}{a} + \\frac{1}{b}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-015",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{1}{m} + \\frac{1}{n} = \\frac{6}{y}$ এবং $m \\neq n$ হলে $\\frac{y + 3m}{y - 3m} + \\frac{y + 3n}{y - 3n}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-016",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "check math: 6x^{-1} = p^{-1} + q^{-1}"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$M = \\frac{x + 3p}{x - 3p}, N = \\frac{x + 3q}{x - 3q}$ এবং $M + N = 2$ হলে প্রমাণ কর যে, $6x^{-1} = p^{-1} + q^{-1}$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-017",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{2}{x} = \\frac{1}{a} + \\frac{1}{b}$ হলে প্রমাণ কর যে, $\\frac{x + a}{x - a} + \\frac{x + b}{x - b} = 2, a \\neq b$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-018",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$\\frac{p}{18} = \\frac{qr}{q + r}$ হলে $\\frac{p + 9q}{p - 9q} + \\frac{p + 9r}{p - 9r}$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-019",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "no board tag"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$C = \\frac{1}{a} + \\frac{1}{b}$ এবং $C = \\frac{10}{y}$ হলে দেখাও যে, $\\frac{y + 5a}{y - 5a} + \\frac{y + 5b}{y - 5b} = 2, a \\neq b$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-020",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "1 ঘন সে.মি. কাঠের ওজন 6 ডেসিগ্রাম, কাঠের ওজন সমআয়তন পানির ওজনের শতকরা কত ভাগ তা নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-021",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দুইটি সংখ্যার অনুপাত $5 : 7$, এদের গ.সা.গু. 6 হলে, সংখ্যা দুইটির ল.সা.গু. নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-022",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$d : e = 3 : 2$ এবং $e : f = 5 : 4$ হলে, $f : d$ এর মান নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-023",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ময়মনসিংহ বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি সমকোণী ত্রিভুজের ভূমি 6 সে.মি. এবং উচ্চতা 4 সে.মি.। যদি ভূমির দৈর্ঘ্য 5% বৃদ্ধি এবং উচ্চতা 10% হ্রাস পায় তবে ত্রিভুজটির ক্ষেত্রফল শতকরা কত বৃদ্ধি বা হ্রাস পাবে?",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-024",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দুইটি বর্গের বাহুর দৈর্ঘ্য যথাক্রমে $m$ একক এবং $n$ একক। তাদের কর্ণদ্বয়ের অনুপাত নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-025",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "যদি $a + b + c = 0$ হয়, প্রমাণ কর যে, $a^3 + b^3 + c^3 = 3abc$।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-026",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২০"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি আয়তাকার ক্ষেত্রের দৈর্ঘ্য 40 মিটার ও প্রস্থ 30 মিটার। ইহার পরিসীমা একটি বর্গক্ষেত্রের পরিসীমার সমান। আয়তক্ষেত্রের কর্ণ ও বর্গক্ষেত্রের কর্ণের দৈর্ঘ্যের অনুপাত নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-027",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২০"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি আয়তাকার ক্ষেত্রের দৈর্ঘ্য 40 মিটার ও প্রস্থ 30 মিটার। আয়তাকার ক্ষেত্রের দৈর্ঘ্য 10% হ্রাস ও প্রস্থ 10% বৃদ্ধি পেলে এর ক্ষেত্রফল শতকরা কত হ্রাস বা বৃদ্ধি পাবে?",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-11-cq-028",
+  "subject": "math",
+  "chapter": 11,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "no board tag"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি আয়তক্ষেত্রের দৈর্ঘ্য 10% বৃদ্ধি এবং প্রস্থ 10% হ্রাস পেলে আয়তক্ষেত্রের ক্ষেত্রফল শতকরা কত হ্রাস বা বৃদ্ধি পাবে?",
+    "answer": null
+   }
+  ]
+ }
+]
