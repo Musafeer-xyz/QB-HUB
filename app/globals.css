@@ -318,6 +318,15 @@ h1,
   word-break: normal;
   overflow-wrap: break-word;
 }
+.rt-table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+.rt-table .katex {
+  display: inline-block;
+}
 .rich-text .katex,
 .question-text .katex {
   white-space: nowrap;

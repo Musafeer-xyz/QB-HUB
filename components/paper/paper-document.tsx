@@ -219,17 +219,27 @@ function formulasLaidOut(root: HTMLElement): boolean {
  * natural size and laid out before this runs, so `scrollWidth` is the real
  * width. Transforms do not affect layout, so re-running is idempotent.
  */
+function nearestBlockWidth(el: HTMLElement): number {
+  let ancestor = el.parentElement;
+  while (ancestor) {
+    const display = getComputedStyle(ancestor).display;
+    if (display !== "inline" && display !== "contents" && ancestor.clientWidth > 0) {
+      return ancestor.clientWidth;
+    }
+    ancestor = ancestor.parentElement;
+  }
+  return 0;
+}
+
 function fitWideFormulas(root: HTMLElement): void {
   const targets = root.querySelectorAll<HTMLElement>(".katex-display, .katex");
   for (const el of targets) {
-    const parent = el.parentElement;
-    if (!parent) continue;
     el.style.transform = "";
     el.style.transformOrigin = "";
     el.style.marginRight = "";
-    // 1px of slack for border/rounding: the goal is "never clipped", not
-    // "exactly the column width".
-    const available = Math.max(0, parent.clientWidth - 1);
+    // Array math has a block wrapper; ordinary inline math uses its nearest
+    // measurable block (question/paragraph), not its zero-width inline parent.
+    const available = Math.max(0, nearestBlockWidth(el) - 1);
     const width = el.getBoundingClientRect().width;
     if (!available || width <= available + 0.5) continue;
     // No floor that could reintroduce an overflow: an extreme formula becomes

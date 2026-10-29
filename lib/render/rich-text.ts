@@ -127,18 +127,20 @@ export function renderRichText(input: string | null | undefined): RichTextResult
       return { kind: "text", raw: seg.raw, html: escapeHtml(seg.raw) };
     }
     const rendered = renderMathHtml(seg.raw, seg.display);
+    const isArray = /\\begin\s*\{\s*array\s*\}/.test(seg.raw);
+    let html: string;
+    let error: string | null;
     if (rendered.error === null) {
-      return { kind: "math", raw: seg.raw, display: seg.display, html: rendered.html, error: null };
+      html = rendered.html;
+      error = null;
+    } else {
+      // Malformed expression → show the raw source text, marked for admins.
+      const literal = `${seg.display ? "$$" : "$"}${seg.raw}${seg.display ? "$$" : "$"}`;
+      html = `<span class="math-error" title="${escapeHtml(rendered.error)}">${escapeHtml(literal)}</span>`;
+      error = rendered.error;
     }
-    // Malformed expression → show the raw source text, marked for admins.
-    const literal = `${seg.display ? "$$" : "$"}${seg.raw}${seg.display ? "$$" : "$"}`;
-    return {
-      kind: "math",
-      raw: seg.raw,
-      display: seg.display,
-      html: `<span class="math-error" title="${escapeHtml(rendered.error)}">${escapeHtml(literal)}</span>`,
-      error: rendered.error,
-    };
+    if (isArray) html = `<span class="rt-table">${html}</span>`;
+    return { kind: "math", raw: seg.raw, display: seg.display, html, error };
   });
 
   return {

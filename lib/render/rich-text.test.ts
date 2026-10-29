@@ -2,6 +2,17 @@ import { describe, expect, it } from "vitest";
 import { collectMathErrors, renderRichText, splitMath } from "@/lib/render/rich-text";
 
 describe("rich text rendering (KaTeX + mhchem)", () => {
+  it("renders an 8-column KaTeX array as a block while keeping other math inline", () => {
+    const table = String.raw`\\begin{array}{|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & ৪১\\text{-}৫০ & ৫১\\text{-}৬০ & ৬১\\text{-}৭০ & ৭১\\text{-}৮০ & ৮১\\text{-}৯০ & ৯১\\text{-}১০০ & ১০১\\text{-}১১০ \\\\ \\hline \\text{গণসংখ্যা} & ৮ & ১২ & ৭ & ১৫ & ৯ & ১১ & ৬ \\\\ \\hline \\end{array}`;
+    const { html, errors } = renderRichText(`সারণি: $${table}$ এবং $x+1$`);
+
+    expect(errors).toEqual([]);
+    expect(html).toContain('<span class="rt-table"><span class="katex">');
+    expect(html).toContain("\\\\begin{array}");
+    expect(html).toContain("x+1");
+    expect(html).not.toContain('<span class="rt-table"><span class="katex">x+1');
+  });
+
   it("renders $\\ce{...}$ chemistry with subscripts", () => {
     const { html, errors } = renderRichText("অম্লের সাথে $\\ce{HNO3}$ বিক্রিয়া করে।");
     expect(errors).toEqual([]);
