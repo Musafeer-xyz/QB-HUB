@@ -40,7 +40,7 @@ test("নতুন পেপার starts with an empty paper, not the previous 
   // Title/settings are the defaults again, and the preview is blank.
   await page.getByRole("button", { name: /২ পেপার সাজানো/ }).click();
   await expect(page.locator("#title")).toHaveValue("রসায়ন প্রথম পত্র — মডেল টেস্ট");
-  await expect(page.locator("#institute")).toHaveValue("আদর্শ উচ্চ বিদ্যালয়");
+  await expect(page.locator("#institute")).toHaveValue("TANJIM EDUSCRIPTS");
   await expect(page.locator(".paper-sheet")).toBeVisible();
   await expect(page.locator(".paper-sheet .paper-question")).toHaveCount(0);
 });

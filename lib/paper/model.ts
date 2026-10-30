@@ -159,18 +159,27 @@ export type PaperDocDoc = {
   numbering: number;
 };
 
+/**
+ * Subject id → Bangla header label. Mirrors the aliases in `lib/subjects.ts`
+ * (`math`, `maths`, `higher_math`…) without renaming any stored value; an
+ * unknown id is printed verbatim rather than guessed.
+ */
 const SUBJECT_LABELS: Record<string, string> = {
   chemistry: "রসায়ন",
   physics: "পদার্থবিজ্ঞান",
   biology: "জীববিজ্ঞান",
+  math: "গণিত",
+  maths: "গণিত",
   mathematics: "গণিত",
+  higher_math: "উচ্চতর গণিত",
+  "higher math": "উচ্চতর গণিত",
+  "higher-math": "উচ্চতর গণিত",
   bangla: "বাংলা",
   english: "ইংরেজি",
-  higher_math: "উচ্চতর গণিত",
 };
 
 export function subjectLabel(subject: string): string {
-  return SUBJECT_LABELS[subject] ?? subject;
+  return SUBJECT_LABELS[subject.trim().toLowerCase()] ?? subject;
 }
 
 /** "০১।" — two Bangla digits and a danda. */

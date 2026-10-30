@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPaperDoc, type PaperSelectionItem } from "@/lib/paper/model";
+import { buildPaperDoc, subjectLabel, type PaperSelectionItem } from "@/lib/paper/model";
 import {
   CHOICE_GENERAL_INSTRUCTIONS,
   DEFAULT_GENERAL_INSTRUCTIONS,
@@ -98,6 +98,18 @@ const items: PaperSelectionItem[] = [
   { question: cq(), selectedParts: [], section: null },
   { question: sq(), selectedParts: [], section: null },
 ];
+
+describe("paper header subject label", () => {
+  it("prints Bangla instead of the stored subject id", () => {
+    expect(subjectLabel("chemistry")).toBe("রসায়ন");
+    expect(subjectLabel("physics")).toBe("পদার্থবিজ্ঞান");
+    expect(subjectLabel("math")).toBe("গণিত");
+    expect(subjectLabel("Higher Math")).toBe("উচ্চতর গণিত");
+    expect(subjectLabel("higher_math")).toBe("উচ্চতর গণিত");
+    // Unknown ids are printed as stored — never guessed or dropped.
+    expect(subjectLabel("ict")).toBe("ict");
+  });
+});
 
 describe("paper document model", () => {
   it("never exposes admin flags to the printed document", () => {

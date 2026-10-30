@@ -94,6 +94,14 @@ export function splitMath(input: string): RawSegment[] {
   return out;
 }
 
+/**
+ * Row height inside array/matrix tables. Bangla glyphs sit taller than Latin
+ * math, so at the default stretch 1 a header cell touches the `\hline` rules;
+ * 1.3 is LaTeX's own value for text in tables. Only row gaps grow — the width
+ * (and therefore the print column fit) is unchanged.
+ */
+const KATEX_MACROS: Record<string, string> = { "\\arraystretch": "1.3" };
+
 function renderMathHtml(tex: string, display: boolean): { html: string; error: null } | { html: string; error: string } {
   try {
     const html = katex.renderToString(tex, {
@@ -103,11 +111,8 @@ function renderMathHtml(tex: string, display: boolean): { html: string; error: n
       // twin is normally clipped by KaTeX's CSS; the paper's print stylesheet
       // forces colours, so a hidden-by-CSS layer is one missing rule away from
       // printing over the HTML formula.
-  // HTML only, everywhere — preview, print and the server PDF. The MathML
-  // twin is normally clipped by KaTeX's CSS; the paper's print stylesheet
-  // forces colours, so a hidden-by-CSS layer is one missing rule away from
-  // printing over the HTML formula.
-  output: "html",
+      output: "html",
+      macros: KATEX_MACROS,
       strict: false,
       trust: false,
       maxExpand: 1000,

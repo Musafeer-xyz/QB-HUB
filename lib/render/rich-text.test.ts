@@ -1,5 +1,11 @@
+import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { collectMathErrors, renderRichText, splitMath } from "@/lib/render/rich-text";
+
+/** Tallest explicit `height` in a KaTeX fragment, in em. */
+function tallest(html: string): number {
+  return Math.max(...[...html.matchAll(/height:([\d.]+)em/g)].map((m) => Number(m[1])));
+}
 
 describe("rich text rendering (KaTeX + mhchem)", () => {
   it("renders an 8-column KaTeX array in a block while keeping other math inline", () => {
@@ -11,6 +17,23 @@ describe("rich text rendering (KaTeX + mhchem)", () => {
     expect(html).toContain('<span class="rt-table"><span class="katex">');
     expect(html.match(/class="col-align-c"/g)).toHaveLength(8);
     expect(html).toContain('</span> এবং <span class="katex">');
+  });
+
+  it("gives array rows extra height so Bangla cells clear the rules", () => {
+    const slash = String.fromCharCode(92);
+    const tex = `${slash}begin{array}{|c|}${slash}hline ${slash}text{শ্রেণিব্যাপ্তি} ${slash}${slash} ${slash}hline ${slash}text{গণসংখ্যা} ${slash}${slash} ${slash}hline${slash}end{array}`;
+    const { html, errors } = renderRichText(`$${tex}$`);
+    expect(errors).toEqual([]);
+
+    // Compared with KaTeX's own defaults: \arraystretch = 1.3 must make the
+    // rows visibly taller (the Bangla cells no longer touch the hlines).
+    const plain = katex.renderToString(tex, { output: "html", throwOnError: true });
+    expect(tallest(html)).toBeGreaterThan(tallest(plain) * 1.1);
+    // Matrices pick up the same stretch, and nothing else changes.
+    const matrix = `${slash}begin{matrix}a & b${slash}${slash} c & d${slash}end{matrix}`;
+    expect(tallest(renderRichText(`$${matrix}$`).html)).toBeGreaterThan(
+      tallest(katex.renderToString(matrix, { output: "html", throwOnError: true })),
+    );
   });
 
   it("renders $\\ce{...}$ chemistry with subscripts", () => {

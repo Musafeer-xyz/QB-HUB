@@ -21,6 +21,7 @@ import { useToast } from "@/components/toast";
 import { savePaperAction, updatePaperAction } from "@/app/actions/papers";
 import { autoGenerate } from "@/lib/autogen";
 import { toBanglaDigits } from "@/lib/bangla";
+import { BRAND_NAME } from "@/lib/brand";
 import {
   buildPaperDoc,
   subjectLabel,
@@ -159,7 +160,7 @@ function stateFromPaper(paper: PaperRecord): BuilderState {
 
 const DEFAULT_STATE: BuilderState = {
   title: "রসায়ন প্রথম পত্র — মডেল টেস্ট",
-  institute: "আদর্শ উচ্চ বিদ্যালয়",
+  institute: BRAND_NAME,
   examName: "বার্ষিক পরীক্ষা ২০২৬",
   className: "দশম শ্রেণি",
   subject: "chemistry",
