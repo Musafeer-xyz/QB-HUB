@@ -127,7 +127,7 @@ export function renderRichText(input: string | null | undefined): RichTextResult
       return { kind: "text", raw: seg.raw, html: escapeHtml(seg.raw) };
     }
     const rendered = renderMathHtml(seg.raw, seg.display);
-    const isArray = /\\begin\s*\{\s*array\s*\}/.test(seg.raw);
+    const isArray = new RegExp(String.raw`\\begin\s*\{\s*array\s*\}`).test(seg.raw);
     let html: string;
     let error: string | null;
     if (rendered.error === null) {

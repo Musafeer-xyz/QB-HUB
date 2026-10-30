@@ -2,15 +2,15 @@ import { describe, expect, it } from "vitest";
 import { collectMathErrors, renderRichText, splitMath } from "@/lib/render/rich-text";
 
 describe("rich text rendering (KaTeX + mhchem)", () => {
-  it("renders an 8-column KaTeX array as a block while keeping other math inline", () => {
-    const table = String.raw`\\begin{array}{|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & ৪১\\text{-}৫০ & ৫১\\text{-}৬০ & ৬১\\text{-}৭০ & ৭১\\text{-}৮০ & ৮১\\text{-}৯০ & ৯১\\text{-}১০০ & ১০১\\text{-}১১০ \\\\ \\hline \\text{গণসংখ্যা} & ৮ & ১২ & ৭ & ১৫ & ৯ & ১১ & ৬ \\\\ \\hline \\end{array}`;
+  it("renders an 8-column KaTeX array in a block while keeping other math inline", () => {
+    const slash = String.fromCharCode(92);
+    const table = `${slash}begin{array}{|c|c|c|c|c|c|c|c|}${slash}hline ${slash}text{শ্রেণিব্যাপ্তি} & ৪১${slash}text{-}৫০ & ৫১${slash}text{-}৬০ & ৬১${slash}text{-}৭০ & ৭১${slash}text{-}৮০ & ৮১${slash}text{-}৯০ & ৯১${slash}text{-}১০০ & ১০১${slash}text{-}১১০ ${slash}${slash} ${slash}hline ${slash}text{গণসংখ্যা} & ৮ & ১২ & ৭ & ১৫ & ৯ & ১১ & ৬ ${slash}${slash} ${slash}hline ${slash}end{array}`;
     const { html, errors } = renderRichText(`সারণি: $${table}$ এবং $x+1$`);
 
     expect(errors).toEqual([]);
     expect(html).toContain('<span class="rt-table"><span class="katex">');
-    expect(html).toContain("\\\\begin{array}");
-    expect(html).toContain("x+1");
-    expect(html).not.toContain('<span class="rt-table"><span class="katex">x+1');
+    expect(html.match(/class="col-align-c"/g)).toHaveLength(8);
+    expect(html).toContain('</span> এবং <span class="katex">');
   });
 
   it("renders $\\ce{...}$ chemistry with subscripts", () => {
