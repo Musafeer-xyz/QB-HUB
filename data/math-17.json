@@ -1,0 +1,842 @@
+[
+ {
+  "id": "math-17-sq-001",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৩"
+  ],
+  "question": "উপাত্তের সর্বনিম্ন সংখ্যা $27$, পরিসর $63$ হলে, সর্বোচ্চ সংখ্যা নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-002",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২৪"
+  ],
+  "question": "অবিন্যস্ত উপাত্তের সর্বোচ্চ মান $95$ এবং পরিসর $64$ হলে, সর্বনিম্ন মানটি নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-003",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০১৯"
+  ],
+  "question": "কোনো শ্রেণির উচ্চসীমা $65$ এবং মধ্যমান $62.5$ হলে, ঐ শ্রেণির নিম্নসীমা নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-004",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "question": "$80$ জন শিক্ষার্থীর বাংলায় প্রাপ্ত নম্বরের গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রচুরক শ্রেণির মধ্যমান নির্ধারণ কর। $\\begin{array}{|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & \\text{গণসংখ্যা} \\\\ \\hline 11\\text{-}20 & 6 \\\\ \\hline 21\\text{-}30 & 16 \\\\ \\hline 31\\text{-}40 & 12 \\\\ \\hline 41\\text{-}50 & 13 \\\\ \\hline 51\\text{-}60 & 20 \\\\ \\hline 61\\text{-}70 & 5 \\\\ \\hline 71\\text{-}80 & 4 \\\\ \\hline 81\\text{-}90 & 3 \\\\ \\hline 91\\text{-}100 & 1 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-005",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২০"
+  ],
+  "question": "$3, 5, 2, 7, 9, 6, 2, 7$ উপাত্তের প্রচুরক আছে কি? ব্যাখ্যা করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-006",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৪"
+  ],
+  "question": "একটি গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রচুরক শ্রেণির পূর্ববর্তী শ্রেণির মধ্যমান নির্ধারণ কর। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 41\\text{-}50 & 51\\text{-}60 & 61\\text{-}70 & 71\\text{-}80 & 81\\text{-}90 & 91\\text{-}100 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 10 & 15 & 12 & 6 & 3 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-007",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৩"
+  ],
+  "question": "কোনো বিদ্যালয়ের ৯ম শ্রেণির $56$ জন শিক্ষার্থীর বাংলা বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রশ্নের আলোকে প্রচুরক শ্রেণি থেকে $(f_1+f_2)$ নির্ণয় কর। $\\begin{array}{|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 27\\text{-}36 & 37\\text{-}46 & 47\\text{-}56 & 57\\text{-}66 & 67\\text{-}76 & 77\\text{-}86 & 87\\text{-}96 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 10 & 13 & 9 & 5 & 8 & 4 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-008",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 3,
+  "boards": [
+   "রাজশাহী বোর্ড ২০২৩"
+  ],
+  "question": "চলকের পরিচয়সহ প্রচুরক নির্ধারণের সূত্রটি লেখ।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-009",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৪"
+  ],
+  "question": "কোনো শ্রেণির $60$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নির্ধারণ সারণি নিচে দেওয়া হলো। প্রদত্ত সারণি থেকে প্রচুরক নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 45\\text{-}49 & 50\\text{-}54 & 55\\text{-}59 & 60\\text{-}64 & 65\\text{-}69 & 70\\text{-}74 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 10 & 20 & 12 & 6 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-010",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "যশোর বোর্ড ২০২৩"
+  ],
+  "question": "$33$টি পরিবারের মাসিক খরচের (হাজার টাকায়) গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রদত্ত সারণির ক্রমযোজিত গণসংখ্যা সারণি তৈরি করো। $\\begin{array}{|c|c|c|c|c|c|}\\hline \\text{খরচ (হাজার টাকায়)} & 20\\text{-}24 & 25\\text{-}29 & 30\\text{-}34 & 35\\text{-}39 & 40\\text{-}44 \\\\ \\hline \\text{পরিবারের সংখ্যা} & 5 & 7 & 11 & 4 & 6 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-011",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২০"
+  ],
+  "question": "$7, 9, 0, 6, 3, 5$ সংখ্যাগুলোর গাণিতিক গড় নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-012",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "সম্মিলিত বোর্ড ২০১৮"
+  ],
+  "question": "বিচ্ছিন্ন ও অবিচ্ছিন্ন চলকের সংজ্ঞা লিখ।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-013",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "বরিশাল বোর্ড ২০১৯"
+  ],
+  "question": "মধ্যক বলতে কী বোঝায়?",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-014",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৩"
+  ],
+  "question": "$23, 29, 18, 15, 39, 27, 22, 31, 24$ উপাত্তগুলোর মধ্যক নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-015",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "question": "$8, 14, 11, 17, 6, 7$ এর মধ্যক নির্ণয় করো।",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-sq-016",
+  "subject": "math",
+  "chapter": 17,
+  "type": "SQ",
+  "stars": 2,
+  "boards": [
+   "দিনাজপুর বোর্ড ২০২৪"
+  ],
+  "question": "দশম শ্রেণির $60$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নির্ধারণ সারণি নিচে দেওয়া হলো। মধ্যক শ্রেণির নিম্নসীমা নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{ওজন (কেজি)} & 45\\text{-}49 & 50\\text{-}54 & 55\\text{-}59 & 60\\text{-}64 & 65\\text{-}69 & 70\\text{-}74 \\\\ \\hline \\text{শিক্ষার্থীর সংখ্যা} & 6 & 9 & 17 & 12 & 10 & 6 \\\\ \\hline \\end{array}$",
+  "image": "none",
+  "answer": null,
+  "flags": []
+ },
+ {
+  "id": "math-17-cq-001",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$20, 18, 25, 22, 21, 24, 28, 26$ সংখ্যাগুলোর মধ্যক নির্ণয় করো।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-002",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$6$ জন শিক্ষার্থীর বয়সের গড় $15$ বছর $2$ মাস। তাদের সাথে একজন নতুন শিক্ষার্থী যোগ হলো যার বয়স $15$ বছর $9$ মাস। $7$ জন শিক্ষার্থীর বয়সের গড় নির্ণয় করো।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-003",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$12, 18, 8, 7, 14, 13, 9, 11$ উপাত্তগুলোর মধ্যক নির্ণয় করো।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-004",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "check spelling: 08. -> ০৪."
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$8, 14, 11, 17, 6, 7$ এর মধ্যক নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-005",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "সিলেট বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$4, 6, 5, 2, 1, 7$ উপাত্তগুলোর মধ্যক নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-006",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির $60$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। প্রচুরক শ্রেণির মধ্যমান নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 32\\text{-}35 & 36\\text{-}39 & 40\\text{-}43 & 44\\text{-}47 & 48\\text{-}51 & 52\\text{-}55 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 9 & 11 & 15 & 13 & 5 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-007",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "নবম শ্রেণির $70$ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সারণি থেকে $\\frac{f_1}{f_1+f_2}$ নির্ণয় করো; যেখানে প্রতীকগুলো প্রচলিত অর্থ বহন করে। $\\begin{array}{|c|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 21\\text{-}25 & 26\\text{-}30 & 31\\text{-}35 & 36\\text{-}40 & 41\\text{-}45 & 46\\text{-}50 & 51\\text{-}55 & 56\\text{-}60 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 9 & 12 & 20 & 7 & 6 & 4 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-008",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$80$ জন শিক্ষার্থীর বাংলায় প্রাপ্ত নম্বরের গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রচুরক শ্রেণির মধ্যমান নির্ণয় কর। $\\begin{array}{|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & \\text{গণসংখ্যা} \\\\ \\hline 11\\text{-}20 & 6 \\\\ \\hline 21\\text{-}30 & 16 \\\\ \\hline 31\\text{-}40 & 12 \\\\ \\hline 41\\text{-}50 & 13 \\\\ \\hline 51\\text{-}60 & 20 \\\\ \\hline 61\\text{-}70 & 5 \\\\ \\hline 71\\text{-}80 & 4 \\\\ \\hline 81\\text{-}90 & 3 \\\\ \\hline 91\\text{-}100 & 1 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-009",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "যশোর বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "check spelling: 541 -> 54।"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির নির্বাচনী পরীক্ষায় $32$ জন শিক্ষার্থীর গণিতে প্রাপ্ত নম্বর: $72, 48, 37, 56, 67, 74, 82, 36, 45, 42, 66, 55, 72, 86, 51, 69, 77, 91, 62, 79, 38, 53, 60, 74, 58, 65, 72, 73, 56, 42, 85, 54$। শ্রেণিব্যাপ্তি $7$ ধরে গণসংখ্যা নিবেশন সারণি তৈরি কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-010",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$50$ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সংক্ষিপ্ত পদ্ধতিতে গড় নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & 41\\text{-}50 & 51\\text{-}60 & 61\\text{-}70 & 71\\text{-}80 & 81\\text{-}90 & 91\\text{-}100 \\\\ \\hline \\text{শিক্ষার্থীর সংখ্যা} & 3 & 4 & 10 & 15 & 12 & 6 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-011",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "নবম শ্রেণির $70$ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সংক্ষিপ্ত পদ্ধতিতে গড় নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 21\\text{-}25 & 26\\text{-}30 & 31\\text{-}35 & 36\\text{-}40 & 41\\text{-}45 & 46\\text{-}50 & 51\\text{-}55 & 56\\text{-}60 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 9 & 12 & 20 & 7 & 6 & 4 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-012",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি গণসংখ্যা সারণি নিচে দেওয়া হলো। সংক্ষিপ্ত পদ্ধতিতে গড় নির্ণয় কর। $\\begin{array}{|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 36\\text{-}40 & 41\\text{-}45 & 46\\text{-}50 & 51\\text{-}55 & 56\\text{-}60 & 61\\text{-}65 & 66\\text{-}70 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 11 & 15 & 13 & 6 & 3 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-013",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "যশোর বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির নির্বাচনী পরীক্ষায় $32$ জন শিক্ষার্থীর গণিতে প্রাপ্ত নম্বর: $72, 48, 37, 56, 67, 74, 82, 36, 45, 42, 66, 55, 72, 86, 51, 69, 77, 91, 62, 79, 38, 53, 60, 74, 58, 65, 72, 73, 56, 42, 85, 54$। শ্রেণিব্যাপ্তি $7$ ধরে গণসংখ্যা নিবেশন সারণি তৈরি করে সংক্ষিপ্ত পদ্ধতিতে গড় নির্ণয় কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-014",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$60$ জন শ্রমিকের দৈনিক মজুরির (টাকায়) গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। প্রদত্ত সারণি হতে মধ্যক নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{দৈনিক মজুরি (টাকা)} & 601\\text{-}650 & 651\\text{-}700 & 701\\text{-}750 & 751\\text{-}800 & 801\\text{-}850 & 851\\text{-}900 \\\\ \\hline \\text{শ্রমিকের সংখ্যা} & 6 & 10 & 20 & 12 & 7 & 5 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-015",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির $60$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সারণি থেকে মধ্যক নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 32\\text{-}35 & 36\\text{-}39 & 40\\text{-}43 & 44\\text{-}47 & 48\\text{-}51 & 52\\text{-}55 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 9 & 11 & 15 & 13 & 5 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-016",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির $50$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা সারণি নিচে দেওয়া হলো। সারণি হতে প্রচুরক নির্ণয় করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{ওজন (কেজি)} & 40\\text{-}45 & 46\\text{-}51 & 52\\text{-}57 & 58\\text{-}63 & 64\\text{-}69 & 70\\text{-}75 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 10 & 15 & 9 & 6 & 3 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-017",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$80$ জন শিক্ষার্থীর বাংলায় প্রাপ্ত নম্বরের গণসংখ্যা সারণি নিচে দেওয়া হলো। মধ্যক নির্ণয় কর। $\\begin{array}{|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & \\text{গণসংখ্যা} \\\\ \\hline 11\\text{-}20 & 6 \\\\ \\hline 21\\text{-}30 & 16 \\\\ \\hline 31\\text{-}40 & 12 \\\\ \\hline 41\\text{-}50 & 13 \\\\ \\hline 51\\text{-}60 & 20 \\\\ \\hline 61\\text{-}70 & 5 \\\\ \\hline 71\\text{-}80 & 4 \\\\ \\hline 81\\text{-}90 & 3 \\\\ \\hline 91\\text{-}100 & 1 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-018",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 2,
+  "boards": [
+   "সিলেট বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "নবম শ্রেণির $50$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রচুরক নির্ণয় কর। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 40\\text{-}44 & 45\\text{-}49 & 50\\text{-}54 & 55\\text{-}59 & 60\\text{-}64 & 65\\text{-}69 \\\\ \\hline \\text{গণসংখ্যা} & 8 & 9 & 15 & 10 & 5 & 7 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-019",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$50$ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সংক্ষিপ্ত বর্ণনাসহ প্রদত্ত উপাত্তের অজিভ রেখা অঙ্কন করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & 41\\text{-}50 & 51\\text{-}60 & 61\\text{-}70 & 71\\text{-}80 & 81\\text{-}90 & 91\\text{-}100 \\\\ \\hline \\text{শিক্ষার্থীর সংখ্যা} & 3 & 4 & 10 & 15 & 12 & 6 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-020",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$60$ জন শ্রমিকের দৈনিক মজুরির (টাকায়) গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। প্রদত্ত সারণি হতে সংক্ষিপ্ত বিবরণসহ গণসংখ্যা বহুভুজ আঁক। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{দৈনিক মজুরি (টাকা)} & 601\\text{-}650 & 651\\text{-}700 & 701\\text{-}750 & 751\\text{-}800 & 801\\text{-}850 & 851\\text{-}900 \\\\ \\hline \\text{শ্রমিকের সংখ্যা} & 6 & 10 & 20 & 12 & 7 & 5 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-021",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "কুমিল্লা বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির $60$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। বিবরণসহ প্রদত্ত উপাত্তের গণসংখ্যা বহুভুজ অঙ্কন করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 32\\text{-}35 & 36\\text{-}39 & 40\\text{-}43 & 44\\text{-}47 & 48\\text{-}51 & 52\\text{-}55 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 9 & 11 & 15 & 13 & 5 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-022",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "চট্টগ্রাম বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "নবম শ্রেণির $70$ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি নিচে দেওয়া হলো। সংক্ষিপ্ত বর্ণনাসহ সারণি থেকে অজিভ রেখা অঙ্কন করো। $\\begin{array}{|c|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 21\\text{-}25 & 26\\text{-}30 & 31\\text{-}35 & 36\\text{-}40 & 41\\text{-}45 & 46\\text{-}50 & 51\\text{-}55 & 56\\text{-}60 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 9 & 12 & 20 & 7 & 6 & 4 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-023",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২৬"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির $50$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা সারণি নিচে দেওয়া হলো। প্রদত্ত উপাত্তের গণসংখ্যা বহুভুজ অঙ্কন করো। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{ওজন (কেজি)} & 40\\text{-}45 & 46\\text{-}51 & 52\\text{-}57 & 58\\text{-}63 & 64\\text{-}69 & 70\\text{-}75 \\\\ \\hline \\text{গণসংখ্যা} & 7 & 10 & 15 & 9 & 6 & 3 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-024",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "$80$ জন শিক্ষার্থীর বাংলায় প্রাপ্ত নম্বরের গণসংখ্যা সারণি নিচে দেওয়া হলো। বর্ণনাসহ উল্লিখিত উপাত্ত হতে গণসংখ্যা বহুভুজ অঙ্কন কর। $\\begin{array}{|c|c|}\\hline \\text{প্রাপ্ত নম্বর} & \\text{গণসংখ্যা} \\\\ \\hline 11\\text{-}20 & 6 \\\\ \\hline 21\\text{-}30 & 16 \\\\ \\hline 31\\text{-}40 & 12 \\\\ \\hline 41\\text{-}50 & 13 \\\\ \\hline 51\\text{-}60 & 20 \\\\ \\hline 61\\text{-}70 & 5 \\\\ \\hline 71\\text{-}80 & 4 \\\\ \\hline 81\\text{-}90 & 3 \\\\ \\hline 91\\text{-}100 & 1 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-025",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "ঢাকা বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "একটি গণসংখ্যা সারণি নিচে দেওয়া হলো। বিবরণসহ প্রদত্ত উপাত্তের অজিভ রেখা অঙ্কন কর। $\\begin{array}{|c|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 36\\text{-}40 & 41\\text{-}45 & 46\\text{-}50 & 51\\text{-}55 & 56\\text{-}60 & 61\\text{-}65 & 66\\text{-}70 \\\\ \\hline \\text{গণসংখ্যা} & 4 & 8 & 11 & 15 & 13 & 6 & 3 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-026",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "যশোর বোর্ড ২০২৪"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "দশম শ্রেণির নির্বাচনী পরীক্ষায় $32$ জন শিক্ষার্থীর গণিতে প্রাপ্ত নম্বর: $72, 48, 37, 56, 67, 74, 82, 36, 45, 42, 66, 55, 72, 86, 51, 69, 77, 91, 62, 79, 38, 53, 60, 74, 58, 65, 72, 73, 56, 42, 85, 54$। শ্রেণিব্যাপ্তি $7$ ধরে গণসংখ্যা নিবেশন সারণি তৈরি করে বর্ণনাসহ অজিভ রেখা অঙ্কন কর।",
+    "answer": null
+   }
+  ]
+ },
+ {
+  "id": "math-17-cq-027",
+  "subject": "math",
+  "chapter": 17,
+  "type": "CQ",
+  "stars": 3,
+  "boards": [
+   "সিলেট বোর্ড ২০২২"
+  ],
+  "image": "none",
+  "answer": null,
+  "flags": [
+   "construction: figure belongs to solution"
+  ],
+  "stem": [],
+  "parts": [
+   {
+    "label": "ঘ",
+    "marks": 4,
+    "text": "নবম শ্রেণির $50$ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা সারণি নিচে দেওয়া হলো। আয়তলেখ অঙ্কন কর। $\\begin{array}{|c|c|c|c|c|c|c|}\\hline \\text{শ্রেণিব্যাপ্তি} & 40\\text{-}44 & 45\\text{-}49 & 50\\text{-}54 & 55\\text{-}59 & 60\\text{-}64 & 65\\text{-}69 \\\\ \\hline \\text{গণসংখ্যা} & 8 & 9 & 15 & 10 & 5 & 7 \\\\ \\hline \\end{array}$",
+    "answer": null
+   }
+  ]
+ }
+]
