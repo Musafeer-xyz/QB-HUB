@@ -6,6 +6,7 @@ import { BrandHeader } from "@/components/brand-header";
 import { RichText } from "@/components/rich-text";
 import { toBanglaDigits } from "@/lib/bangla";
 import { splitMcqStem } from "@/lib/mcq-layout";
+import { subjectLabel } from "@/lib/paper/model";
 import type { AttemptResult, ExamRecord } from "@/lib/types";
 import type { PublicExamQuestion } from "@/lib/exams";
 
@@ -211,7 +212,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
             <div className="mb-6 space-y-1 text-sm text-muted">
               <p>প্রশ্ন: {toBanglaDigits(exam.questionIds.length)}টি</p>
               <p>সময়: {toBanglaDigits(exam.durationMin)} মিনিট</p>
-              <p>বিষয়: {exam.subject}</p>
+              <p>বিষয়: {subjectLabel(exam.subject)}</p>
             </div>
 
             {!exam.isOpen ? (

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Trash2, Users, Download, Eye, EyeOff } from "lucide-react";
 import { toBanglaDigits } from "@/lib/bangla";
 import { attemptsCsv, examChapterLabel } from "@/lib/exams";
+import { subjectLabel } from "@/lib/paper/model";
 import type { AttemptRecord, ExamRecord } from "@/lib/types";
 
 interface ExamListProps {
@@ -102,7 +103,7 @@ export function ExamList({ exams }: ExamListProps) {
               <h3 className="text-lg font-semibold">{exam.title}</h3>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
                 <span>
-                  বিষয়: <span className="font-medium text-ink">{exam.subject}</span>
+                  বিষয়: <span className="font-medium text-ink">{subjectLabel(exam.subject)}</span>
                 </span>
                 <span>
                   অধ্যায়:{" "}

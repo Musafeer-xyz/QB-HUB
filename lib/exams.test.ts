@@ -12,6 +12,7 @@ import {
   groupOpenExams,
   groupOpenExamsBySection,
   hasProblems,
+  pickExamBankSubject,
   isExpired,
   publicQuestions,
   remainingSeconds,
@@ -22,6 +23,22 @@ import { examRowFromRecord, mapAttempt, mapExam } from "./data/supabase-store";
 import type { AttemptRecord, ExamQuestion, ExamRecord, QuestionRecord } from "./types";
 
 const T0 = Date.parse("2026-05-01T09:00:00.000Z");
+
+const REGISTERED = ["chemistry", "physics", "math", "biology"];
+
+describe("new-exam bank target", () => {
+  it("keeps the active subject when it has MCQs", () => {
+    expect(pickExamBankSubject("math", REGISTERED, { chemistry: 40, math: 3 })).toBe("math");
+  });
+
+  it("falls back to the first subject that has MCQs", () => {
+    expect(pickExamBankSubject("biology", REGISTERED, { chemistry: 40, physics: 0 })).toBe("chemistry");
+  });
+
+  it("keeps the active subject when no subject has an MCQ", () => {
+    expect(pickExamBankSubject("physics", REGISTERED, { chemistry: 0, physics: 0 })).toBe("physics");
+  });
+});
 
 function exam(patch: Partial<ExamRecord> = {}): ExamRecord {
   return {

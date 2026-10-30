@@ -233,6 +233,21 @@ export function examChapterLabel(subject: string, chapter: number): string {
   return chapter === MIXED_CHAPTER ? "মিশ্র" : subjectChapterName(subject, chapter);
 }
 
+/**
+ * Which bank the “new exam” button opens. Exams are built from MCQs only, so the
+ * active subject is used when it has any; otherwise the first registered subject
+ * that does. With no MCQ anywhere the active subject is kept, so the button
+ * still works and the bank shows its own empty state.
+ */
+export function pickExamBankSubject(
+  active: string,
+  registered: string[],
+  mcqCounts: Record<string, number>,
+): string {
+  if ((mcqCounts[active] ?? 0) > 0) return active;
+  return registered.find((id) => (mcqCounts[id] ?? 0) > 0) ?? active;
+}
+
 export type ExamChapterGroup = { chapter: number; exams: ExamRecord[] };
 export type ExamSubjectGroup = { subject: string; chapters: ExamChapterGroup[] };
 
