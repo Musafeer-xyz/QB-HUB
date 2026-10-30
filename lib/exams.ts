@@ -300,6 +300,37 @@ export function groupOpenExamsBySection(exams: ExamRecord[]): ExamSectionGroup[]
   }));
 }
 
+/** Exams in one subject section, across its chapters. */
+export function examCount(group: ExamSectionGroup): number {
+  return group.chapters.reduce((total, chapter) => total + chapter.exams.length, 0);
+}
+
+/**
+ * Chips for the public exam list: every fixed subject section, plus OTHER only
+ * when it actually holds exams (otherwise it would be a permanently dead tab).
+ */
+export function examTabs(sections: ExamSectionGroup[]): ExamSectionGroup[] {
+  return sections.filter(
+    (group) => group.section.id !== OTHER_EXAM_SECTION.id || examCount(group) > 0,
+  );
+}
+
+/**
+ * Which tab `?s=` selects: the requested one when it is a visible tab, else the
+ * first tab that has exams, else the first tab — so exactly one subject is
+ * always shown and a stale or junk parameter can never blank the page.
+ */
+export function selectedExamTab(
+  sections: ExamSectionGroup[],
+  requested: string | null | undefined,
+): ExamSectionGroup | null {
+  const tabs = examTabs(sections);
+  const wanted = requested?.trim().toLowerCase();
+  const match = wanted ? tabs.find((group) => group.section.id === wanted) : undefined;
+  if (match) return match;
+  return tabs.find((group) => examCount(group) > 0) ?? tabs[0] ?? null;
+}
+
 function csvCell(value: string | number | null): string {
   const text = value === null ? "" : String(value);
   return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;

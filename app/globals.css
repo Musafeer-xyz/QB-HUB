@@ -26,6 +26,9 @@
   --radius-control: 8px;
   --transition: 150ms ease;
 
+  /* Brand wordmark highlight (public header: “TANJIM”). */
+  --brand-accent: #8e1b2e;
+
   --subject-chemistry: #0f9d8a;
   --subject-physics: #2563eb;
   --subject-math: #d97706;

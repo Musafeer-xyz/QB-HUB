@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BrandFooter } from "@/components/brand-footer";
 import { BrandHeader } from "@/components/brand-header";
 import { getStore } from "@/lib/data/store";
 import { BRAND_NAME } from "@/lib/brand";
@@ -20,9 +21,9 @@ export default async function VideosPage() {
   const sections = groupVideosBySection(await store.listVideos({ publishedOnly: true }));
 
   return (
-    <div className="min-h-screen bg-[#F6F5F2]">
+    <div className="flex min-h-screen flex-col bg-[#F6F5F2]">
       <BrandHeader />
-      <div className="container mx-auto max-w-4xl px-4 py-8">
+      <div className="container mx-auto w-full max-w-4xl flex-1 px-4 py-8">
         <h1 className="mb-8 text-center text-2xl font-bold uppercase tracking-[0.2em] text-ink sm:text-3xl">
           LECTURE VIDEOS
         </h1>
@@ -90,6 +91,7 @@ export default async function VideosPage() {
           ))}
         </div>
       </div>
+      <BrandFooter />
     </div>
   );
 }

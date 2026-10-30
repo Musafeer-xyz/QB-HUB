@@ -21,6 +21,22 @@ interface BrandHeaderProps {
   hideNav?: boolean;
 }
 
+/**
+ * The wordmark carries two colours: the first word is the brand accent and the
+ * rest stays in the text colour. `BRAND_NAME` itself is never split elsewhere
+ * (the paper header prints the whole string).
+ */
+function Wordmark() {
+  const space = BRAND_NAME.indexOf(" ");
+  if (space === -1) return <span style={{ color: "var(--brand-accent)" }}>{BRAND_NAME}</span>;
+  return (
+    <>
+      <span style={{ color: "var(--brand-accent)" }}>{BRAND_NAME.slice(0, space)}</span>
+      {" " + BRAND_NAME.slice(space + 1)}
+    </>
+  );
+}
+
 /** Simple branded header for the public student pages. */
 export function BrandHeader({ hideNav = false }: BrandHeaderProps) {
   const pathname = usePathname();
@@ -32,9 +48,10 @@ export function BrandHeader({ hideNav = false }: BrandHeaderProps) {
       <div className="container mx-auto max-w-4xl px-4 py-4 text-center">
         <Link
           href="/"
+          aria-label={BRAND_NAME}
           className="block text-xl font-extrabold uppercase tracking-[0.12em] text-ink sm:text-3xl sm:tracking-[0.18em]"
         >
-          {BRAND_NAME}
+          <Wordmark />
         </Link>
         {showNav && (
           <nav className="mt-3 flex items-center justify-center gap-6" aria-label="বিভাগ">

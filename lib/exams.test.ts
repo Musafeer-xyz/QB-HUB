@@ -9,10 +9,13 @@ import {
   oldAttemptIds,
   examQuestionProblems,
   gradeAnswers,
+  examCount,
+  examTabs,
   groupOpenExams,
   groupOpenExamsBySection,
   hasProblems,
   pickExamBankSubject,
+  selectedExamTab,
   isExpired,
   publicQuestions,
   remainingSeconds,
@@ -389,6 +392,52 @@ describe("groupOpenExamsBySection", () => {
     expect(sections[1]!.chapters).toEqual([]);
     expect(sections[3]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e2"]);
     expect(sections[4]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e3"]);
+  });
+});
+
+describe("public exam list tabs", () => {
+  const sections = groupOpenExamsBySection([
+    exam({ id: "e1", subject: "chemistry", chapter: 6 }),
+    exam({ id: "e2", subject: "chemistry", chapter: 7 }),
+    exam({ id: "e3", subject: "math", chapter: 2 }),
+  ]);
+
+  it("hides the other bucket while it is empty and shows it when it has exams", () => {
+    expect(examTabs(sections).map((t) => t.section.id)).toEqual([
+      "chemistry",
+      "physics",
+      "math",
+      "higher-math",
+    ]);
+
+    const withOther = groupOpenExamsBySection([
+      exam({ id: "e1", subject: "chemistry", chapter: 6 }),
+      exam({ id: "e9", subject: "ict", chapter: 1 }),
+    ]);
+    expect(examTabs(withOther).map((t) => t.section.id)).toContain("other");
+  });
+
+  it("counts every exam of a section across its chapters", () => {
+    const byId = Object.fromEntries(sections.map((t) => [t.section.id, examCount(t)]));
+    expect(byId["chemistry"]).toBe(2);
+    expect(byId["math"]).toBe(1);
+    expect(byId["physics"]).toBe(0);
+  });
+
+  it("selects the requested tab, even when that subject has no exams", () => {
+    expect(selectedExamTab(sections, "math")?.section.id).toBe("math");
+    const empty = selectedExamTab(sections, "physics");
+    expect(empty?.section.id).toBe("physics");
+    expect(empty?.chapters).toEqual([]);
+  });
+
+  it("defaults to the first subject that has exams", () => {
+    expect(selectedExamTab(sections, null)?.section.id).toBe("chemistry");
+    // A junk or stale parameter never blanks the page.
+    expect(selectedExamTab(sections, "nope")?.section.id).toBe("chemistry");
+    // With chemistry empty, the first populated subject wins.
+    const mathOnly = groupOpenExamsBySection([exam({ id: "e3", subject: "math", chapter: 2 })]);
+    expect(selectedExamTab(mathOnly, undefined)?.section.id).toBe("math");
   });
 });
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FileText, PlayCircle } from "lucide-react";
+import { BrandFooter } from "@/components/brand-footer";
 import { BrandHeader } from "@/components/brand-header";
 import { BRAND_NAME } from "@/lib/brand";
 
@@ -28,9 +29,9 @@ const CARDS = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#F6F5F2]">
+    <div className="flex min-h-screen flex-col bg-[#F6F5F2]">
       <BrandHeader />
-      <main className="container mx-auto max-w-4xl px-4 py-10">
+      <main className="container mx-auto w-full max-w-4xl flex-1 px-4 py-10">
         <h1 className="text-center text-2xl font-bold text-ink">স্বাগতম</h1>
         <p className="mt-2 text-center text-sm text-muted">
           পড়াশোনার জন্য পরীক্ষা ও ভিডিও — একটি জায়গায়।
@@ -60,6 +61,7 @@ export default function HomePage() {
         </div>
 
       </main>
+      <BrandFooter />
     </div>
   );
 }

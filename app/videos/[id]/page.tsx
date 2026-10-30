@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BrandFooter } from "@/components/brand-footer";
 import { BrandHeader } from "@/components/brand-header";
 import { getStore } from "@/lib/data/store";
 import { BRAND_NAME } from "@/lib/brand";
@@ -22,9 +23,9 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
   const section = examSectionFor(video.subject);
 
   return (
-    <div className="min-h-screen bg-[#F6F5F2]">
+    <div className="flex min-h-screen flex-col bg-[#F6F5F2]">
       <BrandHeader />
-      <div className="container mx-auto max-w-3xl px-4 py-8">
+      <div className="container mx-auto w-full max-w-3xl flex-1 px-4 py-8">
         <Link href="/videos" className="mb-4 inline-block text-sm text-muted hover:text-ink">
           ← ভিডিও তালিকা
         </Link>
@@ -59,6 +60,7 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
           </div>
         </div>
       </div>
+      <BrandFooter />
     </div>
   );
 }
