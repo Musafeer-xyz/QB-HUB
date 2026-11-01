@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { getStore } from "@/lib/data/store";
+import { getStore, keepStoredSubject } from "@/lib/data/store";
 import { mcqQuestionSchema, MCQ_LABELS, questionTypeSchema } from "@/lib/schemas/question";
 import { getAuthUser, isAdminUser } from "@/lib/supabase/server";
 import { isLocalMode } from "@/lib/mode";
@@ -106,12 +106,17 @@ export async function saveQuestionAction(input: {
 
   const store = await getStore();
   const existing = await store.getQuestion(values.id);
-  const form = {
-    ...values,
-    question: values.question?.trim() ? values.question : null,
-    options: values.type === "MCQ" ? values.options : null,
-    correctOption: values.type === "MCQ" ? values.correct_option : null,
-  };
+  // `existing` is only trusted for identity: an edit must keep the stored
+  // subject (the payload cannot change it, see keepStoredSubject).
+  const form = keepStoredSubject(
+    {
+      ...values,
+      question: values.question?.trim() ? values.question : null,
+      options: values.type === "MCQ" ? values.options : null,
+      correctOption: values.type === "MCQ" ? values.correct_option : null,
+    },
+    existing,
+  );
 
   try {
     if (existing) {

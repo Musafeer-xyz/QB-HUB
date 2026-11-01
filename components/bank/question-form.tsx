@@ -113,7 +113,8 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
     startTransition(async () => {
       const res = await saveQuestionAction({
         id: id.trim(),
-        subject: "chemistry",
+        // An edit keeps the stored subject; the form has no subject control.
+        subject: initial?.subject ?? "chemistry",
         chapter: Number(chapter),
         type,
         stars,

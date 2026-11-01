@@ -15,6 +15,19 @@ import type {
   VideoRecord,
 } from "@/lib/types";
 
+/**
+ * Identity fields an edit may not change on its own: the question editor has
+ * no subject control, so a saved question always keeps its stored subject and
+ * the payload's value is ignored. A subject is never left empty on the way to
+ * the store (a missing one would otherwise be written or defaulted).
+ */
+export function keepStoredSubject<T extends Record<string, unknown>>(
+  values: T,
+  existing: { subject: string | null } | null | undefined,
+): T & { subject?: string | null } {
+  return existing?.subject ? { ...values, subject: existing.subject } : values;
+}
+
 /** Values the admin question editor works with. */
 export type QuestionFormValues = {
   id: string;
