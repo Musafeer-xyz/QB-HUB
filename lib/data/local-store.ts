@@ -75,7 +75,18 @@ function toRecord(raw: unknown): QuestionRecord | null {
     flags,
   };
   if (d.type === "SQ") {
-    return { ...base, type: "SQ", question: d.question, stem: [], imagePath: null, imageDesc: null, parts: [] };
+    const dims = getImageDimensions(d.image);
+    return {
+      ...base,
+      type: "SQ",
+      question: d.question,
+      stem: [],
+      imagePath: d.image,
+      imageDesc: d.image_desc,
+      imageWidth: dims?.width ?? null,
+      imageHeight: dims?.height ?? null,
+      parts: [],
+    };
   }
   if (d.type === "CQ") {
     const dims = getImageDimensions(d.image);
@@ -275,7 +286,8 @@ export function questionRecordFromForm(values: QuestionFormValues): QuestionReco
       parts: [],
     };
   }
-  return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: null, imageDesc: null, imageWidth: null, imageHeight: null, options: null, correctOption: null, parts: [] };
+  const dims = getImageDimensions(values.image);
+  return { ...base, type: "SQ", question: values.question ?? "", stem: [], imagePath: values.image, imageDesc: values.image_desc, imageWidth: dims?.width ?? null, imageHeight: dims?.height ?? null, options: null, correctOption: null, parts: [] };
 }
 
 /** Remove one admin flag from a record (pure; used by `resolveFlag`). */
@@ -525,6 +537,7 @@ export function localStore(): Store {
             stem: q.stem,
             options: q.options,
             correctOption: q.correctOption,
+            imagePath: q.imagePath,
           });
         }
       }

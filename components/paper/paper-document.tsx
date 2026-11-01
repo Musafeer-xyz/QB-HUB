@@ -507,6 +507,13 @@ function SQ({ question }: { question: PaperDocQuestion }) {
         <div className="question-text">
           <RichText text={question.question} />
         </div>
+        {question.imageSrc || question.imageDesc ? (
+          <QuestionImage
+            src={question.imageSrc}
+            desc={question.imageDesc}
+            available={question.imageAvailable}
+          />
+        ) : null}
         {question.answer ? (
           <p className="mt-1 border-l-2 border-slate-300 pl-2 text-xs text-slate-600">
             <span className="font-semibold">উত্তর:</span> {question.answer}

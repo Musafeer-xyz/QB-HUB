@@ -87,7 +87,7 @@ function textFields(q: QuestionInput): string[] {
     for (const line of q.stem) if (line) fields.push(line);
     for (const option of q.options) if (option.text) fields.push(option.text);
   }
-  if (q.type !== "SQ" && q.image_desc) fields.push(q.image_desc);
+  if (q.image_desc) fields.push(q.image_desc);
   if (q.answer) fields.push(q.answer);
   return fields;
 }
@@ -238,7 +238,8 @@ export function checkQuestion(
   for (const problem of structureProblems(q)) error(problem);
 
   if (opts.imageFiles) {
-    const image = q.type === "CQ" || q.type === "MCQ" ? q.image : null;
+    // CQ, SQ and MCQ may each carry a figure in the same `image` field.
+    const image = q.image;
     if (image && !opts.imageFiles.has(image)) {
       error(`চিত্রের ফাইল পাওয়া যায়নি: images/${image}`);
     }

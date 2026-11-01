@@ -176,6 +176,7 @@ describe("student payload", () => {
       question: "প্রশ্ন q1",
       stem: [],
       options: question("q1", "ক").options,
+      imagePath: null,
     });
   });
 });
@@ -365,10 +366,19 @@ describe("student start payload never leaks answers", () => {
     for (const name of forbidden) expect(json).not.toContain(name);
   });
 
-  it("keeps only id, question, stem and options on a student question", () => {
+  it("keeps only id, question, stem, options and the figure on a student question", () => {
     const [only] = publicQuestions([leaked]);
-    expect(Object.keys(only!).sort()).toEqual(["id", "options", "question", "stem"]);
+    expect(Object.keys(only!).sort()).toEqual(["id", "imagePath", "options", "question", "stem"]);
     expect(only!.options?.every((o) => Object.keys(o).sort().join(",") === "label,text")).toBe(true);
+  });
+
+  it("sends the figure with the question, still without the answer key", () => {
+    const withFigure = { ...question("q2", "খ"), imagePath: "math-08-sq-006.png" };
+    const [only] = publicQuestions([withFigure]);
+    expect(only!.imagePath).toBe("math-08-sq-006.png");
+    expect(only).not.toHaveProperty("correctOption");
+    expect(only).not.toHaveProperty("answer");
+    expect(JSON.stringify(only)).not.toContain("correct_option");
   });
 });
 

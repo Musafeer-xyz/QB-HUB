@@ -124,6 +124,8 @@ export type ExamQuestion = {
   stem: string[];
   options: { label: string; text: string }[] | null;
   correctOption: string | null;
+  /** Figure file name (optional: older rows and payloads do not carry one). */
+  imagePath?: string | null;
 };
 
 /** A YouTube video entry. Only the 11-char YouTube id is stored. */

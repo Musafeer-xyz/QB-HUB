@@ -225,8 +225,9 @@ export function questionRowFromForm(values: QuestionFormValues) {
     boards: values.boards,
     question: values.question,
     stem: values.type === "CQ" || values.type === "MCQ" ? values.stem : [],
-    image_path: values.type === "SQ" ? null : values.image,
-    image_desc: values.type === "SQ" ? null : values.image_desc,
+    // Any type may carry a figure; SQ included (same `image` field).
+    image_path: values.image,
+    image_desc: values.image_desc,
     answer: values.answer,
     options: values.type === "MCQ" ? values.options : null,
     correct_option: values.type === "MCQ" ? values.correctOption : null,
@@ -675,7 +676,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
       const c = await client();
       const { data, error } = await c
         .from("questions")
-        .select("id, question, stem, options, correct_option")
+        .select("id, question, stem, options, correct_option, image_path")
         .in("id", exam.questionIds);
       if (error) throw new Error(error.message);
       const rows = (data ?? []) as Array<{
@@ -684,6 +685,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
         stem: string[] | null;
         options: QuestionOption[] | null;
         correct_option: string | null;
+        image_path: string | null;
       }>;
       // `.in()` returns rows in no guaranteed order; an exam's question order is
       // fixed by the snapshot in exams.question_ids.
@@ -697,6 +699,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
           stem: r.stem ?? [],
           options: r.options,
           correctOption: r.correct_option,
+          imagePath: r.image_path,
         }));
     },
 

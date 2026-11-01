@@ -5,6 +5,7 @@ import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { BrandHeader } from "@/components/brand-header";
 import { RichText } from "@/components/rich-text";
 import { toBanglaDigits } from "@/lib/bangla";
+import { questionImageUrl } from "@/lib/images";
 import { splitMcqStem } from "@/lib/mcq-layout";
 import { subjectLabel } from "@/lib/paper/model";
 import type { AttemptResult, ExamRecord } from "@/lib/types";
@@ -237,7 +238,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                     value={studentName}
                     onChange={(e) => setStudentName(e.target.value)}
                     placeholder="আপনার নাম লিখুন"
-                    className="field-input w-full"
+                    className="field-input min-h-[44px] w-full text-[16px]"
                     required
                   />
                 </div>
@@ -251,7 +252,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                     value={studentId}
                     onChange={(e) => setStudentId(e.target.value)}
                     placeholder="রোল নম্বর বা আইডি"
-                    className="field-input w-full"
+                    className="field-input min-h-[44px] w-full text-[16px]"
                   />
                 </div>
                 {error ? (
@@ -259,7 +260,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                     {error}
                   </div>
                 ) : null}
-                <button type="submit" disabled={busy} className="btn-primary w-full">
+                <button type="submit" disabled={busy} className="btn-primary min-h-[44px] w-full">
                   {busy ? "শুরু হচ্ছে..." : "শুরু করুন"}
                 </button>
               </form>
@@ -336,6 +337,15 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                       ))}
                     </div>
                   ) : null}
+                  {questionImageUrl(q.imagePath) ? (
+                    <img
+                      src={questionImageUrl(q.imagePath) ?? ""}
+                      alt="প্রশ্নের চিত্র"
+                      loading="lazy"
+                      decoding="async"
+                      className="mb-3 max-h-64 w-auto max-w-full rounded-lg border border-line bg-[#fbfaf7] object-contain"
+                    />
+                  ) : null}
                   {q.options ? (
                     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                       {q.options.map((opt) => (
@@ -379,7 +389,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
               type="button"
               onClick={() => void submit(answers)}
               disabled={busy}
-              className="btn-primary w-full"
+              className="btn-primary min-h-[44px] w-full"
             >
               {busy ? (
                 <span className="inline-flex items-center gap-2">
@@ -409,7 +419,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
 
           {/* Retake first: it is the one action a finished student needs. */}
           <div className="mb-6 mt-4">
-            <button type="button" onClick={restart} className="btn-primary w-full">
+            <button type="button" onClick={restart} className="btn-primary min-h-[44px] w-full">
               আবার পরীক্ষা দিন
             </button>
             <p className="mt-2 text-center text-xs text-muted">এই ফলাফল ১০ মিনিট পর মুছে যাবে।</p>
@@ -530,7 +540,7 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
           </div>
 
           <div className="mt-6">
-            <a href="/exams" className="btn-secondary block w-full text-center">
+            <a href="/exams" className="btn-secondary block min-h-[44px] w-full text-center">
               আরও পরীক্ষা দিন
             </a>
           </div>

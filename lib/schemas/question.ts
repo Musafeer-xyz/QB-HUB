@@ -111,6 +111,9 @@ export const sqQuestionSchema = z.object({
   ...baseShape,
   type: z.literal("SQ"),
   question: z.string().trim().min(1, "SQ প্রশ্নের টেক্সট দরকার"),
+  /** Optional figure, same field and shape CQ uses ("none"/missing = no figure). */
+  image: imageFile,
+  image_desc: nullableText,
 });
 export type SqQuestion = z.infer<typeof sqQuestionSchema>;
 

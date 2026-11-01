@@ -105,7 +105,15 @@ export function normalizeForDb(input: QuestionInput, flags: QuestionFlag[]): DbQ
     page: input.page ?? null,
   };
   if (input.type === "SQ") {
-    return { ...base, type: "SQ", question: input.question, stem: [], image_path: null, image_desc: null, parts };
+    return {
+      ...base,
+      type: "SQ",
+      question: input.question,
+      stem: [],
+      image_path: input.image,
+      image_desc: input.image_desc,
+      parts,
+    };
   }
   if (input.type === "CQ") {
     return {

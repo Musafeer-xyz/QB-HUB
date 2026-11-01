@@ -435,7 +435,30 @@ function FullView({
         </>
       ) : (
         <div className="flex items-start gap-2">
-          <RichText text={question.question ?? ""} className="min-w-0 flex-1" />
+          <div className="min-w-0 flex-1">
+            <RichText text={question.question ?? ""} />
+            {imageUrl ? (
+              <figure className="mt-2">
+                <button
+                  type="button"
+                  className="overflow-hidden rounded-lg border border-line bg-[#fbfaf7]"
+                  onClick={onLightboxOpen}
+                >
+                  <img
+                    src={imageUrl}
+                    alt={question.imageDesc ?? "প্রশ্নের চিত্র"}
+                    loading="lazy"
+                    decoding="async"
+                    className="cursor-zoom-in object-contain"
+                    style={{ maxWidth: "220px", maxHeight: "140px" }}
+                  />
+                </button>
+                {question.imageDesc ? (
+                  <figcaption className="mt-1 text-xs text-muted">{question.imageDesc}</figcaption>
+                ) : null}
+              </figure>
+            ) : null}
+          </div>
           <span className="shrink-0 text-sm text-muted">[{toBanglaDigits(sqMarks)}]</span>
         </div>
       )}

@@ -29,8 +29,8 @@ function asExisting(q: QuestionSourceInput, extra?: Partial<ExistingQuestion>): 
     boards: d.boards,
     question: d.question ?? null,
     stem: d.type === "CQ" ? d.stem : [],
-    image_path: d.type === "CQ" ? d.image : null,
-    image_desc: d.type === "CQ" ? d.image_desc : null,
+    image_path: d.image,
+    image_desc: d.image_desc,
     flags: d.flags,
     answer: d.answer,
     options: d.options,
@@ -189,5 +189,11 @@ function toSource(entry: { question?: DbQuestion }): QuestionSourceInput {
       correct_option: q.correct_option as "ক" | "খ" | "গ" | "ঘ" | null,
     };
   }
-  return { ...common, type: "SQ" as const, question: q.question ?? "" };
+  return {
+    ...common,
+    type: "SQ" as const,
+    question: q.question ?? "",
+    image: q.image_path,
+    image_desc: q.image_desc,
+  };
 }

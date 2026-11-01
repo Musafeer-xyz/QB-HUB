@@ -24,15 +24,21 @@ export type PublicExamQuestion = {
   question: string | null;
   stem: string[];
   options: { label: string; text: string }[] | null;
+  /** Figure file name, resolved to a URL by the student page. */
+  imagePath: string | null;
 };
 
-/** Strip the answer key from stored questions before any student response. */
+/**
+ * Strip the answer key from stored questions before any student response.
+ * The figure is not an answer: it is part of the question the student must see.
+ */
 export function publicQuestions(questions: ExamQuestion[]): PublicExamQuestion[] {
   return questions.map((q) => ({
     id: q.id,
     question: q.question,
     stem: q.stem,
     options: q.options,
+    imagePath: q.imagePath ?? null,
   }));
 }
 
