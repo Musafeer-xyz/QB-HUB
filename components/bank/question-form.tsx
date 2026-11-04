@@ -121,8 +121,8 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
         boards,
         question: type === "SQ" || type === "MCQ" ? question : question.trim() || null,
         stem: type === "CQ" || type === "MCQ" ? stem.map((s) => s) : [],
-        image: type === "SQ" ? null : image,
-        image_desc: type === "SQ" ? null : imageDesc.trim() || null,
+        image,
+        image_desc: imageDesc.trim() || null,
         answer: answer.trim() || null,
         options:
           type === "MCQ"
