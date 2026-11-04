@@ -35,9 +35,9 @@ export function QuestionImage({
           চিত্র পাওয়া যায়নি{desc ? ` — ${desc}` : ""}
         </div>
       )}
-      {desc ? (
+      {/* {desc ? (
         <figcaption className="text-center text-xs text-slate-600">{desc}</figcaption>
-      ) : null}
+      ) : null} */}
     </figure>
   );
 }
