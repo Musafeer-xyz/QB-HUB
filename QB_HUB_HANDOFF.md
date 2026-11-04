@@ -1,6 +1,6 @@
 # QB Hub (প্রশ্নব্যাংক) — Project Handoff
 
-Snapshot date: 2026-11-01, update #15 (replaces update #14 and all earlier versions; resolved history was removed on purpose to keep this file short). The site is now LIVE (Vercel + Supabase). Written so that a new chat or a new coding agent can continue without asking the user to re-explain anything. **Section 13 is the current state; where it contradicts sections 1–12, section 13 wins.**
+Snapshot date: 2026-11-04, update #16 (replaces update #15 and all earlier versions; resolved history was removed on purpose to keep this file short). The site is now LIVE (Vercel + Supabase). Written so that a new chat or a new coding agent can continue without asking the user to re-explain anything. **Section 13 is the current state; where it contradicts sections 1–12, section 13 wins.**
 
 ---
 
@@ -8,7 +8,7 @@ Snapshot date: 2026-11-01, update #15 (replaces update #14 and all earlier versi
 
 **বাংলায়:** নতুন চ্যাটে শুধু এই ফাইলটা আপলোড করো। প্রথম বার্তা: "Read QB_HUB_HANDOFF.md fully, then continue from section 13." ডেটার কাজ (MCQ, নতুন চ্যাপ্টার) না হলে JSON ফাইল বা `CQ & SQ.pdf` আপলোড করার দরকার নেই, ওগুলো বড় আর টোকেন খায়। ডেটার কাজ হলে শুধু তখনই `CQ & SQ.pdf` (আর দরকার হলে `chem-0X.json`) দাও।
 
-**English (next assistant):** Read sections 1–3, then 13 (start with 13.16, then 13.15 and 13.13; the old 13.14 was resolved history and has been removed, its corrections live in 13.15), then 9. Section 4 holds verified-data facts (do not re-derive, do not "fix" the data). Section 11 lists mistakes that already cost time.
+**English (next assistant):** Read sections 1–3, then 13 (start with 13.17, then 13.16, 13.15 and 13.13; the old 13.14 was resolved history and has been removed, its corrections live in 13.15), then 9. Section 4 holds verified-data facts (do not re-derive, do not "fix" the data). Section 11 lists mistakes that already cost time.
 
 ---
 
@@ -265,7 +265,7 @@ Notes: npm swallows `--dry-run` in `npm run import -- …`, so use `npx tsx scri
 
 ---
 
-## 13. Current state — 2026-11-01, update #15 (NEWEST)
+## 13. Current state — 2026-11-04, update #16 (NEWEST)
 
 ### 13.1 Live setup (done)
 - **Live site:** https://tanjim-eduscripts.vercel.app (Vercel project `qb-hub`, renamed domain; GitHub repo `Musafeer-xyz/QB-HUB`, branch `master`; every `git push origin master` triggers an automatic deploy. Repo should be private; verify once in GitHub Settings). Host is Vercel **serverless**, so the server-side PDF (Chromium) is probably NOT working live: untested; PDFs are still made on the user's PC (`start-app.bat`, local mode). `docs/deploy.md` still says "not Vercel": ignore that line for the exam use.
@@ -300,7 +300,7 @@ Chemistry 6–10 complete: CQ/SQ 149 + MCQ 192 (verified, section 4); live exams
 Other subjects (Higher Math, Biology) not started. Chemistry, physics and math are the templates.
 
 ### 13.4 Open checklist (in order)
-- [ ] **Start here (update #15):** (1) DONE in update #15 (cq-006: DB subject restored by import `updated 1`, dropdown chemistry 341 / physics 145 / math 324; spelling fixed in both copies, `data/phy-02.json` synced in commit "Sync data/phy-02.json (cq-006 spelling)" — verify it is pushed); (2) phone check of the mobile UI fixes (5 modified files, uncommitted, see 13.16), then commit; (DONE: math ch 17 tables checked live by the user, "perfect"); (DONE: SQ figures live, update #15; still to look at: `math-16-sq-015` and `sq-020` in the bank card, paper preview and print, and the 9 re-flagged math items below); (5) confirm math CQ marks from the book (13.13); (6) Vercel Logs duration/cold start, then `prefetch={false}` on `/admin` links; (7) results CSV export; (8) Prompt B (fresh quota); (9) delete 2 test papers and test attempts; commit `QB_HUB_HANDOFF.md`.
+- [ ] **Start here (update #15):** (1) DONE in update #15 (cq-006: DB subject restored by import `updated 1`, dropdown chemistry 341 / physics 145 / math 324; spelling fixed in both copies, `data/phy-02.json` synced in commit "Sync data/phy-02.json (cq-006 spelling)" — verified pushed in update #16 as 5d75271); (2) mobile UI: 4 modified files (`app/exams/page.tsx`, `app/videos/[id]/page.tsx`, `components/brand-footer.tsx`, `components/brand-header.tsx`), uncommitted; the user wants to plan the full mobile UI together with the assistant AFTER the other open items, so do not commit them yet (see 13.16, 13.17); (DONE: math ch 17 tables checked live by the user, "perfect"); (DONE: SQ figures live and checked on math-16-sq-015/020 in bank card, paper preview and print, update #16; figure caption bug fixed, see 13.17; still to do: look at the 9 re-flagged math items in 13.16, and check `/exam/[id]` for a caption under SQ figures); (5) confirm math CQ marks from the book (13.13); (6) Vercel Logs duration/cold start, then `prefetch={false}` on `/admin` links; (7) results CSV export; (8) Prompt B (fresh quota); (9) delete 2 test papers and test attempts; commit `QB_HUB_HANDOFF.md`.
 - [ ] **New subject data (physics ch.2/4/7/8/10 done; Math/Higher Math/Biology next):** first ask which subject and which book/PDF, test whether the PDF has a correct Bangla text layer (13.6), then: produce JSON in the same shapes (4.3 / Step 4), put it in a NEW folder (e.g. `Physics/mcq`), keep `subject` strings consistent with an alias in `lib/subjects.ts` (check with `grep -n -i physics lib/subjects.ts`; the agent report mentioned an odd Arabic-script alias, harmless). Then: `npm run import -- ./Physics/mcq --dry-run` (must show 0 skipped / 0 warnings) → real import → create the exam in `/admin/exams` (students only see EXAMS, not raw questions) → commit data files and push as backup. NFC-normalise Bangla text (13.7). Pipeline ideas in 13.6.
 - [ ] Hand checks on the live site (13.2 last bullet); delete test exams and test attempts from admin before sharing the link.
 - [ ] Before real exams: Supabase free projects PAUSE after about a week without activity: open the dashboard and press Restore if paused.
@@ -457,3 +457,27 @@ After Prompt A: recheck live (physics paper → header stays physics, save stays
 **Other state:** untracked files that stay untracked for now: `Math/math-17.json` (origin unknown), `scripts/math17-tables.mjs` (one-off). DB subject counts as shown in the subject dropdown are a quick sanity check for stray moves (expected chemistry 341, physics 145, math 324).
 
 **Lessons (update #15):** (1) When a PDF embeds its figures, `pdfimages -png -f N -l M file.pdf prefix` gives clean originals; no network or PyMuPDF is needed (the container has `pdfimages`, `pdftoppm`, PIL). Check the figure count against the handoff list before trusting a "missing images" list (here it was off by one: `cq-007` has no figure). (2) A table that is printed as text in the book belongs in `stem`, not only in `image_desc` (students never see `image_desc`). (3) A validator error like "চিত্রের ফাইল পাওয়া যায়নি" for one id usually means the JSON claims an image the book does not have. (4) After any admin UI save, compare the subject dropdown counts; one moved question shows as +1/−1. (5) Editing a question in the UI changes only the DB: apply the same fix to the JSON files or a re-import silently reverts it. Apply it to BOTH copies (source `<Subject>/data/*.json` and the app copy `data/*.json`; for math the app copy is the converted `Math/ready` version) and compare with `node -e` (JSON.stringify per item) because `cmp` also flags harmless LF/CRLF differences; a `grep -c` on one copy only (as in update #15, where `data/phy-02.json` still had the old spelling) hides drift. (7) A re-import re-adds any source flag the DB row lacks, i.e. it silently undoes "resolve flag" clicks made in the bank; clear the flag in the JSON files too. (6) The terminal doubles Bangla letters and punctuation in pasted output (`,,`, `0111`, `017..png`); always verify with `grep -c` or an agent's node check, not by eye.
+
+
+
+### 13.17 Update #16 (2026-11-04) — figure captions hidden; SQ edit-save bug fixed
+
+**Done, pushed and live-checked:**
+- `components/paper/question-image.tsx`: the `<figcaption>` that printed `image_desc` under every figure is commented out (paper preview and print/PDF). Cause: `image_desc` was always shown as a plain-text caption, so math descriptions appeared with raw `$...$` (screenshot: math-16-sq-020). `image_desc` is now alt text only; the "figure missing" placeholder still shows `desc`. Checked live: preview and print of math-16-sq-015/020 show the figures with no caption.
+- `dddec3d` "Hide figure caption on bank card": same change in `components/workspace/question-card.tsx` (the bank list card has its own figcaption, separate from `QuestionImage`). Confirmed live by the user.
+- `754855b` "Keep SQ image and image_desc when editing a question": `components/bank/question-form.tsx` `onSave` sent `image: null` and `image_desc: null` for every SQ (left over from before SQ figures existed), so saving an edit of a figure-bearing SQ could wipe its figure. Now sends `image` and `image_desc` as loaded (state is initialised from `initial.imagePath` / `initial.imageDesc`). No test was added for this (optional: a test in `lib/data/question-form.test.ts` that an SQ edit keeps image and image_desc). tsc clean, vitest 28 files / 246 tests passed.
+- All commits are pushed (`git log origin/master..HEAD` empty).
+
+**Not yet checked:**
+- Whether the online exam page (`app/exam/[id]`, exam-client) shows a caption under SQ figures. Find it with `Select-String -Path app\**\*.tsx -Pattern "figcaption"` (the last search over `components/` and `app/` found only question-form.tsx:501 (editor preview, keep), question-image.tsx and question-card.tsx, so probably nothing there).
+- The editor preview in `question-form.tsx` (lines ~497–501) still shows the caption on purpose.
+- If a figure-bearing SQ (math-08, math-16) was edited from the bank UI BEFORE `754855b`, its `image_path` may be null: check in Supabase and run `npm run import -- ./Math/ready` to restore. No such edit is known.
+- Whether the form can add or change an SQ figure from the UI is unknown (imports handle SQ figures so far).
+
+**Lesson (update #16):** the bank edit form writes some fields from hard-coded values instead of the loaded item (first `subject`, now SQ `image`/`image_desc`). After adding a field or type to the schema, re-read `onSave` in `question-form.tsx`.
+
+**Working-tree state:** uncommitted: `app/exams/page.tsx`, `app/videos/[id]/page.tsx`, `components/brand-footer.tsx`, `components/brand-header.tsx` (mobile fixes), `QB_HUB_HANDOFF.md`. Untracked: `Math/math-17.json` (origin unknown), `scripts/math17-tables.mjs`.
+
+**Mobile UI (what the uncommitted changes are):** only the public pages (exams, videos, brand header/footer), style-only, no logic: tap targets raised to 44px (header tabs, footer social icons, "← ভিডিও তালিকা", exam inputs and buttons, submit and retry buttons), input font 16px to stop iOS zoom, `/exams` first chip no longer clipped (`scroll-pl-4`, `snap-start`). Admin and bank screens were not touched. The user wants a full mobile-UI plan (public pages and possibly admin/bank) worked out together with the assistant after the other open items.
+
+**Shell notes (update #16, PowerShell):** `git diff --stat` opens a pager and can stick ("Log file is already in use"): press `q`, or use `git --no-pager diff --stat`. Pasting a second command onto the same line glued two commands (`git add ...git add ...`, and `npx tsc --noEmit` became a junk file named `c --noEmit`, 1166 bytes, deleted): press Esc before every paste. `start-app.bat` runs `next start` on port 3100 and needs `npm run build` first (no `.next` folder gives "Could not find a production build"); for quick local checks `npm run dev` serves port 3000, not 3100. The terminal shows Bangla as mojibake in `Get-Content` output; the files are fine.
