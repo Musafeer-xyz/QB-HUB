@@ -453,9 +453,9 @@ function FullView({
                     style={{ maxWidth: "220px", maxHeight: "140px" }}
                   />
                 </button>
-                {question.imageDesc ? (
+                {/* {question.imageDesc ? (
                   <figcaption className="mt-1 text-xs text-muted">{question.imageDesc}</figcaption>
-                ) : null}
+                ) : null} */}
               </figure>
             ) : null}
           </div>
