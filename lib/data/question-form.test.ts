@@ -15,6 +15,7 @@ function values(overrides: Partial<QuestionFormValues>): QuestionFormValues {
     stem: [],
     image: null,
     image_desc: null,
+    explanation: null,
     answer: null,
     options: null,
     correctOption: null,
@@ -71,6 +72,32 @@ describe("questionRecordFromForm", () => {
     expect(record.options?.map((o) => o.label)).toEqual(["ক", "খ", "গ", "ঘ"]);
     expect(record.options?.[2]?.text).toBe("H2CO3");
     expect(record.correctOption).toBe("গ");
+  });
+
+  it("keeps the stored explanation on an MCQ edit", () => {
+    const record = questionRecordFromForm(
+      values({
+        id: "chem-06-mcq-901",
+        type: "MCQ",
+        question: "কোনটি সঠিক?",
+        options: [
+          { label: "ক", text: "HCl" },
+          { label: "খ", text: "CH3COOH" },
+          { label: "গ", text: "H2CO3" },
+          { label: "ঘ", text: "NaHCO3" },
+        ],
+        correctOption: "গ",
+        // The editor sends the note back exactly as it loaded it.
+        explanation: "NaHCO3 ক্ষারীয়, তাই গ সঠিক",
+      }),
+    );
+    expect(record.explanation).toBe("NaHCO3 ক্ষারীয়, তাই গ সঠিক");
+  });
+
+  it("never writes an explanation onto a CQ or SQ", () => {
+    const record = questionRecordFromForm(values({ explanation: "এই নোটটি বাদ যাবে" }));
+    expect(record.type).toBe("SQ");
+    expect(record.explanation).toBeNull();
   });
 });
 

@@ -62,6 +62,7 @@ describe("SQ figures survive the stores", () => {
     stem: [],
     image: "math-08-sq-006.png",
     image_desc: "O কেন্দ্রবিশিষ্ট বৃত্ত",
+    explanation: null,
     answer: null,
     options: null,
     correctOption: null,

@@ -185,6 +185,7 @@ function toSource(entry: { question?: DbQuestion }): QuestionSourceInput {
       stem: q.stem,
       image: q.image_path,
       image_desc: q.image_desc,
+      explanation: q.explanation,
       options: q.options ?? [],
       correct_option: q.correct_option as "ক" | "খ" | "গ" | "ঘ" | null,
     };
@@ -197,3 +198,53 @@ function toSource(entry: { question?: DbQuestion }): QuestionSourceInput {
     image_desc: q.image_desc,
   };
 }
+
+describe("MCQ explanation (result-screen note)", () => {
+  const mcq: QuestionSourceInput = {
+    id: "chem-06-mcq-001",
+    subject: "chemistry",
+    chapter: 6,
+    type: "MCQ",
+    question: "নিচের কোনটি সঠিক?",
+    options: [
+      { label: "ক", text: "ক" },
+      { label: "খ", text: "খ" },
+      { label: "গ", text: "গ" },
+      { label: "ঘ", text: "ঘ" },
+    ],
+    correct_option: "ক",
+    explanation: "কারণ ক সঠিক",
+  };
+
+  it("survives normalisation and shows up in the change signature", () => {
+    const withNote = planImport([{ name: "mcq.json", items: [mcq] }]);
+    const without = planImport([
+      { name: "mcq.json", items: [{ ...mcq, explanation: null }] },
+    ]);
+    expect(withNote.entries[0]?.question?.explanation).toBe("কারণ ক সঠিক");
+    expect(without.entries[0]?.question?.explanation).toBeNull();
+    // Adding or editing a note must be re-importable, not silently "unchanged".
+    expect(questionSignature(withNote.entries[0]!.question!)).not.toBe(
+      questionSignature(without.entries[0]!.question!),
+    );
+  });
+
+  it("never attaches a note to CQ or SQ items", () => {
+    const sq = planImport([
+      {
+        name: "sq.json",
+        items: [
+          {
+            id: "chem-06-sq-001",
+            subject: "chemistry",
+            chapter: 6,
+            type: "SQ",
+            question: "ব্যাখ্যা কর।",
+            explanation: "এই নোটটি বাদ যাবে",
+          },
+        ],
+      },
+    ]);
+    expect(sq.entries[0]?.question?.explanation).toBeNull();
+  });
+});

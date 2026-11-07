@@ -32,6 +32,8 @@ export type QuestionRow = {
   stem: string[] | null;
   image_path: string | null;
   image_desc: string | null;
+  /** Student-facing answer note (MCQ only); added by 0005. */
+  explanation?: string | null;
   flags: unknown;
   answer: string | null;
   options: QuestionOption[] | null;
@@ -113,6 +115,7 @@ export function mapQuestion(row: QuestionRow, parts: PartRow[]): QuestionRecord 
     stem: row.stem ?? [],
     imagePath: row.image_path,
     imageDesc: row.image_desc,
+    explanation: row.explanation ?? null,
     flags: parseFlags(row.flags),
     answer: row.answer,
     options: row.options ?? null,
@@ -228,6 +231,8 @@ export function questionRowFromForm(values: QuestionFormValues) {
     // Any type may carry a figure; SQ included (same `image` field).
     image_path: values.image,
     image_desc: values.image_desc,
+    // The explanation is a student-facing MCQ note; CQ/SQ never store one.
+    explanation: values.type === "MCQ" ? values.explanation : null,
     answer: values.answer,
     options: values.type === "MCQ" ? values.options : null,
     correct_option: values.type === "MCQ" ? values.correctOption : null,
@@ -404,6 +409,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
             stem: q.stem,
             image_path: q.image_path,
             image_desc: q.image_desc,
+            explanation: q.explanation,
             flags: q.flags,
             answer: q.answer,
             options: q.options,
@@ -676,7 +682,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
       const c = await client();
       const { data, error } = await c
         .from("questions")
-        .select("id, question, stem, options, correct_option, image_path")
+        .select("id, question, stem, options, correct_option, image_path, explanation")
         .in("id", exam.questionIds);
       if (error) throw new Error(error.message);
       const rows = (data ?? []) as Array<{
@@ -686,6 +692,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
         options: QuestionOption[] | null;
         correct_option: string | null;
         image_path: string | null;
+        explanation?: string | null;
       }>;
       // `.in()` returns rows in no guaranteed order; an exam's question order is
       // fixed by the snapshot in exams.question_ids.
@@ -700,6 +707,7 @@ export function supabaseStore(opts: { system?: boolean } = {}): Store {
           options: r.options,
           correctOption: r.correct_option,
           imagePath: r.image_path,
+          explanation: r.explanation ?? null,
         }));
     },
 

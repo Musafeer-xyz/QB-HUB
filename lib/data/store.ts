@@ -40,6 +40,8 @@ export type QuestionFormValues = {
   stem: string[];
   image: string | null;
   image_desc: string | null;
+  /** Student-facing note (MCQ only); null for CQ/SQ. */
+  explanation: string | null;
   answer: string | null;
   /** MCQ choices (ক খ গ ঘ), null for CQ/SQ. */
   options: { label: string; text: string }[] | null;

@@ -533,6 +533,12 @@ export function ExamClient({ examId, exam }: { examId: string; exam: ExamRecord 
                     {q.studentAnswer === null ? (
                       <p className="text-xs text-muted">দেওয়া হয়নি</p>
                     ) : null}
+                    {q.explanation ? (
+                      <div className="mt-2 min-w-0 break-words overflow-x-auto rounded-md border border-line bg-white px-3 py-2">
+                        <p className="mb-1 text-xs font-semibold text-muted">ব্যাখ্যা</p>
+                        <RichText text={q.explanation} />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               );

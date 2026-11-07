@@ -70,6 +70,8 @@ async function fetchExisting(client: SupabaseClient): Promise<Map<string, Existi
       stem: (q.stem as string[]) ?? [],
       image_path: q.image_path as string | null,
       image_desc: q.image_desc as string | null,
+      // Read back so a note added in the editor is never nulled by an import.
+      explanation: (q.explanation as string | null) ?? null,
       flags: q.flags,
       answer: q.answer as string | null,
       options: (q.options as ExistingQuestion["options"]) ?? null,
@@ -108,6 +110,7 @@ async function upsertQuestion(client: SupabaseClient, q: DbQuestion): Promise<vo
     stem: q.stem,
     image_path: q.image_path,
     image_desc: q.image_desc,
+    explanation: q.explanation,
     flags: q.flags,
     answer: q.answer,
     options: q.options,

@@ -43,7 +43,7 @@ do $$ begin
 end $$;
 `;
 
-const MIGRATION_SQL = ["0001_init.sql", "0002_mcq.sql"]
+const MIGRATION_SQL = ["0001_init.sql", "0002_mcq.sql", "0005_explanation.sql"]
   .map((file) => fs.readFileSync(path.join(__dirname, "migrations", file), "utf8"))
   .join("\n");
 

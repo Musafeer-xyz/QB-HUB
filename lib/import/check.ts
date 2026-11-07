@@ -52,7 +52,7 @@ const CQ_LABELS = ["ক", "খ", "গ", "ঘ"];
  * Latin Extended and other lookalikes are rejected so KaTeX never gets them.
  */
 const ALLOWED_CHAR =
-  /[\u0980-\u09FF\u0964\u0020-\u007E\u00A0\u2013\u2014\u2018-\u201D\u2026\u20B9\u00B0\u00B1\u00B7\u00D7\u00F7\u0394\u03A3\u03C0\u03BC\u03C9\u03A9\u2192\u21CC\u2191\u2193\u221A\u221E\u2248\u2260\u2264\u2265\u00B2\u00B3\u00B9\u2070-\u209F\u2212\u2032\u2033\u2044]/u;
+  /[\u0980-\u09FF\u0964\u0020-\u007E\u00A0\u2013\u2014\u2018-\u201D\u2026\u20B9\u00B0\u00B1\u00B7\u00D7\u00F7\u0394\u03A3\u03C0\u03BC\u03C9\u03A9\u2192\u21CC\u2191\u2193\u221A\u221E\u2248\u2260\u2264\u2265\u00B2\u00B3\u00B9\u2070-\u209F\u2212\u2032\u2033\u2044\u2640\u2642]/u;
 const ZERO_WIDTH = /[\u200B-\u200D\uFEFF\u2060]/u;
 
 function sourceId(raw: unknown, index: number): string {
@@ -86,6 +86,7 @@ function textFields(q: QuestionInput): string[] {
     // Statement (`i, ii, iii`) and stimulus lines are printed too.
     for (const line of q.stem) if (line) fields.push(line);
     for (const option of q.options) if (option.text) fields.push(option.text);
+    if (q.explanation) fields.push(q.explanation);
   }
   if (q.image_desc) fields.push(q.image_desc);
   if (q.answer) fields.push(q.answer);

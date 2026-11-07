@@ -366,6 +366,16 @@ describe("student start payload never leaks answers", () => {
     for (const name of forbidden) expect(json).not.toContain(name);
   });
 
+  it("keeps the explanation out of the start payload; the result carries it", () => {
+    const row = { ...question("q1", "ক"), explanation: "কারণ ক সঠিক" } as ExamQuestion;
+    const start = publicQuestions([row])[0];
+    expect(start).not.toHaveProperty("explanation");
+    expect(JSON.stringify(start)).not.toContain("কারণ ক সঠিক");
+    // getAttemptResult spreads the same row into the result, so the note is
+    // still available after submission (see the store mapping).
+    expect(row.explanation).toBe("কারণ ক সঠিক");
+  });
+
   it("keeps only id, question, stem, options and the figure on a student question", () => {
     const [only] = publicQuestions([leaked]);
     expect(Object.keys(only!).sort()).toEqual(["id", "imagePath", "options", "question", "stem"]);
@@ -395,13 +405,15 @@ describe("groupOpenExamsBySection", () => {
       "chemistry",
       "physics",
       "math",
+      "biology",
       "higher-math",
       "other",
     ]);
     expect(sections[0]!.chapters.flatMap((c) => c.exams.map((e) => e.id))).toEqual(["e1"]);
     expect(sections[1]!.chapters).toEqual([]);
-    expect(sections[3]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e2"]);
-    expect(sections[4]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e3"]);
+    expect(sections[3]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e3"]);
+    expect(sections[4]!.chapters[0]!.exams.map((e) => e.id)).toEqual(["e2"]);
+    expect(sections[5]!.chapters).toEqual([]);
   });
 });
 
@@ -417,6 +429,7 @@ describe("public exam list tabs", () => {
       "chemistry",
       "physics",
       "math",
+      "biology",
       "higher-math",
     ]);
 

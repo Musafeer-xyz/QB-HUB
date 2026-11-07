@@ -561,6 +561,13 @@ function MCQView({
           );
         })}
       </ul>
+
+      {question.explanation ? (
+        <div className="min-w-0 overflow-x-auto rounded-lg border border-line bg-[#f7f5ef] px-2.5 py-2 text-[13px] leading-[1.7]">
+          <p className="mb-0.5 text-[11px] font-semibold text-muted">ব্যাখ্যা</p>
+          <RichText text={question.explanation} className="min-w-0" />
+        </div>
+      ) : null}
     </div>
   );
 }

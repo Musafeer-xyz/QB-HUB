@@ -117,6 +117,13 @@ export const EXAM_SECTIONS: ExamSection[] = [
     aliases: ["math", "maths", "mathematics", "গণিত"],
   },
   {
+    id: "biology",
+    english: "BIOLOGY",
+    bangla: "জীববিজ্ঞান",
+    accent: "#16a34a",
+    aliases: ["biology", "bio", "জীববিজ্ঞান"],
+  },
+  {
     id: "higher-math",
     english: "HIGHER MATH",
     bangla: "উচ্চতর গণিত",

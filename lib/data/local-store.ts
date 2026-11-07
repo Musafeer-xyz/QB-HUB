@@ -72,6 +72,7 @@ function toRecord(raw: unknown): QuestionRecord | null {
     answer: d.answer,
     options: d.options,
     correctOption: d.correct_option,
+    explanation: d.type === "MCQ" ? d.explanation : null,
     flags,
   };
   if (d.type === "SQ") {
@@ -252,6 +253,7 @@ export function questionRecordFromForm(values: QuestionFormValues): QuestionReco
     stars: values.stars,
     boards: values.boards,
     answer: values.answer,
+    explanation: values.type === "MCQ" ? values.explanation : null,
     flags: [] as QuestionRecord["flags"],
   };
   if (values.type === "CQ") {
@@ -538,6 +540,7 @@ export function localStore(): Store {
             options: q.options,
             correctOption: q.correctOption,
             imagePath: q.imagePath,
+            explanation: q.explanation ?? null,
           });
         }
       }

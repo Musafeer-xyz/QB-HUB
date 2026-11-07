@@ -34,6 +34,7 @@ const formSchema = z.object({
   stem: z.array(z.string()),
   image: z.string().nullable(),
   image_desc: z.string().nullable(),
+  explanation: z.string().nullable(),
   answer: z.string().nullable(),
   options: z.array(optionSchema).nullable(),
   correct_option: z.enum(MCQ_LABELS).nullable(),
@@ -55,6 +56,8 @@ export async function saveQuestionAction(input: {
   stem: string[];
   image: string | null;
   image_desc: string | null;
+  /** MCQ answer note; the editor sends it back exactly as loaded. */
+  explanation: string | null;
   answer: string | null;
   options: { label: string; text: string }[] | null;
   correct_option: "ক" | "খ" | "গ" | "ঘ" | null;
@@ -98,6 +101,7 @@ export async function saveQuestionAction(input: {
       answer: values.answer,
       image: values.image,
       image_desc: values.image_desc,
+      explanation: values.explanation,
     });
     if (!mcq.success) {
       return { ok: false, message: mcq.error.issues[0]?.message ?? "MCQ-র তথ্য সঠিক নয়।" };

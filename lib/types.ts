@@ -20,6 +20,8 @@ export type QuestionRecord = {
   stem: string[];
   imagePath: string | null;
   imageDesc: string | null;
+  /** Student-facing note (MCQ only), shown on the result screen. */
+  explanation?: string | null;
   imageWidth?: number | null;
   imageHeight?: number | null;
   flags: QuestionFlag[];
@@ -126,6 +128,8 @@ export type ExamQuestion = {
   correctOption: string | null;
   /** Figure file name (optional: older rows and payloads do not carry one). */
   imagePath?: string | null;
+  /** Answer note (MCQ only). Never part of the start payload. */
+  explanation?: string | null;
 };
 
 /** A YouTube video entry. Only the 11-char YouTube id is stored. */
@@ -152,6 +156,8 @@ export type AttemptResult = {
     stem: string[];
     options: { label: string; text: string }[] | null;
     correctOption: string | null;
+    /** Answer note, returned by the result only. */
+    explanation?: string | null;
     studentAnswer: string | null;
     isCorrect: boolean;
   }>;

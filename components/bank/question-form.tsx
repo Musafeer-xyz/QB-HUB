@@ -38,6 +38,7 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
     })),
   );
   const [correctOption, setCorrectOption] = useState<string>(initial?.correctOption ?? "");
+  const [explanation, setExplanation] = useState(initial?.explanation ?? "");
   const [flags, setFlags] = useState<QuestionFlag[]>(initial?.flags ?? []);
   const [image, setImage] = useState<string | null>(initial?.imagePath ?? null);
   const [imageDesc, setImageDesc] = useState(initial?.imageDesc ?? "");
@@ -123,6 +124,8 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
         stem: type === "CQ" || type === "MCQ" ? stem.map((s) => s) : [],
         image,
         image_desc: imageDesc.trim() || null,
+        // Sent back exactly as loaded: an edit must never wipe a saved note.
+        explanation: type === "MCQ" ? explanation.trim() || null : null,
         answer: answer.trim() || null,
         options:
           type === "MCQ"
@@ -458,6 +461,16 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
             <p className="mt-1 text-xs text-muted">
               সঠিক উত্তর কেবল অ্যাডমিনে থাকে — প্রিন্ট বা PDF-এ কখনো যায় না।
             </p>
+            <label className="field-label mt-3" htmlFor="explanation">
+              ব্যাখ্যা (ঐচ্ছিক — শুধু ফলাফল স্ক্রিনে দেখা যাবে)
+            </label>
+            <textarea
+              id="explanation"
+              className="field-input min-h-[70px]"
+              value={explanation}
+              onChange={(e) => setExplanation(e.target.value)}
+              placeholder="সঠিক উত্তরের কারণ / ব্যাখ্যা"
+            />
           </div>
         ) : null}
 

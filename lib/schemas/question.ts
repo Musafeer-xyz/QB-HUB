@@ -85,6 +85,7 @@ export const KNOWN_QUESTION_KEYS = [
   "parts",
   "options",
   "correct_option",
+  "explanation",
   "source_no",
   "page",
 ] as const;
@@ -140,6 +141,8 @@ export const mcqQuestionSchema = z.object({
   image: imageFile,
   image_desc: nullableText,
   options: mcqOptionsSchema,
+  /** Student-facing "why" note, shown only on the result screen. */
+  explanation: nullableText,
   correct_option: z
     .enum(MCQ_LABELS)
     .nullable()

@@ -78,6 +78,8 @@ async function loadExisting(): Promise<Map<string, ExistingQuestion>> {
       stem: q.stem,
       image_path: q.imagePath,
       image_desc: q.imageDesc,
+      // Carried through so a stored note is never diffed away by an import.
+      explanation: q.explanation ?? null,
       flags: q.flags,
       answer: q.answer,
       options: q.options,
