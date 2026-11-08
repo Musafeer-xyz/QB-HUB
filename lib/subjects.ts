@@ -49,6 +49,13 @@ export const SUBJECTS: SubjectDef[] = [
     dot: "var(--subject-biology)",
     chapters: {},
   },
+  {
+    id: "highermath",
+    label: "উচ্চতর গণিত",
+    slug: "highermath",
+    dot: "var(--subject-higher-math)",
+    chapters: {},
+  },
 ];
 
 export const DEFAULT_SUBJECT = SUBJECTS[0]!.id;

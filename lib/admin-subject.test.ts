@@ -5,7 +5,7 @@ import {
   resolveBuilderSubject,
   withSubject,
 } from "@/lib/admin-subject";
-import { DEFAULT_SUBJECT } from "@/lib/subjects";
+import { DEFAULT_SUBJECT, SUBJECTS, subjectById } from "@/lib/subjects";
 
 describe("resolveAdminSubject", () => {
   it("prefers the URL subject", () => {
@@ -58,9 +58,15 @@ describe("resolveBuilderSubject", () => {
 describe("isSubjectId", () => {
   it("accepts registered ids and rejects slugs, labels and nullish values", () => {
     expect(isSubjectId("physics")).toBe(true);
+    expect(isSubjectId("highermath")).toBe(true);
     expect(isSubjectId("পদার্থবিজ্ঞান")).toBe(false);
     expect(isSubjectId("")).toBe(false);
     expect(isSubjectId(null)).toBe(false);
+  });
+
+  it("registers Higher Math once with the stored subject id", () => {
+    expect(SUBJECTS.filter((subject) => subject.id === "highermath")).toHaveLength(1);
+    expect(subjectById("highermath").label).toBe("উচ্চতর গণিত");
   });
 });
 
