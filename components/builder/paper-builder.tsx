@@ -22,6 +22,7 @@ import { savePaperAction, updatePaperAction } from "@/app/actions/papers";
 import { autoGenerate } from "@/lib/autogen";
 import { toBanglaDigits } from "@/lib/bangla";
 import { BRAND_NAME } from "@/lib/brand";
+import { subjectChapterTitle } from "@/lib/subjects";
 import {
   buildPaperDoc,
   defaultPaperSubjectText,
@@ -97,6 +98,7 @@ type BuilderState = {
   showPageNumbers: boolean;
   suggestion: SuggestionFlags;
   chapterLabel: string;
+  chapterTitleOverrides: PaperSettings["chapterTitleOverrides"];
   chapterLabelTouched: boolean;
   columnsTouched: boolean;
   pageBreakBefore: number[];
@@ -146,6 +148,7 @@ function stateFromPaper(paper: PaperRecord): BuilderState {
     showPageNumbers: paper.settings.showPageNumbers,
     suggestion: paper.settings.suggestion,
     chapterLabel: paper.settings.chapterLabel ?? "",
+    chapterTitleOverrides: paper.settings.chapterTitleOverrides,
     chapterLabelTouched: true,
     columnsTouched: true,
     pageBreakBefore: paper.settings.pageBreakBefore,
@@ -201,6 +204,7 @@ const DEFAULT_STATE: BuilderState = {
     showTotal: false,
   },
   chapterLabel: "",
+  chapterTitleOverrides: {},
   chapterLabelTouched: false,
   columnsTouched: false,
   pageBreakBefore: [],
@@ -452,6 +456,12 @@ export function PaperBuilder({
         .filter((v): v is PaperSelectionItem => v !== null),
     [items, byId],
   );
+  const paperSubjectId = initial?.subject ?? resolvedSubject;
+  const selectedChapters = [...new Set(
+    docItems
+      .filter(({ question }) => question.subject === paperSubjectId)
+      .map(({ question }) => question.chapter),
+  )].sort((a, b) => a - b);
 
   /**
    * Adopt the resolved subject; the title follows it while it is still the
@@ -523,6 +533,7 @@ export function PaperBuilder({
       showPageNumbers: state.showPageNumbers,
       suggestion: state.suggestion,
       chapterLabel: state.chapterLabel.trim() || null,
+      chapterTitleOverrides: state.chapterTitleOverrides,
       setCode: state.setCode,
       showSource: state.showSource,
       watermark: state.watermark,
@@ -556,11 +567,12 @@ export function PaperBuilder({
           instructions: state.instructions.trim() || null,
         },
         {
+          subjectId: paperSubjectId,
           imageSrc: (p) => questionImageUrl(p) ?? "",
           imageAvailable: (_id, p) => (p ? availableImages.has(p) : false),
         },
       ),
-    [docItems, settings, state, availableImages, initial?.subject],
+    [docItems, settings, state, availableImages, initial?.subject, paperSubjectId],
   );
 
   const shownTotal = model.sets.reduce((sum, s) => sum + s.totalMarks, 0);
@@ -1081,6 +1093,45 @@ export function PaperBuilder({
               Shown when Compact Header is enabled.
             </p>
           </Field>
+
+          {selectedChapters.length > 0 ? (
+            <fieldset className="space-y-2">
+              <legend className="field-label">অধ্যায়ের শিরোনাম</legend>
+              {selectedChapters.map((chapter) => {
+                const preset = subjectChapterTitle(paperSubjectId, chapter);
+                const id = `chapter-title-${chapter}`;
+                return (
+                  <Field key={chapter} label={`অধ্যায় ${toBanglaDigits(chapter)}`} htmlFor={id}>
+                    <input
+                      id={id}
+                      className="field-input"
+                      list={preset ? `${id}-presets` : undefined}
+                      placeholder={preset ?? "নিজের শিরোনাম লিখুন"}
+                      value={state.chapterTitleOverrides[paperSubjectId]?.[chapter] ?? preset ?? ""}
+                      onChange={(event) => {
+                        const title = event.target.value;
+                        setState((s) => ({
+                          ...s,
+                          chapterTitleOverrides: {
+                            ...s.chapterTitleOverrides,
+                            [paperSubjectId]: {
+                              ...s.chapterTitleOverrides[paperSubjectId],
+                              [chapter]: title,
+                            },
+                          },
+                        }));
+                      }}
+                    />
+                    {preset ? (
+                      <datalist id={`${id}-presets`}>
+                        <option value={preset} />
+                      </datalist>
+                    ) : null}
+                  </Field>
+                );
+              })}
+            </fieldset>
+          ) : null}
 
           <Field label="নির্দেশনা (হেডারের নিচে)" htmlFor="instructions">
             <input

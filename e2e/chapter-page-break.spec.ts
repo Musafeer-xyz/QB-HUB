@@ -21,7 +21,8 @@ const ID_SHORT_OFF = "3e2e4444-0000-4000-8000-000000000001";
 const ID_SHORT_ON = "3e2e4444-0000-4000-8000-000000000002";
 const ID_LONG_OFF = "3e2e4444-0000-4000-8000-000000000003";
 const ID_LONG_ON = "3e2e4444-0000-4000-8000-000000000004";
-const SEEDED_IDS = [ID_SHORT_OFF, ID_SHORT_ON, ID_LONG_OFF, ID_LONG_ON];
+const ID_PHYSICS_TITLE = "3e2e4444-0000-4000-8000-000000000005";
+const SEEDED_IDS = [ID_SHORT_OFF, ID_SHORT_ON, ID_LONG_OFF, ID_LONG_ON, ID_PHYSICS_TITLE];
 
 /** Bottom edge of the printable area: A4, 14 mm bottom margin (≈ 40 pt). */
 const CONTENT_FLOOR_PT = 36;
@@ -48,6 +49,7 @@ function writePaper(
   chapterPageBreak: boolean,
   chapterSix: SeedQuestion[],
   chapterSeven: SeedQuestion[],
+  subject = "chemistry",
 ): void {
   const store = JSON.parse(fs.readFileSync(PAPERS_FILE, "utf8")) as { papers: unknown[] };
   const questions = [...chapterSix, ...chapterSeven];
@@ -57,7 +59,7 @@ function writePaper(
     institute: "পরীক্ষা উচ্চ বিদ্যালয়",
     examName: "বার্ষিক পরীক্ষা ২০২৬",
     className: "দশম শ্রেণি",
-    subject: "chemistry",
+    subject,
     durationMinutes: 180,
     totalMarks: 0,
     settings: {
@@ -96,6 +98,9 @@ test.beforeAll(() => {
   const longSeven = [...pick(7, "SQ", 2), ...pick(7, "CQ", 1)];
   writePaper(ID_LONG_OFF, "E2E — অধ্যায় বিরতি বন্ধ (লম্বা)", false, longSix, longSeven);
   writePaper(ID_LONG_ON, "E2E — অধ্যায় বিরতি চালু (লম্বা)", true, longSix, longSeven);
+  const physics = bankQuestions().find((q) => q.id === "phy-02-sq-001");
+  expect(physics).toBeDefined();
+  writePaper(ID_PHYSICS_TITLE, "E2E — Physics chapter title", false, [physics!], [], "physics");
 });
 
 test.afterAll(() => {
@@ -163,4 +168,36 @@ test("chapter page break follows 'প্রতিটি অধ্যায় �
   const printed = await browserPrintPdf(page, ID_LONG_OFF);
   expect(await pdfPageCount(printed)).toBe(await pdfPageCount(off));
   expect(Math.abs((await lowestContentY(printed)) - offBottom)).toBeLessThan(5);
+});
+
+test("chapter title presets and manual overrides stay scoped and print at chapter boundaries", async ({ page }) => {
+  await page.goto(`/admin/papers/${ID_SHORT_OFF}/edit?step=2`);
+  const titleSix = page.getByLabel("অধ্যায় ৬", { exact: true });
+  const titleSeven = page.getByLabel("অধ্যায় ৭", { exact: true });
+  await expect(titleSix).toHaveValue("মোলের ধারণা ও রাসায়নিক গণনা");
+  await expect(titleSeven).toHaveValue("রাসায়নিক বিক্রিয়া");
+  await expect(page.locator("#chapter-title-6-presets option")).toHaveAttribute("value", "মোলের ধারণা ও রাসায়নিক গণনা");
+
+  const customTitle = "বিশেষ অনুশীলন CHAPTER-SIX";
+  const headings = page.locator(".paper-chapter-heading");
+  await titleSix.fill(customTitle);
+  await expect(headings).toHaveText([`অধ্যায় ৬ — ${customTitle}`, "অধ্যায় ৭ — রাসায়নিক বিক্রিয়া"]);
+  await page.getByRole("button", { name: "সংরক্ষণ", exact: true }).click();
+  await expect(page.getByText("পেপার হালনাগাদ হয়েছে।")).toBeVisible();
+  await page.reload();
+  await expect(titleSix).toHaveValue(customTitle);
+
+  const printed = await browserPrintPdf(page, ID_SHORT_OFF);
+  await expect(headings).toHaveText([`অধ্যায় ৬ — ${customTitle}`, "অধ্যায় ৭ — রাসায়নিক বিক্রিয়া"]);
+  for (const pdf of [printed, await serverPdf(page, ID_SHORT_OFF)]) {
+    expect((await pdfTextItems(pdf)).map((item) => item.str).join("")).toContain("CHAPTER-SIX");
+  }
+
+  await page.goto(`/admin/papers/${ID_PHYSICS_TITLE}/edit?step=2`);
+  const physicsTitle = page.getByLabel("অধ্যায় ২", { exact: true });
+  await expect(physicsTitle).toHaveValue("");
+  await expect(page.locator("datalist[id^='chapter-title-']")).toHaveCount(0);
+  await expect(headings).toHaveText(["অধ্যায় ২"]);
+  await physicsTitle.fill("গতির অনুশীলন");
+  await expect(headings).toHaveText(["অধ্যায় ২ — গতির অনুশীলন"]);
 });

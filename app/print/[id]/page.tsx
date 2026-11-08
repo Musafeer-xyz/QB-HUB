@@ -100,6 +100,7 @@ export default async function PrintPaperPage({
       instructions: paper.settings.instructions,
     },
     {
+      subjectId: paper.subject,
       imageSrc: (p) => questionImageUrl(p) ?? "",
       imageAvailable: (_id, imagePath) => (imagePath ? imageFiles.has(imagePath) : false),
     },

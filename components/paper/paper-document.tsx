@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { RichText } from "@/components/rich-text";
 import { QuestionImage } from "@/components/paper/question-image";
 import { toBanglaDigits } from "@/lib/bangla";
@@ -336,15 +336,22 @@ function Section({ section }: { section: PaperDocSection }) {
         ) : null}
       </div>
 
-      {section.questions.map((question) =>
-        section.type === "CQ" ? (
-          <CQ key={question.id} question={question} />
-        ) : section.type === "MCQ" ? (
-          <MCQ key={question.id} question={question} />
-        ) : (
-          <SQ key={question.id} question={question} />
-        ),
-      )}
+      {section.questions.map((question) => (
+        <Fragment key={question.id}>
+          {question.chapterHeading ? (
+            <h3 className={`paper-chapter-heading${question.breakBefore ? " break-before-page" : ""}`}>
+              {question.chapterHeading}
+            </h3>
+          ) : null}
+          {section.type === "CQ" ? (
+            <CQ question={question} />
+          ) : section.type === "MCQ" ? (
+            <MCQ question={question} />
+          ) : (
+            <SQ question={question} />
+          )}
+        </Fragment>
+      ))}
     </section>
   );
 }
@@ -357,7 +364,7 @@ function SourceTag({ source }: { source: string[] }) {
 function CQ({ question }: { question: PaperDocQuestion }) {
   return (
     <article className="paper-question paper-question-cq">
-      {question.breakBefore ? <div className="break-before-page" /> : null}
+      {question.breakBefore && !question.chapterHeading ? <div className="break-before-page" /> : null}
       <div className="flex items-start gap-2">
         <span className="paper-qno shrink-0">{question.label}</span>
         <div className="min-w-0 flex-1">
@@ -423,7 +430,7 @@ function MCQ({ question }: { question: PaperDocQuestion }) {
   const { stimulus, prompt, statements } = splitMcqStem(question.stem);
   return (
     <article className="paper-question paper-question-mcq">
-      {question.breakBefore ? <div className="break-before-page" /> : null}
+      {question.breakBefore && !question.chapterHeading ? <div className="break-before-page" /> : null}
       <div className="flex items-start gap-2">
         <span className="paper-qno shrink-0">{question.label}</span>
         <div className="min-w-0 flex-1">
@@ -490,7 +497,7 @@ function MCQ({ question }: { question: PaperDocQuestion }) {
 function SQ({ question }: { question: PaperDocQuestion }) {
   return (
     <article className="paper-question paper-question-sq flex items-start gap-2">
-      {question.breakBefore ? <div className="break-before-page" /> : null}
+      {question.breakBefore && !question.chapterHeading ? <div className="break-before-page" /> : null}
       <span className="paper-qno shrink-0">{question.label}</span>
       <div className="min-w-0 flex-1">
         {/* SQ prints no marks beside the question (the heading has "N × ২ = …").

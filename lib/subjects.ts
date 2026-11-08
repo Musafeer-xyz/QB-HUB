@@ -1,4 +1,4 @@
-import { CHEMISTRY_CHAPTER_NAMES } from "@/lib/chapters";
+import { CHEMISTRY_CHAPTER_NAMES, HIGHER_MATH_CHAPTER_NAMES } from "@/lib/chapters";
 
 /**
  * Subject registry.
@@ -54,7 +54,7 @@ export const SUBJECTS: SubjectDef[] = [
     label: "উচ্চতর গণিত",
     slug: "highermath",
     dot: "var(--subject-higher-math)",
-    chapters: {},
+    chapters: HIGHER_MATH_CHAPTER_NAMES,
   },
 ];
 
@@ -66,6 +66,11 @@ export function subjectById(id: string | null | undefined): SubjectDef {
 
 export function subjectLabel(id: string | null | undefined): string {
   return subjectById(id).label;
+}
+
+/** Presets are scoped to the exact subject ID, including for unknown subjects. */
+export function subjectChapterTitle(subjectId: string, chapter: number): string | null {
+  return SUBJECTS.find((subject) => subject.id === subjectId)?.chapters[chapter] ?? null;
 }
 
 /** Bangla name for a chapter, falling back to `অধ্যায় N`. */

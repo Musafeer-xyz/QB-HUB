@@ -7,7 +7,7 @@ import {
 import { questionMarks, resolveParts } from "@/lib/marks";
 import { toBanglaDigits } from "@/lib/bangla";
 import { chapterHeading as chapterTitle } from "@/lib/chapters";
-import { examSectionFor } from "@/lib/subjects";
+import { examSectionFor, subjectChapterTitle } from "@/lib/subjects";
 import {
   SECTION_TITLES,
   generalInstructions,
@@ -48,6 +48,8 @@ export type PaperDocQuestion = {
   marks: number;
   /** Manual page break starts before this question. */
   breakBefore: boolean;
+  /** Chapter heading within a section grouped by question type. */
+  chapterHeading?: string;
   /** Answer line — only rendered when the master flag allows it. */
   answer: string | null;
   /** Board/year tags, empty unless "প্রশ্নের উৎস দেখাও" is on. */
@@ -204,6 +206,8 @@ export type PaperSelectionItem = {
 };
 
 type DocOptions = {
+  /** Subject of the paper. Falls back to the selected questions' subject. */
+  subjectId?: string;
   /** Map of question id → whether its image file exists/loaded. */
   imageAvailable?: (id: string, path: string | null) => boolean;
   imageSrc?: (path: string) => string | null;
@@ -294,6 +298,10 @@ export function buildPaperDocSet(
   };
 
   const selected = items;
+  const subjectId = opts.subjectId ?? selected[0]?.question.subject ?? "";
+  const titleOverrides = settings.chapterTitleOverrides[subjectId];
+  const headingFor = (chapter: number) =>
+    chapterTitle(chapter, titleOverrides?.[chapter]?.trim() || subjectChapterTitle(subjectId, chapter));
   const compare = questionComparator(settings.sortBy);
   const sortSection = (list: PaperSelectionItem[]) =>
     opts.preserveOrder ? list : [...list].sort(compare);
@@ -349,10 +357,11 @@ export function buildPaperDocSet(
   let chapterIndex = -1;
 
   for (const draft of drafts) {
+    const chapter = draft.chapter;
     let sectionNumber = 0;
     const questions: PaperDocQuestion[] = [];
 
-    for (const item of draft.items) {
+    for (const [index, item] of draft.items.entries()) {
       const q = item.question;
       numbering += 1;
       sectionNumber += 1;
@@ -384,6 +393,10 @@ export function buildPaperDocSet(
         parts,
         marks,
         breakBefore: settings.pageBreakBefore.includes(numbering),
+        chapterHeading:
+          chapter === null && q.chapter !== draft.items[index - 1]?.question.chapter
+            ? headingFor(q.chapter)
+            : undefined,
         answer: settings.showAnswers ? q.answer : null,
         source: settings.showSource ? q.boards : [],
       });
@@ -396,9 +409,9 @@ export function buildPaperDocSet(
       questions.map((q) => q.marks),
       choice,
     );
-    const firstOfChapter = draft.chapter !== null && draft.chapter !== currentChapter;
-    if (draft.chapter !== null && firstOfChapter) {
-      currentChapter = draft.chapter;
+    const firstOfChapter = chapter !== null && chapter !== currentChapter;
+    if (firstOfChapter) {
+      currentChapter = chapter;
       chapterIndex += 1;
     }
 
@@ -430,8 +443,8 @@ export function buildPaperDocSet(
         : sectionInstruction(storedInstruction, summary),
       questions,
       summary,
-      chapter: draft.chapter,
-      chapterHeading: firstOfChapter ? chapterTitle(draft.chapter as number) : null,
+      chapter,
+      chapterHeading: firstOfChapter ? headingFor(chapter) : null,
       newPage: firstOfChapter && chapterIndex > 0 && settings.chapterPageBreak,
     });
   }

@@ -92,6 +92,8 @@ export const paperSettingsSchema = z.object({
     })),
   /** Chapter line under the subject; auto-filled from the selection, editable. */
   chapterLabel: nullableText,
+  /** Paper-specific chapter title overrides, keyed by subject ID then chapter number. */
+  chapterTitleOverrides: z.record(z.record(z.string().regex(/^[1-9]\d*$/), z.string())).default({}),
   /** Active set code printed in the header box (ক / খ). */
   setCode: z.string().trim().min(1).max(4).default("ক"),
   /** Print each question's board/year source tag. */

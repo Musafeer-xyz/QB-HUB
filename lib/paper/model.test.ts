@@ -5,6 +5,7 @@ import {
   DEFAULT_GENERAL_INSTRUCTIONS,
 } from "@/lib/paper/sections";
 import { defaultPaperSettings, paperInputSchema, paperSettingsSchema } from "@/lib/schemas/paper";
+import { subjectChapterTitle } from "@/lib/subjects";
 import type { QuestionRecord } from "@/lib/types";
 
 const FLAG_TEXT = "অংশটি বইয়ে আংশিকভাবে আছে; যাচাই করুন";
@@ -142,6 +143,67 @@ describe("paper header subject label", () => {
 });
 
 describe("paper document model", () => {
+  const higherMathItems: PaperSelectionItem[] = [
+    { question: { ...sq(), id: "hm-12-sq-001", subject: "highermath", chapter: 12 }, selectedParts: [], section: null },
+    { question: { ...sq(), id: "hm-12-sq-002", subject: "highermath", chapter: 12 }, selectedParts: [], section: null },
+    { question: { ...cq(), id: "hm-12-cq-001", subject: "highermath", chapter: 12 }, selectedParts: [], section: null },
+    { question: { ...sq(), id: "hm-13-sq-001", subject: "highermath", chapter: 13 }, selectedParts: [], section: null },
+  ];
+
+  it("uses only the selected subject's presets for chapter headings", () => {
+    expect(subjectChapterTitle("highermath", 11)).toBe("স্থানাঙ্ক জ্যামিতি");
+    expect(subjectChapterTitle("highermath", 14)).toBe("সম্ভাবনা");
+    expect(subjectChapterTitle("physics", 12)).toBeNull();
+    expect(subjectChapterTitle("unknown", 6)).toBeNull();
+
+    const settings = defaultPaperSettings();
+    const higherMath = buildPaperDoc(higherMathItems, settings, META, { subjectId: "highermath" });
+    expect(higherMath.sets[0]!.sections.map((section) => section.chapterHeading)).toEqual([
+      "অধ্যায় ১২ — সমতলীয় ভেক্টর",
+      null,
+      "অধ্যায় ১৩ — ঘন জ্যামিতি",
+    ]);
+    const physics = buildPaperDoc(higherMathItems, settings, META, { subjectId: "physics" });
+    expect(physics.sets[0]!.sections.map((section) => section.chapterHeading)).toEqual([
+      "অধ্যায় ১২",
+      null,
+      "অধ্যায় ১৩",
+    ]);
+  });
+
+  it("restores scoped overrides at chapter boundaries in type grouping", () => {
+    const input = paperInputSchema.parse({
+      title: "Vectors",
+      subject: "highermath",
+      totalMarks: 2,
+      questions: [{ questionId: "hm-12-sq-001" }],
+      settings: {
+        grouping: "type",
+        compactHeader: true,
+        headerLine: "  Custom Header | 12–13  ",
+        chapterTitleOverrides: {
+          highermath: { 12: "ভেক্টর অনুশীলন" },
+          physics: { 13: "নিজস্ব পদার্থবিজ্ঞান শিরোনাম" },
+        },
+      },
+    });
+    const settings = paperSettingsSchema.parse(JSON.parse(JSON.stringify(input.settings)));
+    const { meta, sets } = buildPaperDoc(higherMathItems, settings, META, { subjectId: input.subject });
+    expect(meta.headerLine).toBe("  Custom Header | 12–13  ");
+    const sqSection = sets[0]!.sections.find((section) => section.type === "SQ");
+    expect(sqSection?.questions.map((question) => question.chapterHeading)).toEqual([
+      "অধ্যায় ১২ — ভেক্টর অনুশীলন",
+      undefined,
+      "অধ্যায় ১৩ — ঘন জ্যামিতি",
+    ]);
+    const physics = buildPaperDoc(higherMathItems, settings, META, { subjectId: "physics" });
+    expect(physics.sets[0]!.sections.find((section) => section.type === "SQ")?.questions.map((question) => question.chapterHeading)).toEqual([
+      "অধ্যায় ১২",
+      undefined,
+      "অধ্যায় ১৩ — নিজস্ব পদার্থবিজ্ঞান শিরোনাম",
+    ]);
+  });
+
   it("never exposes admin flags to the printed document", () => {
     const doc = buildPaperDoc(items, defaultPaperSettings(), META);
     const serialized = JSON.stringify(doc);
