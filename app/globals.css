@@ -409,6 +409,18 @@ h1,
   text-align: center;
 }
 
+.paper-header-compact {
+  max-width: 100%;
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
+}
+
+.paper-header-subject {
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .paper-header-meta {
   display: flex;
   justify-content: space-between;

@@ -36,11 +36,11 @@ type ExamsFile = { exams: ExamRecord[] };
 type AttemptsFile = { attempts: AttemptRecord[] };
 type VideosFile = { videos: VideoRecord[] };
 
-function readJson<T>(file: string, fallback: T): T {
+function readJson<T>(file: string, fallback: T, normalizeText = true): T {
   try {
     if (!fs.existsSync(file)) return fallback;
-    const text = fs.readFileSync(file, "utf8").normalize("NFC");
-    return JSON.parse(text) as T;
+    const text = fs.readFileSync(file, "utf8");
+    return JSON.parse(normalizeText ? text.normalize("NFC") : text) as T;
   } catch {
     return fallback;
   }
@@ -178,7 +178,8 @@ function allQuestions(): QuestionRecord[] {
 }
 
 function loadPapers(): PaperRecord[] {
-  const file = readJson<PapersFile>(papersFile, { papers: [] });
+  // Paper settings include verbatim header text, so keep the saved characters.
+  const file = readJson<PapersFile>(papersFile, { papers: [] }, false);
   return file.papers.map((p) => ({
     ...p,
     settings: paperSettingsSchema.parse(p.settings ?? {}),

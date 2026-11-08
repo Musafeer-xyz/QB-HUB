@@ -285,14 +285,6 @@ function Header({ meta, totalMarks }: { meta: PaperDocMeta; totalMarks: number }
 
   const timeText =
     meta.time ?? (meta.durationMinutes ? `${toBanglaDigits(meta.durationMinutes)} মিনিট` : null);
-  const compactLine = [
-    meta.className ? `শ্রেণি: ${meta.className}` : null,
-    `বিষয়: ${meta.subjectLabel}`,
-    meta.chapterLabel,
-  ]
-    .filter((p): p is string => Boolean(p && p.trim()))
-    .join(" · ");
-
   return (
     <header className="paper-page-header">
       <div className="paper-set-code">সেট কোড: {meta.setCode}</div>
@@ -301,13 +293,13 @@ function Header({ meta, totalMarks }: { meta: PaperDocMeta; totalMarks: number }
         {meta.institute ? <h1 className="paper-institute">{meta.institute}</h1> : null}
         {meta.examName ? <p className="paper-header-line font-semibold">{meta.examName}</p> : null}
         {meta.compactHeader ? (
-          <p className="paper-header-line">{compactLine}</p>
+          <p className="paper-header-line paper-header-compact">{meta.headerLine}</p>
         ) : (
           <>
             {meta.className ? (
               <p className="paper-header-line">শ্রেণি: {meta.className}</p>
             ) : null}
-            <p className="paper-header-line">বিষয়: {meta.subjectLabel}</p>
+            <p className="paper-header-line paper-header-subject">বিষয়: {meta.subjectLabel}</p>
             {meta.chapterLabel ? (
               <p className="paper-header-line">{meta.chapterLabel}</p>
             ) : null}

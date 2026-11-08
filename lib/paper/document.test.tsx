@@ -32,6 +32,7 @@ const meta: PaperDocMeta = {
   figureSize: "medium",
   keepQuestionTogether: true,
   compactHeader: false,
+  headerLine: "Subject: রসায়ন",
   showPageNumbers: false,
   suggestion: {
     showTime: false,
@@ -163,5 +164,29 @@ describe("printed paper marks", () => {
     expect(articleFor(html, "mcq").match(/class="paper-mcq-option"/g)).toHaveLength(4);
     // The correct option never reaches the print document.
     expect(html).not.toContain("উত্তর");
+  });
+});
+
+describe("paper header rendering", () => {
+  it("renders the compact line verbatim as plain text", () => {
+    const html = renderToStaticMarkup(
+      <PaperDocument meta={{ ...meta, compactHeader: true, headerLine: "  mAtH <A> & B | 12!  " }} sets={sets} />,
+    );
+    expect(html).toContain('class="paper-header-line paper-header-compact">  mAtH &lt;A&gt; &amp; B | 12!  </p>');
+    expect(html).not.toContain("শ্রেণি:");
+    expect(html).not.toContain("বিষয়:");
+  });
+
+  it("uses the editable subject in the existing non-compact layout", () => {
+    const html = renderToStaticMarkup(
+      <PaperDocument
+        meta={{ ...meta, subjectLabel: "hIgHeR  MATH", chapterLabel: "Chapter - 12, 13", headerLine: "Compact only!" }}
+        sets={sets}
+      />,
+    );
+    expect(html).toContain("শ্রেণি: দশম");
+    expect(html).toContain("বিষয়: hIgHeR  MATH");
+    expect(html).toContain("Chapter - 12, 13");
+    expect(html).not.toContain("Compact only!");
   });
 });

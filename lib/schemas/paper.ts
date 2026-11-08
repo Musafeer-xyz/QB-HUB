@@ -65,6 +65,10 @@ export const paperSettingsSchema = z.object({
   keepQuestionTogether: z.boolean().default(true),
   /** Class · subject · chapters on one line in the header. */
   compactHeader: z.boolean().default(false),
+  /** Printable subject text, separate from the paper's stored subject ID. */
+  subjectDisplayText: nullableText,
+  /** Complete compact header. Null uses metadata; an empty string is intentional. */
+  headerLine: nullableText,
   /** Print `১ / ৩` in the bottom margin of every page. */
   showPageNumbers: z.boolean().default(true),
   /**

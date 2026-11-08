@@ -6,7 +6,7 @@ import { getStore } from "@/lib/data/store";
 import { isLocalMode } from "@/lib/mode";
 import { questionImageUrl } from "@/lib/images";
 import { availableImageFiles } from "@/lib/images-server";
-import { buildPaperDoc, subjectLabel } from "@/lib/paper/model";
+import { buildPaperDoc, defaultPaperSubjectText } from "@/lib/paper/model";
 import { paperDims } from "@/lib/paper/sizes";
 import { verifyPrintToken } from "@/lib/print-token";
 import type { PaperRecord, QuestionRecord } from "@/lib/types";
@@ -92,7 +92,7 @@ export default async function PrintPaperPage({
       logoSrc: paper.settings.logoUrl ? questionImageUrl(paper.settings.logoUrl) : null,
       examName: paper.examName,
       className: paper.className,
-      subjectLabel: subjectLabel(paper.subject),
+      subjectLabel: defaultPaperSubjectText(paper.subject),
       date: paper.settings.date,
       time: paper.settings.time,
       durationMinutes: paper.durationMinutes,

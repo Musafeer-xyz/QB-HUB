@@ -44,6 +44,7 @@ const ID_FORMULA = "3e2e0000-0000-4000-8000-000000000006";
 const ID_INSTR_CHOICE = "3e2e0000-0000-4000-8000-000000000007";
 /** Same questions with N = count — the "সবগুলো" wording. */
 const ID_INSTR_ALL = "3e2e0000-0000-4000-8000-000000000008";
+const ID_EDITABLE_HEADER = "3e2e0000-0000-4000-8000-000000000009";
 
 const SEEDED_IDS = [
   ID_2COL,
@@ -54,6 +55,7 @@ const SEEDED_IDS = [
   ID_FORMULA,
   ID_INSTR_CHOICE,
   ID_INSTR_ALL,
+  ID_EDITABLE_HEADER,
 ];
 
 type Margins = { top: number; right: number; bottom: number; left: number };
@@ -199,6 +201,10 @@ test.beforeAll(() => {
     marginPreset: "normal",
     cqChoice: null,
     cqInstruction: "যেকোনো ১টি প্রশ্নের উত্তর দাও",
+  });
+  writePaper(ID_EDITABLE_HEADER, "E2E — Editable header", chapter6Cq.slice(0, 1), {
+    chapterLabel: "Chapter - 6",
+    paperSize: "A5",
   });
 });
 
@@ -474,7 +480,7 @@ test("page setup switches (A5, narrow margins, split questions, compact header) 
   expect(setup.figureMaxHeight).toBe("75mm");
   // Compact header: class, subject and chapters on one line.
   expect(setup.headerLine).toContain("শ্রেণি:");
-  expect(setup.headerLine).toContain("বিষয়:");
+  expect(setup.headerLine).toContain("Subject: Chemistry");
   expect(setup.headerLine).toContain("অধ্যায়");
 
   const pdf = await browserPrintPdf(page, ID_A5);
@@ -483,6 +489,59 @@ test("page setup switches (A5, narrow margins, split questions, compact header) 
   const first = (await doc.getPage(1)).getViewport({ scale: 1 });
   expect(first.width).toBeCloseTo((148 * 72) / 25.4, 0);
   expect(first.height).toBeCloseTo((210 * 72) / 25.4, 0);
+});
+
+test("editable metadata survives reopening and a long header wraps in preview, print, and download", async ({ page }) => {
+  const editUrl = `/admin/papers/${ID_EDITABLE_HEADER}/edit?step=2`;
+  const subjectText = "  cHeMiStRy  (Cafe\u0301 Lab)  ";
+  const headerLine = "  Review  <A> & B / Chapter 6!  ";
+  await page.goto(editUrl);
+  const subject = page.getByLabel("Subject", { exact: true });
+  const header = page.getByLabel("Header line", { exact: true });
+  const compactLine = page.locator(".paper-header-compact");
+  await expect(subject).toHaveValue("Chemistry");
+  await expect(header).toHaveValue("শ্রেণি: দশম শ্রেণি · Subject: Chemistry · Chapter - 6");
+
+  await subject.fill(subjectText);
+  await header.fill(headerLine);
+  await expect(page.locator(".paper-header-subject")).toHaveJSProperty("textContent", `বিষয়: ${subjectText}`);
+  await expect(compactLine).toHaveCount(0);
+  await page.locator("#compactheader").check();
+  await expect(compactLine).toHaveJSProperty("textContent", headerLine);
+
+  await page.getByRole("button", { name: "সংরক্ষণ", exact: true }).click();
+  await expect(page.getByText("পেপার হালনাগাদ হয়েছে।")).toBeVisible();
+  await page.reload();
+  await expect(subject).toHaveValue(subjectText);
+  await expect(header).toHaveValue(headerLine);
+  await expect(compactLine).toHaveJSProperty("textContent", headerLine);
+
+  const updatedLine =
+    "  START: Lab Review <A> & B / Chapter 6!  Extended practice and revision notes | " +
+    "ReferenceCode0123456789".repeat(8) +
+    " | Final instructions? END.  ";
+  await header.fill(updatedLine);
+  await expect(compactLine).toHaveJSProperty("textContent", updatedLine);
+  const previewSize = await compactLine.evaluate((element) => ({
+    height: element.clientHeight,
+    lineHeight: Number.parseFloat(getComputedStyle(element).lineHeight),
+    width: element.clientWidth,
+    contentWidth: element.scrollWidth,
+  }));
+  expect(previewSize.height).toBeGreaterThan(previewSize.lineHeight);
+  expect(previewSize.contentWidth).toBeLessThanOrEqual(previewSize.width);
+
+  const downloaded = page.waitForEvent("download");
+  await page.getByRole("button", { name: "PDF ডাউনলোড" }).click();
+  const downloadedPdf = fs.readFileSync(await (await downloaded).path());
+
+  const printedPdf = await browserPrintPdf(page, ID_EDITABLE_HEADER);
+  await expect(compactLine).toHaveJSProperty("textContent", updatedLine);
+  for (const pdf of [downloadedPdf, printedPdf]) {
+    // PDF text extraction may insert spaces at wrap points or omit edge spaces.
+    const text = (await pdfTextItems(pdf)).map((item) => item.str).join("");
+    expect(text.replace(/\s/g, "")).toContain(updatedLine.replace(/\s/g, ""));
+  }
 });
 
 test("an over-wide formula is scaled down to its column instead of overflowing", async ({ page }) => {

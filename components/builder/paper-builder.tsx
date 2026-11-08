@@ -24,6 +24,7 @@ import { toBanglaDigits } from "@/lib/bangla";
 import { BRAND_NAME } from "@/lib/brand";
 import {
   buildPaperDoc,
+  defaultPaperSubjectText,
   subjectLabel,
   type PaperSelectionItem,
   type SuggestionFlags,
@@ -70,6 +71,8 @@ type BuilderState = {
   examName: string;
   className: string;
   subject: string;
+  subjectDisplayText: string | null;
+  headerLine: string | null;
   date: string;
   time: string;
   durationMinutes: number | null;
@@ -117,6 +120,8 @@ function stateFromPaper(paper: PaperRecord): BuilderState {
     examName: paper.examName,
     className: paper.className,
     subject: paper.subject,
+    subjectDisplayText: paper.settings.subjectDisplayText,
+    headerLine: paper.settings.headerLine,
     date: paper.settings.date ?? "",
     time: paper.settings.time ?? "",
     durationMinutes: paper.durationMinutes,
@@ -164,6 +169,8 @@ const DEFAULT_STATE: BuilderState = {
   examName: "বার্ষিক পরীক্ষা ২০২৬",
   className: "দশম শ্রেণি",
   subject: "chemistry",
+  subjectDisplayText: null,
+  headerLine: null,
   date: "",
   time: "",
   durationMinutes: 180,
@@ -511,6 +518,8 @@ export function PaperBuilder({
       figureSize: state.figureSize,
       keepQuestionTogether: state.keepQuestionTogether,
       compactHeader: state.compactHeader,
+      subjectDisplayText: state.subjectDisplayText,
+      headerLine: state.headerLine,
       showPageNumbers: state.showPageNumbers,
       suggestion: state.suggestion,
       chapterLabel: state.chapterLabel.trim() || null,
@@ -539,7 +548,7 @@ export function PaperBuilder({
           logoSrc: state.logoUrl ? (questionImageUrl(state.logoUrl) ?? state.logoUrl) : null,
           examName: state.examName,
           className: state.className,
-          subjectLabel: subjectLabel(state.subject),
+          subjectLabel: defaultPaperSubjectText(initial?.subject ?? state.subject),
           date: state.date.trim() || null,
           time: state.time.trim() || null,
           durationMinutes: state.durationMinutes,
@@ -551,7 +560,7 @@ export function PaperBuilder({
           imageAvailable: (_id, p) => (p ? availableImages.has(p) : false),
         },
       ),
-    [docItems, settings, state, availableImages],
+    [docItems, settings, state, availableImages, initial?.subject],
   );
 
   const shownTotal = model.sets.reduce((sum, s) => sum + s.totalMarks, 0);
@@ -721,7 +730,7 @@ export function PaperBuilder({
       institute: state.institute.trim(),
       examName: state.examName.trim(),
       className: state.className.trim(),
-      subject: state.subject,
+      subject: initial?.subject ?? state.subject,
       durationMinutes: state.durationMinutes,
       totalMarks: shownTotal,
       settings,
@@ -767,9 +776,19 @@ export function PaperBuilder({
       push("error", "PDF ডাউনলোডের আগে পেপারটি সংরক্ষণ করুন।");
       return;
     }
+    const problem = validate();
+    if (problem) {
+      push("error", problem);
+      return;
+    }
     setPdfPending(true);
     setPdfError(null);
     try {
+      const saved = await updatePaperAction(savedId, buildPayload());
+      if (!saved.ok) {
+        push("error", saved.message);
+        return;
+      }
       const res = await fetch("/api/pdf", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -967,8 +986,13 @@ export function PaperBuilder({
                 onChange={(e) => setState((s) => ({ ...s, className: e.target.value }))}
               />
             </Field>
-            <Field label="বিষয়" htmlFor="subject">
-              <input id="subject" className="field-input" value={subjectLabel(state.subject)} readOnly />
+            <Field label="Subject" htmlFor="subject">
+              <input
+                id="subject"
+                className="field-input"
+                value={model.meta.subjectLabel}
+                onChange={(e) => setState((s) => ({ ...s, subjectDisplayText: e.target.value }))}
+              />
             </Field>
             <Field label="অধ্যায় (স্বয়ংক্রিয়, সম্পাদনাযোগ্য)" htmlFor="chapterlabel">
               <input
@@ -1045,6 +1069,18 @@ export function PaperBuilder({
               </div>
             </Field>
           </div>
+          <Field label="Header line" htmlFor="headerline">
+            <input
+              id="headerline"
+              className="field-input"
+              value={model.meta.headerLine}
+              onChange={(e) => setState((s) => ({ ...s, headerLine: e.target.value }))}
+              aria-describedby="headerline-help"
+            />
+            <p id="headerline-help" className="mt-1 text-xs text-muted">
+              Shown when Compact Header is enabled.
+            </p>
+          </Field>
 
           <Field label="নির্দেশনা (হেডারের নিচে)" htmlFor="instructions">
             <input
@@ -1287,7 +1323,7 @@ export function PaperBuilder({
               id="compactheader"
               checked={state.compactHeader}
               onChange={(v) => setState((s) => ({ ...s, compactHeader: v }))}
-              label="কম্প্যাক্ট হেডার — শ্রেণি · বিষয় · অধ্যায় এক লাইনে"
+              label="কম্প্যাক্ট হেডার (Compact Header)"
             />
           </div>
           <p className="rounded-md bg-slate-50 px-2 py-1.5 text-xs text-slate-600">

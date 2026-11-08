@@ -7,6 +7,7 @@ import {
 import { questionMarks, resolveParts } from "@/lib/marks";
 import { toBanglaDigits } from "@/lib/bangla";
 import { chapterHeading as chapterTitle } from "@/lib/chapters";
+import { examSectionFor } from "@/lib/subjects";
 import {
   SECTION_TITLES,
   generalInstructions,
@@ -110,6 +111,7 @@ export type PaperDocMeta = {
   figureSize: "small" | "medium" | "large";
   keepQuestionTogether: boolean;
   compactHeader: boolean;
+  headerLine: string;
   showPageNumbers: boolean;
   /** Only consulted in suggestion mode. */
   suggestion: SuggestionFlags;
@@ -137,6 +139,7 @@ export type PaperDocMetaInput = Omit<
   | "figureSize"
   | "keepQuestionTogether"
   | "compactHeader"
+  | "headerLine"
   | "showPageNumbers"
   | "suggestion"
   | "showAnswers"
@@ -180,6 +183,13 @@ const SUBJECT_LABELS: Record<string, string> = {
 
 export function subjectLabel(subject: string): string {
   return SUBJECT_LABELS[subject.trim().toLowerCase()] ?? subject;
+}
+
+/** Use the registry's English display name as the initial paper metadata. */
+export function defaultPaperSubjectText(subject: string): string {
+  const section = examSectionFor(subject);
+  if (section.id === "other") return subjectLabel(subject);
+  return section.english.toLowerCase().replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 }
 
 /** "০১।" — two Bangla digits and a danda. */
@@ -249,9 +259,17 @@ export function buildPaperDocSet(
   const imageSrc = opts.imageSrc ?? ((p: string) => p);
   const imageAvailable = opts.imageAvailable ?? (() => true);
   const setName = opts.setName ?? settings.setCode;
+  const subjectText = settings.subjectDisplayText ?? meta.subjectLabel;
+  const className = meta.className.trim();
+  const defaultHeaderLine = [
+    className ? `শ্রেণি: ${className}` : null,
+    `Subject: ${subjectText}`,
+    settings.chapterLabel?.trim(),
+  ].filter(Boolean).join(" · ");
 
   const docMeta: PaperDocMeta = {
     ...meta,
+    subjectLabel: subjectText,
     mode: settings.mode,
     columns: settings.columns,
     columnDivider: settings.columnDivider,
@@ -264,6 +282,7 @@ export function buildPaperDocSet(
     figureSize: settings.figureSize,
     keepQuestionTogether: settings.keepQuestionTogether,
     compactHeader: settings.compactHeader,
+    headerLine: settings.headerLine ?? defaultHeaderLine,
     showPageNumbers: settings.showPageNumbers,
     suggestion: settings.suggestion,
     showAnswers: settings.showAnswers,

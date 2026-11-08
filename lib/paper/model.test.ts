@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { buildPaperDoc, subjectLabel, type PaperSelectionItem } from "@/lib/paper/model";
+import { buildPaperDoc, defaultPaperSubjectText, subjectLabel, type PaperSelectionItem } from "@/lib/paper/model";
 import {
   CHOICE_GENERAL_INSTRUCTIONS,
   DEFAULT_GENERAL_INSTRUCTIONS,
 } from "@/lib/paper/sections";
-import { defaultPaperSettings } from "@/lib/schemas/paper";
+import { defaultPaperSettings, paperInputSchema, paperSettingsSchema } from "@/lib/schemas/paper";
 import type { QuestionRecord } from "@/lib/types";
 
 const FLAG_TEXT = "অংশটি বইয়ে আংশিকভাবে আছে; যাচাই করুন";
@@ -108,6 +108,36 @@ describe("paper header subject label", () => {
     expect(subjectLabel("higher_math")).toBe("উচ্চতর গণিত");
     // Unknown ids are printed as stored — never guessed or dropped.
     expect(subjectLabel("ict")).toBe("ict");
+  });
+
+  it("derives an editable default from the selected subject and current metadata", () => {
+    expect(defaultPaperSubjectText("highermath")).toBe("Higher Math");
+    expect(defaultPaperSubjectText("physics")).toBe("Physics");
+    const settings = paperSettingsSchema.parse({ compactHeader: true, chapterLabel: "Chapter - 12, 13" });
+    const { meta } = buildPaperDoc(items, settings, {
+      ...META,
+      className: "",
+      subjectLabel: defaultPaperSubjectText("highermath"),
+    });
+    expect(meta.headerLine).toBe("Subject: Higher Math · Chapter - 12, 13");
+  });
+
+  it.each([
+    { subjectDisplayText: "  hIgHeR  MATH  ", headerLine: "  Topic <A> & B | 12 / 13!  " },
+    { subjectDisplayText: "", headerLine: "" },
+  ])("preserves the stored ID and exact header settings through save and load (%j)", (edits) => {
+    const paper = paperInputSchema.parse({
+      title: "Model test",
+      subject: "highermath",
+      totalMarks: 2,
+      questions: [{ questionId: "hm-12-sq-001" }],
+      settings: { compactHeader: true, ...edits },
+    });
+    const settings = paperSettingsSchema.parse(JSON.parse(JSON.stringify(paper.settings)));
+    const { meta } = buildPaperDoc([], settings, META);
+    expect(paper.subject).toBe("highermath");
+    expect(meta.subjectLabel).toBe(edits.subjectDisplayText);
+    expect(meta.headerLine).toBe(edits.headerLine);
   });
 });
 
