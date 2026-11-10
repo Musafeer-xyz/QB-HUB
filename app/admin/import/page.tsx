@@ -9,8 +9,8 @@ export default function ImportPage() {
     <div className="space-y-3">
       <PageHeader
         icon={Upload}
-        title="ইমপোর্ট"
-        description="JSON ফাইল বা পেস্ট করা ডেটা থেকে প্রশ্ন যোগ করুন — আগে যাচাই, তারপর সংরক্ষণ।"
+        title="প্রশ্ন ইমপোর্ট"
+        description="JSON যোগ করুন, যাচাইয়ের রিপোর্ট দেখুন, তারপর প্রশ্ন সংরক্ষণ করুন।"
       />
       <ImportPanel />
     </div>

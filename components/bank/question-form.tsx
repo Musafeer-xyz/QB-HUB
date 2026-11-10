@@ -1,14 +1,17 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { RichTextLivePreview } from "@/components/rich-text";
 import { MathTextarea } from "@/components/bank/math-textarea";
 import { useToast } from "@/components/toast";
+import { useAdminSubject } from "@/components/shell/subject-context";
 import { resolveFlagAction, saveQuestionAction } from "@/app/actions/questions";
+import { resolveAdminSubject, withSubject } from "@/lib/admin-subject";
 import { MCQ_LABELS, type QuestionFlag } from "@/lib/schemas/question";
 import { questionImageUrl } from "@/lib/images";
 import { toBanglaDigits } from "@/lib/bangla";
+import { DEFAULT_SUBJECT, SUBJECTS } from "@/lib/subjects";
 import type { QuestionRecord } from "@/lib/types";
 
 type PartForm = { label: string; marks: number; text: string; answer: string | null };
@@ -21,6 +24,13 @@ const EMPTY_PART: PartForm = { label: "", marks: 1, text: "", answer: null };
  */
 export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { subject: pageSubject } = useAdminSubject();
+  const subject = initial?.subject ?? resolveAdminSubject({
+    url: searchParams.get("subject"),
+    paper: pageSubject,
+  });
+  const subjectName = SUBJECTS.find((entry) => entry.id === subject)?.label ?? subject;
   const { push } = useToast();
   const [pending, startTransition] = useTransition();
 
@@ -114,8 +124,7 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
     startTransition(async () => {
       const res = await saveQuestionAction({
         id: id.trim(),
-        // An edit keeps the stored subject; the form has no subject control.
-        subject: initial?.subject ?? "chemistry",
+        subject,
         chapter: Number(chapter),
         type,
         stars,
@@ -140,7 +149,7 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
         return;
       }
       push("success", res.message);
-      router.push("/admin/bank");
+      router.push(initial ? "/admin/bank" : withSubject("/admin/bank", subject));
       router.refresh();
     });
   }
@@ -186,10 +195,14 @@ export function QuestionForm({ initial }: { initial?: QuestionRecord }) {
               className="field-input font-mono"
               value={id}
               onChange={(e) => setId(e.target.value)}
-              placeholder="chem-06-cq-001"
+              placeholder={subject === DEFAULT_SUBJECT ? "chem-06-cq-001" : "প্রশ্নের আইডি"}
               readOnly={Boolean(initial)}
             />
             <p className="mt-1 text-xs text-muted">অনন্য ও স্থায়ী — পরে বদলানো যায় না।</p>
+          </div>
+          <div>
+            <label className="field-label" htmlFor="question-subject">বিষয়</label>
+            <input id="question-subject" className="field-input" value={subjectName} readOnly />
           </div>
           <div>
             <label className="field-label" htmlFor="chapter">অধ্যায়</label>

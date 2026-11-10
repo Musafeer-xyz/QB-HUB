@@ -17,6 +17,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { QuestionListSkeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/toast";
 import { toBanglaDigits } from "@/lib/bangla";
+import { withSubject } from "@/lib/admin-subject";
 import {
   activeFilterCount,
   bankFacets,
@@ -290,7 +291,7 @@ export function BankWorkspace({
 
   return (
     <>
-      <div className="grid min-h-0 gap-3 md:grid-cols-[230px_minmax(0,1fr)]">
+      <div className="grid min-h-0 grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-[230px_minmax(0,1fr)]">
         <FilterRail
           subjectId={subjectId}
           facets={facets}
@@ -300,7 +301,7 @@ export function BankWorkspace({
           onClear={() => setFilters(EMPTY_FILTERS)}
         />
 
-        <section className="flex min-h-0 flex-col" aria-label="প্রশ্নের তালিকা">
+        <section className="flex min-h-0 min-w-0 flex-col" aria-label="প্রশ্নের তালিকা">
           {/* Sticky bar */}
           {!embedded ? (
             <StickyBar
@@ -324,10 +325,10 @@ export function BankWorkspace({
           ) : null}
 
           {/* Controls bar */}
-          <div className="border-b border-line px-4 py-3">
-            <div className="flex flex-wrap items-center gap-4">
+          <div className="border-b border-line px-2 py-3 sm:px-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {/* Search */}
-              <div className="relative min-w-[200px] flex-1">
+              <div className="relative w-full min-w-0 lg:w-auto lg:min-w-[200px] lg:flex-1">
                 <Search
                   className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                   aria-hidden="true"
@@ -371,7 +372,7 @@ export function BankWorkspace({
               <ViewModeToggle mode={viewMode} onModeChange={setViewMode} />
 
               {/* New question button */}
-              <Link href="/admin/questions/new" className="btn-primary">
+              <Link href={withSubject("/admin/questions/new", subjectId)} className="btn-primary">
                 <Plus className="h-3.5 w-3.5" aria-hidden="true" /> নতুন প্রশ্ন
               </Link>
 
@@ -463,7 +464,7 @@ export function BankWorkspace({
               }
               action={
                 facets.total === 0 ? (
-                  <Link href="/admin/questions/new" className="btn-primary">
+                  <Link href={withSubject("/admin/questions/new", subjectId)} className="btn-primary">
                     নতুন প্রশ্ন
                   </Link>
                 ) : (
@@ -476,7 +477,7 @@ export function BankWorkspace({
           ) : (
             <div
               ref={listRef}
-              className={cn("min-h-0 overflow-auto overscroll-contain px-4 py-4", listHeight)}
+              className={cn("min-h-0 overflow-auto overscroll-contain px-1 py-3 sm:px-4", listHeight)}
               role="list"
               aria-label="প্রশ্ন"
             >

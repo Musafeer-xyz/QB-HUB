@@ -54,16 +54,17 @@ export function StickyBar({
   const progressColor = progress >= 100 ? "#16A34A" : progress >= 80 ? "#d97706" : "#1e40af";
 
   return (
-    <div className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur">
-      <div className="mx-auto max-w-[920px] px-4 py-3">
-        <div className="flex flex-wrap items-center gap-3">
+    <div className="relative z-20 rounded-t-xl border-b border-line bg-surface/95 backdrop-blur md:sticky md:top-0">
+      <div className="mx-auto max-w-[920px] px-2.5 py-3 sm:px-4">
+        <div className="flex flex-wrap items-center gap-2">
           {/* Editable paper title */}
           <input
             type="text"
             value={paperTitle}
             onChange={(e) => onTitleChange(e.target.value)}
+            aria-label="পেপারের নাম"
             placeholder="পেপারের নাম"
-            className="flex-1 min-w-[200px] px-2 py-1 text-sm font-semibold border border-transparent rounded hover:border-line focus:border-primary focus:outline-none"
+            className="field-input min-w-0 font-semibold sm:w-auto sm:min-w-[180px] sm:flex-1"
           />
 
           {/* Selection chip with target marks */}
@@ -107,7 +108,7 @@ export function StickyBar({
           ) : null}
 
           {/* Action buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto">
             <button
               type="button"
               className="btn-secondary flex items-center gap-1.5 text-xs"

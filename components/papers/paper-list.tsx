@@ -111,7 +111,8 @@ export function PaperList({ papers }: { papers: PaperRecord[] }) {
 
   return (
     <>
-      <div className="overflow-x-auto rounded-xl border border-line bg-surface">
+      <p className="mb-2 text-xs text-muted md:hidden">পেপারের সব তথ্য ও কাজ দেখতে ডানে-বাঁয়ে স্ক্রল করুন।</p>
+      <div className="overflow-x-auto rounded-xl border border-line bg-surface" role="region" aria-label="সংরক্ষিত পেপারের তালিকা" tabIndex={0}>
         {selected.size > 0 ? (
           <div
             className="flex flex-wrap items-center gap-2 border-b border-line bg-[#faf9f7] px-4 py-2 text-sm"

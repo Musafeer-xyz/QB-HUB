@@ -131,12 +131,11 @@ export function ImportPanel() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">প্রশ্ন ইমপোর্ট</h1>
-        <span className="text-xs text-muted">একই id হলে আগের প্রশ্ন হালনাগাদ হবে</span>
-      </div>
-
-      <section className="card space-y-3">
+      <section className="card min-w-0 space-y-3" aria-labelledby="import-inputs">
+        <div>
+          <h2 id="import-inputs" className="text-base font-semibold text-ink">প্রশ্ন ও চিত্র যোগ করুন</h2>
+          <p className="mt-1 text-xs text-muted">একই প্রশ্ন আইডি থাকলে সংরক্ষণের সময় আগের প্রশ্নটি হালনাগাদ হবে।</p>
+        </div>
         <div>
           <label className="field-label" htmlFor="paste-json">
             JSON পেস্ট করুন
@@ -156,7 +155,7 @@ export function ImportPanel() {
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
             <label className="field-label" htmlFor="json-files">
-              অথবা .json ফাইল
+              .json ফাইল বাছুন
             </label>
             <input
               id="json-files"
@@ -204,7 +203,7 @@ export function ImportPanel() {
             <p className="mt-1 text-xs text-muted">
               {uploading
                 ? "আপলোড হচ্ছে…"
-                : `${toBanglaDigits(images.length)}টি ছবি প্রস্তুত — সংরক্ষণের আগে আপলোড হয়`}
+                : `${toBanglaDigits(images.length)}টি ছবি প্রস্তুত। ছবি বাছলেই আপলোড শুরু হয়।`}
             </p>
           </div>
         </div>
@@ -219,7 +218,7 @@ export function ImportPanel() {
             {pending ? "যাচাই হচ্ছে…" : "যাচাই করুন"}
           </button>
           <span className="text-xs text-muted">
-            আগে যাচাই করুন — কোনো কিছু তখনো সংরক্ষিত হয়নি।
+            যাচাই করলে প্রশ্ন সংরক্ষণের আগে পরিবর্তনের রিপোর্ট দেখা যাবে।
           </span>
         </div>
 

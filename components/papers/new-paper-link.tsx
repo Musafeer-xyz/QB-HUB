@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { NEW_PAPER_EVENT, useSelection } from "@/components/selection/selection-context";
 import { useAdminSubject } from "@/components/shell/subject-context";
-import { isSubjectId, withSubject } from "@/lib/admin-subject";
-import { DEFAULT_SUBJECT } from "@/lib/subjects";
+import { resolveAdminSubject, withSubject } from "@/lib/admin-subject";
 
 /**
  * Every “নতুন পেপার” entry point. Unlike a plain link this wipes the saved
@@ -23,22 +21,11 @@ export function NewPaperLink({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const selection = useSelection();
   const { subject: pageSubject } = useAdminSubject();
-  const [href, setHref] = useState(() =>
-    withSubject("/admin/papers/new", isSubjectId(pageSubject) ? pageSubject : DEFAULT_SUBJECT),
-  );
-
-  // The address bar knows the subject the teacher is looking at.
-  useEffect(() => {
-    const urlSubject = new URLSearchParams(window.location.search).get("subject");
-    const subject = isSubjectId(urlSubject)
-      ? urlSubject
-      : isSubjectId(pageSubject)
-        ? pageSubject
-        : DEFAULT_SUBJECT;
-    setHref(withSubject("/admin/papers/new", subject));
-  }, [pageSubject]);
+  const subject = resolveAdminSubject({ url: searchParams.get("subject"), paper: pageSubject });
+  const href = withSubject("/admin/papers/new", subject);
 
   function startNewPaper(e: React.MouseEvent<HTMLAnchorElement>) {
     selection.reset();

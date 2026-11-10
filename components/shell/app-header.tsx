@@ -61,11 +61,12 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
 
   return (
     <>
-      <header className="no-print sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-2 px-3 sm:px-4">
+      <header className="no-print relative z-40 border-b border-line bg-surface/95 backdrop-blur lg:sticky lg:top-0">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 py-2 sm:px-4 lg:flex lg:h-14 lg:py-0">
           <Link
-            href="/admin"
-            className="flex shrink-0 items-center gap-2 rounded-md px-1 py-1 text-ink hover:text-primary"
+            href={withSubject("/admin", subject.id)}
+            aria-label="প্রশ্নব্যাংক ড্যাশবোর্ড"
+            className="flex min-h-10 shrink-0 items-center gap-2 rounded-md px-2 text-ink hover:text-primary lg:px-1"
           >
             <FlaskLogo />
             <span className="hidden text-[15px] font-semibold tracking-tight sm:inline">প্রশ্নব্যাংক</span>
@@ -77,7 +78,7 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
             search={searchParams.toString()}
           />
 
-          <nav className="ml-1 flex items-center gap-0.5" aria-label="প্রধান">
+          <nav className="order-last col-span-3 grid grid-cols-3 gap-1 border-t border-line pt-1 sm:grid-cols-6 lg:order-none lg:ml-1 lg:flex lg:gap-0.5 lg:border-0 lg:pt-0" aria-label="প্রধান">
             {NAV.map((item) => {
               const active = item.exact
                 ? pathname === item.href
@@ -91,14 +92,14 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
                   aria-label={item.label}
                   title={item.label}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm font-medium transition-colors sm:px-2.5",
+                    "inline-flex min-h-10 items-center justify-center gap-1 rounded-lg px-1.5 py-1.5 text-xs font-medium transition-colors sm:px-2.5 lg:min-h-0 lg:gap-1.5 lg:text-sm",
                     active
                       ? "bg-primary-soft text-primary"
                       : "text-muted hover:bg-[#faf9f7] hover:text-ink",
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  <span className="hidden xl:inline">{item.label}</span>
+                  <span className="lg:hidden xl:inline">{item.label}</span>
                 </Link>
               );
             })}
@@ -117,8 +118,9 @@ export function AppHeader({ demo = false }: { demo?: boolean }) {
 
             <button
               type="button"
+              aria-label="খুঁজুন"
               onClick={() => setPaletteOpen(true)}
-              className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-xs text-muted transition-colors hover:border-[#d8d4ca] hover:text-ink"
+              className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-xs text-muted transition-colors hover:border-[#d8d4ca] hover:text-ink lg:min-h-0"
             >
               <Search className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="hidden sm:inline">খুঁজুন</span>
@@ -203,17 +205,17 @@ function SubjectSwitcher({
   }, [open]);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative min-w-0 justify-self-start" ref={ref}>
       <button
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-sm font-medium text-ink transition-colors hover:border-[#d8d4ca]"
+        className="inline-flex min-h-10 max-w-full items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-sm font-medium text-ink transition-colors hover:border-[#d8d4ca] lg:min-h-0"
       >
         <span className="subject-dot" style={{ background: subject.dot }} aria-hidden="true" />
-        <span>{subject.label}</span>
-        <ChevronDown className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
+        <span className="min-w-0 truncate">{subject.label}</span>
+        <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted" aria-hidden="true" />
       </button>
 
       {open ? (
@@ -252,9 +254,6 @@ function SubjectSwitcher({
               </button>
             );
           })}
-          <p className="mt-1 border-t border-line px-3 pb-1 pt-2 text-[11px] text-muted">
-            নতুন বিষয় যোগ করতে রেজিস্ট্রি (`lib/subjects.ts`) এ এন্ট্রি দিন।
-          </p>
         </div>
       ) : null}
     </div>

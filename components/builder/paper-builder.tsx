@@ -925,9 +925,9 @@ export function PaperBuilder({
       />
 
       {step === 1 ? (
-        <div className="mt-3 pb-28 min-[1100px]:pb-16">
+        <div className="mt-3 pb-32 sm:pb-24 xl:pb-16">
           <p className="mb-2 text-[12.5px] text-muted">
-            তালিকা থেকে প্রশ্নে টিক দিন — ডান পাশের “আমার পেপার” সাথেই আপডেট হবে।
+            তালিকা থেকে প্রশ্ন বেছে নিন। “পেপার সাজানো” ধাপে নির্বাচিত প্রশ্ন ও তাদের ক্রম দেখতে পারবেন।
           </p>
           <BankWorkspace
                         questions={subjectQuestions}
@@ -939,11 +939,13 @@ export function PaperBuilder({
       ) : (
       <div
         className={cn(
-          "mt-3 grid gap-4",
+          "mt-3 grid min-w-0 gap-4 pb-32 sm:pb-24 xl:pb-16",
           step === 2 ? "xl:grid-cols-[400px_minmax(0,1fr)]" : "grid-cols-1",
         )}
       >
-      <div className={cn("no-print space-y-3 pb-24", step === 3 && "hidden")}>
+      <div id="paper-settings" className={cn("no-print min-w-0 space-y-3", step === 3 && "hidden")}>
+
+        <a href="#paper-preview" className="btn-secondary xl:hidden">লাইভ প্রিভিউ দেখুন ↓</a>
 
         {loadError ? (
           <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{loadError}</p>
@@ -1846,13 +1848,14 @@ export function PaperBuilder({
       </div>
 
       {/* live preview — the same page box as print/PDF */}
-      <div className="min-w-0">
+      <div id="paper-preview" className="min-w-0 scroll-mt-4">
         <div className="no-print mb-2 flex flex-wrap items-center justify-between gap-2">
+          {step === 2 ? <a href="#paper-settings" className="btn-secondary xl:hidden">↑ পেপারের সেটিংস</a> : null}
           <p className="text-sm text-slate-600">
             {state.paperSize} লাইভ প্রিভিউ — প্রিন্ট ও PDF-এর সাথে হুবহু মিলবে। মোট নম্বর:{" "}
             <strong>{toBanglaDigits(shownTotal)}</strong>
           </p>
-          <div className="flex items-center gap-1 text-xs text-slate-600">
+          <div className="flex flex-wrap items-center gap-1 text-xs text-slate-600">
             <button
               type="button"
               className="btn-secondary h-7 px-2"
@@ -2037,21 +2040,21 @@ function BuilderActionBar({
         <span className="hidden text-[12px] text-muted sm:inline">
           ধাপ {toBanglaDigits(step)}/৩ · {toBanglaDigits(itemCount)}টি প্রশ্ন
         </span>
-        <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
+        <div className="grid w-full grid-cols-3 items-stretch gap-1.5 text-center sm:ml-auto sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:justify-end sm:gap-2">
           <button
             type="button"
-            className="btn-secondary whitespace-nowrap"
+            className="btn-secondary px-2 sm:whitespace-nowrap"
             onClick={() => onStep((step === 1 ? 1 : step - 1) as 1 | 2 | 3)}
             disabled={step === 1}
           >
             পূর্ববর্তী
           </button>
-          <button type="button" className="btn-primary" onClick={onSave} disabled={pending || itemCount === 0}>
+          <button type="button" className="btn-primary px-2" onClick={onSave} disabled={pending || itemCount === 0}>
             {pending ? "সংরক্ষণ হচ্ছে…" : "সংরক্ষণ"}
           </button>
           <button
             type="button"
-            className="btn-secondary whitespace-nowrap"
+            className="btn-secondary px-2 sm:whitespace-nowrap"
             onClick={onPrint}
             disabled={printPending || itemCount === 0}
             aria-busy={printPending}
@@ -2061,7 +2064,7 @@ function BuilderActionBar({
           </button>
           <button
             type="button"
-            className="btn-secondary whitespace-nowrap"
+            className="btn-secondary px-2 sm:whitespace-nowrap"
             onClick={onPdf}
             disabled={pdfPending || itemCount === 0}
             aria-busy={pdfPending}
@@ -2076,7 +2079,7 @@ function BuilderActionBar({
           {step < 3 ? (
             <button
               type="button"
-              className="btn-secondary whitespace-nowrap"
+              className="btn-secondary px-2 sm:whitespace-nowrap"
               onClick={() => onStep((step + 1) as 1 | 2 | 3)}
               disabled={step === 1 && itemCount === 0}
             >

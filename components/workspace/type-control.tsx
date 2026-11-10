@@ -53,16 +53,17 @@ export function TypeControl({ facets, selectedType, onTypeChange, onTypeLockChan
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex min-w-0 flex-wrap items-center gap-2">
       {/* Segmented control */}
-      <div className="inline-flex rounded-lg border border-line bg-[#f3f1ec] p-1">
+      <div className="inline-flex max-w-full flex-wrap rounded-lg border border-line bg-[#f3f1ec] p-1">
         {types.map((type) => (
           <button
             key={type.key}
             type="button"
+            aria-pressed={selectedType === type.key}
             onClick={() => onTypeChange(type.key)}
             className={cn(
-              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              "rounded-md px-2 py-1.5 text-xs font-medium transition-colors sm:px-3 sm:text-sm",
               selectedType === type.key
                 ? "bg-white text-ink shadow-sm"
                 : "text-muted hover:text-ink",

@@ -2,6 +2,7 @@ import { getStore } from "@/lib/data/store";
 import { BankWorkspace } from "@/components/workspace/bank-workspace";
 import { parseBankFilters } from "@/lib/bank/filter";
 import { subjectById } from "@/lib/subjects";
+import { PageHeader } from "@/components/ui/page-header";
 import type { QuestionRecord } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -31,8 +32,8 @@ export default async function BankPage({
 }) {
   const sp = await searchParams;
   const raw = Array.isArray(sp["subject"]) ? sp["subject"][0] : sp["subject"];
-  const subject = subjectById(raw).id;
-  const questions = await loadIndex(subject);
+  const subject = subjectById(raw);
+  const questions = await loadIndex(subject.id);
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(sp)) {
     const first = Array.isArray(value) ? value[0] : value;
@@ -41,10 +42,13 @@ export default async function BankPage({
   // `?flagged=1` (dashboard card), `?chapter=6`, `?type=MCQ` … all open the
   // workspace with those filters already on.
   return (
-    <BankWorkspace
-      questions={questions}
-      subjectId={subject}
-      initialFilters={parseBankFilters(params.toString())}
-    />
+    <>
+      <PageHeader title="প্রশ্নব্যাংক" description={`${subject.label} · প্রশ্ন খুঁজুন, বাছুন ও পেপারে যোগ করুন।`} />
+      <BankWorkspace
+        questions={questions}
+        subjectId={subject.id}
+        initialFilters={parseBankFilters(params.toString())}
+      />
+    </>
   );
 }

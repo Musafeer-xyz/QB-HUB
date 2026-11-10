@@ -132,7 +132,8 @@ export function ExamResults({ examId, attempts, details, olderCount }: ExamResul
           <Download className="h-3 w-3" aria-hidden="true" /> CSV ডাউনলোড
         </button>
       </div>
-      <div className="overflow-x-auto rounded-lg border border-line">
+      <p className="text-xs text-muted md:hidden">সব কলাম ও বিস্তারিত দেখতে ডানে-বাঁয়ে স্ক্রল করুন।</p>
+      <div className="relative overflow-x-auto rounded-lg border border-line" role="region" aria-label="এক্সামের ফলাফল" tabIndex={0}>
       <table className="w-full text-sm">
         <thead className="bg-[#f3f1ec]">
           <tr>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { ChevronDown, Filter, RotateCcw, Search, X } from "lucide-react";
 import { toBanglaDigits } from "@/lib/bangla";
 import { subjectChapterName } from "@/lib/subjects";
@@ -29,6 +29,8 @@ export function FilterRail({
   onClear: () => void;
 }) {
   const [boardSearch, setBoardSearch] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const panelId = useId();
 
   const boards = useMemo(() => {
     const term = boardSearch.trim().toLowerCase();
@@ -93,8 +95,21 @@ export function FilterRail({
   }, [filters, onChange, subjectId]);
 
   return (
-    <aside className="pane hidden min-h-0 flex-col overflow-auto md:flex" aria-label="ফিল্টার">
-      <div className="border-b border-line px-3 py-2.5">
+    <aside className="pane flex min-h-0 min-w-0 flex-col overflow-hidden" aria-label="ফিল্টার">
+      <button
+        type="button"
+        className="flex min-h-11 w-full items-center gap-2 px-3 text-left text-sm font-semibold md:hidden"
+        aria-expanded={mobileOpen}
+        aria-controls={panelId}
+        onClick={() => setMobileOpen((open) => !open)}
+      >
+        <Filter className="h-4 w-4 text-muted" aria-hidden="true" />
+        ফিল্টার
+        {chips.length > 0 ? <span className="chip">{toBanglaDigits(chips.length)}টি সক্রিয়</span> : null}
+        <span className="ml-auto text-xs font-normal text-muted">{toBanglaDigits(resultCount)}টি ফলাফল</span>
+        <ChevronDown className={cn("h-4 w-4 shrink-0 text-muted", mobileOpen && "rotate-180")} aria-hidden="true" />
+      </button>
+      <div className="hidden border-b border-line px-3 py-2.5 md:block">
         <div className="flex items-center gap-2">
           <Filter className="h-3.5 w-3.5 text-muted" aria-hidden="true" />
           <h2 className="text-[13px] font-semibold text-ink">ফিল্টার</h2>
@@ -104,7 +119,13 @@ export function FilterRail({
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto px-2 py-2">
+      <div
+        id={panelId}
+        className={cn(
+          "max-h-[55dvh] min-h-0 flex-1 overflow-auto border-t border-line px-2 py-2 md:block md:max-h-none md:border-t-0",
+          mobileOpen ? "block" : "hidden",
+        )}
+      >
         <section className="mb-3">
           <p className="px-1 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted">
             অধ্যায়

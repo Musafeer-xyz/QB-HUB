@@ -8,6 +8,7 @@ import { NewPaperLink } from "@/components/papers/new-paper-link";
 import { subjectById } from "@/lib/subjects";
 import { toBanglaDigits } from "@/lib/bangla";
 import { formatDate } from "@/lib/format";
+import { withSubject } from "@/lib/admin-subject";
 
 export const dynamic = "force-dynamic";
 
@@ -49,12 +50,26 @@ export default async function DashboardPage({
 
   return (
     <div className="space-y-4">
+      <PageHeader
+        title="ড্যাশবোর্ড"
+        description={`${subject.label} · প্রশ্নব্যাংক, পেপার ও ইমপোর্ট`}
+        actions={
+          <>
+            <NewPaperLink className="btn-primary">
+              <Plus className="h-3.5 w-3.5" aria-hidden="true" /> নতুন পেপার
+            </NewPaperLink>
+            <Link href={withSubject("/admin/bank", subject.id)} className="btn-secondary">
+              প্রশ্নব্যাংক
+            </Link>
+          </>
+        }
+      />
       <div className="grid gap-3 sm:grid-cols-2">
         {QUICK_CARDS.map(({ href, bangla, english, description, icon: Icon, accent }) => (
           <Link
             key={href}
-            href={href}
-            className="group flex flex-col rounded-xl border border-line bg-surface p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+            href={withSubject(href, subject.id)}
+            className="group flex flex-col rounded-xl border border-line bg-surface p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
             style={{ borderTopColor: accent, borderTopWidth: 3 }}
           >
             <span
@@ -74,21 +89,6 @@ export default async function DashboardPage({
           </Link>
         ))}
       </div>
-
-      <PageHeader
-        title="ড্যাশবোর্ড"
-        description="প্রশ্নব্যাংক, পেপার ও ইমপোর্ট — এক জায়গা থেকে।"
-        actions={
-          <>
-            <NewPaperLink className="btn-primary">
-              <Plus className="h-3.5 w-3.5" aria-hidden="true" /> নতুন পেপার
-            </NewPaperLink>
-            <Link href="/admin/bank" className="btn-secondary">
-              প্রশ্নব্যাংক
-            </Link>
-          </>
-        }
-      />
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
@@ -110,7 +110,7 @@ export default async function DashboardPage({
           value={toBanglaDigits(facets.withImage)}
           hint="চিত্রসহ সৃজনশীল"
           icon={<ImageIcon className="h-4 w-4" aria-hidden="true" />}
-          href={`/admin/bank?subject=${subject.id}`}
+          href={`/admin/bank?subject=${subject.id}&image=1`}
         />
         <StatCard
           label="যাচাই দরকার"

@@ -9,6 +9,7 @@ import {
   Pencil,
   Trash2,
   Check,
+  Plus,
   X,
 } from "lucide-react";
 import { RichText } from "@/components/rich-text";
@@ -179,20 +180,15 @@ export function QuestionCard({
       data-question-id={question.id}
       data-selected={selected ? "true" : "false"}
     >
-      {/* Check badge for selected cards */}
-      {selected ? (
-        <div className="absolute left-3 top-3 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-[#16A34A] text-white">
-          <Check className="h-4 w-4" />
-        </div>
-      ) : null}
-
-      {/* Board tag top-right */}
-      <div className="absolute right-3 top-3 z-10">{boardTag}</div>
-
       {/* Card content */}
-      <div className={cn("p-4", selected ? "pl-12" : "pl-5")}>
+      <div className="p-3 sm:p-4">
         {/* Header: id, type, used chip, flags */}
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px]">
+          {selected ? (
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-[#16A34A] text-white" aria-hidden="true">
+              <Check className="h-3.5 w-3.5" />
+            </span>
+          ) : null}
           <span className="font-mono text-[#4b5563]">{question.id}</span>
           <span
             className="rounded px-1.5 py-0.5 text-[10px] font-semibold"
@@ -210,7 +206,8 @@ export function QuestionCard({
               {toBanglaDigits(question.flags.length)}
             </span>
           ) : null}
-          <span className="ml-auto font-medium text-[#4b5563]">
+          {boardTag}
+          <span className="ml-auto shrink-0 font-medium text-[#4b5563]">
             {toBanglaDigits(marks)} নম্বর
           </span>
         </div>
@@ -228,9 +225,19 @@ export function QuestionCard({
 
         {/* Action menu — the pencil is always visible (any type), "e" also opens it */}
         <div className="relative mt-3 flex items-center justify-end gap-1">
+          <button
+            type="button"
+            className="btn-secondary mr-auto min-h-9 text-xs"
+            aria-label={`${question.id} নির্বাচন`}
+            aria-pressed={selected}
+            onClick={onToggleSelect}
+          >
+            {selected ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Plus className="h-3.5 w-3.5" aria-hidden="true" />}
+            {selected ? "নির্বাচিত" : "বাছুন"}
+          </button>
           <Link
             href={`/admin/questions/${encodeURIComponent(question.id)}/edit`}
-            className="btn-ghost h-7 w-7 p-0"
+            className="btn-ghost h-9 w-9 p-0"
             aria-label={`${question.id} সম্পাদনা`}
             title="সম্পাদনা (e)"
           >
@@ -238,7 +245,7 @@ export function QuestionCard({
           </Link>
           <button
             type="button"
-            className="btn-ghost h-7 w-7 p-0"
+            className="btn-ghost h-9 w-9 p-0"
             aria-label={`${question.id} এর কাজ`}
             aria-haspopup="menu"
             aria-expanded={menuOpen}
@@ -254,7 +261,7 @@ export function QuestionCard({
             <div
               ref={menuRef}
               role="menu"
-              className="absolute right-0 top-8 z-30 w-40 overflow-hidden rounded-lg border border-line bg-surface py-1 shadow-pop"
+              className="absolute right-0 top-full z-30 mt-1 w-40 overflow-hidden rounded-lg border border-line bg-surface py-1 shadow-pop"
               onClick={(e) => e.stopPropagation()}
             >
               <Link
@@ -376,9 +383,9 @@ function FullView({
         <MCQView question={question} imageUrl={imageUrl} onLightboxOpen={onLightboxOpen} />
       ) : question.type === "CQ" ? (
         <>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-3 xl:flex-row xl:gap-4">
             {/* Stem and parts */}
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               {question.stem.map((line, i) => (
                 <RichText key={i} text={line} className="block" />
               ))}
@@ -403,7 +410,7 @@ function FullView({
 
             {/* Figure thumbnail */}
             {imageUrl ? (
-              <div className="relative shrink-0">
+              <div className="relative max-w-full shrink-0">
                 <button
                   type="button"
                   className="relative overflow-hidden rounded-lg border border-line bg-[#fbfaf7]"

@@ -117,13 +117,18 @@ export default async function PrintPaperPage({
   return (
     <div className="print-scaffold min-h-screen bg-slate-200">
       <PrintToolbar title={paper.title} paperSize={paperSize} margins={margins} />
-      <div
-        className={`paper-frame ${paperDims(paperSize).cssClass}`}
-        style={frameStyle}
-        data-print-frame
-      >
-        {showGuide ? <div className="paper-margin-guide no-print" aria-hidden="true" /> : null}
-        <PaperDocument meta={model.meta} sets={model.sets} />
+      <p className="no-print px-4 py-2 text-xs text-slate-700 lg:hidden">
+        পুরো পাতা দেখতে ডানে-বাঁয়ে স্ক্রল করুন।
+      </p>
+      <div className="overflow-x-auto print:overflow-visible" role="region" aria-label="প্রিন্টের পাতা" tabIndex={0}>
+        <div
+          className={`paper-frame ${paperDims(paperSize).cssClass}`}
+          style={frameStyle}
+          data-print-frame
+        >
+          {showGuide ? <div className="paper-margin-guide no-print" aria-hidden="true" /> : null}
+          <PaperDocument meta={model.meta} sets={model.sets} />
+        </div>
       </div>
       {autoPrint ? <PrintAuto /> : null}
     </div>
