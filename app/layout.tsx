@@ -3,6 +3,7 @@ import { Noto_Sans_Bengali, Noto_Serif_Bengali } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ToastProvider } from "@/components/toast";
+import { SiteAnalytics } from "@/components/site-analytics";
 
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["bengali", "latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="bn" className={`${notoSansBengali.variable} ${notoSerifBengali.variable}`}>
       <body className="min-h-screen bg-canvas text-ink antialiased">
         <ToastProvider>{children}</ToastProvider>
+        <SiteAnalytics />
       </body>
     </html>
   );
